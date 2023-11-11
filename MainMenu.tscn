@@ -1,0 +1,53 @@
+[gd_scene load_steps=3 format=3 uid="uid://dueir764yg475"]
+
+[ext_resource type="Script" path="res://MainMenu.cs" id="1_a6vnn"]
+[ext_resource type="Texture2D" uid="uid://b6jucbl8f1kux" path="res://Assets/Img/tmp/MainMenuBG.jpg" id="2_h80an"]
+
+[node name="MainMenu" type="Node2D"]
+script = ExtResource("1_a6vnn")
+
+[node name="BackGroundImage" type="TextureRect" parent="."]
+offset_top = 1.0
+offset_right = 1918.0
+offset_bottom = 1079.0
+texture = ExtResource("2_h80an")
+
+[node name="VFlowContainer" type="VFlowContainer" parent="."]
+offset_left = 1532.0
+offset_top = 65.0
+offset_right = 1889.0
+offset_bottom = 819.0
+
+[node name="MarginContainer" type="MarginContainer" parent="VFlowContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 50
+
+[node name="PlayButton" type="Button" parent="VFlowContainer/MarginContainer"]
+custom_minimum_size = Vector2(300, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Play"
+
+[node name="MarginContainer2" type="MarginContainer" parent="VFlowContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="OptionsButton" type="Button" parent="VFlowContainer/MarginContainer2"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Options
+"
+
+[node name="MarginContainer3" type="MarginContainer" parent="VFlowContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="QuitButton" type="Button" parent="VFlowContainer/MarginContainer3"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Quit
+"

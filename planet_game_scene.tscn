@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://d2namxoxy40fc"]
+
+[ext_resource type="PackedScene" uid="uid://owct5lb7jgew" path="res://base_game_scene.tscn" id="1_kr8ar"]
+[ext_resource type="Texture2D" uid="uid://cwecufv1vn87o" path="res://Assets/Img/tmp/PallyriaBG.jpg" id="2_ccxp1"]
+[ext_resource type="Script" path="res://Sky.cs" id="3_ej1db"]
+
+[node name="PlanetGameScene" instance=ExtResource("1_kr8ar")]
+
+[node name="BackGroundImage" parent="." index="0"]
+texture = ExtResource("2_ccxp1")
+
+[node name="Sky" type="Area2D" parent="." index="1"]
+script = ExtResource("3_ej1db")
+
+[node name="Label" type="Label" parent="Sky" index="0"]
+offset_left = 711.0
+offset_top = 536.0
+offset_right = 1078.0
+offset_bottom = 691.0
+
+[node name="SkyCollision" type="CollisionPolygon2D" parent="Sky" index="1"]
+polygon = PackedVector2Array(3, 1, 1, 205, 807, 363, 1197, 264, 1534, 198, 1541, 1)

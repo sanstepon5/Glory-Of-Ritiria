@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://owct5lb7jgew"]
+
+[ext_resource type="Texture2D" uid="uid://u488tflesha0" path="res://Assets/Img/tmp/DetnuraSystemBG.jpg" id="1_0w5th"]
+
+[node name="BaseGameScene" type="Node2D"]
+
+[node name="BackGroundImage" type="TextureRect" parent="."]
+offset_top = 1.0
+offset_right = 1918.0
+offset_bottom = 1079.0
+texture = ExtResource("1_0w5th")
