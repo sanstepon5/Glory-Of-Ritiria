@@ -12,8 +12,8 @@ public partial class star_system_view : Node2D
 		planetButton.Pressed += PlanetButtonPressed;
 		
 		var label = GetNode<Label>("Label");
-		label.Text = game_state.Text;
-		game_state.Text = "ByeWorld";
+		label.Text = game_state.CurrentYear;
+		game_state.CurrentYear = "ByeWorld";
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

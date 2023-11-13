@@ -1,11 +1,54 @@
-[gd_scene load_steps=2 format=3 uid="uid://owct5lb7jgew"]
+[gd_scene load_steps=5 format=3 uid="uid://owct5lb7jgew"]
 
 [ext_resource type="Texture2D" uid="uid://u488tflesha0" path="res://Assets/Img/tmp/DetnuraSystemBG.jpg" id="1_0w5th"]
+[ext_resource type="Script" path="res://base_game_scene.cs" id="1_otwcp"]
+[ext_resource type="Script" path="res://NextTurnButton.cs" id="2_85ics"]
+[ext_resource type="Texture2D" uid="uid://chevupi5pa74y" path="res://Assets/Img/tmp/nextTurnIcon.png" id="2_so0rx"]
 
 [node name="BaseGameScene" type="Node2D"]
+script = ExtResource("1_otwcp")
 
 [node name="BackGroundImage" type="TextureRect" parent="."]
 offset_top = 1.0
 offset_right = 1918.0
 offset_bottom = 1079.0
 texture = ExtResource("1_0w5th")
+
+[node name="TopBar" type="Panel" parent="."]
+offset_right = 1919.0
+offset_bottom = 73.0
+
+[node name="PlaceholderLine" type="HSeparator" parent="TopBar"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 53.0
+offset_right = 1920.0
+offset_bottom = 76.0
+scale = Vector2(1, 2)
+
+[node name="CurrentYear" type="Label" parent="TopBar"]
+layout_mode = 0
+offset_left = 1783.0
+offset_right = 1920.0
+offset_bottom = 74.0
+theme_override_font_sizes/font_size = 25
+text = "970 APE
+(2017 CE)"
+
+[node name="NextTurnButton" type="Area2D" parent="."]
+script = ExtResource("2_85ics")
+
+[node name="Image" type="Sprite2D" parent="NextTurnButton"]
+position = Vector2(1792, 951)
+texture = ExtResource("2_so0rx")
+
+[node name="AreaCollision" type="CollisionPolygon2D" parent="NextTurnButton"]
+polygon = PackedVector2Array(1665, 1078, 1664, 1029, 1705, 940, 1770, 870, 1857, 822, 1919, 824, 1921, 1078)
+
+[node name="CurrentTurn" type="Label" parent="NextTurnButton"]
+offset_left = 1672.0
+offset_top = 1041.0
+offset_right = 1920.0
+offset_bottom = 1079.0
+theme_override_font_sizes/font_size = 25
+text = "Current Turn : "

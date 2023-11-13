@@ -1,15 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://b7h53a4hm5uld"]
+[gd_scene load_steps=4 format=3 uid="uid://b7h53a4hm5uld"]
 
 [ext_resource type="PackedScene" uid="uid://owct5lb7jgew" path="res://base_game_scene.tscn" id="1_0g5ie"]
 [ext_resource type="Script" path="res://star_system_view.cs" id="2_s55j1"]
-[ext_resource type="Texture2D" uid="uid://u488tflesha0" path="res://Assets/Img/tmp/DetnuraSystemBG.jpg" id="3_ngsei"]
 [ext_resource type="Texture2D" uid="uid://c3h1dyay52x03" path="res://Assets/Img/tmp/PlanetIcon.png" id="4_355tg"]
 
 [node name="StarSystemView" instance=ExtResource("1_0g5ie")]
 script = ExtResource("2_s55j1")
-
-[node name="BackGroundImage" parent="." index="0"]
-texture = ExtResource("3_ngsei")
 
 [node name="MenuButton" type="Button" parent="." index="1"]
 offset_left = -1.0

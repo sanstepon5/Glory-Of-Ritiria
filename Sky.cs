@@ -7,7 +7,7 @@ public partial class Sky : Area2D
 	public override void _Ready()
 	{
 		var label = GetNode<Label>("Label");
-		label.Text = game_state.Text;
+		label.Text = game_state.CurrentYear;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

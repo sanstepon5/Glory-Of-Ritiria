@@ -41,7 +41,7 @@ public partial class MainMenu : Node2D
 	{
 		
 
-		game_state.Text = "HelloWorld";
+		game_state.CurrentYear = "HelloWorld";
 	}
 
 	// TODO
