@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=3 uid="uid://b176rck77evnu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s2hsm"]
+bg_color = Color(0.176471, 0.176471, 0.176471, 1)
+
+[node name="TopBar" type="Panel"]
+offset_right = 1919.0
+offset_bottom = 73.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_s2hsm")
+
+[node name="PlaceholderLine" type="HSeparator" parent="."]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 53.0
+offset_right = 1920.0
+offset_bottom = 76.0
+scale = Vector2(1, 2)
+
+[node name="CurrentYear" type="Label" parent="."]
+layout_mode = 0
+offset_left = 1783.0
+offset_right = 1920.0
+offset_bottom = 74.0
+theme_override_font_sizes/font_size = 25
+text = "970 APE
+(2017 CE)"

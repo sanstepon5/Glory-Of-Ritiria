@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://r6ijjsaj2h2q"]
+
+[ext_resource type="Script" path="res://Scenes/Parts/NextTurnButton.cs" id="1_gseo4"]
+[ext_resource type="Texture2D" uid="uid://chevupi5pa74y" path="res://Assets/Img/tmp/nextTurnIcon.png" id="2_hcuhg"]
+
+[node name="NextTurnButton" type="Area2D"]
+monitoring = false
+script = ExtResource("1_gseo4")
+
+[node name="Image" type="Sprite2D" parent="."]
+position = Vector2(1792, 951)
+texture = ExtResource("2_hcuhg")
+
+[node name="AreaCollision" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(1665, 1078, 1664, 1029, 1705, 940, 1770, 870, 1857, 822, 1919, 824, 1921, 1078)
+
+[node name="CurrentTurn" type="Label" parent="."]
+offset_left = 1672.0
+offset_top = 1041.0
+offset_right = 1920.0
+offset_bottom = 1079.0
+theme_override_font_sizes/font_size = 25
+text = "Current Turn : "

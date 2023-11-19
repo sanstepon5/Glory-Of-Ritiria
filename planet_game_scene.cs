@@ -1,29 +1,31 @@
 using Godot;
 using System;
+using GloryOfRitiria;
 
-public partial class Sky : Area2D
+public partial class planet_game_scene : Node2D
 {
+	private GlobalSignals signals;
+	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		var label = GetNode<Label>("Label");
-		label.Text = game_state.CurrentYear;
+		signals = GetNode<GlobalSignals>("/root/GlobalSignals");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
 	}
-
+	
 	public override void _Input(InputEvent @event)
 	{
 		if (Input.IsMouseButtonPressed(MouseButton.Left))
 		{
 			var clickPosition = GetGlobalMousePosition();
-			var collisionShape = GetNode<CollisionPolygon2D>("SkyCollision");
+			var collisionShape = GetNode<CollisionPolygon2D>("Sky/SkyCollision");
 			if (Geometry2D.IsPointInPolygon(clickPosition, collisionShape.Polygon))
 			{
-				GetTree().ChangeSceneToFile("./star_system_view.tscn");
+				signals.EmitSignal(nameof(signals.SkyClicked));
 			}
 		}
 	}

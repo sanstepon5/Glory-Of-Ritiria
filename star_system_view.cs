@@ -1,19 +1,17 @@
 using Godot;
 using System;
+using GloryOfRitiria;
 
 public partial class star_system_view : Node2D
 {
+	private GlobalSignals signals;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		var menuButton = GetNode<Button>("MenuButton");
-		var planetButton = GetNode<TextureButton>("PlanetButton");
-		menuButton.Pressed += MenuButtonPressed;
-		planetButton.Pressed += PlanetButtonPressed;
+		signals = GetNode<GlobalSignals>("/root/GlobalSignals");
 		
-		var label = GetNode<Label>("Label");
-		label.Text = game_state.CurrentYear;
-		game_state.CurrentYear = "ByeWorld";
+		var planetButton = GetNode<TextureButton>("PlanetButton");
+		planetButton.Pressed += PlanetButtonPressed;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -21,13 +19,8 @@ public partial class star_system_view : Node2D
 	{
 	}
 	
-	private void MenuButtonPressed()
-	{
-		GetTree().ChangeSceneToFile("./MainMenu.tscn");
-	}
-	
 	private void PlanetButtonPressed()
 	{
-		GetTree().ChangeSceneToFile("./planet_game_scene.tscn");
+		signals.EmitSignal(nameof(signals.PallyriaClicked));
 	}
 }

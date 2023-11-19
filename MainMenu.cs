@@ -24,7 +24,7 @@ public partial class MainMenu : Node2D
 	private void PlayButtonPressed()
 	{
 		LoadGameState();
-		GetTree().ChangeSceneToFile("./star_system_view.tscn");
+		GetTree().ChangeSceneToFile("./base_game_scene.tscn");
 	}
 	//TODO
 	private void OptionsButtonPressed()
@@ -39,9 +39,7 @@ public partial class MainMenu : Node2D
 	// Loads data of gameState from a save file
 	private static void LoadGameState()
 	{
-		
-
-		game_state.CurrentYear = "HelloWorld";
+		game_state.CurrentYear = "970 APE\n(2017 CE)";
 	}
 
 	// TODO
