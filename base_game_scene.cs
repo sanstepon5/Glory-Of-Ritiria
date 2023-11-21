@@ -40,9 +40,9 @@ public partial class base_game_scene : Node2D
 		currentScene.AddChild(inst);
 		
 		// Changing BG
-		var BG = GetNode<TextureRect>("BackGroundImage");
+		var bg = GetNode<TextureRect>("BackGroundImage");
 		var texture = (Texture2D)GD.Load("res://Assets/Img/tmp/PallyriaBG.jpg");
-		BG.Texture = texture;
+		bg.Texture = texture;
 	}
 	
 	// Load the Detnura scene
@@ -59,9 +59,9 @@ public partial class base_game_scene : Node2D
 		_signals.EmitSignal(nameof(_signals.DetnuraSystemRequested));
 		
 		// Changing BG
-		var BG = GetNode<TextureRect>("BackGroundImage");
+		var bg = GetNode<TextureRect>("BackGroundImage");
 		var texture = (Texture2D)GD.Load("res://Assets/Img/tmp/DetnuraSystemBG.jpg");
-		BG.Texture = texture;
+		bg.Texture = texture;
 	}
 	
 	// Load the Pallyria scene
@@ -89,7 +89,7 @@ public partial class base_game_scene : Node2D
 		GD.Print("game_state.CurrentTurn");
 		GD.Print(game_state.CurrentTurn);
 		game_state.CurrentTurn += 1;
-		game_state.setCurrentYear();
+		game_state.SetCurrentYear();
 		TopBarUpdate();
 	}
 

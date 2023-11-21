@@ -4,11 +4,11 @@ using GloryOfRitiria;
 
 public partial class NextTurnButton : Area2D
 {
-	private GlobalSignals signals;
+	private GlobalSignals _signals;
 	
 	public override void _Ready()
 	{
-		signals = GetNode<GlobalSignals>("/root/GlobalSignals");
+		_signals = GetNode<GlobalSignals>("/root/GlobalSignals");
 	}
 
 	public override void _Process(double delta)
@@ -29,7 +29,7 @@ public partial class NextTurnButton : Area2D
 			if (!Geometry2D.IsPointInPolygon(clickPosition, collisionShape.Polygon)) return;
 			
 			GD.Print("clicked!");
-			signals.EmitSignal(nameof(signals.TurnPassed));
+			_signals.EmitSignal(nameof(_signals.TurnPassed));
 			
 			UpdateLabels();
 		}

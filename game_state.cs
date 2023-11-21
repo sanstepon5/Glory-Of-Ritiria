@@ -20,7 +20,7 @@ public partial class game_state : Node
 	// {
 	// }
 
-	public static void setCurrentYear()
+	public static void SetCurrentYear()
 	{
 		// For now
 		CurrentYear = "9" + (70 + CurrentTurn) + " APE\n(20" + (17 + CurrentTurn) + " CE)";
