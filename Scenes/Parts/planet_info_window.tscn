@@ -1,0 +1,70 @@
+[gd_scene load_steps=2 format=3 uid="uid://bqjif7igb3uik"]
+
+[ext_resource type="Texture2D" uid="uid://cbymyk3gj0gw0" path="res://icon.svg" id="1_ma2rb"]
+
+[node name="PlanetInfoPanel" type="Panel"]
+offset_right = 350.0
+offset_bottom = 600.0
+
+[node name="MCont" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_right = 350.0
+offset_bottom = 600.0
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBox" type="VBoxContainer" parent="MCont"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="TitleExitHBox" type="HBoxContainer" parent="MCont/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.25
+
+[node name="Title" type="RichTextLabel" parent="MCont/VBox/TitleExitHBox"]
+clip_contents = false
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+bbcode_enabled = true
+text = "[b]Pallyria[/b]
+Habitable planet
+"
+
+[node name="ExitButton" type="Button" parent="MCont/VBox/TitleExitHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+size_flags_stretch_ratio = 0.1
+theme_override_colors/font_color = Color(0.968627, 0, 0, 1)
+text = "X"
+
+[node name="ImageMargin" type="MarginContainer" parent="MCont/VBox"]
+layout_mode = 2
+
+[node name="PlanetImage" type="TextureRect" parent="MCont/VBox/ImageMargin"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.6
+texture = ExtResource("1_ma2rb")
+
+[node name="Description" type="RichTextLabel" parent="MCont/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Second planet from Detnura, Pallyria is home to the civilization of Orassi, \"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\""
+
+[node name="ButtonMargin" type="MarginContainer" parent="MCont/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.3
+theme_override_constants/margin_left = 60
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 60
+theme_override_constants/margin_bottom = 20
+
+[node name="MissionSelect" type="Button" parent="MCont/VBox/ButtonMargin"]
+layout_mode = 2
+text = "Select Mission"

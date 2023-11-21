@@ -5,19 +5,19 @@ using GloryOfRitiria;
 public partial class base_game_scene : Node2D
 {
 	
-	private GlobalSignals signals;
+	private GlobalSignals _signals;
 	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		signals = GetNode<GlobalSignals>("/root/GlobalSignals");
+		_signals = GetNode<GlobalSignals>("/root/GlobalSignals");
 		
 		LoadPallyria(); // Pallyria will be the default scene
 		
 
-		signals.Connect(nameof(signals.SkyClicked), new Callable(this, nameof(LoadDetnuraMap)));
-		signals.Connect(nameof(signals.PallyriaClicked), new Callable(this, nameof(LoadPallyria)));
-		signals.Connect(nameof(signals.TurnPassed), new Callable(this, nameof(NewTurn)));
+		_signals.Connect(nameof(_signals.SkyClicked), new Callable(this, nameof(LoadDetnuraMap)));
+		_signals.Connect(nameof(_signals.PallyriaClicked), new Callable(this, nameof(LoadPallyria)));
+		_signals.Connect(nameof(_signals.TurnPassed), new Callable(this, nameof(NewTurn)));
 		
 	}
 
@@ -55,6 +55,8 @@ public partial class base_game_scene : Node2D
 		var detnuraScene = GD.Load<PackedScene>("res://star_system_view.tscn");
 		var inst = (Node2D) detnuraScene.Instantiate();
 		currentScene.AddChild(inst);
+		// The scene is added. Now I should send a signal that will be captured by that scene to load the Detnura system
+		_signals.EmitSignal(nameof(_signals.DetnuraSystemRequested));
 		
 		// Changing BG
 		var BG = GetNode<TextureRect>("BackGroundImage");

@@ -4,6 +4,7 @@ namespace GloryOfRitiria;
 
 public partial class GlobalSignals : Node
 {
+    // Scene transitions
     [Signal]
     public delegate void SkyClickedEventHandler();
     [Signal]
@@ -11,4 +12,8 @@ public partial class GlobalSignals : Node
     [Signal]
     public delegate void TurnPassedEventHandler();
     
+    
+    // Scene loading
+    [Signal]
+    public delegate void DetnuraSystemRequestedEventHandler();
 }

@@ -4,12 +4,12 @@ using GloryOfRitiria;
 
 public partial class planet_game_scene : Node2D
 {
-	private GlobalSignals signals;
+	private GlobalSignals _signals;
 	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		signals = GetNode<GlobalSignals>("/root/GlobalSignals");
+		_signals = GetNode<GlobalSignals>("/root/GlobalSignals");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -25,7 +25,7 @@ public partial class planet_game_scene : Node2D
 			var collisionShape = GetNode<CollisionPolygon2D>("Sky/SkyCollision");
 			if (Geometry2D.IsPointInPolygon(clickPosition, collisionShape.Polygon))
 			{
-				signals.EmitSignal(nameof(signals.SkyClicked));
+				_signals.EmitSignal(nameof(_signals.SkyClicked));
 			}
 		}
 	}

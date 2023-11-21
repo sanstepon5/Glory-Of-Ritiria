@@ -10,6 +10,8 @@ script = ExtResource("1_a6vnn")
 offset_top = 1.0
 offset_right = 1918.0
 offset_bottom = 1079.0
+size_flags_horizontal = 0
+size_flags_vertical = 4
 texture = ExtResource("2_h80an")
 
 [node name="VFlowContainer" type="VFlowContainer" parent="."]
