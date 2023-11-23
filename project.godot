@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 GlobalSignals="*res://GlobalSignals.cs"
 GameState="*res://game_state.cs"
+EventManager="*res://event_manager.cs"
 
 [display]
 
