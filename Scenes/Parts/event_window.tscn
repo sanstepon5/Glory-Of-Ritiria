@@ -1,0 +1,78 @@
+[gd_scene load_steps=2 format=3 uid="uid://bukd1g2ohlpbv"]
+
+[ext_resource type="Texture2D" uid="uid://cbymyk3gj0gw0" path="res://icon.svg" id="1_0j82g"]
+
+[node name="EventWindow" type="Panel"]
+offset_right = 771.0
+offset_bottom = 896.0
+
+[node name="MBox" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBox" type="VBoxContainer" parent="MBox"]
+layout_mode = 2
+
+[node name="TitleHBox" type="HBoxContainer" parent="MBox/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.1
+
+[node name="TitleLabel" type="RichTextLabel" parent="MBox/VBox/TitleHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "[b]Test Event Name[/b]
+Maybe something here, maybe not"
+
+[node name="ImageMBox" type="MarginContainer" parent="MBox/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.3
+
+[node name="EventImage" type="TextureRect" parent="MBox/VBox/ImageMBox"]
+layout_mode = 2
+texture = ExtResource("1_0j82g")
+
+[node name="DescMBox" type="MarginContainer" parent="MBox/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+theme_override_constants/margin_top = 10
+
+[node name="DescLabel" type="RichTextLabel" parent="MBox/VBox/DescMBox"]
+layout_mode = 2
+bbcode_enabled = true
+text = "Lorem ipsum, a lot of stuff."
+
+[node name="OptionsMBox" type="MarginContainer" parent="MBox/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+
+[node name="OptionsVBox" type="VBoxContainer" parent="MBox/VBox/OptionsMBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="DefaultButton" type="Button" parent="MBox/VBox/OptionsMBox/OptionsVBox"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Ok, nice text. If you see this, something's really wrong... Code didn't add options it was supposed to"
+text_overrun_behavior = 3
+clip_text = true
+
+[node name="CreatedButton" type="Button" parent="MBox/VBox/OptionsMBox/OptionsVBox"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Wow, a second option. That means that code actually did something!"
