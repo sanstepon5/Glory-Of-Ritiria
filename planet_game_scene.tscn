@@ -9,3 +9,10 @@ script = ExtResource("1_ek5ra")
 
 [node name="SkyCollision" type="CollisionPolygon2D" parent="Sky"]
 polygon = PackedVector2Array(1, 77, 1, 205, 807, 363, 1197, 264, 1534, 198, 1536, 78)
+
+[node name="IncRes1Button" type="Button" parent="."]
+offset_left = 502.0
+offset_top = 652.0
+offset_right = 707.0
+offset_bottom = 724.0
+text = "Click here to increment"

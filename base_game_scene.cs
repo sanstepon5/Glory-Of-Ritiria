@@ -1,16 +1,21 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 using GloryOfRitiria;
 
 public partial class base_game_scene : Node2D
 {
 	
 	private GlobalSignals _signals;
+	private event_manager _eventManager;
+	private List<GameEvent> _eventsForTurn;
 	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		_signals = GetNode<GlobalSignals>("/root/GlobalSignals");
+		_eventManager = GetNode<event_manager>("/root/EventManager");
+		_eventsForTurn = new List<GameEvent>();
 		
 		LoadPallyria(); // Pallyria will be the default scene
 		
@@ -18,7 +23,7 @@ public partial class base_game_scene : Node2D
 		_signals.Connect(nameof(_signals.SkyClicked), new Callable(this, nameof(LoadDetnuraMap)));
 		_signals.Connect(nameof(_signals.PallyriaClicked), new Callable(this, nameof(LoadPallyria)));
 		_signals.Connect(nameof(_signals.TurnPassed), new Callable(this, nameof(NewTurn)));
-		
+		_signals.Connect(nameof(_signals.TopBarUpdateRequired), new Callable(this, nameof(TopBarUpdate)));
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -91,11 +96,32 @@ public partial class base_game_scene : Node2D
 		game_state.CurrentTurn += 1;
 		game_state.SetCurrentYear();
 		TopBarUpdate();
+		UpdateEvents();
+		InvoqueFirstEvent();
 	}
 
 	public void TopBarUpdate()
 	{
 		var yearLabel = GetNode<Label>("TopBar/CurrentYear");
 		yearLabel.Text = game_state.CurrentYear;
+		
+		var res1 = GetNode<HBoxContainer>("TopBar/Resource");
+		var res1Text = res1.GetNode<RichTextLabel>("ResText");
+		res1Text.Text = "" + game_state.Res1;
+
+	}
+
+	// Called on new turn, update the list of satisfied events
+	public void UpdateEvents()
+	{
+		_eventsForTurn = _eventManager.getSatisfiedEvents();
+	}
+
+	public void InvoqueFirstEvent()
+	{
+		if (_eventsForTurn.Count != 0)
+		{
+			GameEvent gameEvent = _eventsForTurn[0];
+		}
 	}
 }

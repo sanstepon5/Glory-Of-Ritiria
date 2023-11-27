@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://od2gg2tiw6fj"]
+
+[ext_resource type="Texture2D" uid="uid://cbymyk3gj0gw0" path="res://icon.svg" id="1_03qch"]
+
+[node name="Resource" type="HBoxContainer"]
+offset_right = 151.0
+offset_bottom = 52.0
+
+[node name="ResIcon" type="TextureRect" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("1_03qch")
+expand_mode = 1
+
+[node name="ResText" type="RichTextLabel" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "0"

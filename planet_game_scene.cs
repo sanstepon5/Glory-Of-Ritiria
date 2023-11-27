@@ -10,6 +10,9 @@ public partial class planet_game_scene : Node2D
 	public override void _Ready()
 	{
 		_signals = GetNode<GlobalSignals>("/root/GlobalSignals");
+		//_gameState = GetNode<game_state>("/root/GameState");
+		var incButton = GetNode<Button>("IncRes1Button");
+		incButton.Pressed += OnIncButtonPressed;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -28,5 +31,11 @@ public partial class planet_game_scene : Node2D
 				_signals.EmitSignal(nameof(_signals.SkyClicked));
 			}
 		}
+	}
+
+	public void OnIncButtonPressed()
+	{
+		game_state.Res1 += 10;
+		_signals.EmitSignal(nameof(_signals.TopBarUpdateRequired));
 	}
 }

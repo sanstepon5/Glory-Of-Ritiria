@@ -1,4 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://b176rck77evnu"]
+[gd_scene load_steps=3 format=3 uid="uid://b176rck77evnu"]
+
+[ext_resource type="PackedScene" uid="uid://od2gg2tiw6fj" path="res://Scenes/Parts/top_bar_res.tscn" id="1_bxmsq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s2hsm"]
 bg_color = Color(0.176471, 0.176471, 0.176471, 1)
@@ -24,3 +26,6 @@ offset_bottom = 74.0
 theme_override_font_sizes/font_size = 25
 text = "970 APE
 (2017 CE)"
+
+[node name="Resource" parent="." instance=ExtResource("1_bxmsq")]
+layout_mode = 0

@@ -28,7 +28,6 @@ public partial class NextTurnButton : Area2D
 			var collisionShape = GetNode<CollisionPolygon2D>("AreaCollision");
 			if (!Geometry2D.IsPointInPolygon(clickPosition, collisionShape.Polygon)) return;
 			
-			GD.Print("clicked!");
 			_signals.EmitSignal(nameof(_signals.TurnPassed));
 			
 			UpdateLabels();
