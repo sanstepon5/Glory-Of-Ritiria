@@ -26,50 +26,53 @@ public partial class event_manager : Node
 	}
 
 	// I should look into how to make "all should satisfy" and "at least one should satisfy"
+	// Here it's "For All"
 	public List<GameEvent> getSatisfiedEvents()
 	{
 		var res = new List<GameEvent>();
-		var attributeValues = game_state.GetAttributeValues();
-		if (attributeValues.TryGetValue("Res1", out var res1Value))
-		{
-			var res1Type = res1Value.Item1;
-			var res1 = res1Value.Item2;
-
-			GD.Print("res1 Type: " + res1Type);
-			GD.Print("res1 Value: " + res1);
-			// I manage to have this :
-			// res1 Type: System.Int32
-			// res1 Value: 30
-			// So I can get the attribute name, value and type. But I need to make the type more... Universal and easy for the ifs
-		}
+		
 		
 		foreach (var gameEvent in _eventList)
 		{
 			var shouldBeAdded = true;
 			foreach (var eventCond in gameEvent.Conditions)
 			{
-				// FieldInfo attribute = typeof(game_state).GetField(eventCond.VarName, BindingFlags.Public | BindingFlags.Static);
-				// if (attribute is null) continue;
-				// Type attributeType = attribute.GetType();
-				//
-				// var attributeValue = attribute.GetValue(_gameState);
-				// var convertedValue = Convert.ChangeType(attributeValue, attributeType);
-				//
-				// if (convertedValue is not IComparable comparableValue) continue;
-				//
-				// switch (eventCond.CondType)
-				// {
-				// 	case ">":
-				// 		if (!(comparableValue.CompareTo(Convert.ChangeType(eventCond.Value, attributeType)) > 0) )
-				// 		{
-				// 			shouldBeAdded = false;
-				// 		}
-				// 		break;
-				// }
-				//
-				// if (!shouldBeAdded) break;
+				var attributeValues = game_state.GetAttributeValues();
+				if (!attributeValues.TryGetValue(eventCond.VarName, out var attribute)){
+					continue;
+				}
+				var attributeType = attribute.Item1;
+				var attributeVal = attribute.Item2;
+
+				GD.Print("attribute Type: " + attributeType.Name);
+				GD.Print("attribute Value: " + attributeVal);
+				switch (eventCond.CondType)
+				{
+					case "==":
+						if (attributeVal == Convert.ChangeType(eventCond.Value, attributeType) )
+						{
+							GD.Print("True!");
+							res.Add(gameEvent);
+						}
+						else shouldBeAdded = false;
+						break;
+					
+					case "<":
+					// Both are objects...
+					// So can't compare. And can't cast because don't know type...
+						if (attributeVal < Convert.ChangeType(eventCond.Value, attributeType) )
+						{
+							GD.Print("True!");
+							res.Add(gameEvent);
+						}
+						else shouldBeAdded = false;
+						break;
+				}
+				
+				if (!shouldBeAdded) break;
 			}
 		}
 		return res;
 	}
+
 }
