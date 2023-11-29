@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://r6ijjsaj2h2q"]
 
-[ext_resource type="Script" path="res://Scenes/Parts/NextTurnButton.cs" id="1_gseo4"]
+[ext_resource type="Script" path="res://Scripts/Scenes/Parts/NextTurnButton.cs" id="1_gseo4"]
 [ext_resource type="Texture2D" uid="uid://chevupi5pa74y" path="res://Assets/Img/tmp/nextTurnIcon.png" id="2_hcuhg"]
 
 [node name="NextTurnButton" type="Area2D"]

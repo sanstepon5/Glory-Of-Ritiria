@@ -39,7 +39,7 @@ public partial class base_game_scene : Node2D
 		
 		// Adding the Pallyria scene to Current
 		var currentScene = GetNode<Node2D>("CurrentScene");
-		var pallyriaScene = GD.Load<PackedScene>("res://planet_game_scene.tscn");
+		var pallyriaScene = GD.Load<PackedScene>("res://Scenes/planet_game_scene.tscn");
 		var inst = (Node2D) pallyriaScene.Instantiate();
 
 		currentScene.AddChild(inst);
@@ -57,7 +57,7 @@ public partial class base_game_scene : Node2D
 		
 		// Adding the Detnura scene to Current
 		var currentScene = GetNode<Node2D>("CurrentScene");
-		var detnuraScene = GD.Load<PackedScene>("res://star_system_view.tscn");
+		var detnuraScene = GD.Load<PackedScene>("res://Scenes/star_system_view.tscn");
 		var inst = (Node2D) detnuraScene.Instantiate();
 		currentScene.AddChild(inst);
 		// The scene is added. Now I should send a signal that will be captured by that scene to load the Detnura system
@@ -117,11 +117,31 @@ public partial class base_game_scene : Node2D
 		_eventsForTurn = _eventManager.getSatisfiedEvents();
 	}
 
+	public Panel BuildEventWindow(GameEvent e)
+	{
+		var eventWindow = GD.Load<PackedScene>("res://Scenes/Parts/event_window.tscn");
+		var inst = (Panel) eventWindow.Instantiate();
+		
+		var title = inst.GetNode<RichTextLabel>("MBox/VBox/TitleHBox/TitleLabel");
+		title.Text = e.Name;
+		
+		var image = inst.GetNode<TextureRect>("MBox/VBox/ImageMBox/EventImage");
+		image.Texture = (Texture2D)GD.Load(e.ImagePath);
+		
+		var desc = inst.GetNode<RichTextLabel>("MBox/VBox/DescMBox/DescLabel");
+		desc.Text = e.Description;
+		
+		var exitOption = inst.GetNode<Button>("MBox/VBox/OptionsMBox/OptionsVBox/DefaultButton");
+		exitOption.Pressed += () => inst.QueueFree();
+
+		return inst;
+	}
+
 	public void InvoqueFirstEvent()
 	{
-		if (_eventsForTurn.Count != 0)
-		{
-			GameEvent gameEvent = _eventsForTurn[0];
-		}
+		if (_eventsForTurn.Count == 0) return;
+		var gameEvent = _eventsForTurn[0];
+		GD.Print(gameEvent.Name);
+		AddChild(BuildEventWindow(gameEvent));
 	}
 }

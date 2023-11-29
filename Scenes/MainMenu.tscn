@@ -1,10 +1,10 @@
 [gd_scene load_steps=3 format=3 uid="uid://dueir764yg475"]
 
-[ext_resource type="Script" path="res://MainMenu.cs" id="1_a6vnn"]
-[ext_resource type="Texture2D" uid="uid://b6jucbl8f1kux" path="res://Assets/Img/tmp/MainMenuBG.jpg" id="2_h80an"]
+[ext_resource type="Script" path="res://Scripts/Scenes/MainMenu.cs" id="1_vqlkk"]
+[ext_resource type="Texture2D" uid="uid://b6jucbl8f1kux" path="res://Assets/Img/tmp/MainMenuBG.jpg" id="2_rdpwp"]
 
 [node name="MainMenu" type="Node2D"]
-script = ExtResource("1_a6vnn")
+script = ExtResource("1_vqlkk")
 
 [node name="BackGroundImage" type="TextureRect" parent="."]
 offset_top = 1.0
@@ -12,7 +12,7 @@ offset_right = 1918.0
 offset_bottom = 1079.0
 size_flags_horizontal = 0
 size_flags_vertical = 4
-texture = ExtResource("2_h80an")
+texture = ExtResource("2_rdpwp")
 
 [node name="VFlowContainer" type="VFlowContainer" parent="."]
 offset_left = 1532.0

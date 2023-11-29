@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://b7h53a4hm5uld"]
 
-[ext_resource type="Script" path="res://star_system_view.cs" id="2_s55j1"]
+[ext_resource type="Script" path="res://Scripts/Scenes/star_system_view.cs" id="2_s55j1"]
 [ext_resource type="Texture2D" uid="uid://c3h1dyay52x03" path="res://Assets/Img/tmp/PlanetIcon.png" id="4_355tg"]
 
 [node name="StarSystemView" type="Node2D"]

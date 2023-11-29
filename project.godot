@@ -11,15 +11,15 @@ config_version=5
 [application]
 
 config/name="Glory Of Ritiria"
-run/main_scene="res://MainMenu.tscn"
+run/main_scene="res://Scenes/MainMenu.tscn"
 config/features=PackedStringArray("4.1", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
-GlobalSignals="*res://GlobalSignals.cs"
-GameState="*res://game_state.cs"
-EventManager="*res://event_manager.cs"
+GlobalSignals="*res://Scripts/Global/GlobalSignals.cs"
+GameState="*res://Scripts/Global/game_state.cs"
+EventManager="*res://Scripts/Global/event_manager.cs"
 
 [display]
 

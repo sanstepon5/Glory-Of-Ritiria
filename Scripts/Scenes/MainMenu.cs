@@ -24,7 +24,7 @@ public partial class MainMenu : Node2D
 	private void PlayButtonPressed()
 	{
 		LoadGameState();
-		GetTree().ChangeSceneToFile("./base_game_scene.tscn");
+		GetTree().ChangeSceneToFile("res://Scenes/base_game_scene.tscn");
 	}
 	//TODO
 	private void OptionsButtonPressed()
