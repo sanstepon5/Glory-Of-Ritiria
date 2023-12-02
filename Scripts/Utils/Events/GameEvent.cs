@@ -4,6 +4,7 @@ using GloryOfRitiria.Scripts.Utils.Events;
 
 public struct GameEvent
 {
+    public string Id;
     public string Name;
     public string Description;
     public string ImagePath;
@@ -11,6 +12,7 @@ public struct GameEvent
 
     public GameEvent()
     {
+        Id = "Empty_Event";
         Name = "Empty Event";
         Description = "Lorem Ipsum";
         ImagePath = "res://icon.svg"; // default godot icon

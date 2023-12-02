@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using GloryOfRitiria.Scripts.Utils;
+using GloryOfRitiria.Scripts.Utils.Events;
 
 public partial class event_manager : Node
 {
@@ -13,26 +14,30 @@ public partial class event_manager : Node
 	{
 		_eventList = new List<GameEvent>();
 
+		// Event with a single condition
 		var e = new GameEvent();
 		e.SetSingleCondition("CurrentTurn", "==", "3");
 		_eventList.Add(e);
+		
+		// Event with a For All condition that has two singular conditions
+		var e2 = new GameEvent(); e2.Id = "Second_Event"; e2.Name = "Second Event Baby";
+		var e2Cond = new ForAllCondition(); 
+		e2Cond.AddCondition(new SingleCondition("CurrentTurn", ">", "2"));
+		e2Cond.AddCondition(new SingleCondition("Res1", ">", "30"));
+		e2.Condition = e2Cond;
+		_eventList.Add(e2);
 	}
 	
 	public override void _Process(double delta)
 	{
 	}
-
-	// I should look into how to make "all should satisfy" and "at least one should satisfy"
-	// Here it's "For All"
-	public List<GameEvent> getSatisfiedEvents()
+	
+	public List<GameEvent> GetSatisfiedEvents()
 	{
 		var res = new List<GameEvent>();
 		foreach (var gameEvent in _eventList)
 		{
-			if (gameEvent.IsSatisfied())
-			{
-				res.Add(gameEvent);
-			}
+			if (gameEvent.IsSatisfied()) res.Add(gameEvent);
 		}
 		return res;
 	}

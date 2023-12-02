@@ -97,7 +97,7 @@ public partial class base_game_scene : Node2D
 		game_state.SetCurrentYear();
 		TopBarUpdate();
 		UpdateEvents();
-		InvoqueFirstEvent();
+		InvokeEvents();
 	}
 
 	public void TopBarUpdate()
@@ -114,7 +114,7 @@ public partial class base_game_scene : Node2D
 	// Called on new turn, update the list of satisfied events
 	public void UpdateEvents()
 	{
-		_eventsForTurn = _eventManager.getSatisfiedEvents();
+		_eventsForTurn = _eventManager.GetSatisfiedEvents();
 	}
 
 	public Panel BuildEventWindow(GameEvent e)
@@ -137,11 +137,27 @@ public partial class base_game_scene : Node2D
 		return inst;
 	}
 
-	public void InvoqueFirstEvent()
+	public Panel BuildMultiEventWindow()
+	{
+		// var multiEventWindow = GD.Load<PackedScene>("res://Scenes/Parts/MultiEventWindow.tscn");
+		// var multiEventInst = (Panel) multiEventWindow.Instantiate();
+		// var leftEventButton = multiEventInst.GetNode<Button>("VBox/HBoxEventHandling/MBoxLeft");
+		// leftEventButton.Pressed += ;
+		return null;
+	}
+
+	public void InvokeEvents()
 	{
 		if (_eventsForTurn.Count == 0) return;
-		var gameEvent = _eventsForTurn[0];
-		GD.Print(gameEvent.Name);
-		AddChild(BuildEventWindow(gameEvent));
+		if (_eventsForTurn.Count == 1)
+		{
+			var gameEvent = _eventsForTurn[0];
+			GD.Print(gameEvent.Id);
+			AddChild(BuildEventWindow(gameEvent));
+		}
+		else
+		{
+			
+		}
 	}
 }

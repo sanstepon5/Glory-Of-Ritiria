@@ -34,8 +34,6 @@ public class SingleCondition : IEventCondition
         }
         var attributeType = attribute.Item1;
         var attributeVal = attribute.Item2;
-        GD.Print("attribute Type: " + attributeType.Name);
-        GD.Print("attribute Value: " + attributeVal);
 
         switch (attributeType.Name)
         {
@@ -59,6 +57,18 @@ public class SingleCondition : IEventCondition
                 {
                     // There will probably be a lot here: earlier, later, ...
                     "==" => (((string)attributeVal).Equals(comparableStringValue)),
+                    _ => throw new Exception($"Invalid condition ({CondType}) for type {attributeType.Name}")
+                };
+            case "Double":
+                // Normalement ne doit pas etre null..
+                var comparableDoubleValue = (double)Convert.ChangeType(Value, attributeType)!;
+
+                return CondType switch
+                {
+                    // To compensate for loss of precision
+                    "==" => (Math.Abs((double)attributeVal - comparableDoubleValue) < 0.01), 
+                    "<" => ((double)attributeVal < comparableDoubleValue),
+                    ">" => ((double)attributeVal > comparableDoubleValue),
                     _ => throw new Exception($"Invalid condition ({CondType}) for type {attributeType.Name}")
                 };
         }
