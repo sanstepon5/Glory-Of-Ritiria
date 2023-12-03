@@ -16,6 +16,8 @@ public partial class game_state : Node
 
 	public static List<Flags> CurrentFlags = new List<Flags>();
 	
+	public static List<GameEvent> _eventsForTurn = new List<GameEvent>();
+	
 	public static Dictionary<string, Tuple<Type, object>> GetAttributeValues()
 	{
 		var attributeValues = new Dictionary<string, Tuple<Type, object>>

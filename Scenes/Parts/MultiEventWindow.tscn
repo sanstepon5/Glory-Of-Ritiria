@@ -1,0 +1,81 @@
+[gd_scene load_steps=2 format=3 uid="uid://d04fdy1bbxryg"]
+
+[ext_resource type="Script" path="res://Scripts/Scenes/Parts/MultiEventWindow.cs" id="1_1hen8"]
+
+[node name="MultiEventWindow" type="Panel"]
+offset_right = 1336.0
+offset_bottom = 1084.0
+script = ExtResource("1_1hen8")
+
+[node name="VBox" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxTitle" type="HBoxContainer" parent="VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.1
+
+[node name="Title" type="RichTextLabel" parent="VBox/HBoxTitle"]
+clip_contents = false
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_font_sizes/bold_font_size = 50
+bbcode_enabled = true
+text = "[b]Today's Events[/b]
+"
+
+[node name="ExitButton" type="Button" parent="VBox/HBoxTitle"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+size_flags_stretch_ratio = 0.1
+theme_override_colors/font_color = Color(0.968627, 0, 0, 1)
+theme_override_font_sizes/font_size = 50
+text = "X"
+
+[node name="HBoxEventHandling" type="HBoxContainer" parent="VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.9
+
+[node name="MBoxLeft" type="MarginContainer" parent="VBox/HBoxEventHandling"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.1
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 300
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 300
+
+[node name="ButtonLeft" type="Button" parent="VBox/HBoxEventHandling/MBoxLeft"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 100
+text = "<"
+
+[node name="MBoxEvents" type="MarginContainer" parent="VBox/HBoxEventHandling"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.8
+
+[node name="MBoxRight" type="MarginContainer" parent="VBox/HBoxEventHandling"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.1
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 300
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 300
+
+[node name="ButtonRight" type="Button" parent="VBox/HBoxEventHandling/MBoxRight"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.1
+theme_override_font_sizes/font_size = 100
+text = ">"

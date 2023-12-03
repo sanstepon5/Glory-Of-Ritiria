@@ -19,6 +19,12 @@ public partial class event_manager : Node
 		e.SetSingleCondition("CurrentTurn", "==", "3");
 		_eventList.Add(e);
 		
+		var eCopy = new GameEvent();
+		eCopy.Name = "Oh it's the second event!!!";
+		eCopy.Description = "This is really exciting!";
+		eCopy.SetSingleCondition("CurrentTurn", "==", "3");
+		_eventList.Add(eCopy);
+		
 		// Event with a For All condition that has two singular conditions
 		var e2 = new GameEvent(); e2.Id = "Second_Event"; e2.Name = "Second Event Baby";
 		var e2Cond = new ForAllCondition(); 

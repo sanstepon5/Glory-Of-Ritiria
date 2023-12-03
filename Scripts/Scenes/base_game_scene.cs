@@ -8,16 +8,18 @@ public partial class base_game_scene : Node2D
 	
 	private GlobalSignals _signals;
 	private event_manager _eventManager;
-	private List<GameEvent> _eventsForTurn;
 	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		_signals = GetNode<GlobalSignals>("/root/GlobalSignals");
 		_eventManager = GetNode<event_manager>("/root/EventManager");
-		_eventsForTurn = new List<GameEvent>();
 		
 		LoadPallyria(); // Pallyria will be the default scene
+		
+		// Button to open events
+		var eventsButton = GetNode<Button>("TestButton");
+		eventsButton.Pressed += BuildMultiEventWindow;
 		
 
 		_signals.Connect(nameof(_signals.SkyClicked), new Callable(this, nameof(LoadDetnuraMap)));
@@ -85,8 +87,6 @@ public partial class base_game_scene : Node2D
 			// Get the scene Node (Pallyria, Interstellar...). It should always be the only child.
 			currentScene.GetChild<Node2D>(0).QueueFree();
 		}
-		
-		
 	}
 	
 	public void NewTurn()
@@ -114,50 +114,45 @@ public partial class base_game_scene : Node2D
 	// Called on new turn, update the list of satisfied events
 	public void UpdateEvents()
 	{
-		_eventsForTurn = _eventManager.GetSatisfiedEvents();
+		game_state._eventsForTurn = _eventManager.GetSatisfiedEvents();
 	}
 
-	public Panel BuildEventWindow(GameEvent e)
-	{
-		var eventWindow = GD.Load<PackedScene>("res://Scenes/Parts/event_window.tscn");
-		var inst = (Panel) eventWindow.Instantiate();
-		
-		var title = inst.GetNode<RichTextLabel>("MBox/VBox/TitleHBox/TitleLabel");
-		title.Text = e.Name;
-		
-		var image = inst.GetNode<TextureRect>("MBox/VBox/ImageMBox/EventImage");
-		image.Texture = (Texture2D)GD.Load(e.ImagePath);
-		
-		var desc = inst.GetNode<RichTextLabel>("MBox/VBox/DescMBox/DescLabel");
-		desc.Text = e.Description;
-		
-		var exitOption = inst.GetNode<Button>("MBox/VBox/OptionsMBox/OptionsVBox/DefaultButton");
-		exitOption.Pressed += () => inst.QueueFree();
+	// public Panel BuildEventWindow(GameEvent e)
+	// {
+	// 	var eventWindow = GD.Load<PackedScene>("res://Scenes/Parts/event_window.tscn");
+	// 	var inst = (Panel) eventWindow.Instantiate();
+	// 	
+	// 	var title = inst.GetNode<RichTextLabel>("MBox/VBox/TitleHBox/TitleLabel");
+	// 	title.Text = e.Name;
+	// 	
+	// 	var image = inst.GetNode<TextureRect>("MBox/VBox/ImageMBox/EventImage");
+	// 	image.Texture = (Texture2D)GD.Load(e.ImagePath);
+	// 	
+	// 	var desc = inst.GetNode<RichTextLabel>("MBox/VBox/DescMBox/DescLabel");
+	// 	desc.Text = e.Description;
+	// 	
+	// 	var exitOption = inst.GetNode<Button>("MBox/VBox/OptionsMBox/OptionsVBox/DefaultButton");
+	// 	exitOption.Pressed += () => inst.QueueFree();
+	//
+	// 	return inst;
+	// }
 
-		return inst;
-	}
-
-	public Panel BuildMultiEventWindow()
+	public void BuildMultiEventWindow()
 	{
-		// var multiEventWindow = GD.Load<PackedScene>("res://Scenes/Parts/MultiEventWindow.tscn");
-		// var multiEventInst = (Panel) multiEventWindow.Instantiate();
-		// var leftEventButton = multiEventInst.GetNode<Button>("VBox/HBoxEventHandling/MBoxLeft");
-		// leftEventButton.Pressed += ;
-		return null;
+		var multiEventWindow = GD.Load<PackedScene>("res://Scenes/Parts/MultiEventWindow.tscn");
+		var multiEventInst = (Panel) multiEventWindow.Instantiate();
+		
+		
+		var exitButton = multiEventInst.GetNode<Button>("VBox/HBoxTitle/ExitButton");
+		exitButton.Pressed += () => multiEventInst.QueueFree();
+		
+		AddChild(multiEventInst);
 	}
 
 	public void InvokeEvents()
 	{
-		if (_eventsForTurn.Count == 0) return;
-		if (_eventsForTurn.Count == 1)
-		{
-			var gameEvent = _eventsForTurn[0];
-			GD.Print(gameEvent.Id);
-			AddChild(BuildEventWindow(gameEvent));
-		}
-		else
-		{
-			
-		}
+		if (game_state._eventsForTurn.Count == 0) return;
+		GD.Print(game_state._eventsForTurn[0]);
+		BuildMultiEventWindow();
 	}
 }
