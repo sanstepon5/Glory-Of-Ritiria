@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://cbymyk3gj0gw0" path="res://icon.svg" id="1_ma2rb"]
 
 [node name="PlanetInfoPanel" type="Panel"]
+process_mode = 2
 offset_right = 350.0
 offset_bottom = 600.0
 

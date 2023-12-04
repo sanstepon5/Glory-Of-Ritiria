@@ -52,7 +52,11 @@ public partial class star_system_view : Node2D
 		
 		var exitButton = inst.GetNode<Button>("MCont/VBox/TitleExitHBox/ExitButton");
 		// On click of exit button destroy the info window and enable button again
-		exitButton.Pressed += () => inst.QueueFree(); button.Disabled = false;
+		exitButton.Pressed += () =>
+		{
+			GetTree().Paused = false;
+			inst.QueueFree();
+		};
 		
 		// Set the info window in the top right corner
 		// Better to do it with H/VBoxes I guess...
@@ -60,8 +64,8 @@ public partial class star_system_view : Node2D
 
 		AddChild(inst);
 
-		// Disable the planet button so that that player can't open the window multiple times
-		// It's probably better to disable more than just the button. Or maybe not.
-		button.Disabled = true;
+		// Pause the rest of the game while this window is active.
+		// Not sure if it's best to pause everything or only the planet button but for now it'll do
+		GetTree().Paused =  true;
 	}
 }

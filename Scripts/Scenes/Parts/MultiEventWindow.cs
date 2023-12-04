@@ -25,8 +25,17 @@ public partial class MultiEventWindow : Panel
 		_rightEventButton.Pressed += NextEvent;
 		_rightEventButton.Disabled = game_state._eventsForTurn.Count <= 1; // disabled if only one event
 		
+		var exitButton = GetNode<Button>("VBox/HBoxTitle/ExitButton");
+		exitButton.Pressed += () =>
+		{
+			GetTree().Paused = false;
+			QueueFree();
+		};
 
 		SetDisplayedEvent();
+		
+		// Disable all other buttons while event window is active
+		GetTree().Paused = true;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -51,7 +60,7 @@ public partial class MultiEventWindow : Panel
 		{
 			BuildEventWindow(game_state._eventsForTurn[_eventIndex]);
 		}
-		else throw new IndexOutOfRangeException("Tried displaying non existing event or event list empty");
+		else GD.Print("Tried displaying non existing event or event list empty");
 	}
 
 	private void NextEvent()
