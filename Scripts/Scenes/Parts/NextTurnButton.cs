@@ -27,14 +27,31 @@ public partial class NextTurnButton : Area2D
 			var clickPosition = GetGlobalMousePosition();
 			var collisionShape = GetNode<CollisionPolygon2D>("AreaCollision");
 			if (!Geometry2D.IsPointInPolygon(clickPosition, collisionShape.Polygon)) return;
+
+			switch (CheckNextTurnPossible())
+			{
+				case "ok":
+					_signals.EmitSignal(nameof(_signals.TurnPassed));
+					UpdateLabels();
+					break;
+				case "events":
+					string message = "Before going to next turn you have to\nRead all events first";
+					_signals.EmitSignal(nameof(_signals.WarningWindowRequested), message);
+					break;
+			}
 			
-			_signals.EmitSignal(nameof(_signals.TurnPassed));
-			
-			UpdateLabels();
 		}
 	}
 
 
+	public string CheckNextTurnPossible()
+	{
+		if (game_state._eventsForTurn.Count != 0) return "events";
+		// Other turn blocking conditions here
+		else return "ok";
+
+	}
+	
 	private void UpdateLabels()
 	{
 		var turnNumber = GetNode<Label>("CurrentTurn");

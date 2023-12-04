@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://b4sax5n7fhq0v"]
+
+[node name="WarningWindow" type="Panel"]
+process_mode = 2
+offset_right = 555.0
+offset_bottom = 257.0
+size_flags_horizontal = 0
+
+[node name="VBox" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MessageMargin" type="MarginContainer" parent="VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.7
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Message" type="RichTextLabel" parent="VBox/MessageMargin"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.7
+bbcode_enabled = true
+text = "[center]Something that you did was wrong![/center]"
+
+[node name="ButtonMargin" type="MarginContainer" parent="VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.3
+theme_override_constants/margin_left = 200
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 200
+theme_override_constants/margin_bottom = 10
+
+[node name="OkButton" type="Button" parent="VBox/ButtonMargin"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.3
+text = "OK"

@@ -26,6 +26,7 @@ public partial class base_game_scene : Node2D
 		_signals.Connect(nameof(_signals.PallyriaClicked), new Callable(this, nameof(LoadPallyria)));
 		_signals.Connect(nameof(_signals.TurnPassed), new Callable(this, nameof(NewTurn)));
 		_signals.Connect(nameof(_signals.TopBarUpdateRequired), new Callable(this, nameof(TopBarUpdate)));
+		_signals.Connect(nameof(_signals.WarningWindowRequested), new Callable(this, nameof(BuildWarningWindow)));
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -91,8 +92,6 @@ public partial class base_game_scene : Node2D
 	
 	public void NewTurn()
 	{
-		GD.Print("game_state.CurrentTurn");
-		GD.Print(game_state.CurrentTurn);
 		game_state.CurrentTurn += 1;
 		game_state.SetCurrentYear();
 		TopBarUpdate();
@@ -117,37 +116,14 @@ public partial class base_game_scene : Node2D
 		game_state._eventsForTurn = _eventManager.GetSatisfiedEvents();
 	}
 
-	// public Panel BuildEventWindow(GameEvent e)
-	// {
-	// 	var eventWindow = GD.Load<PackedScene>("res://Scenes/Parts/event_window.tscn");
-	// 	var inst = (Panel) eventWindow.Instantiate();
-	// 	
-	// 	var title = inst.GetNode<RichTextLabel>("MBox/VBox/TitleHBox/TitleLabel");
-	// 	title.Text = e.Name;
-	// 	
-	// 	var image = inst.GetNode<TextureRect>("MBox/VBox/ImageMBox/EventImage");
-	// 	image.Texture = (Texture2D)GD.Load(e.ImagePath);
-	// 	
-	// 	var desc = inst.GetNode<RichTextLabel>("MBox/VBox/DescMBox/DescLabel");
-	// 	desc.Text = e.Description;
-	// 	
-	// 	var exitOption = inst.GetNode<Button>("MBox/VBox/OptionsMBox/OptionsVBox/DefaultButton");
-	// 	exitOption.Pressed += () => inst.QueueFree();
-	//
-	// 	return inst;
-	// }
-
 	public void BuildMultiEventWindow()
 	{
 		var multiEventWindow = GD.Load<PackedScene>("res://Scenes/Parts/MultiEventWindow.tscn");
 		var multiEventInst = (Panel) multiEventWindow.Instantiate();
 		
-		
-		var exitButton = multiEventInst.GetNode<Button>("VBox/HBoxTitle/ExitButton");
-		exitButton.Pressed += () => multiEventInst.QueueFree();
-		
 		AddChild(multiEventInst);
 	}
+	
 
 	public void InvokeEvents()
 	{
@@ -155,4 +131,24 @@ public partial class base_game_scene : Node2D
 		GD.Print(game_state._eventsForTurn[0]);
 		BuildMultiEventWindow();
 	}
+
+	public void BuildWarningWindow(string message)
+	{
+		var warningWindow = GD.Load<PackedScene>("res://Scenes/Parts/WarningWindow.tscn");
+		var warningWindowInst = (Panel) warningWindow.Instantiate();
+		
+		var messageLabel = warningWindowInst.GetNode<RichTextLabel>("VBox/MessageMargin/Message");
+		messageLabel.Text = message;
+		var exitButton = warningWindowInst.GetNode<Button>("VBox/ButtonMargin/OkButton");
+		exitButton.Pressed += () =>
+		{
+		 	GetTree().Paused = false;
+			warningWindowInst.QueueFree();
+		};
+		
+		AddChild(warningWindowInst);
+		GetTree().Paused = true;
+	}
+	
+	
 }

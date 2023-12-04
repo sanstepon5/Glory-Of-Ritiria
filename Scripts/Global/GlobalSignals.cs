@@ -21,4 +21,8 @@ public partial class GlobalSignals : Node
     // Updating
     [Signal]
     public delegate void TopBarUpdateRequiredEventHandler();
+    
+    // Warning windows
+    [Signal]
+    public delegate void WarningWindowRequestedEventHandler(string message);
 }
