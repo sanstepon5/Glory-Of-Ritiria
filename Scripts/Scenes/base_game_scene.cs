@@ -20,6 +20,8 @@ public partial class base_game_scene : Node2D
 		// Button to open events
 		var eventsButton = GetNode<Button>("TestButton");
 		eventsButton.Pressed += BuildMultiEventWindow;
+
+		TopBarUpdate();
 		
 
 		_signals.Connect(nameof(_signals.SkyClicked), new Callable(this, nameof(LoadDetnuraMap)));
@@ -37,7 +39,7 @@ public partial class base_game_scene : Node2D
 	// Load the Pallyria scene
 	public void LoadPallyria()
 	{
-		
+		//await ToSignal(GetTree().CreateTimer(0.5f), "timeout");
 		ClearScene(); // Clear old scene
 		
 		// Adding the Pallyria scene to Current
@@ -56,6 +58,7 @@ public partial class base_game_scene : Node2D
 	// Load the Detnura scene
 	public void LoadDetnuraMap()
 	{
+		//await ToSignal(GetTree().CreateTimer(0.5f), "timeout");
 		ClearScene(); // Clear old scene
 		
 		// Adding the Detnura scene to Current
@@ -80,13 +83,17 @@ public partial class base_game_scene : Node2D
 	}
 
 	// Clears loaded scene
-	public void ClearScene()
+	public void  ClearScene()
 	{
 		var currentScene = GetNode<Node2D>("CurrentScene");
 		if (currentScene.GetChildren().Count > 0)
 		{
 			// Get the scene Node (Pallyria, Interstellar...). It should always be the only child.
+			// It's possible to change scene multiple times within a single frame so...
+			// Well I guess that's what's happening
+			
 			currentScene.GetChild<Node2D>(0).QueueFree();
+			
 		}
 	}
 	
@@ -94,6 +101,7 @@ public partial class base_game_scene : Node2D
 	{
 		game_state.CurrentTurn += 1;
 		game_state.SetCurrentYear();
+		game_state.UpdateResources();
 		TopBarUpdate();
 		UpdateEvents();
 		InvokeEvents();
@@ -104,9 +112,18 @@ public partial class base_game_scene : Node2D
 		var yearLabel = GetNode<Label>("TopBar/CurrentYear");
 		yearLabel.Text = game_state.CurrentYear;
 		
+		// Res 1 update
 		var res1 = GetNode<HBoxContainer>("TopBar/Resource");
 		var res1Text = res1.GetNode<RichTextLabel>("ResText");
-		res1Text.Text = "" + game_state.Res1;
+		if (game_state.Res1Rate >= 0)
+		{
+			res1Text.Text = "" + game_state.Res1 + "\n[color=green]+ "+game_state.Res1Rate+"[/color]";
+		}
+		else
+		{
+			res1Text.Text = "" + game_state.Res1 + "\n[color=red]- "+ Math.Abs(game_state.Res1Rate)+"[/color]";
+		}
+		
 
 	}
 

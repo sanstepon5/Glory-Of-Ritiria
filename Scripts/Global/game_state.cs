@@ -13,6 +13,7 @@ public partial class game_state : Node
 	public static int CurrentTurn { set; get; } = 0;
 
 	public static double Res1 { set; get; } = 0;
+	public static double Res1Rate { set; get; } = 2.5;
 
 	public static List<Flags> CurrentFlags = new List<Flags>();
 	
@@ -24,7 +25,8 @@ public partial class game_state : Node
 		{
 			{ "CurrentYear", Tuple.Create(typeof(string), (object)CurrentYear) },
 			{ "CurrentTurn", Tuple.Create(typeof(int), (object)CurrentTurn) },
-			{ "Res1", Tuple.Create(typeof(double), (object)Res1) }
+			{ "Res1", Tuple.Create(typeof(double), (object)Res1) },
+			{ "Res1Rate", Tuple.Create(typeof(double), (object)Res1Rate) }
 			// Add other attributes as needed...
 		};
 
@@ -41,6 +43,14 @@ public partial class game_state : Node
 	// {
 	// }
 
+	public static void UpdateResources()
+	{
+		// Res 1
+		Res1 += Res1Rate;
+		if (Res1 < 0) Res1 = 0;
+		// And others...
+	}
+	
 	public static void SetCurrentYear()
 	{
 		// For now
