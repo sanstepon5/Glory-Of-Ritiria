@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
-using GloryOfRitiria.Scripts.Utils;
-using GloryOfRitiria.Scripts.Utils.Events;
+using GloryOfRitiria.Scripts.Scenes.Parts;
+
+namespace GloryOfRitiria.Scripts.Utils.Events;
 
 public struct GameEvent
 {
@@ -9,6 +10,7 @@ public struct GameEvent
     public string Description;
     public string ImagePath;
     public IEventCondition Condition;
+    public List<ChoiceButton> Options;
 
     public GameEvent()
     {
@@ -17,13 +19,13 @@ public struct GameEvent
         Description = "Lorem Ipsum";
         ImagePath = "res://icon.svg"; // default godot icon
         Condition = null;
+        Options = new List<ChoiceButton>();
     }
 
     public void SetSingleCondition(string varName, string condType, string value)
     {
         Condition = new SingleCondition(varName, condType, value);
     }
-    
 
     public bool IsSatisfied()
     {

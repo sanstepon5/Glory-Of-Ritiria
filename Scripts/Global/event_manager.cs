@@ -2,6 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using GloryOfRitiria.Scripts.Scenes.Parts;
 using GloryOfRitiria.Scripts.Utils;
 using GloryOfRitiria.Scripts.Utils.Events;
 
@@ -14,26 +15,47 @@ public partial class event_manager : Node
 	{
 		_eventList = new List<GameEvent>();
 
-		// Event with a single condition
+		_addEvents();
+	}
+
+	private void _addEvents()
+	{
+		// Event with a single condition and a single option
 		var e = new GameEvent();
 		e.SetSingleCondition("CurrentTurn", "==", "3");
+		var option1 = new ChoiceButton("Woohoo, +10 Res1!");
+		option1.Effects.Add(new Effect("AddRes1", "10"));
+		e.Options.Add(option1);
 		_eventList.Add(e);
-		
-		var eCopy = new GameEvent();
-		eCopy.Name = "Oh it's the second event!!!";
-		eCopy.Description = "This is really exciting!";
+
+		// Event with same single condition but with two options
+		var eCopy = new GameEvent
+		{
+			Name = "Oh it's the second event!!!",
+			Description = "This is really exciting!"
+		};
 		eCopy.SetSingleCondition("CurrentTurn", "==", "3");
+		var option2 = new ChoiceButton("Oh no, -20 Res1!");
+		option2.Effects.Add(new Effect("AddRes1", "-20"));
+		var option3 = new ChoiceButton("Something mysterious will happen in the future!");
+		option3.Effects.Add(new Effect("AddFlag", "RandomEvent1"));
+		eCopy.Options.Add(option2);
+		eCopy.Options.Add(option3);
 		_eventList.Add(eCopy);
-		
+
 		// Event with a For All condition that has two singular conditions
-		var e2 = new GameEvent(); e2.Id = "Second_Event"; e2.Name = "Second Event Baby";
-		var e2Cond = new ForAllCondition(); 
+		var e2 = new GameEvent
+		{
+			Id = "Second_Event",
+			Name = "Second Event Baby"
+		};
+		var e2Cond = new ForAllCondition();
 		e2Cond.AddCondition(new SingleCondition("CurrentTurn", ">", "2"));
 		e2Cond.AddCondition(new SingleCondition("Res1", ">", "30"));
 		e2.Condition = e2Cond;
 		_eventList.Add(e2);
 	}
-	
+
 	public override void _Process(double delta)
 	{
 	}
