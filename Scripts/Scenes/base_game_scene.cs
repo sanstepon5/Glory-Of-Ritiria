@@ -36,43 +36,43 @@ public partial class base_game_scene : Node2D
 	{
 	}
 	
+	// Load a scene with a specified path, background path, and optional signal emission
+	private async void LoadScene(string scenePath, string backgroundPath, string signal = null)
+	{
+		ClearScene(); // Clear old scene
+		
+		// Pause the game for a very short time to make sure that player can't change scene again before old scene
+		// is cleared. TODO: Check if 0.05 is still enough on weak PC
+		GetTree().Paused = true;
+		await ToSignal(GetTree().CreateTimer(0.05f), "timeout");
+		GetTree().Paused = false;
+
+		// Adding the scene to CurrentScene node
+		var currentScene = GetNode<Node2D>("CurrentScene");
+		var scene = GD.Load<PackedScene>(scenePath);
+		var inst = (Node2D)scene.Instantiate();
+		currentScene.AddChild(inst);
+
+		// Send a signal if specified
+		if (!string.IsNullOrEmpty(signal)) _signals.EmitSignal(signal);
+
+		// Changing BG in base_game_scene
+		var bg = GetNode<TextureRect>("BackGroundImage");
+		var texture = (Texture2D)GD.Load(backgroundPath);
+		bg.Texture = texture;
+	}
+
+	
 	// Load the Pallyria scene
 	public void LoadPallyria()
 	{
-		//await ToSignal(GetTree().CreateTimer(0.5f), "timeout");
-		ClearScene(); // Clear old scene
-		
-		// Adding the Pallyria scene to Current
-		var currentScene = GetNode<Node2D>("CurrentScene");
-		var pallyriaScene = GD.Load<PackedScene>("res://Scenes/planet_game_scene.tscn");
-		var inst = (Node2D) pallyriaScene.Instantiate();
-
-		currentScene.AddChild(inst);
-		
-		// Changing BG
-		var bg = GetNode<TextureRect>("BackGroundImage");
-		var texture = (Texture2D)GD.Load("res://Assets/Img/tmp/PallyriaBG.jpg");
-		bg.Texture = texture;
+		LoadScene("res://Scenes/planet_game_scene.tscn", "res://Assets/Img/tmp/PallyriaBG.jpg");
 	}
 	
 	// Load the Detnura scene
 	public void LoadDetnuraMap()
 	{
-		//await ToSignal(GetTree().CreateTimer(0.5f), "timeout");
-		ClearScene(); // Clear old scene
-		
-		// Adding the Detnura scene to Current
-		var currentScene = GetNode<Node2D>("CurrentScene");
-		var detnuraScene = GD.Load<PackedScene>("res://Scenes/star_system_view.tscn");
-		var inst = (Node2D) detnuraScene.Instantiate();
-		currentScene.AddChild(inst);
-		// The scene is added. Now I should send a signal that will be captured by that scene to load the Detnura system
-		_signals.EmitSignal(nameof(_signals.DetnuraSystemRequested));
-		
-		// Changing BG
-		var bg = GetNode<TextureRect>("BackGroundImage");
-		var texture = (Texture2D)GD.Load("res://Assets/Img/tmp/DetnuraSystemBG.jpg");
-		bg.Texture = texture;
+		LoadScene("res://Scenes/star_system_view.tscn", "res://Assets/Img/tmp/DetnuraSystemBG.jpg", nameof(_signals.DetnuraSystemRequested));
 	}
 	
 	// Load the Pallyria scene
