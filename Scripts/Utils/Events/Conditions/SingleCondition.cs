@@ -1,8 +1,6 @@
 ﻿using System;
-using GloryOfRitiria.Scripts.Utils.Events;
-using Godot;
 
-namespace GloryOfRitiria.Scripts.Utils;
+namespace GloryOfRitiria.Scripts.Utils.Events;
 
 /**
  * <param name="VarName">Name of the attribute in gamestate</param>

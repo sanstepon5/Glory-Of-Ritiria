@@ -46,7 +46,7 @@ public partial class NextTurnButton : Area2D
 
 	public string CheckNextTurnPossible()
 	{
-		if (game_state._eventsForTurn.Count != 0) return "events";
+		if (game_state.EventsForTurn.Count != 0) return "events";
 		// Other turn blocking conditions here
 		else return "ok";
 

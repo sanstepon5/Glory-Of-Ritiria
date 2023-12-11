@@ -2,6 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using GloryOfRitiria.Scripts.Utils;
+using GloryOfRitiria.Scripts.Utils.Events;
 
 // This is a singleton that's loaded in every scene and will contain persistent state of the game.
 // It should be empty on main screen a be loaded when loading a save.
@@ -17,7 +18,7 @@ public partial class game_state : Node
 
 	public static List<Flags> CurrentFlags = new List<Flags>();
 	
-	public static List<GameEvent> _eventsForTurn = new List<GameEvent>();
+	public static List<GameEvent> EventsForTurn = new List<GameEvent>();
 	
 	public static Dictionary<string, Tuple<Type, object>> GetAttributeValues()
 	{
@@ -56,4 +57,5 @@ public partial class game_state : Node
 		// For now
 		CurrentYear = "9" + (70 + CurrentTurn) + " APE\n(20" + (17 + CurrentTurn) + " CE)";
 	}
+	
 }

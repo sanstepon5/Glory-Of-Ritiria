@@ -103,6 +103,7 @@ public partial class base_game_scene : Node2D
 		game_state.SetCurrentYear();
 		game_state.UpdateResources();
 		TopBarUpdate();
+		// Maybe it would make sense to merge the two
 		UpdateEvents();
 		InvokeEvents();
 	}
@@ -130,9 +131,15 @@ public partial class base_game_scene : Node2D
 	// Called on new turn, update the list of satisfied events
 	public void UpdateEvents()
 	{
-		game_state._eventsForTurn = _eventManager.GetSatisfiedEvents();
+		game_state.EventsForTurn = _eventManager.GetSatisfiedEvents();
 	}
-
+	
+	public void InvokeEvents()
+	{
+		if (game_state.EventsForTurn.Count == 0) return;
+		BuildMultiEventWindow();
+	}
+	
 	public void BuildMultiEventWindow()
 	{
 		var multiEventWindow = GD.Load<PackedScene>("res://Scenes/Parts/MultiEventWindow.tscn");
@@ -141,14 +148,6 @@ public partial class base_game_scene : Node2D
 		AddChild(multiEventInst);
 	}
 	
-
-	public void InvokeEvents()
-	{
-		if (game_state._eventsForTurn.Count == 0) return;
-		GD.Print(game_state._eventsForTurn[0]);
-		BuildMultiEventWindow();
-	}
-
 	public void BuildWarningWindow(string message)
 	{
 		var warningWindow = GD.Load<PackedScene>("res://Scenes/Parts/WarningWindow.tscn");
