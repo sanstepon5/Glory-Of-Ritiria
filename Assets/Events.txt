@@ -1,0 +1,22 @@
+Event: event_1{
+  Title: "First Event",
+  Description: "I dunno, just a long text describing stuff here. Or maybe just a path to localisation or something.",
+  Image: "Path/To/Image.png. Or something.",
+  Conditions: For All{
+      SimpleCondition {
+        Res1, ==, 30; //, make it easier to parse...
+      },
+      Flags {
+        RandomFlag1,
+        RandomFlag2;
+      }
+  },
+  Effects {
+    Res1Add: 10,
+    AddFlag: RandomFlag3;
+  };
+},
+
+Event: event_2{
+  
+};

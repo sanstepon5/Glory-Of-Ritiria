@@ -8,7 +8,9 @@ using GloryOfRitiria.Scripts.Utils.Events;
 // It should be empty on main screen a be loaded when loading a save.
 public partial class game_state : Node
 {
-	[Export] // If I want to save using a packed scene. It works only with "Variant vars", so no classes saved...
+
+	public static string AssetsDir;
+	
 	public static string CurrentYear { set; get; } = "970 APE\n(2017 CE)";
 
 	public static int CurrentTurn { set; get; } = 0;
@@ -35,9 +37,12 @@ public partial class game_state : Node
 	}
 	
 	// Called when the node enters the scene tree for the first time.
-	// public override void _Ready()
-	// {
-	// }
+	public override void _Ready()
+	{
+		if (OS.HasFeature("editor")) AssetsDir = "res://Assets/";
+		// For built project
+		else AssetsDir = OS.GetExecutablePath().GetBaseDir() + "/Assets/";
+	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	// public override void _Process(double delta)
