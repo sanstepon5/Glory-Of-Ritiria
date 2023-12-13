@@ -14,8 +14,25 @@ public partial class event_manager : Node
 	public override void _Ready()
 	{
 		_eventList = new List<GameEvent>();
+		
+		// Test of file opening both in editor and in build
+		var file = FileAccess.Open(game_state.AssetsDir + "Events.txt", FileAccess.ModeFlags.Read);
 
-		_addEvents();
+		if (file != null)
+		{
+			var eventFileText = file.GetAsText();
+			var eventParser = new EventFileParser(file);
+			_eventList = eventParser.ReadEventList();
+			
+		}
+		else
+		{
+			var err = FileAccess.GetOpenError();
+			GD.Print(err);
+		}
+
+
+		//_addEvents();
 	}
 
 	private void _addEvents()
@@ -23,7 +40,7 @@ public partial class event_manager : Node
 		// Event with a single condition and a single option
 		var e = new GameEvent();
 		e.SetSingleCondition("CurrentTurn", "==", "3");
-		var option1 = new ChoiceButton("Woohoo, +10 Res1!");
+		var option1 = new Choice("option1","Woohoo, +10 Res1!");
 		option1.Effects.Add(new Effect("AddRes1", "10"));
 		e.Options.Add(option1);
 		_eventList.Add(e);
@@ -35,9 +52,9 @@ public partial class event_manager : Node
 			Description = "This is really exciting!"
 		};
 		eCopy.SetSingleCondition("CurrentTurn", "==", "3");
-		var option2 = new ChoiceButton("Oh no, -20 Res1!");
+		var option2 = new Choice("option2","Oh no, -20 Res1!");
 		option2.Effects.Add(new Effect("AddRes1", "-20"));
-		var option3 = new ChoiceButton("Something mysterious will happen in the future!");
+		var option3 = new Choice("option3","Something mysterious will happen in the future!");
 		option3.Effects.Add(new Effect("AddFlag", "RandomEvent1"));
 		eCopy.Options.Add(option2);
 		eCopy.Options.Add(option3);

@@ -10,7 +10,7 @@ public struct GameEvent
     public string Description;
     public string ImagePath;
     public IEventCondition Condition;
-    public List<ChoiceButton> Options;
+    public List<Choice> Options;
 
     public GameEvent()
     {
@@ -19,7 +19,7 @@ public struct GameEvent
         Description = "Lorem Ipsum";
         ImagePath = "res://icon.svg"; // default godot icon
         Condition = null;
-        Options = new List<ChoiceButton>();
+        Options = new List<Choice>();
     }
 
     public void SetSingleCondition(string varName, string condType, string value)

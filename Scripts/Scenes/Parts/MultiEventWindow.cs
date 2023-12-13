@@ -105,7 +105,7 @@ public partial class MultiEventWindow : Panel
 		foreach (var choice in ev.Options)
 		{
 			var choiceInst = (Button) GD.Load<PackedScene>("res://Scenes/Parts/ChoiceButton.tscn").Instantiate();
-			choiceInst.Text = choice.desc;
+			choiceInst.Text = choice.Desc;
 			choiceInst.Pressed += () =>
 			{
 				choice.ApplyEffects();

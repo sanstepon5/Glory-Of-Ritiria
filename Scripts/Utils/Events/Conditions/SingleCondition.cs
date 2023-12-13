@@ -23,6 +23,11 @@ public class SingleCondition : IEventCondition
         CondType = condType;
         Value = value;
     }
+    
+    // Constructor for reading from file
+    public SingleCondition()
+    {
+    }
 
     public bool IsSatisfied()
     {

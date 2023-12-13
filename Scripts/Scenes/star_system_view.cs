@@ -18,14 +18,7 @@ public partial class star_system_view : Node2D
 		
 		_signals.Connect(nameof(_signals.DetnuraSystemRequested), new Callable(this, nameof(LoadDetnuraSystem)));
 
-		// Test of file opening both in editor and in build
-		var file = FileAccess.Open(game_state.AssetsDir + "Events.txt", FileAccess.ModeFlags.Read);
-		if (file == null)
-		{
-			var err = FileAccess.GetOpenError();
-			GD.Print(err);
-		} 
-		else GD.Print(file.GetAsText());
+		
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

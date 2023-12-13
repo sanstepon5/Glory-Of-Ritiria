@@ -1,22 +1,54 @@
-Event: event_1{
-  Title: "First Event",
-  Description: "I dunno, just a long text describing stuff here. Or maybe just a path to localisation or something.",
-  Image: "Path/To/Image.png. Or something.",
-  Conditions: For All{
-      SimpleCondition {
-        Res1, ==, 30; //, make it easier to parse...
-      },
-      Flags {
-        RandomFlag1,
-        RandomFlag2;
-      }
-  },
-  Effects {
-    Res1Add: 10,
-    AddFlag: RandomFlag3;
-  };
-},
+Event:
+    ID: "event_1"
+    Title: "First Event"
+    Description: "You got to turn number 3, congrats!"
+    Image: "res://icon.svg"
+    Condition Simple:
+        CurrentTurn, ==, 3;
+Event:
+    ID: "event_2"
+    Title: "Second Event"
+    Description: "Still on turn number 3! But this time the options are different!"
+    Image: "res://icon.svg"
+    Condition Simple:
+        CurrentTurn, ==, 3;
+Event:
+    ID: "event_3"
+    Title: "Third Event"
+    Description: "The conditions of this event are trickier: It should be after turn number 2 but you also need more then 30 Res1!"
+    Image: "res://icon.svg"
+    Condition For All:
+        Condition Simple:
+            CurrentTurn, ==, 3;
+        Condition Simple:
+                Res1, >, 30;
 
-Event: event_2{
-  
-};
+Event:
+    ID: "event_test1"
+    Title: "First Event"
+    Description: "I dunno, just a long text describing stuff here. Or maybe just a path to localisation or something."
+    Image: "res://icon.svg"
+    Condition For All:
+        Condition Simple:
+            Res1, ==, 30;
+        Condition Flags:
+            RandomFlag1
+            RandomFlag10
+
+Event:
+    ID: "event_test2"
+    Title: "Second Event"
+    Description: "I dunno, just a long text describing stuff here. Or maybe just a path to localisation or something."
+    Image: "res://icon.svg"
+    Condition For All:
+        Condition Simple:
+            Res1, ==, 30;
+        Condition Flags:
+            RandomFlag1
+            RandomFlag2
+        Condition Any:
+                Condition Simple:
+                    Res1, ==, 30;
+                Condition Flags:
+                    RandomFlag1
+                    RandomFlag4
