@@ -14,6 +14,12 @@ public class Choice
 		this.Id = id;
 		this.Desc = desc; 
 	}
+
+	// Mainly for parsing from file
+	public Choice()
+	{
+		
+	}
 	
 	public void ApplyEffects()
 	{

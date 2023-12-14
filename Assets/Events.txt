@@ -5,6 +5,13 @@ Event:
     Image: "res://icon.svg"
     Condition Simple:
         CurrentTurn, ==, 3;
+    Options:
+        Choice:
+            ID: "event_1_option1"
+            Description: "Get 10 Res1"
+            Effects:
+                AddRes1, 10, "Get 10 Res1";
+
 Event:
     ID: "event_2"
     Title: "Second Event"
@@ -12,6 +19,18 @@ Event:
     Image: "res://icon.svg"
     Condition Simple:
         CurrentTurn, ==, 3;
+    Options:
+            Choice:
+                ID: "event_2_option1"
+                Description: "Oh no, -20 Res1!"
+                Effects:
+                    AddRes1, -20, "Lose 20 Res1";
+            Choice:
+                ID: "event_2_option1"
+                Description: "I don't care, I want money now"
+                Effects:
+                    AddFlag, RandomEvent1, "RandomEvent1 will happen in the future";
+
 Event:
     ID: "event_3"
     Title: "Third Event"
@@ -19,36 +38,48 @@ Event:
     Image: "res://icon.svg"
     Condition For All:
         Condition Simple:
-            CurrentTurn, ==, 3;
+            CurrentTurn, >, 2;
         Condition Simple:
-                Res1, >, 30;
+            Res1, >, 30;
+    Options:
+            Choice:
+                ID: "event_3_option1"
+                Description: "Oh, look, a penny!"
+                Effects:
+                    AddRes1, 1, "Get a single Res1";
 
 Event:
-    ID: "event_test1"
-    Title: "First Event"
-    Description: "I dunno, just a long text describing stuff here. Or maybe just a path to localisation or something."
+    ID: "event_4"
+    Title: "Money Money... Wait, where is my money?"
+    Description: "Look, you didn't want to spend money earlier so get rekt!"
     Image: "res://icon.svg"
     Condition For All:
         Condition Simple:
-            Res1, ==, 30;
+            CurrentTurn, >, 7;
         Condition Flags:
-            RandomFlag1
-            RandomFlag10
+            RandomEvent1
+    Options:
+            Choice:
+                ID: "event_4_option1"
+                Description: "My money!"
+                Effects:
+                    AddRes1, -100, "Get rekt";
+                    RemoveFlag, RandomEvent1, "Okay, Okay, only once";
 
-Event:
-    ID: "event_test2"
-    Title: "Second Event"
-    Description: "I dunno, just a long text describing stuff here. Or maybe just a path to localisation or something."
-    Image: "res://icon.svg"
-    Condition For All:
-        Condition Simple:
-            Res1, ==, 30;
-        Condition Flags:
-            RandomFlag1
-            RandomFlag2
-        Condition Any:
-                Condition Simple:
-                    Res1, ==, 30;
-                Condition Flags:
-                    RandomFlag1
-                    RandomFlag4
+//Event:
+//    ID: "event_test2"
+//    Title: "Second Event"
+//    Description: "I dunno, just a long text describing stuff here. Or maybe just a path to localisation or something."
+//    Image: "res://icon.svg"
+//    Condition For All:
+//        Condition Simple:
+//            Res1, ==, 30;
+//        Condition Flags:
+//            RandomFlag1
+//            RandomFlag2
+//        Condition Any:
+//                Condition Simple:
+//                    Res1, ==, 30;
+//                Condition Flags:
+//                    RandomFlag1
+//                    RandomFlag4

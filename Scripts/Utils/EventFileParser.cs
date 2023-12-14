@@ -7,41 +7,79 @@ using Godot;
 
 namespace GloryOfRitiria.Scripts.Utils;
 
-// Only whole line comments authorized
-// TODO: Deal with empty lines between events (both an empty line between lines and the end of file are just "")
-// TODO: Add Effects
-// TODO: Better Regexes, especially with indent (or maybe just force using keywords?
+// TODO: Refactoring everything
+// TODO: Make comments work everywhere (inside of an event)...
+// TODO: Better errors
 // TODO: For event descriptions, add line return (description on multiple lines between quotes)
-// TODO: Make it cleaner, especially with different Regex patterns
+// To be fair it's not that big of a deal, real text should be in localisation files anyway
+// Indentation would be nice even if it kinda works without
+
+
 
 public class EventFileParser
 {
     private FileAccess _eventFile;
     private string _currentLine;
-    private Regex _commentRegex = new Regex(@"^\s*//$"); 
-    private Regex _onlyBlancRegex = new Regex(@"^\s*$");
+    
+    //Regexes for use in functions
+    private Regex _commentRegex;
+    private Regex _onlyBlancRegex;
+    private Regex _startsByEventRegex;
+    private Regex _indentationRegex;
+    private Regex _idRegex;
+    private Regex _titleRegex;
+    private Regex _descriptionRegex;
+    private Regex _imageRegex;
+    private Regex _conditionRegex;
+    private Regex _optionsRegex;
+    private Regex _choiceRegex;
+    private Regex _effectsRegex;
 
     public EventFileParser(FileAccess eventFile)
     {
-        this._eventFile = eventFile;
+        _eventFile = eventFile;
     }
 
-    
+    private void RegexInit()
+    {
+        _commentRegex = new Regex(@"^\s*//");
+        _onlyBlancRegex = new Regex(@"^\s*$");
+        
+        _startsByEventRegex = new Regex(@"^Event\s*:\s*$");
+        
+        // TODO: Think about this one...
+        _indentationRegex = new Regex(@"^\t{1}| {4}| {2}");
+        
+        // Regexes for reading different simple values
+        _idRegex = new Regex(@"ID\s*:\s*""(?<ID>.*)""\s*$");
+        _titleRegex = new Regex(@"Title\s*:\s*""(?<Title>.*)""\s*$");
+        _descriptionRegex = new Regex(@"Description\s*:\s*""(?<Description>.*)""\s*$");
+        _imageRegex = new Regex(@"Image\s*:\s*""(?<Image>.*)""\s*$");
+        // Condition word followed by it type (For All, Any, Simple or Flag) for example: "Condition For All:"
+        _conditionRegex = new Regex(@"Condition\s*(?<Type>For\s*All|Any|Simple|Flags)\s*:\s*$");
+        
+        _optionsRegex = new Regex(@"Options\s*:\s*$");
+        _choiceRegex = new Regex(@"Choice\s*:\s*$");
+        _effectsRegex = new Regex(@"Effects\s*:\s*$");
+    }
 
 
     public List<GameEvent> ReadEventList()
     {
+        RegexInit();
         var eventList = new List<GameEvent>();
-
-        var startsByEventRegex = new Regex(@"^Event\s*:\s*$");
 
         _currentLine = _eventFile.GetLine(); // I suppose it returns null at the end...
         
-        while (!string.IsNullOrEmpty(_currentLine))
+        while (!_eventFile.EofReached())
         {
-            // Continue reading lines if comments or blanc lines, stop if the line doesn't start by Event:
-            if (_commentRegex.IsMatch(_currentLine) || _onlyBlancRegex.IsMatch(_currentLine)) continue;
-            if (!startsByEventRegex.IsMatch(_currentLine)) throw new Exception("Event file syntax wrong");
+            // Skip the line if it's commented or only whitespaces
+            if (_commentRegex.IsMatch(_currentLine) || _onlyBlancRegex.IsMatch(_currentLine)) 
+            {
+                _currentLine = _eventFile.GetLine();
+                continue;
+            }
+            if (!_startsByEventRegex.IsMatch(_currentLine)) throw new Exception("Event file syntax wrong");
             
             _currentLine = _eventFile.GetLine();
             
@@ -55,30 +93,19 @@ public class EventFileParser
     private GameEvent ReadEvent()
     {
         var gameEvent = new GameEvent();
-        
-        var indentationRegex = new Regex(@"^\t{1}| {4}| {2}"); // indentation is a tab or 2 or 4 spaces
-        
-        // Indetation should be checked before, capture everything inside of " " thanks to "" (escaped ")
-        var idRegex = new Regex(@"ID\s*:\s*""(?<ID>.*)""\s*$");
-        var titleRegex = new Regex(@"Title\s*:\s*""(?<Title>.*)""\s*$");
-        var descriptionRegex = new Regex(@"Description\s*:\s*""(?<Description>.*)""\s*$");
-        var imageRegex = new Regex(@"Image\s*:\s*""(?<Image>.*)""\s*$");
-        
-        // Condition word followed by it type (For All, Any, Simple or Flag) for example: "Condition For All:"
-        var conditionRegex = new Regex(@"Condition\s*(?<Type>For\s*All|Any|Simple|Flags)\s*:\s*$");
-        var ChoicesRegex = new Regex(@"Choices\s*:\s*$");
 
-
-        
-        
-        while (!string.IsNullOrEmpty(_currentLine) || indentationRegex.IsMatch(_currentLine))
+        while (!string.IsNullOrEmpty(_currentLine) || _indentationRegex.IsMatch(_currentLine))
         {
-            // Continue reading lines if comments or blanc lines, stop if the line doesn't start by Event:
-            if (_commentRegex.IsMatch(_currentLine) || _onlyBlancRegex.IsMatch(_currentLine)) continue;
+            // Skip the line if it's commented or only whitespaces
+            if (_commentRegex.IsMatch(_currentLine) || _onlyBlancRegex.IsMatch(_currentLine))
+            {
+                _currentLine = _eventFile.GetLine();
+                continue;
+            }
             //if (!indentationRegex.IsMatch(_currentLine)) throw new Exception("Indentation error");
             
             // Read and assign value for simple attributes
-            var match = idRegex.Match(_currentLine);
+            var match = _idRegex.Match(_currentLine);
             if (match.Success)
             {
                 gameEvent.Id = match.Groups["ID"].Value; 
@@ -86,7 +113,7 @@ public class EventFileParser
                 continue;
             }
             
-            match = titleRegex.Match(_currentLine);
+            match = _titleRegex.Match(_currentLine);
             if (match.Success)
             {
                 gameEvent.Name = match.Groups["Title"].Value;
@@ -94,7 +121,7 @@ public class EventFileParser
                 continue;
             }
             
-            match = descriptionRegex.Match(_currentLine);
+            match = _descriptionRegex.Match(_currentLine);
             if (match.Success)
             {
                 gameEvent.Description = match.Groups["Description"].Value;
@@ -102,7 +129,7 @@ public class EventFileParser
                 continue;
             }
             
-            match = imageRegex.Match(_currentLine);
+            match = _imageRegex.Match(_currentLine);
             if (match.Success)
             {
                 gameEvent.ImagePath = match.Groups["Image"].Value;
@@ -112,7 +139,7 @@ public class EventFileParser
             
             
             // Read Conditions and Effects
-            match = conditionRegex.Match(_currentLine);
+            match = _conditionRegex.Match(_currentLine);
             if (match.Success)
             {
                 _currentLine = _eventFile.GetLine();
@@ -120,11 +147,11 @@ public class EventFileParser
                 continue;
             }
             
-            match = ChoicesRegex.Match(_currentLine);
+            match = _optionsRegex.Match(_currentLine);
             if (match.Success)
             {
                 _currentLine = _eventFile.GetLine();
-                gameEvent.Options = ReadChoices();
+                gameEvent.Options = ReadOptions();
                 continue;
             }
             
@@ -139,9 +166,9 @@ public class EventFileParser
     // Or 3 if the event condition was a For All/Any and you're trying to read a condition of this For All/Any
     private IEventCondition ReadCondition(string conditionType, int indentationLevel)
     {
-        var nbTabs = indentationLevel * 1;
-        var nbSpaces2 = indentationLevel * 2;
-        var nbTabs4 = indentationLevel * 4;
+        // var nbTabs = indentationLevel * 1;
+        // var nbSpaces2 = indentationLevel * 2;
+        // var nbTabs4 = indentationLevel * 4;
         switch (conditionType)
         {
             case "Simple":
@@ -166,7 +193,7 @@ public class EventFileParser
             {
                 var condition = new FlagCondition();
                 var flagRegex = new Regex(@"(?<FlagName>\w+)\s*$"); //A flag doesn't contain spaces
-                //var flagRegex = new Regex(@"^\t{{{nbTabs}}}| {{{nbSpaces2}}}| {{{nbTabs4}}}(?<FlagName>.*)\s*$");
+                //var IndentRegex = new Regex(@"^\t{" + indentationLevel + @"}");
                 var match = flagRegex.Match(_currentLine);
                 // If first flag can't match there is a problem, next line however can just be the next condition
                 if (!match.Success) throw new Exception("Couldn't read flag values");
@@ -217,7 +244,6 @@ public class EventFileParser
                     match = conditionRegex.Match(_currentLine);
                 }
                 
-                _currentLine = _eventFile.GetLine();
                 return condition;
             }
             default:
@@ -225,43 +251,93 @@ public class EventFileParser
         }
     }
     
-    private List<Choice> ReadChoices()
+    private List<Choice> ReadOptions()
     {
         var choicesList = new List<Choice>();
+        
+        var match = _choiceRegex.Match(_currentLine);
+        if (!match.Success) throw new Exception("Options line isn't followed by a Choice line (must have at least one Choice)");
+
+        // Each ReadChoice should position the line either on the next "Choice :" line or something else.
+        while (match.Success)
+        {
+            _currentLine = _eventFile.GetLine();
+            choicesList.Add(ReadChoice());
+            match = _choiceRegex.Match(_currentLine);
+        }
+        
         return choicesList;
+    }
+
+    private Choice ReadChoice()
+    {
+        var choice = new Choice();
+        
+        while (!_eventFile.EofReached())
+        {
+            // Skip the line if it's commented or only whitespaces
+            if (_commentRegex.IsMatch(_currentLine) || _onlyBlancRegex.IsMatch(_currentLine))
+            {
+                _currentLine = _eventFile.GetLine();
+                continue;
+            }
+            
+            // Read and assign value for simple attributes
+            var match = _idRegex.Match(_currentLine);
+            if (match.Success)
+            {
+                choice.Id = match.Groups["ID"].Value; 
+                _currentLine = _eventFile.GetLine(); 
+                continue;
+            }
+            
+            match = _descriptionRegex.Match(_currentLine);
+            if (match.Success)
+            {
+                choice.Desc = match.Groups["Description"].Value;
+                _currentLine = _eventFile.GetLine(); 
+                continue;
+            }
+            
+            match = _effectsRegex.Match(_currentLine);
+            if (match.Success)
+            {
+                _currentLine = _eventFile.GetLine(); 
+                choice.Effects = ReadEffects();
+                
+                continue;
+            }
+            
+            // If all possible fields of the choice are done, stop reading
+            break;
+        }
+        
+        return choice;
+    }
+
+    private List<Effect> ReadEffects()
+    {
+        var effectsList = new List<Effect>();
+        
+        var effectValuesRegex = new Regex(@"^\s*(?<MethodName>.*),\s*(?<Value>.*),\s*""(?<Desc>.*)""\s*;\s*$");
+
+        var match = effectValuesRegex.Match(_currentLine);
+        if (!match.Success) throw new Exception("Couldn't read effect values");
+
+        while (match.Success)
+        {
+            var effect = new Effect();
+            effect.methodName = match.Groups["MethodName"].Value;
+            effect.value = match.Groups["Value"].Value;
+            effect.desc = match.Groups["Desc"].Value;
+            effectsList.Add(effect);
+            
+            _currentLine = _eventFile.GetLine();
+            match = effectValuesRegex.Match(_currentLine);
+        }
+
+        return effectsList;
     }
     
 }
-
-
-
-// Event:
-//     ID: "event_1"
-//     Title: "First Event"
-//     Description: "I dunno, just a long text describing stuff here. Or maybe just a path to localisation or something."
-//     Image: "Path/To/Image.png. Or something."
-//     Condition For All:
-//         Condition Simple:
-//             Res1, ==, 30
-//         Condition Flags:
-//             RandomFlag1
-//             RandomFlag2
-//     Choices:
-//         Choice:
-//             Id: "Option 1"
-//             Desc: "This option adds 10 Res1"
-//             Effects: 
-//                 "Res1Add": "10"
-//                 "AddFlag": "RandomFlag3"
-//         Choice:
-//             Id: "Option 2"
-//             Desc: "This option substructs 10 Res1"
-//             Effects: 
-//                 "Res1Add": "-10"
-//                 "RemoveFlag": "RandomFlag1"
-//
-// Event: event_2
-//     ...
-//
-
 

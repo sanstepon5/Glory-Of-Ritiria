@@ -16,6 +16,11 @@ public class Effect
         this.value = value;
     }
 
+    public Effect()
+    {
+        
+    }
+
     // Modifies the state of the game depending on the effect
     public void ApplyEffect()
     {
