@@ -18,11 +18,10 @@ public partial class base_game_scene : Node2D
 		LoadPallyria(); // Pallyria will be the default scene
 		
 		// Button to open events
-		var eventsButton = GetNode<Button>("TestButton");
+		var eventsButton = GetNode<Button>("TopBar/TestButton");
 		eventsButton.Pressed += BuildMultiEventWindow;
 
 		TopBarUpdate();
-		
 
 		_signals.Connect(nameof(_signals.SkyClicked), new Callable(this, nameof(LoadDetnuraMap)));
 		_signals.Connect(nameof(_signals.PallyriaClicked), new Callable(this, nameof(LoadPallyria)));
@@ -66,7 +65,7 @@ public partial class base_game_scene : Node2D
 	// Load the Pallyria scene
 	public void LoadPallyria()
 	{
-		LoadScene("res://Scenes/planet_game_scene.tscn", "res://Assets/Img/tmp/PallyriaBG.jpg");
+		LoadScene("res://Scenes/planet_game_scene.tscn", "res://Assets/Img/tmp/PallyriaOffice.png");
 	}
 	
 	// Load the Detnura scene

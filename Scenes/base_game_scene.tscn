@@ -19,13 +19,6 @@ offset_bottom = 1079.0
 
 [node name="CurrentScene" type="Node2D" parent="."]
 
-[node name="TestButton" type="Button" parent="."]
-offset_left = 1485.0
-offset_top = 74.0
-offset_right = 1641.0
-offset_bottom = 162.0
-text = "Open Events"
-
 [node name="TooltipVisual" parent="." instance=ExtResource("4_on4ln")]
 visible = false
 offset_left = 747.0

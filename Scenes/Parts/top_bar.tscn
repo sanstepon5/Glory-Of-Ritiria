@@ -31,3 +31,13 @@ text = "970 APE
 
 [node name="Resource" parent="." instance=ExtResource("1_bxmsq")]
 layout_mode = 0
+offset_left = 276.0
+offset_right = 427.0
+
+[node name="TestButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 1439.0
+offset_top = -2.0
+offset_right = 1612.0
+offset_bottom = 76.0
+text = "Open Events"
