@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://od2gg2tiw6fj"]
+[gd_scene load_steps=3 format=3 uid="uid://od2gg2tiw6fj"]
 
 [ext_resource type="Texture2D" uid="uid://cbymyk3gj0gw0" path="res://icon.svg" id="1_03qch"]
+[ext_resource type="PackedScene" uid="uid://bgk7qgafl7isx" path="res://Scenes/Utils/TooltipController.tscn" id="2_w7miu"]
 
 [node name="Resource" type="HBoxContainer"]
 offset_right = 151.0
@@ -17,3 +18,10 @@ layout_mode = 2
 size_flags_horizontal = 3
 bbcode_enabled = true
 text = "0"
+
+[node name="TooltipController" parent="." instance=ExtResource("2_w7miu")]
+layout_mode = 2
+OwnerPath = NodePath("..")
+VisualsText = "[b]This a resource[/b]"
+VisualsTexture = ExtResource("1_03qch")
+Offset = Vector2(200, 200)

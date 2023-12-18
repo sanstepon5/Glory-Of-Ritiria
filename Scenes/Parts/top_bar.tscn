@@ -23,6 +23,8 @@ layout_mode = 0
 offset_left = 1783.0
 offset_right = 1920.0
 offset_bottom = 74.0
+tooltip_text = "Blablabla"
+mouse_filter = 0
 theme_override_font_sizes/font_size = 25
 text = "970 APE
 (2017 CE)"

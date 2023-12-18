@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://owct5lb7jgew"]
+[gd_scene load_steps=5 format=3 uid="uid://owct5lb7jgew"]
 
 [ext_resource type="Script" path="res://Scripts/Scenes/base_game_scene.cs" id="1_6tgt3"]
 [ext_resource type="PackedScene" uid="uid://b176rck77evnu" path="res://Scenes/Parts/top_bar.tscn" id="2_sapv7"]
 [ext_resource type="PackedScene" uid="uid://r6ijjsaj2h2q" path="res://Scenes/Parts/next_turn_button.tscn" id="3_3kb76"]
+[ext_resource type="PackedScene" uid="uid://dcb3tlebf675l" path="res://Scenes/Utils/CustomTooltip.tscn" id="4_on4ln"]
 
 [node name="BaseGameScene" type="Node2D"]
 script = ExtResource("1_6tgt3")
@@ -24,3 +25,10 @@ offset_top = 74.0
 offset_right = 1641.0
 offset_bottom = 162.0
 text = "Open Events"
+
+[node name="TooltipVisual" parent="." instance=ExtResource("4_on4ln")]
+visible = false
+offset_left = 747.0
+offset_top = 347.0
+offset_right = 1066.0
+offset_bottom = 624.0
