@@ -1,6 +1,7 @@
+using GloryOfRitiria.Scripts.Global;
 using Godot;
-using System;
-using GloryOfRitiria;
+
+namespace GloryOfRitiria.Scripts.Scenes.Parts;
 
 public partial class NextTurnButton : Area2D
 {
@@ -48,7 +49,7 @@ public partial class NextTurnButton : Area2D
 	{
 		if (game_state.EventsForTurn.Count != 0) return "events";
 		// Other turn blocking conditions here
-		else return "ok";
+		return "ok";
 
 	}
 	
@@ -58,6 +59,3 @@ public partial class NextTurnButton : Area2D
 		turnNumber.Text = "Current Turn: " + game_state.CurrentTurn;
 	}
 }
-
-
-

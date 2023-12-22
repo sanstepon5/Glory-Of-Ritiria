@@ -1,6 +1,7 @@
 ﻿using System;
+using GloryOfRitiria.Scripts.Global;
 
-namespace GloryOfRitiria.Scripts.Utils.Events;
+namespace GloryOfRitiria.Scripts.Utils.Events.Conditions;
 
 /**
  * <param name="VarName">Name of the attribute in gamestate</param>

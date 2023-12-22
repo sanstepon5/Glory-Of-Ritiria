@@ -1,0 +1,29 @@
+[gd_scene load_steps=2 format=3 uid="uid://dge6yh73g7sbv"]
+
+[ext_resource type="Texture2D" uid="uid://ccxnltalv1f6t" path="res://Assets/Img/tmp/RedStar64.png" id="1_hha23"]
+
+[node name="StarSystem" type="VBoxContainer"]
+offset_left = 891.0
+offset_top = 484.0
+offset_right = 971.0
+offset_bottom = 558.0
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 0
+
+[node name="StarButton" type="TextureButton" parent="MarginContainer"]
+layout_mode = 2
+texture_normal = ExtResource("1_hha23")
+texture_pressed = ExtResource("1_hha23")
+texture_hover = ExtResource("1_hha23")
+texture_disabled = ExtResource("1_hha23")
+texture_focused = ExtResource("1_hha23")
+
+[node name="SystemName" type="RichTextLabel" parent="."]
+layout_mode = 2
+bbcode_enabled = true
+fit_content = true

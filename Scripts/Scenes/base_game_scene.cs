@@ -1,7 +1,7 @@
 using Godot;
 using System;
-using System.Collections.Generic;
 using GloryOfRitiria;
+using GloryOfRitiria.Scripts.Global;
 
 public partial class base_game_scene : Node2D
 {
@@ -20,6 +20,9 @@ public partial class base_game_scene : Node2D
 		// Button to open events
 		var eventsButton = GetNode<Button>("TopBar/TestButton");
 		eventsButton.Pressed += BuildMultiEventWindow;
+		
+		var interStellarMapButton = GetNode<Button>("TopBar/InterstellarMapButton");
+		interStellarMapButton.Pressed += LoadInterstellarMap;
 
 		TopBarUpdate();
 
@@ -28,6 +31,8 @@ public partial class base_game_scene : Node2D
 		_signals.Connect(nameof(_signals.TurnPassed), new Callable(this, nameof(NewTurn)));
 		_signals.Connect(nameof(_signals.TopBarUpdateRequired), new Callable(this, nameof(TopBarUpdate)));
 		_signals.Connect(nameof(_signals.WarningWindowRequested), new Callable(this, nameof(BuildWarningWindow)));
+		
+		_signals.Connect(nameof(_signals.DetnuraSystemRequested), new Callable(this, nameof(LoadDetnuraMap)));
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -71,14 +76,14 @@ public partial class base_game_scene : Node2D
 	// Load the Detnura scene
 	public void LoadDetnuraMap()
 	{
-		LoadScene("res://Scenes/star_system_view.tscn", "res://Assets/Img/tmp/DetnuraSystemBG.jpg", nameof(_signals.DetnuraSystemRequested));
+		LoadScene("res://Scenes/star_system_view.tscn", "res://Assets/Img/tmp/DetnuraSystemBG.jpg");
 	}
 	
 	// Load the Pallyria scene
 	public void LoadInterstellarMap()
 	{
-		ClearScene();
-		//TODO
+		// TODO: Find a background and generally better integrate this scene in the current framework
+		LoadScene("res://Scenes/InterstellarMap.tscn", "");
 	}
 
 	// Clears loaded scene
@@ -117,7 +122,7 @@ public partial class base_game_scene : Node2D
 		var res1Text = res1.GetNode<RichTextLabel>("ResText");
 		if (game_state.Res1Rate >= 0)
 		{
-			res1Text.Text = "" + game_state.Res1 + "\n[color=green]+ "+game_state.Res1Rate+"[/color]";
+			res1Text.Text = "" + game_state.Res1 + "\n[color=green]+ "+ game_state.Res1Rate+"[/color]";
 		}
 		else
 		{

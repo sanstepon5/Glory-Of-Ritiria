@@ -1,9 +1,11 @@
-using Godot;
 using System.Collections.Generic;
 using GloryOfRitiria.Scripts.Utils;
 using GloryOfRitiria.Scripts.Utils.Events;
+using Godot;
 
 // TODO: Add single fire events
+namespace GloryOfRitiria.Scripts.Global;
+
 public partial class event_manager : Node
 {
 	// Events should be popped out of the list if they're one time only

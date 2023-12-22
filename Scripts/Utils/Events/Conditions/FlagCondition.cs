@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using GloryOfRitiria.Scripts.Global;
 using Godot;
 
-namespace GloryOfRitiria.Scripts.Utils.Events;
+namespace GloryOfRitiria.Scripts.Utils.Events.Conditions;
 
 public class FlagCondition : IEventCondition
 {

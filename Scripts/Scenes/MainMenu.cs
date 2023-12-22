@@ -1,7 +1,8 @@
+using GloryOfRitiria.Scripts.Global;
 using Godot;
-using System;
 using Godot.Collections;
-using Microsoft.VisualBasic;
+
+namespace GloryOfRitiria.Scripts.Scenes;
 
 public partial class MainMenu : Node2D
 {
@@ -49,7 +50,7 @@ public partial class MainMenu : Node2D
 		var json = new Json();
 		
 		var saveFile = FileAccess.Open("user://file.json", FileAccess.ModeFlags.Read);
-		var saveData = new Godot.Collections.Dictionary<string, Variant>((Godot.Collections.Dictionary)json.Data);
+		var saveData = new Dictionary<string, Variant>((Dictionary)json.Data);
 		
 		// Read the json file line by line
 		while (saveFile.GetPosition() < saveFile.GetLength())

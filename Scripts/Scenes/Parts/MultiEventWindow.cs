@@ -1,5 +1,5 @@
 using System;
-using System.Collections.Generic;
+using GloryOfRitiria.Scripts.Global;
 using GloryOfRitiria.Scripts.Utils.Events;
 using Godot;
 

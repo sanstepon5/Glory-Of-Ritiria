@@ -1,11 +1,13 @@
-using Godot;
 using System;
 using System.Collections.Generic;
 using GloryOfRitiria.Scripts.Utils;
 using GloryOfRitiria.Scripts.Utils.Events;
+using Godot;
 
 // This is a singleton that's loaded in every scene and will contain persistent state of the game.
 // It should be empty on main screen a be loaded when loading a save.
+namespace GloryOfRitiria.Scripts.Global;
+
 public partial class game_state : Node
 {
 

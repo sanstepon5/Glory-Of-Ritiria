@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://dv4521t76hah1"]
+
+[ext_resource type="Script" path="res://Scenes/Utils/InterstellarDistanceCircle.cs" id="1_0tln6"]
+
+[node name="InterstellarDistanceCircle" type="Node2D"]
+script = ExtResource("1_0tln6")
+
+[node name="DistanceLabel" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0

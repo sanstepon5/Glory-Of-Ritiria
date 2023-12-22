@@ -1,4 +1,5 @@
 ﻿using System;
+using GloryOfRitiria.Scripts.Global;
 using Godot;
 
 namespace GloryOfRitiria.Scripts.Utils.Events;
@@ -37,7 +38,7 @@ public class Effect
                 {
                 Enum.TryParse(value, out Flags flag);
                 game_state.CurrentFlags.Add(flag);
-                GD.Print(game_state.CurrentFlags);
+                GD.Print(Global.game_state.CurrentFlags);
                 }
                 break;
             case "RemoveFlag":

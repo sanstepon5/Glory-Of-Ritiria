@@ -41,3 +41,11 @@ offset_top = -2.0
 offset_right = 1612.0
 offset_bottom = 76.0
 text = "Open Events"
+
+[node name="InterstellarMapButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 1150.0
+offset_top = 1.0
+offset_right = 1329.0
+offset_bottom = 76.0
+text = "Open Interstellar Map"

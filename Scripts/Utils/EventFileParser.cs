@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using GloryOfRitiria.Scripts.Scenes.Parts;
 using GloryOfRitiria.Scripts.Utils.Events;
+using GloryOfRitiria.Scripts.Utils.Events.Conditions;
 using Godot;
 
 namespace GloryOfRitiria.Scripts.Utils;

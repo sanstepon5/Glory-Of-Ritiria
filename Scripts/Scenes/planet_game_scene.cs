@@ -1,6 +1,7 @@
+using GloryOfRitiria.Scripts.Global;
 using Godot;
-using System;
-using GloryOfRitiria;
+
+namespace GloryOfRitiria.Scripts.Scenes;
 
 public partial class planet_game_scene : Node2D
 {
