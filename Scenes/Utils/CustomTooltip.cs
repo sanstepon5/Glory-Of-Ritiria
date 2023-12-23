@@ -31,6 +31,6 @@ public partial class CustomTooltip : NinePatchRect
 
 	public void SetPosition(Vector2 position)
 	{
-		Position = position;
+		GlobalPosition = position;
 	}
 }

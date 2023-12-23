@@ -1,12 +1,17 @@
 [gd_scene load_steps=3 format=3 uid="uid://dcb3tlebf675l"]
 
-[ext_resource type="Texture2D" uid="uid://cbymyk3gj0gw0" path="res://icon.svg" id="1_gafkr"]
+[ext_resource type="Texture2D" uid="uid://bnpmeob88h414" path="res://Assets/GUI/tooltip.png" id="1_a3evp"]
 [ext_resource type="Script" path="res://Scenes/Utils/CustomTooltip.cs" id="2_o50g7"]
 
 [node name="CustomTooltip" type="NinePatchRect"]
 offset_right = 319.0
 offset_bottom = 277.0
-texture = ExtResource("1_gafkr")
+texture = ExtResource("1_a3evp")
+region_rect = Rect2(-4, -4, 368, 148)
+patch_margin_left = 8
+patch_margin_top = 6
+patch_margin_right = 7
+patch_margin_bottom = 26
 script = ExtResource("2_o50g7")
 
 [node name="TooltipText" type="RichTextLabel" parent="."]

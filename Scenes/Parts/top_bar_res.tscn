@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://od2gg2tiw6fj"]
+[gd_scene load_steps=4 format=3 uid="uid://od2gg2tiw6fj"]
 
 [ext_resource type="Texture2D" uid="uid://cbymyk3gj0gw0" path="res://icon.svg" id="1_03qch"]
 [ext_resource type="PackedScene" uid="uid://bgk7qgafl7isx" path="res://Scenes/Utils/TooltipController.tscn" id="2_w7miu"]
+[ext_resource type="Texture2D" uid="uid://bnpmeob88h414" path="res://Assets/GUI/tooltip.png" id="3_hvo4i"]
 
 [node name="Resource" type="HBoxContainer"]
 offset_right = 151.0
@@ -23,5 +24,5 @@ text = "0"
 layout_mode = 2
 OwnerPath = NodePath("..")
 VisualsText = "[b]This a resource[/b]"
-VisualsTexture = ExtResource("1_03qch")
-Offset = Vector2(200, 200)
+VisualsTexture = ExtResource("3_hvo4i")
+Offset = Vector2(20, 20)

@@ -1,3 +1,4 @@
+using GloryOfRitiria.Scenes.Utils;
 using Godot;
 
 namespace GloryOfRitiria.Scripts.Utils;
@@ -25,7 +26,7 @@ public partial class TooltipController : Control
 
 	// Private variables
 	private Node _ownerNode;
-	private GloryOfRitiria.Scenes.Utils.CustomTooltip _tooltip;
+	private CustomTooltip _tooltip;
 	private Timer _enterTimer;
 	private Timer _exitTimer;
 	
@@ -34,7 +35,7 @@ public partial class TooltipController : Control
 	{
 		_ownerNode = GetNode(OwnerPath);
 		// Current scene should always be base_game_scene. In theory...
-		_tooltip = GetTree().CurrentScene.GetNode<GloryOfRitiria.Scenes.Utils.CustomTooltip>("TooltipVisual");
+		_tooltip = GetTree().CurrentScene.GetNode<CustomTooltip>("TooltipVisual");
 		_initVisuals();
 		// For some reason MouseEntered seem to exist in C# but godot doesn't see it, only the GDScript name...
 		_ownerNode.Connect("mouse_entered", new Callable(this, nameof(_mouseEntered)));
@@ -50,7 +51,7 @@ public partial class TooltipController : Control
 
 	private void _initVisuals()
 	{
-		_tooltip.SetTexture(VisualsTexture);
+		//_tooltip.SetTexture(VisualsTexture);
 		_tooltip.SetText(VisualsText);
 	}
 	
@@ -60,6 +61,7 @@ public partial class TooltipController : Control
 		_tooltip.SetPosition(_getScreenPosition() + Offset);
 	}
 
+	// Gets the global position of the center of the node
 	private Vector2 _getScreenPosition()
 	{
 		var position = new Vector2();
@@ -68,11 +70,10 @@ public partial class TooltipController : Control
 		{
 			return owner2D.GetGlobalTransformWithCanvas().Origin;
 		}
-		// Have to copy to handle both cases (impossible with a || operator
+		// Have to copy to handle both cases (impossible with a || operator)
 		if (_ownerNode is Control ownerControl)
 		{
-			return ownerControl.GetGlobalTransformWithCanvas().Origin;
-			
+			return ownerControl.GetGlobalTransformWithCanvas().Origin + ownerControl.Size/2;
 		}
 		
 		return position;
