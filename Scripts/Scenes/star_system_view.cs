@@ -4,6 +4,10 @@ using GloryOfRitiria;
 public partial class star_system_view : Node2D
 {
 	private GlobalSignals _signals;
+
+	//private int _currentStarIndex
+
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -17,8 +21,6 @@ public partial class star_system_view : Node2D
 		planetButton.Pressed += () => PlanetButtonPressed(planetButton);
 		
 		_signals.Connect(nameof(_signals.DetnuraSystemRequested), new Callable(this, nameof(LoadDetnuraSystem)));
-
-		
 	}
 	
 	private void PallyriaPressed()
@@ -51,14 +53,25 @@ public partial class star_system_view : Node2D
 			inst.QueueFree();
 		};
 		
-		// Set the info window in the top right corner
+		// This sets the info window in the top right corner
 		// Better to do it with H/VBoxes I guess...
-		//inst.SetPosition(new Godot.Vector2(GetViewportRect().Size.X - inst.Size.X, 0 + inst.Size.Y));
-
 		AddChild(inst);
 
 		// Pause the rest of the game while this window is active.
-		// Not sure if it's best to pause everything or only the planet button but for now it'll do
 		GetTree().Paused =  true;
 	}
+
+	// Loads objects of the Star at _currentStarIndex
+	/*public void InitStarSystem(){
+		GD.Print(game_state.SelectedStarSystem[_currentStarIndex])
+	}
+	// Removes all objects relative to the current system
+	public void ClearCurrentSystem(){}
+
+	public void NextStar(){ClearCurrentSystem(); _currentStarIndex++; InitStarSystem();}
+	public void PreviousStar(){ClearCurrentSystem(); _currentStarIndex--; InitStarSystem();}
+
+	// Draws the orbit line for an object given its distance from the star
+	private void _drawOrbit(float distance){}
+*/
 }
