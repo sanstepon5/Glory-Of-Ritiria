@@ -15,9 +15,17 @@ public partial class InterstellarMap : Node2D
 	{
 		_signals = GetNode<GlobalSignals>("/root/GlobalSignals");
 		
-		DiscoveredSystems.Add(new StarSystemInfo("[center]Sun[/center]", 4.22f, 30, StarSystemType.Sun));
 		BuildDetnura();
-		BuildSystem(DiscoveredSystems[0]);
+		
+		// TODO: Refactor the whole StarSystemInfo deal, especially with the name (add list of stars?)
+		DiscoveredSystems.Add(new StarSystemInfo("Sun", 4.22f, 30, StarSystemType.Sun));
+		DiscoveredSystems.Add(new StarSystemInfo("Barnard's star", 7.82f, 170));
+		
+		foreach (var starSystemInfo in DiscoveredSystems)
+		{
+			BuildSystem(starSystemInfo);
+		}
+		
 	}
 
 	public void BuildSystem(StarSystemInfo systemInfo)
@@ -31,12 +39,13 @@ public partial class InterstellarMap : Node2D
 		var centerVBox = GetNode<VBoxContainer>("DetnuraVBox");
 		starSystemInst.Position = systemInfo.GetPositionOnPlan(centerVBox.Position); // + centerVBox.Size/2
 		
-		// TODO: Generalize signals for other systems
+
 		var systemButton = starSystemInst.GetNode<TextureButton>("MarginContainer/StarButton");
 
 		systemButton.Pressed += () =>
 		{
-			_signals.EmitSignal(nameof(_signals.DetnuraSystemRequested));
+			GD.Print("StarViewRequested Emitted");
+			_signals.EmitSignal(nameof(_signals.StarViewRequested), systemInfo.Name);
 		};
 		
 		AddChild(starSystemInst);

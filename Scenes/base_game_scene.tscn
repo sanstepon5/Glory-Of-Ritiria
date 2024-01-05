@@ -43,3 +43,12 @@ offset_right = 1604.0
 offset_bottom = 1011.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+
+[node name="WarningWindowControl" type="MarginContainer" parent="UICanvas"]
+visible = false
+offset_left = 659.0
+offset_top = 426.0
+offset_right = 1337.0
+offset_bottom = 719.0
+size_flags_horizontal = 3
+size_flags_vertical = 3

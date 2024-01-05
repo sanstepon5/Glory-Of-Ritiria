@@ -9,14 +9,21 @@ public partial class GlobalSignals : Node
     public delegate void SkyClickedEventHandler();
     [Signal]
     public delegate void PallyriaClickedEventHandler();
+    
     [Signal]
     public delegate void TurnPassedEventHandler();
-    
     
     // Scene loading
     [Signal]
     public delegate void DetnuraSystemRequestedEventHandler();
+    [Signal]
+    public delegate void StarViewRequestedEventHandler(string name);
     
+    // Star System Building
+    [Signal]
+    public delegate void StarViewBuildRequestedEventHandler(string name);
+    [Signal]
+    public delegate void DetnuraBuildRequestedEventHandler();
     
     // Updating
     [Signal]
@@ -28,11 +35,9 @@ public partial class GlobalSignals : Node
     [Signal]
     public delegate void InfoWindowClosedEventHandler();
     
-    // Warning windows
+    // Opening UI windows
     [Signal]
     public delegate void WarningWindowRequestedEventHandler(string message);
-    
-    
     [Signal]
     public delegate void PlanetInfoWindowRequestedEventHandler(Panel window);
 }

@@ -64,3 +64,4 @@ text = "[center]Detnura[/center]"
 fit_content = true
 
 [node name="MapCamera" parent="." instance=ExtResource("4_kicdb")]
+position = Vector2(960, 540)

@@ -10,6 +10,7 @@ public partial class base_game_scene : Node2D
 	private event_manager _eventManager;
 	private MarginContainer _eventContainer;
 	private MarginContainer _infoWindowContainer;
+	private MarginContainer _warningWindowContainer;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -21,6 +22,7 @@ public partial class base_game_scene : Node2D
 		// UI nodes
 		_eventContainer = GetNode<MarginContainer>("UICanvas/EventWindowControl");
 		_infoWindowContainer = GetNode<MarginContainer>("UICanvas/InfoWindowControl");
+		_warningWindowContainer = GetNode<MarginContainer>("UICanvas/WarningWindowControl");
 		
 		// Pallyria will be the default scene
 		LoadPallyria(); 
@@ -35,11 +37,15 @@ public partial class base_game_scene : Node2D
 		TopBarUpdate();
 
 		_signals.Connect(nameof(_signals.SkyClicked), new Callable(this, nameof(LoadDetnuraMap)));
+		_signals.Connect(nameof(_signals.DetnuraSystemRequested), new Callable(this, nameof(LoadDetnuraMap)));
+		
+		_signals.Connect(nameof(_signals.StarViewRequested), new Callable(this, nameof(LoadSystemMap)));
+		
 		_signals.Connect(nameof(_signals.PallyriaClicked), new Callable(this, nameof(LoadPallyria)));
 		_signals.Connect(nameof(_signals.TurnPassed), new Callable(this, nameof(NewTurn)));
 		_signals.Connect(nameof(_signals.TopBarUpdateRequired), new Callable(this, nameof(TopBarUpdate)));
 		_signals.Connect(nameof(_signals.WarningWindowRequested), new Callable(this, nameof(BuildWarningWindow)));
-		_signals.Connect(nameof(_signals.DetnuraSystemRequested), new Callable(this, nameof(LoadDetnuraMap)));
+		
 		_signals.Connect(nameof(_signals.PlanetInfoWindowRequested), new Callable(this, nameof(AddPlanetInfoWindow)));
 		
 		_signals.EventWindowClosed += () =>
@@ -58,7 +64,6 @@ public partial class base_game_scene : Node2D
 			_infoWindowContainer.GetChild(0).QueueFree();
 		};
 
-
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -67,12 +72,12 @@ public partial class base_game_scene : Node2D
 	}
 	
 	// Load a scene with a specified path, background path, and optional signal emission
-	private async void LoadScene(string scenePath, string backgroundPath, string signal = null)
+	private async void LoadScene(string scenePath, string backgroundPath, string signal = null, params String[] signalArgs)
 	{
 		ClearScene(); // Clear old scene
 		
 		// Pause the game for a very short time to make sure that player can't change scene again before old scene
-		// is cleared. TODO: Check if 0.05 is still enough on weak PC
+		// is cleared.
 		GetTree().Paused = true;
 		await ToSignal(GetTree().CreateTimer(0.05f), "timeout");
 		GetTree().Paused = false;
@@ -83,8 +88,16 @@ public partial class base_game_scene : Node2D
 		var inst = (Node2D)scene.Instantiate();
 		currentScene.AddChild(inst);
 
-		// Send a signal if specified
-		if (!string.IsNullOrEmpty(signal)) _signals.EmitSignal(signal);
+		// Send a signal if specified. Can be necessary for initializing scenes (signals to build connect in Ready)
+		// Far from good solution for signals with arguments
+		if (!string.IsNullOrEmpty(signal))
+		{
+			if (!signalArgs.IsEmpty())
+			{
+				_signals.EmitSignal(signal, signalArgs[0]);
+			}
+			else _signals.EmitSignal(signal);
+		}
 
 		// Changing BG in base_game_scene
 		var bg = GetNode<TextureRect>("BackGroundImage");
@@ -102,14 +115,20 @@ public partial class base_game_scene : Node2D
 	// Load the Detnura scene
 	public void LoadDetnuraMap()
 	{
-		LoadScene("res://Scenes/star_system_view.tscn", "res://Assets/Img/tmp/DetnuraSystemBG.jpg");
+		LoadScene("res://Scenes/star_system_view.tscn", "res://Assets/Img/tmp/SystemBackGround.png", nameof(_signals.DetnuraBuildRequested));
+	}	
+	
+	// Load a star system view scene
+	public void LoadSystemMap(string name)
+	{
+		LoadScene("res://Scenes/star_system_view.tscn", "res://Assets/Img/tmp/SystemBackGround.png", nameof(_signals.StarViewBuildRequested), name);
 	}
 	
 	// Load the Pallyria scene
 	public void LoadInterstellarMap()
 	{
 		// TODO: Find a background and generally better integrate this scene in the current framework
-		LoadScene("res://Scenes/InterstellarMap.tscn", "");
+		LoadScene("res://Scenes/InterstellarMap.tscn", "res://Assets/Img/tmp/GalaxyBackGround.png");
 	}
 
 	// Clears loaded scene
@@ -144,16 +163,28 @@ public partial class base_game_scene : Node2D
 		yearLabel.Text = game_state.CurrentYear;
 		
 		// Res 1 update
-		var res1 = GetNode<HBoxContainer>("UICanvas/TopBar/Resource");
+		var res1 = GetNode<HBoxContainer>("UICanvas/TopBar/ResourceContainer/Res1");
 		var res1Text = res1.GetNode<RichTextLabel>("ResText");
 		if (game_state.Res1Rate >= 0)
-		{
-			res1Text.Text = "" + game_state.Res1 + "\n[color=green]+ "+ game_state.Res1Rate+"[/color]";
-		}
+			res1Text.Text = "" + game_state.Res1 + "[color=green] + "+ game_state.Res1Rate+"[/color]";
 		else
-		{
-			res1Text.Text = "" + game_state.Res1 + "\n[color=red]- "+ Math.Abs(game_state.Res1Rate)+"[/color]";
-		}
+			res1Text.Text = "" + game_state.Res1 + "\n[color=red] - "+ Math.Abs(game_state.Res1Rate)+"[/color]";
+		
+		// Science update
+		var scientific = GetNode<HBoxContainer>("UICanvas/TopBar/ResourceContainer/ScienceRes");
+		var scientificText = scientific.GetNode<RichTextLabel>("ResText");
+		if 
+			(game_state.ScientificRes > 5) scientificText.Text = "" + game_state.ScientificRes + "%";
+		else 
+			scientificText.Text = "[color=red]" + game_state.ScientificRes + "%[/color]";
+		
+		// Political power update
+		var political = GetNode<HBoxContainer>("UICanvas/TopBar/ResourceContainer/PoliticalRes");
+		var politicalText = political.GetNode<RichTextLabel>("ResText");
+		if (game_state.PoliticalRes > 5) 
+			politicalText.Text = "" + game_state.PoliticalRes + "%";
+		else 
+			politicalText.Text = "[color=red]" + game_state.PoliticalRes + "%[/color]";
 	}
 
 	// Called on new turn, update the list of satisfied events
@@ -193,11 +224,13 @@ public partial class base_game_scene : Node2D
 		var exitButton = warningWindowInst.GetNode<Button>("VBox/ButtonMargin/OkButton");
 		exitButton.Pressed += () =>
 		{
-		 	GetTree().Paused = false;
-			warningWindowInst.QueueFree();
+			_warningWindowContainer.Visible = false;
+			GetTree().Paused = false;
+			_warningWindowContainer.GetChild(0).QueueFree();
 		};
-		
-		AddChild(warningWindowInst);
+
+		_warningWindowContainer.Visible = true;
+		_warningWindowContainer.AddChild(warningWindowInst);
 		GetTree().Paused = true;
 	}
 

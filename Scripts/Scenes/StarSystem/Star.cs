@@ -5,12 +5,14 @@ public class Star
     public string Id; 
     public string Name;
     public string StarType; // Better to make enum
+    public string ImagePath; // Better to make enum
 
     // Celestial bodies in orbits of the star
     public List<CelestialBody> Bodies;
 
-    public Star(string name){
+    public Star(string name, string imagePath){
         Name = name;
+        ImagePath = imagePath;
         Bodies = new List<CelestialBody>();
     }
 
