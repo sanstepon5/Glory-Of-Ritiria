@@ -1,5 +1,4 @@
-/*using Godot;
-using GloryOfRitiria;
+using Godot;
 
 public class CelestialBody
 {
@@ -19,8 +18,9 @@ public class CelestialBody
     }
 
     // Get the position of the body on the map using distance and angle
-    public Vector2 GetGlobalPosition(){
-
+    public Vector2 GetGlobalPosition()
+    {
+        return new Vector2();
     }
 
 
@@ -31,4 +31,4 @@ public class CelestialBody
     public string GetBodyDescription(){
         return "";
     }
-}*/
+}

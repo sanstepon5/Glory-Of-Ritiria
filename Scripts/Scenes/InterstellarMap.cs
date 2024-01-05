@@ -33,7 +33,11 @@ public partial class InterstellarMap : Node2D
 		
 		// TODO: Generalize signals for other systems
 		var systemButton = starSystemInst.GetNode<TextureButton>("MarginContainer/StarButton");
-		systemButton.Pressed += () => _signals.EmitSignal(nameof(_signals.DetnuraSystemRequested));
+
+		systemButton.Pressed += () =>
+		{
+			_signals.EmitSignal(nameof(_signals.DetnuraSystemRequested));
+		};
 		
 		AddChild(starSystemInst);
 	}

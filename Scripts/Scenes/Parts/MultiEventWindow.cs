@@ -30,8 +30,7 @@ public partial class MultiEventWindow : Panel
 		var exitButton = GetNode<Button>("VBox/HBoxTitle/ExitButton");
 		exitButton.Pressed += () =>
 		{
-			GetTree().Paused = false;
-			QueueFree();
+			_signals.EmitSignal(nameof(_signals.EventWindowClosed));
 		};
 
 		// Show the first event

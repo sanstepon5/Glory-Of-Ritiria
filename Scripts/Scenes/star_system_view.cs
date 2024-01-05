@@ -18,7 +18,7 @@ public partial class star_system_view : Node2D
 		
 		var planetButton = GetNode<Button>("Planet2Button");
 		// Calling function with parameters using signals
-		planetButton.Pressed += () => PlanetButtonPressed(planetButton);
+		planetButton.Pressed += () => PlanetButtonPressed();
 		
 		_signals.Connect(nameof(_signals.DetnuraSystemRequested), new Callable(this, nameof(LoadDetnuraSystem)));
 	}
@@ -34,7 +34,7 @@ public partial class star_system_view : Node2D
 		
 	}
 	
-	private void PlanetButtonPressed(Button button)
+	private void PlanetButtonPressed()
 	{
 		var pallyriaScene = GD.Load<PackedScene>("res://Scenes/Parts/planet_info_window.tscn");
 		var inst = (Panel) pallyriaScene.Instantiate();
@@ -46,17 +46,15 @@ public partial class star_system_view : Node2D
 		image.Texture = (Texture2D)GD.Load("res://Assets/Img/tmp/MoltenPlanet.png");
 		
 		var exitButton = inst.GetNode<Button>("MCont/VBox/TitleExitHBox/ExitButton");
-		// On click of exit button destroy the info window and enable button again
+		
 		exitButton.Pressed += () =>
 		{
-			GetTree().Paused = false;
-			inst.QueueFree();
+			_signals.EmitSignal(nameof(_signals.InfoWindowClosed));
 		};
 		
-		// This sets the info window in the top right corner
-		// Better to do it with H/VBoxes I guess...
-		AddChild(inst);
-
+		// Add inst to the infoWindow control node in base scene UI canvas node
+		_signals.EmitSignal(nameof(_signals.PlanetInfoWindowRequested), inst);
+		
 		// Pause the rest of the game while this window is active.
 		GetTree().Paused =  true;
 	}

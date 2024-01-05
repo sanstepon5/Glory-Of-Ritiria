@@ -1,5 +1,4 @@
-/*using Godot;
-using GloryOfRitiria;
+using System.Collections.Generic;
 
 public class Star
 {
@@ -22,8 +21,9 @@ public class Star
     }
 
     // Returns the path to the star gfx based on the star type
-    public string GetStarImage(){
-
+    public string GetStarImage()
+    {
+        return "";
     }
 
     // Gets the description based on the star Id from... Somewhere.
@@ -36,4 +36,3 @@ public class Star
     }
 
 }
-*/

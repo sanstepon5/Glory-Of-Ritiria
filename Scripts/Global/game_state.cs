@@ -25,7 +25,7 @@ public partial class game_state : Node
 	public static List<GameEvent> EventsForTurn = new List<GameEvent>();
 	// Has stars of the current star system. Should be empty when
 	// Current scene isn't a star system
-	//private static List<Star> SelectedStarSystem = new List<Star>();
+	public static List<Star> SelectedStarSystem = new List<Star>();
 	
 	public static Dictionary<string, Tuple<Type, object>> GetAttributeValues()
 	{

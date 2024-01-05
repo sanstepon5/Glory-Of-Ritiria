@@ -22,7 +22,17 @@ public partial class GlobalSignals : Node
     [Signal]
     public delegate void TopBarUpdateRequiredEventHandler();
     
+    // Closing UI windows
+    [Signal]
+    public delegate void EventWindowClosedEventHandler();
+    [Signal]
+    public delegate void InfoWindowClosedEventHandler();
+    
     // Warning windows
     [Signal]
     public delegate void WarningWindowRequestedEventHandler(string message);
+    
+    
+    [Signal]
+    public delegate void PlanetInfoWindowRequestedEventHandler(Panel window);
 }
