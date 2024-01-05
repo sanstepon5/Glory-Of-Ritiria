@@ -1,45 +1,43 @@
-[gd_scene load_steps=3 format=3 uid="uid://b176rck77evnu"]
+[gd_scene load_steps=6 format=3 uid="uid://b176rck77evnu"]
 
 [ext_resource type="PackedScene" uid="uid://od2gg2tiw6fj" path="res://Scenes/Parts/top_bar_res.tscn" id="1_bxmsq"]
+[ext_resource type="Texture2D" uid="uid://8kxepv33yo8w" path="res://Assets/GUI/Icons/political_icon.png" id="2_ilm8f"]
+[ext_resource type="Texture2D" uid="uid://cca0p07quqq4v" path="res://Assets/GUI/Icons/lab-coat.png" id="3_jb5cb"]
+[ext_resource type="Texture2D" uid="uid://cbymyk3gj0gw0" path="res://icon.svg" id="4_wr70x"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s2hsm"]
 bg_color = Color(0.176471, 0.176471, 0.176471, 1)
 
 [node name="TopBar" type="Panel"]
-offset_right = 1919.0
+offset_right = 1920.0
 offset_bottom = 73.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_s2hsm")
 
 [node name="PlaceholderLine" type="HSeparator" parent="."]
 layout_mode = 0
 offset_left = 1.0
-offset_top = 53.0
-offset_right = 1920.0
-offset_bottom = 76.0
+offset_top = 51.0
+offset_right = 1919.0
+offset_bottom = 74.0
 scale = Vector2(1, 2)
 
 [node name="CurrentYear" type="Label" parent="."]
 layout_mode = 0
 offset_left = 1783.0
 offset_right = 1920.0
-offset_bottom = 74.0
+offset_bottom = 76.0
 tooltip_text = "Blablabla"
 mouse_filter = 0
 theme_override_font_sizes/font_size = 25
 text = "970 APE
 (2017 CE)"
 
-[node name="Resource" parent="." instance=ExtResource("1_bxmsq")]
-layout_mode = 0
-offset_left = 276.0
-offset_right = 427.0
-
 [node name="TestButton" type="Button" parent="."]
 layout_mode = 0
-offset_left = 1439.0
-offset_top = -2.0
-offset_right = 1612.0
-offset_bottom = 76.0
+offset_left = 1583.0
+offset_top = 1.0
+offset_right = 1756.0
+offset_bottom = 72.0
 text = "Open Events"
 
 [node name="InterstellarMapButton" type="Button" parent="."]
@@ -47,5 +45,33 @@ layout_mode = 0
 offset_left = 1150.0
 offset_top = 1.0
 offset_right = 1329.0
-offset_bottom = 76.0
+offset_bottom = 73.0
 text = "Open Interstellar Map"
+
+[node name="ResourceContainer" type="GridContainer" parent="."]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 3.0
+offset_right = 287.0
+offset_bottom = 71.0
+columns = 2
+
+[node name="PoliticalRes" parent="ResourceContainer" instance=ExtResource("1_bxmsq")]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+Texture = ExtResource("2_ilm8f")
+
+[node name="ScienceRes" parent="ResourceContainer" instance=ExtResource("1_bxmsq")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+Texture = ExtResource("3_jb5cb")
+
+[node name="Res1" parent="ResourceContainer" instance=ExtResource("1_bxmsq")]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+Texture = ExtResource("4_wr70x")

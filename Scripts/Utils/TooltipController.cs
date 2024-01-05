@@ -51,7 +51,7 @@ public partial class TooltipController : Control
 
 	private void _initVisuals()
 	{
-		//_tooltip.SetTexture(VisualsTexture);
+		_tooltip.SetTexture(VisualsTexture);
 		_tooltip.SetText(VisualsText);
 	}
 	
