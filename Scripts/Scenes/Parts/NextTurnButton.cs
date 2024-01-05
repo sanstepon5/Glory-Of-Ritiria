@@ -36,11 +36,10 @@ public partial class NextTurnButton : Area2D
 					UpdateLabels();
 					break;
 				case "events":
-					string message = "Before going to next turn you have to\nRead all events first";
+					string message = "Before going to next turn you have to read all events first";
 					_signals.EmitSignal(nameof(_signals.WarningWindowRequested), message);
 					break;
 			}
-			
 		}
 	}
 
