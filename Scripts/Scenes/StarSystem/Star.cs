@@ -10,6 +10,8 @@ public class Star
     // Celestial bodies in orbits of the star
     public List<CelestialBody> Bodies;
 
+    public ShipGroup InnerSpace;
+
     public Star(string name, string imagePath){
         Name = name;
         ImagePath = imagePath;
@@ -35,6 +37,11 @@ public class Star
 
     public void AddCelestialBody(CelestialBody body){
         Bodies.Add(body);
+    }
+
+    public void SetInnerSpaceShips(ShipGroup shipGroup)
+    {
+        InnerSpace = shipGroup;
     }
 
 }

@@ -90,10 +90,26 @@ public partial class game_state : Node
 		// Detnura
 		var detnuraSystem = new List<Star>();
 		var detnuraStar = new Star("Detnura", AssetsDir+"Img/tmp/CelestialBodies/star2.png");
+		
 		detnuraStar.AddCelestialBody(new CelestialBody("Pallyria", 10, AssetsDir+"Img/tmp/PlanetIcon.png" , CelestialBodyType.Pallyria));
+		
 		detnuraStar.AddCelestialBody(new CelestialBody("Other Planet", 20, AssetsDir+"Img/tmp/CelestialBodies/icePlanet.png"));
-		detnuraStar.AddCelestialBody(new CelestialBody("Gas Giant", 30, AssetsDir+"Img/tmp/CelestialBodies/gasGiant.png"));
+		
+		// Gas giant that has satellites
+		var gasGiant = new CelestialBody("Gas Giant", 30, AssetsDir + "Img/tmp/CelestialBodies/gasGiant.png");
+		var moon = new CelestialBody("Moon", 0, AssetsDir + "Img/tmp/CelestialBodies/icePlanet.png", true, true);
+		
+		var shipGroup = new ShipGroup("Fleet 1", 0, true, AssetsDir + "Icons/shipGroup.png");
+		moon.AddSatellite(shipGroup);
+		gasGiant.AddSatellite(moon);
+		gasGiant.AddSatellite(new CelestialBody("Moon 2", 0, AssetsDir + "Img/tmp/CelestialBodies/icePlanet.png", true, true));
+		detnuraStar.AddCelestialBody(gasGiant);
+		
+		var asteroid = new MinorBody("Asteroid", 0, AssetsDir + "Img/tmp/CelestialBodies/asteroid.png", false);
+		detnuraStar.AddCelestialBody(asteroid);
+		
 		detnuraSystem.Add(detnuraStar);
+		
 		
 		// Sun
 		var solSystem = new List<Star>();

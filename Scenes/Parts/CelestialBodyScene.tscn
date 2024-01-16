@@ -1,14 +1,20 @@
-[gd_scene load_steps=2 format=3 uid="uid://bo4p7g2vi628r"]
+[gd_scene load_steps=3 format=3 uid="uid://bo4p7g2vi628r"]
 
 [ext_resource type="Texture2D" uid="uid://k1jpe8g88r03" path="res://Assets/Img/tmp/CelestialBodies/icePlanet.png" id="1_xttfw"]
+[ext_resource type="Texture2D" uid="uid://h3ligan0kne5" path="res://Assets/Icons/lineBetweenBodies.png" id="2_v0qtc"]
 
-[node name="CelestialBodyScene" type="VBoxContainer"]
+[node name="CelestialBodyScene" type="GridContainer"]
+columns = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="BodyContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="BodyContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 30
 theme_override_constants/margin_right = 50
 
-[node name="BodyButton" type="TextureButton" parent="MarginContainer"]
+[node name="BodyButton" type="TextureButton" parent="BodyContainer/MarginContainer"]
 layout_mode = 2
 texture_normal = ExtResource("1_xttfw")
 texture_pressed = ExtResource("1_xttfw")
@@ -16,5 +22,23 @@ texture_hover = ExtResource("1_xttfw")
 texture_disabled = ExtResource("1_xttfw")
 texture_focused = ExtResource("1_xttfw")
 
-[node name="BodyName" type="Label" parent="."]
+[node name="BodyName" type="Label" parent="BodyContainer"]
+layout_mode = 2
+
+[node name="SatellitesHCont" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="SatellitesHCont"]
+layout_mode = 2
+theme_override_constants/margin_right = 30
+
+[node name="CenterContainer" type="CenterContainer" parent="SatellitesHCont/MarginContainer"]
+layout_mode = 2
+
+[node name="LineBetweenBodies" type="TextureRect" parent="SatellitesHCont/MarginContainer/CenterContainer"]
+layout_mode = 2
+texture = ExtResource("2_v0qtc")
+stretch_mode = 2
+
+[node name="SatellitesVCont" type="VBoxContainer" parent="."]
 layout_mode = 2
