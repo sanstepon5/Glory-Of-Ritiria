@@ -1,8 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://b7h53a4hm5uld"]
+[gd_scene load_steps=7 format=3 uid="uid://b7h53a4hm5uld"]
 
 [ext_resource type="Script" path="res://Scripts/Scenes/star_system_view.cs" id="2_s55j1"]
 [ext_resource type="Texture2D" uid="uid://ccxnltalv1f6t" path="res://Assets/Img/tmp/RedStar64.png" id="3_b5q0n"]
+[ext_resource type="Texture2D" uid="uid://dwrykn3365u8g" path="res://Assets/Icons/cross.png" id="4_in6l8"]
+[ext_resource type="Texture2D" uid="uid://cygkd1k37vx86" path="res://Assets/Img/tmp/CelestialBodies/liveablePlanet.png" id="4_o5mon"]
 [ext_resource type="PackedScene" uid="uid://bo4p7g2vi628r" path="res://Scenes/Parts/CelestialBodyScene.tscn" id="4_xomjc"]
+[ext_resource type="Texture2D" uid="uid://ceu72fq1bvk2d" path="res://Assets/Img/tmp/CelestialBodies/gasGiant.png" id="5_03425"]
 
 [node name="StarSystemView" type="Node2D"]
 script = ExtResource("2_s55j1")
@@ -10,8 +13,8 @@ script = ExtResource("2_s55j1")
 [node name="BodiesHBox" type="HBoxContainer" parent="."]
 offset_left = 106.0
 offset_top = 288.0
-offset_right = 660.0
-offset_bottom = 342.0
+offset_right = 644.0
+offset_bottom = 414.0
 
 [node name="StarVCont" type="VBoxContainer" parent="BodiesHBox"]
 layout_mode = 2
@@ -34,6 +37,43 @@ text = "default
 visible = false
 layout_mode = 2
 
+[node name="StarVCont2" type="VBoxContainer" parent="BodiesHBox"]
+layout_mode = 2
+
+[node name="StarMCont" type="MarginContainer" parent="BodiesHBox/StarVCont2"]
+layout_mode = 2
+theme_override_constants/margin_right = 100
+
+[node name="StarImage" type="TextureRect" parent="BodiesHBox/StarVCont2/StarMCont"]
+layout_mode = 2
+texture = ExtResource("4_o5mon")
+stretch_mode = 2
+
+[node name="StarName" type="Label" parent="BodiesHBox/StarVCont2"]
+layout_mode = 2
+text = "default
+"
+
+[node name="StarVCont3" type="VBoxContainer" parent="BodiesHBox"]
+layout_mode = 2
+
+[node name="StarMCont" type="MarginContainer" parent="BodiesHBox/StarVCont3"]
+layout_mode = 2
+theme_override_constants/margin_right = 100
+
+[node name="StarImage" type="TextureRect" parent="BodiesHBox/StarVCont3/StarMCont"]
+layout_mode = 2
+texture = ExtResource("5_03425")
+stretch_mode = 2
+
+[node name="StarName" type="Label" parent="BodiesHBox/StarVCont3"]
+layout_mode = 2
+text = "default
+"
+
+[node name="CenterContainer" type="CenterContainer" parent="BodiesHBox"]
+layout_mode = 2
+
 [node name="SystemName" type="RichTextLabel" parent="."]
 offset_left = 653.0
 offset_top = 963.0
@@ -42,3 +82,22 @@ offset_bottom = 1068.0
 theme_override_font_sizes/normal_font_size = 40
 bbcode_enabled = true
 text = "[center]System Name[/center]"
+
+[node name="InnerSpaceVBox" type="VBoxContainer" parent="."]
+offset_left = 578.0
+offset_top = 112.0
+offset_right = 1232.0
+offset_bottom = 260.0
+
+[node name="Label" type="Label" parent="InnerSpaceVBox"]
+layout_mode = 2
+text = "Inner Space - Ships in transit"
+horizontal_alignment = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="InnerSpaceVBox"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="InnerSpaceVBox/CenterContainer"]
+layout_mode = 2
+texture = ExtResource("4_in6l8")
+stretch_mode = 2

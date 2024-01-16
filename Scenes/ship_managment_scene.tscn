@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://bwjc5h5qtoo82"]
+
+[node name="ship_managment_scene" type="Node2D"]
+
+[node name="ShipList" type="GridContainer" parent="."]
+offset_left = 18.0
+offset_top = 895.0
+offset_right = 1908.0
+offset_bottom = 1066.0
+
+[node name="ShipInfo" type="PanelContainer" parent="."]
+visible = false
+offset_left = 1505.0
+offset_top = 141.0
+offset_right = 1918.0
+offset_bottom = 833.0
+
+[node name="LodoutSelectWindow" type="PanelContainer" parent="."]
+offset_left = 790.0
+offset_top = 85.0
+offset_right = 1198.0
+offset_bottom = 846.0
+
+[node name="VScrollBar" type="VScrollBar" parent="LodoutSelectWindow"]
+layout_mode = 2
+size_flags_horizontal = 8

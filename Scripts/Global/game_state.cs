@@ -92,6 +92,7 @@ public partial class game_state : Node
 		var detnuraStar = new Star("Detnura", AssetsDir+"Img/tmp/CelestialBodies/star2.png");
 		detnuraStar.AddCelestialBody(new CelestialBody("Pallyria", 10, AssetsDir+"Img/tmp/PlanetIcon.png" , CelestialBodyType.Pallyria));
 		detnuraStar.AddCelestialBody(new CelestialBody("Other Planet", 20, AssetsDir+"Img/tmp/CelestialBodies/icePlanet.png"));
+		detnuraStar.AddCelestialBody(new CelestialBody("Gas Giant", 30, AssetsDir+"Img/tmp/CelestialBodies/gasGiant.png"));
 		detnuraSystem.Add(detnuraStar);
 		
 		// Sun

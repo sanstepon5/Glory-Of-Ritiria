@@ -29,6 +29,8 @@ size_flags_stretch_ratio = 0.1
 [node name="TitleLabel" type="RichTextLabel" parent="MBox/VBox/TitleHBox"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_font_sizes/normal_font_size = 18
+theme_override_font_sizes/bold_font_size = 24
 bbcode_enabled = true
 text = "[b]Test Event Name[/b]
 Maybe something here, maybe not"
@@ -50,6 +52,7 @@ theme_override_constants/margin_top = 10
 
 [node name="DescLabel" type="RichTextLabel" parent="MBox/VBox/DescMBox"]
 layout_mode = 2
+theme_override_font_sizes/normal_font_size = 22
 bbcode_enabled = true
 text = "Lorem ipsum, a lot of stuff."
 
@@ -68,6 +71,7 @@ theme_override_constants/separation = 10
 [node name="DefaultButton" type="Button" parent="MBox/VBox/OptionsMBox/OptionsVBox"]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_font_sizes/font_size = 18
 text = "Ok, nice text. If you see this, something's really wrong... Code didn't add options it was supposed to"
 text_overrun_behavior = 3
 clip_text = true
@@ -75,4 +79,5 @@ clip_text = true
 [node name="CreatedButton" type="Button" parent="MBox/VBox/OptionsMBox/OptionsVBox"]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_font_sizes/font_size = 18
 text = "Wow, a second option. That means that code actually did something!"
