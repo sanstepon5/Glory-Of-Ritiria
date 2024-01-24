@@ -1,0 +1,57 @@
+[gd_scene load_steps=2 format=3 uid="uid://cyvmybaayxnkd"]
+
+[ext_resource type="Texture2D" uid="uid://dwrykn3365u8g" path="res://Assets/Icons/cross.png" id="1_rq3fr"]
+
+[node name="LockedShipSlot" type="PanelContainer"]
+size_flags_horizontal = 3
+
+[node name="MCont" type="MarginContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBox" type="VBoxContainer" parent="MCont"]
+layout_mode = 2
+
+[node name="TopHBox" type="HBoxContainer" parent="MCont/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TypeIcon" type="TextureRect" parent="MCont/VBox/TopHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+expand_mode = 4
+
+[node name="NameLabel" type="RichTextLabel" parent="MCont/VBox/TopHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 10.0
+fit_content = true
+
+[node name="AddButton" type="TextureButton" parent="MCont/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.0
+texture_normal = ExtResource("1_rq3fr")
+stretch_mode = 3
+
+[node name="BottomHBox" type="HBoxContainer" parent="MCont/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="LocationIcon" type="TextureRect" parent="MCont/VBox/BottomHBox"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+expand_mode = 4
+
+[node name="LocationLabel" type="RichTextLabel" parent="MCont/VBox/BottomHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 10.0
+bbcode_enabled = true
+text = "[center]Slot unavailable"
+fit_content = true
