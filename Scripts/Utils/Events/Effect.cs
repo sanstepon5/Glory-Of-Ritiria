@@ -44,7 +44,7 @@ public class Effect
             case "RemoveFlag":
                 {
                 Enum.TryParse(value, out Flags flag);
-                game_state.CurrentFlags.Add(flag);
+                game_state.CurrentFlags.Remove(flag);
                 }
                 break;
         }
