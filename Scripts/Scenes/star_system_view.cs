@@ -122,9 +122,20 @@ public partial class star_system_view : Node2D
 					satellitesCont.AddChild(BuildCelestialBody(satellite));
 			}
 		}
+
+		if (body.ShipsInOrbit != null)
+		{
+			BuildShipGroup(body);
+		}
 		
 
 		return inst;
+	}
+
+	// Build ship group's visuals
+	public void BuildShipGroup(CelestialBody body)
+	{
+		
 	}
 	
 	private void PlanetButtonPressed()
@@ -161,8 +172,5 @@ public partial class star_system_view : Node2D
 
 	public void NextStar(){ClearCurrentSystem(); _currentStarIndex++; InitStarSystem();}
 	public void PreviousStar(){ClearCurrentSystem(); _currentStarIndex--; InitStarSystem();}
-
-	// Draws the orbit line for an object given its distance from the star
-	private void _drawOrbit(float distance){}
 */
 }

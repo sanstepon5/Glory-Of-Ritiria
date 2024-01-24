@@ -99,8 +99,8 @@ public partial class game_state : Node
 		var gasGiant = new CelestialBody("Gas Giant", 30, AssetsDir + "Img/tmp/CelestialBodies/gasGiant.png");
 		var moon = new CelestialBody("Moon", 0, AssetsDir + "Img/tmp/CelestialBodies/icePlanet.png", true, true);
 		
-		var shipGroup = new ShipGroup("Fleet 1", 0, true, AssetsDir + "Icons/shipGroup.png");
-		moon.AddSatellite(shipGroup);
+		var shipGroup = new ShipGroup("Fleet 1", AssetsDir + "Icons/shipGroup.png");
+		moon.AddShipGroup(shipGroup);
 		gasGiant.AddSatellite(moon);
 		gasGiant.AddSatellite(new CelestialBody("Moon 2", 0, AssetsDir + "Img/tmp/CelestialBodies/icePlanet.png", true, true));
 		detnuraStar.AddCelestialBody(gasGiant);

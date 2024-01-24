@@ -13,8 +13,6 @@ public class CelestialBody
     public string Name;
     // Distance from its parent star, probably in AU
     public float Distance;
-    // Angle in degrees relative to the star (0 or 360 = to the right of the star)
-    //public int Angle;
     // Random planet, some specific planet, asteroid, station....
     public string ImagePath;
     public CelestialBodyType BodyType;
@@ -22,7 +20,8 @@ public class CelestialBody
     public bool HasSatellites;
     // Determines if bodies' satellites will be displayed vertically or horizontally
     public bool IsSatellite;
-    public List<CelestialBody> Satellites = null;
+    public List<CelestialBody> Satellites;
+    public ShipGroup ShipsInOrbit;
 
 
     // Constructor for inherited classes
@@ -61,6 +60,11 @@ public class CelestialBody
         }
     }
 
+    public void AddShipGroup(ShipGroup shipGroup)
+    {
+        ShipsInOrbit = shipGroup;
+    }
+
     // Get the position of the body on the map using distance and angle
     // public Vector2 GetGlobalPosition()
     // {
@@ -91,18 +95,25 @@ public class MinorBody : CelestialBody
     }
 }
 
-public class ShipGroup : CelestialBody
+public class ShipGroup
 {
+    public string Name;
+    public string ImagePath;
     public List<Ship> Ships;
-    public ShipGroup(string name, float distance, bool isSatellite, string imagePath = "res://Assets/Icons/shipGroup.png", CelestialBodyType type = CelestialBodyType.GenericPlanet){
+    
+    
+    public ShipGroup(string name, string imagePath = "res://Assets/Icons/shipGroup.png", List<Ship> ships=null){
         Name = name;
-        Distance = distance;
         ImagePath = imagePath;
-        BodyType = type;
-        
-        HasSatellites = false;
-        IsSatellite = isSatellite;
-        
-        Ships = new List<Ship>();
+
+        if (ships!=null) Ships = new List<Ship>();
+        else Ships = ships;
     }
+
+    public void AddShip(Ship ship)
+    {
+        Ships.Add(ship);
+    }
+    
+    
 }
