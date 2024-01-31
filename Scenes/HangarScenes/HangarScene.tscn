@@ -1,12 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://bwjc5h5qtoo82"]
+[gd_scene load_steps=7 format=3 uid="uid://bwjc5h5qtoo82"]
 
 [ext_resource type="PackedScene" uid="uid://cwblvspsudkh3" path="res://Scenes/Slots/FullShipSlot.tscn" id="1_bayj6"]
+[ext_resource type="Script" path="res://Scripts/Scenes/HangarScene.cs" id="1_r6654"]
 [ext_resource type="PackedScene" uid="uid://5qlac6unyqey" path="res://Scenes/Slots/ProgressShipSlot.tscn" id="2_t05wk"]
-[ext_resource type="PackedScene" uid="uid://cm2m3bf5oiyn4" path="res://Scenes/Slots/OpenShipSlot.tscn" id="3_4qbnn"]
+[ext_resource type="Script" path="res://Scenes/HangarScenes/SlotList.cs" id="2_yko30"]
+[ext_resource type="PackedScene" uid="uid://cm2m3bf5oiyn4" path="res://Scenes/Slots/EmptyShipSlot.tscn" id="3_4qbnn"]
 [ext_resource type="PackedScene" uid="uid://cyvmybaayxnkd" path="res://Scenes/Slots/LockedShipSlot.tscn" id="4_7cgva"]
-[ext_resource type="PackedScene" uid="uid://nbje536nyo0b" path="res://Scenes/HangarScenes/ShipConstructionWindow.tscn" id="5_6c3ny"]
 
 [node name="HangarScene" type="Node2D"]
+script = ExtResource("1_r6654")
 
 [node name="SlotList" type="GridContainer" parent="."]
 offset_top = 840.0
@@ -15,6 +17,7 @@ offset_bottom = 1080.0
 theme_override_constants/h_separation = 20
 theme_override_constants/v_separation = 20
 columns = 4
+script = ExtResource("2_yko30")
 
 [node name="FullShipSlot" parent="SlotList" instance=ExtResource("1_bayj6")]
 layout_mode = 2
@@ -22,20 +25,18 @@ layout_mode = 2
 [node name="InProgressShipSlot" parent="SlotList" instance=ExtResource("2_t05wk")]
 layout_mode = 2
 
-[node name="OpenShipSlot" parent="SlotList" instance=ExtResource("3_4qbnn")]
+[node name="EmptyShipSlot" parent="SlotList" instance=ExtResource("3_4qbnn")]
 layout_mode = 2
 
 [node name="LockedShipSlot" parent="SlotList" instance=ExtResource("4_7cgva")]
 layout_mode = 2
 
 [node name="RightWindow" type="ReferenceRect" parent="."]
+process_mode = 2
 offset_left = 1461.0
 offset_top = 90.0
 offset_right = 1919.0
 offset_bottom = 745.0
-
-[node name="ShipConstructionWindow" parent="RightWindow" instance=ExtResource("5_6c3ny")]
-layout_mode = 0
 
 [node name="CenterWindow" type="ReferenceRect" parent="."]
 offset_left = 708.0

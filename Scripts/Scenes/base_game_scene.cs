@@ -37,6 +37,7 @@ public partial class base_game_scene : Node2D
 		TopBarUpdate();
 
 		_signals.Connect(nameof(_signals.SkyClicked), new Callable(this, nameof(LoadDetnuraMap)));
+		_signals.Connect(nameof(_signals.HangarButtonClicked), new Callable(this, nameof(LoadHangar)));
 		_signals.Connect(nameof(_signals.DetnuraSystemRequested), new Callable(this, nameof(LoadDetnuraMap)));
 		
 		_signals.Connect(nameof(_signals.StarViewRequested), new Callable(this, nameof(LoadSystemMap)));
@@ -103,6 +104,9 @@ public partial class base_game_scene : Node2D
 		var bg = GetNode<TextureRect>("BackGroundImage");
 		var texture = (Texture2D)GD.Load(backgroundPath);
 		bg.Texture = texture;
+		
+		// By default all scenes show the pass turn button, if needed should be disabled in scene load function
+		//_signals.EmitSignal(nameof(_signals.ShowPassTurnButtonRequested));
 	}
 
 	
@@ -110,6 +114,11 @@ public partial class base_game_scene : Node2D
 	public void LoadPallyria()
 	{
 		LoadScene("res://Scenes/planet_game_scene.tscn", "res://Assets/Img/tmp/PallyriaOffice.png");
+	}
+	
+	public void LoadHangar()
+	{
+		LoadScene("res://Scenes/HangarScenes/HangarScene.tscn", "");
 	}
 	
 	// Load the Detnura scene
@@ -134,6 +143,7 @@ public partial class base_game_scene : Node2D
 	// Clears loaded scene
 	public void  ClearScene()
 	{
+		//_signals.EmitSignal(nameof(_signals.ShowPassTurnButtonRequested));
 		var currentScene = GetNode<Node2D>("CurrentScene");
 		if (currentScene.GetChildren().Count > 0)
 		{

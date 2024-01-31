@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://cwblvspsudkh3" path="res://Scenes/Slots/FullShipSlot.tscn" id="1_c2xd2"]
 [ext_resource type="PackedScene" uid="uid://5qlac6unyqey" path="res://Scenes/Slots/ProgressShipSlot.tscn" id="2_5vm2o"]
-[ext_resource type="PackedScene" uid="uid://cm2m3bf5oiyn4" path="res://Scenes/Slots/OpenShipSlot.tscn" id="3_lfihp"]
+[ext_resource type="PackedScene" uid="uid://cm2m3bf5oiyn4" path="res://Scenes/Slots/EmptyShipSlot.tscn" id="3_lfihp"]
 [ext_resource type="PackedScene" uid="uid://cyvmybaayxnkd" path="res://Scenes/Slots/LockedShipSlot.tscn" id="4_5ma47"]
 
 [node name="hangar_scene" type="Node2D"]

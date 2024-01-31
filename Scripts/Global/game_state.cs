@@ -32,6 +32,10 @@ public partial class game_state : Node
 	
 	public static Dictionary<string, List<Star>> AllStarSystems = new();
 	
+	
+	public static List<ShipConstructionSlot> ShipConstructionSlots = new();
+	public static List<Ship> AllShips = new();
+	
 	// Attributes
 	public static Dictionary<string, Tuple<Type, object>> GetAttributeValues()
 	{
@@ -54,7 +58,7 @@ public partial class game_state : Node
 		// For built project
 		else AssetsDir = OS.GetExecutablePath().GetBaseDir() + "/Assets/";
 
-		AddStarSystems();
+		Init();
 		
 		
 	}
@@ -85,13 +89,16 @@ public partial class game_state : Node
 
 
 	// tmp function to create test star systems, until I make an actual parser and stars file
-	public static void AddStarSystems()
+	public static void Init()
 	{
 		// Detnura
 		var detnuraSystem = new List<Star>();
 		var detnuraStar = new Star("Detnura", AssetsDir+"Img/tmp/CelestialBodies/star2.png");
-		
-		detnuraStar.AddCelestialBody(new CelestialBody("Pallyria", 10, AssetsDir+"Img/tmp/PlanetIcon.png" , CelestialBodyType.Pallyria));
+
+
+		CelestialBody pallyria = new CelestialBody("Pallyria", 10, AssetsDir + "Img/tmp/PlanetIcon.png",
+			CelestialBodyType.Pallyria);
+		detnuraStar.AddCelestialBody(pallyria);
 		
 		detnuraStar.AddCelestialBody(new CelestialBody("Other Planet", 20, AssetsDir+"Img/tmp/CelestialBodies/icePlanet.png"));
 		
@@ -116,7 +123,8 @@ public partial class game_state : Node
 		var sunStar = new Star("Sun", AssetsDir+"Img/tmp/RedStar64.png");
 		sunStar.AddCelestialBody(new CelestialBody("Mercury", 10, AssetsDir+"Img/tmp/MoltenPlanet.png"));
 		sunStar.AddCelestialBody(new CelestialBody("Venus", 20, AssetsDir+"Img/tmp/MoltenPlanet.png"));
-		sunStar.AddCelestialBody(new CelestialBody("Earth", 30, AssetsDir+"Img/tmp/CelestialBodies/liveablePlanet.png"));
+		CelestialBody earth = new CelestialBody("Earth", 30, AssetsDir + "Img/tmp/CelestialBodies/liveablePlanet.png");
+		sunStar.AddCelestialBody(earth);
 		solSystem.Add(sunStar);
 		
 		// Barnard's star
@@ -129,6 +137,23 @@ public partial class game_state : Node
 		AllStarSystems.Add("Detnura", detnuraSystem);
 		AllStarSystems.Add("Sun", solSystem);
 		AllStarSystems.Add("Barnard's star", barnardSystem);
+
+
+
+		Ship irana = new Ship("Irana", earth);
+		Ship baraba = new Ship("Baraba", pallyria);
+		AllShips.Add(irana);
+
+		ShipConstructionSlot fullSlot = new ShipConstructionSlot(irana.Location, SlotState.Full, irana);
+		ShipConstructionSlot buildingSlot = new ShipConstructionSlot(pallyria, SlotState.Building, baraba);
+		ShipConstructionSlot emptySlot = new ShipConstructionSlot(pallyria, SlotState.Empty);
+		ShipConstructionSlot lockedSlot = new ShipConstructionSlot();
+		ShipConstructionSlots.Add(fullSlot);
+		ShipConstructionSlots.Add(buildingSlot);
+		ShipConstructionSlots.Add(emptySlot);
+		ShipConstructionSlots.Add(lockedSlot);
+
+
 	}
 	
 }

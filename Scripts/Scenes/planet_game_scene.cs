@@ -14,6 +14,9 @@ public partial class planet_game_scene : Node2D
 		//_gameState = GetNode<game_state>("/root/GameState");
 		var incButton = GetNode<Button>("IncRes1Button");
 		incButton.Pressed += OnIncButtonPressed;
+		
+		var hangarButton = GetNode<Button>("HangarButton");
+		hangarButton.Pressed += OnHangarButtonPressed;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -38,5 +41,10 @@ public partial class planet_game_scene : Node2D
 	{
 		game_state.Res1 += 10;
 		_signals.EmitSignal(nameof(_signals.TopBarUpdateRequired));
+	}
+
+	public void OnHangarButtonPressed()
+	{
+		_signals.EmitSignal(nameof(_signals.HangarButtonClicked));
 	}
 }

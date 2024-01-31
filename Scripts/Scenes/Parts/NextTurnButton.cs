@@ -10,6 +10,8 @@ public partial class NextTurnButton : Area2D
 	public override void _Ready()
 	{
 		_signals = GetNode<GlobalSignals>("/root/GlobalSignals");
+		// _signals.Connect(nameof(_signals.HangarButtonClicked), new Callable(this, nameof(HideButton)));
+		// _signals.Connect(nameof(_signals.ShowPassTurnButtonRequested), new Callable(this, nameof(ShowButton)));
 	}
 
 	public override void _Process(double delta)
@@ -41,6 +43,17 @@ public partial class NextTurnButton : Area2D
 					break;
 			}
 		}
+	}
+
+
+	public void HideButton()
+	{
+		Visible = false;
+	}
+
+	public void ShowButton()
+	{
+		Visible = true;
 	}
 
 

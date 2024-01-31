@@ -16,3 +16,10 @@ offset_top = 652.0
 offset_right = 707.0
 offset_bottom = 724.0
 text = "Click here to increment"
+
+[node name="HangarButton" type="Button" parent="."]
+offset_left = 1336.0
+offset_top = 601.0
+offset_right = 1611.0
+offset_bottom = 703.0
+text = "Hangar or something"
