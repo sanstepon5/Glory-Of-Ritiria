@@ -4,7 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://cygkd1k37vx86" path="res://Assets/Img/tmp/CelestialBodies/liveablePlanet.png" id="2_rbjex"]
 
 [node name="InProgressShipSlot" type="PanelContainer"]
+offset_right = 261.0
+offset_bottom = 259.0
 size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="MCont" type="MarginContainer" parent="."]
 layout_mode = 2

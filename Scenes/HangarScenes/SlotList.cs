@@ -8,7 +8,7 @@ using GloryOfRitiria.Scripts.Utils;
 
 public partial class SlotList : GridContainer
 {
-	private List<ShipConstructionSlot> _slots; // Should be ordered
+	private SlotCollection _slots; // Should be ordered
 	private GlobalSignals _signals;
 	
 	public override void _Ready()
@@ -16,6 +16,9 @@ public partial class SlotList : GridContainer
 		_signals = GetNode<GlobalSignals>("/root/GlobalSignals");
 		_slots = game_state.ShipConstructionSlots;
 		UpdateSlots();
+		
+		_signals.Connect(nameof(_signals.ShipBuildStarted), new Callable(this, nameof(UpdateSlots)));
+		_signals.Connect(nameof(_signals.TurnPassed), new Callable(this, nameof(UpdateSlots)));
 	}
 	
 	public void FillSlots()
@@ -67,8 +70,12 @@ public partial class SlotList : GridContainer
 		slotName.Text = slot.Ship.Name;
 		
 		var slotLocation = inst.GetNode<RichTextLabel>("MCont/VBox/BottomHBox/LocationLabel");
+		
 		slotLocation.Text = slot.Ship.Location.Name;
-
+		
+		var progressBar = inst.GetNode<ProgressBar>("MCont/VBox/CenterVBox/MCont/ProgressBar");
+		var progressValue =  (double) slot.CurrentProgress / slot.TurnCost * 100;
+		progressBar.Value = progressValue;
 		
 		return inst;
 	}
@@ -105,6 +112,7 @@ public partial class SlotList : GridContainer
 			child.QueueFree();
 		}
 
+		_slots = game_state.ShipConstructionSlots;
 		FillSlots();
 	}
 

@@ -11,9 +11,10 @@
 script = ExtResource("1_r6654")
 
 [node name="SlotList" type="GridContainer" parent="."]
-offset_top = 840.0
-offset_right = 1920.0
-offset_bottom = 1080.0
+offset_left = 3.0
+offset_top = 527.0
+offset_right = 1451.0
+offset_bottom = 741.0
 theme_override_constants/h_separation = 20
 theme_override_constants/v_separation = 20
 columns = 4
@@ -39,6 +40,7 @@ offset_right = 1919.0
 offset_bottom = 745.0
 
 [node name="CenterWindow" type="ReferenceRect" parent="."]
+visible = false
 offset_left = 708.0
 offset_top = 110.0
 offset_right = 1146.0

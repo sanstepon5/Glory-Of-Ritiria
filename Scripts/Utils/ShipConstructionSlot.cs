@@ -11,7 +11,7 @@ public partial class ShipConstructionSlot : Node
     public Ship Ship;
     public SlotState State;
     public int TurnCost;
-    public int TurnsLeft;
+    public int CurrentProgress;
     
 
     public ShipConstructionSlot(CelestialBody location, SlotState state = SlotState.Locked, Ship ship = null)
@@ -19,16 +19,27 @@ public partial class ShipConstructionSlot : Node
         Location = location;
         State = state;
         Ship = ship;
-        TurnsLeft = 0;
-        TurnCost = 0;
+        CurrentProgress = 0;
+        if (ship != null) TurnCost = ship.Design.Cost;
     }
     
+    // Constructor for a slot in process of building
+    public ShipConstructionSlot(CelestialBody location, Ship ship, int currentProgress = 0)
+    {
+        Location = location;
+        State = SlotState.Building;
+        Ship = ship;
+        CurrentProgress = currentProgress;
+        TurnCost = ship.Design.Cost;
+    }
+    
+    // Constructor for a simple locked slot
     public ShipConstructionSlot()
     {
         Location = null;
         State = SlotState.Locked;
         Ship = null;
-        TurnsLeft = 0;
+        CurrentProgress = 0;
         TurnCost = 0;
     }
 
@@ -36,12 +47,11 @@ public partial class ShipConstructionSlot : Node
     {
         if (State == SlotState.Building)
         {
-            TurnsLeft--;
-            if (TurnsLeft == 0)
+            CurrentProgress++;
+            if (CurrentProgress == TurnCost)
             {
                 game_state.AllShips.Add(Ship);
                 State = SlotState.Full;
-                // Emit Signal????
             }
         }
     }
@@ -58,6 +68,7 @@ public partial class ShipConstructionSlot : Node
     {
         State = SlotState.Empty;
     }
+    
 }
 
 public enum SlotState

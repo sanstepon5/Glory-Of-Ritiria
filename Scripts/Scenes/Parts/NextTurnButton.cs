@@ -45,18 +45,6 @@ public partial class NextTurnButton : Area2D
 		}
 	}
 
-
-	public void HideButton()
-	{
-		Visible = false;
-	}
-
-	public void ShowButton()
-	{
-		Visible = true;
-	}
-
-
 	public string CheckNextTurnPossible()
 	{
 		if (game_state.EventsForTurn.Count != 0) return "events";

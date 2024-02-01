@@ -5,6 +5,7 @@
 
 [node name="EmptyShipSlot" type="PanelContainer"]
 size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="MCont" type="MarginContainer" parent="."]
 layout_mode = 2

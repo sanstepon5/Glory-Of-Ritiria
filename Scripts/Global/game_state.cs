@@ -33,7 +33,7 @@ public partial class game_state : Node
 	public static Dictionary<string, List<Star>> AllStarSystems = new();
 	
 	
-	public static List<ShipConstructionSlot> ShipConstructionSlots = new();
+	public static SlotCollection ShipConstructionSlots = new();
 	public static List<Ship> AllShips = new();
 	
 	// Attributes
@@ -59,8 +59,6 @@ public partial class game_state : Node
 		else AssetsDir = OS.GetExecutablePath().GetBaseDir() + "/Assets/";
 
 		Init();
-		
-		
 	}
 
 	public static void UpdateResources()
@@ -86,6 +84,15 @@ public partial class game_state : Node
 		// For now
 		CurrentYear = "9" + (70 + CurrentTurn) + " APE\n(20" + (17 + CurrentTurn) + " CE)";
 	}
+
+	public static void UpdateShipConstruction()
+	{
+		foreach (var slot in ShipConstructionSlots)
+		{
+			slot.Update();
+		}
+	}
+
 
 
 	// tmp function to create test star systems, until I make an actual parser and stars file
@@ -145,15 +152,11 @@ public partial class game_state : Node
 		AllShips.Add(irana);
 
 		ShipConstructionSlot fullSlot = new ShipConstructionSlot(irana.Location, SlotState.Full, irana);
-		ShipConstructionSlot buildingSlot = new ShipConstructionSlot(pallyria, SlotState.Building, baraba);
+		ShipConstructionSlot buildingSlot = new ShipConstructionSlot(pallyria, baraba, 7);
 		ShipConstructionSlot emptySlot = new ShipConstructionSlot(pallyria, SlotState.Empty);
-		ShipConstructionSlot lockedSlot = new ShipConstructionSlot();
 		ShipConstructionSlots.Add(fullSlot);
 		ShipConstructionSlots.Add(buildingSlot);
 		ShipConstructionSlots.Add(emptySlot);
-		ShipConstructionSlots.Add(lockedSlot);
-
-
 	}
 	
 }

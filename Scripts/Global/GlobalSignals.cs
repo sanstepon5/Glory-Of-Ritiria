@@ -54,4 +54,7 @@ public partial class GlobalSignals : Node
     // Hangar
     [Signal]
     public delegate void ConstructionWindowRequestedEventHandler(ShipConstructionSlot slot);
+    
+    [Signal]
+    public delegate void ShipBuildStartedEventHandler();
 }

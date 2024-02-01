@@ -1,6 +1,8 @@
 using Godot;
 using System;
 using GloryOfRitiria;
+using GloryOfRitiria.Scripts;
+using GloryOfRitiria.Scripts.Global;
 using GloryOfRitiria.Scripts.Utils;
 
 public partial class HangarScene : Node2D
@@ -20,30 +22,42 @@ public partial class HangarScene : Node2D
 		var scene = GD.Load<PackedScene>("res://Scenes/HangarScenes/ShipConstructionWindow.tscn");
 		var inst = (PanelContainer)scene.Instantiate();
 
+		var shipName = inst.GetNode<LineEdit>("MCont/VBox/NameHBox/MCont/TextEdit");
+		var constructionLocation = inst.GetNode<RichTextLabel>("MCont/VBox/LocationHBox/MarginContainer/LocationLabel");
 
 		if (slot.State is SlotState.Building or SlotState.Full)
 		{
-			var slotName = inst.GetNode<LineEdit>("MCont/VBox/NameHBox/MCont/TextEdit");
-			slotName.Text = slot.Ship.Name;
-			
+			shipName.Text = slot.Ship.Name;
 			// If already has a ship, show ship's location
-			var slotLocation = inst.GetNode<RichTextLabel>("MCont/VBox/LocationHBox/MarginContainer/LocationLabel");
-			slotLocation.Text = "[img]res://Assets/GUI/Icons/32/liveablePlanet.png[/img]  " + slot.Ship.Location.Name;
+			constructionLocation.Text = "[img]res://Assets/GUI/Icons/32/liveablePlanet.png[/img]  " + slot.Ship.Location.Name;
 		}
 
 		if (slot.State == SlotState.Empty)
 		{
 			// On an empty slot, show the slot's location
-			var slotLocation = inst.GetNode<RichTextLabel>("MCont/VBox/LocationHBox/MarginContainer/LocationLabel");
-			slotLocation.Text = "[img]res://Assets/GUI/Icons/32/liveablePlanet.png[/img]  " + slot.Location.Name;
+			constructionLocation.Text = "[img]res://Assets/GUI/Icons/32/liveablePlanet.png[/img]  " + slot.Location.Name;
 		}
 		
 		var exitButton = inst.GetNode<Button>("MCont/VBox/TitleExitHBox/ExitButton");
+		
 		
 		exitButton.Pressed += () =>
 		{
 			GetTree().Paused = false;
 			windowCont.GetChild(0).QueueFree();
+		};
+		
+		var buildButton = inst.GetNode<Button>("MCont/VBox/ButtonMargin/BuildButton");
+		buildButton.Pressed += () =>
+		{
+			GetTree().Paused = false;
+			windowCont.GetChild(0).QueueFree();
+
+			var ship = new Ship(shipName.Text, slot.Location);
+			var newSlot = new ShipConstructionSlot(slot.Location, ship);
+			game_state.ShipConstructionSlots.Add(newSlot);
+			
+			_signals.EmitSignal(nameof(_signals.ShipBuildStarted));
 		};
 		
 		
