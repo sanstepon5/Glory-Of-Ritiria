@@ -13,9 +13,12 @@ public partial class ShipConstructionSlot : Node
     public int TurnCost;
     public int CurrentProgress;
     
+    
+    
 
     public ShipConstructionSlot(CelestialBody location, SlotState state = SlotState.Locked, Ship ship = null)
     {
+        
         Location = location;
         State = state;
         Ship = ship;
@@ -43,17 +46,22 @@ public partial class ShipConstructionSlot : Node
         TurnCost = 0;
     }
 
-    public void Update()
+    public bool Update()
     {
         if (State == SlotState.Building)
         {
             CurrentProgress++;
             if (CurrentProgress == TurnCost)
             {
+                Ship.SetLocation(Location);
                 game_state.AllShips.Add(Ship);
                 State = SlotState.Full;
+                //_signals.EmitSignal(nameof(_signals.ShipFinishedBuilding)); doesn't work, it's 
+                return true;
             }
         }
+
+        return false;
     }
 
     public void SetShip(Ship ship)

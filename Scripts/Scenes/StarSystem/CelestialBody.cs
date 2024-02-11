@@ -21,7 +21,7 @@ public class CelestialBody
     // Determines if bodies' satellites will be displayed vertically or horizontally
     public bool IsSatellite;
     public List<CelestialBody> Satellites;
-    public ShipGroup ShipsInOrbit;
+    public List<Ship> ShipsInOrbit = new(); //public ShipGroup ShipsInOrbit;
 
 
     // Constructor for inherited classes
@@ -39,6 +39,8 @@ public class CelestialBody
         HasSatellites = true;
         Satellites = new List<CelestialBody>();
         IsSatellite = false;
+
+        
     }
     
     public CelestialBody(string name, float distance, string imagePath, bool hasSatellites, 
@@ -62,7 +64,11 @@ public class CelestialBody
 
     public void AddShipGroup(ShipGroup shipGroup)
     {
-        ShipsInOrbit = shipGroup;
+        foreach (var ship in shipGroup.Ships)
+        {
+            ShipsInOrbit.Add(ship);
+        }
+        //ShipsInOrbit = shipGroup;
     }
 
     // Get the position of the body on the map using distance and angle
@@ -108,6 +114,13 @@ public class ShipGroup
 
         if (ships!=null) Ships = new List<Ship>();
         else Ships = ships;
+    }
+    
+    public ShipGroup(string name){
+        Name = name;
+        ImagePath = "res://Assets/Icons/shipGroup.png";
+
+        Ships = new List<Ship>();
     }
 
     public void AddShip(Ship ship)

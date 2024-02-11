@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using System.Linq;
 using Godot;
 using GloryOfRitiria;
+using GloryOfRitiria.Scripts;
 using GloryOfRitiria.Scripts.Global;
 
 
@@ -12,6 +14,8 @@ public partial class star_system_view : Node2D
 	private GlobalSignals _signals;
 
 	private int _currentStarIndex = 0;
+	
+	private string _name;
 
 
 	// Called when the node enters the scene tree for the first time.
@@ -21,11 +25,27 @@ public partial class star_system_view : Node2D
 		
 		_signals.Connect(nameof(_signals.DetnuraBuildRequested), new Callable(this, nameof(BuildDetnuraSystem)));
 		_signals.Connect(nameof(_signals.StarViewBuildRequested), new Callable(this, nameof(BuildSystemMap)));
+		_signals.Connect(nameof(_signals.ShipFinishedBuilding), new Callable(this, nameof(ResetSystem)));
+		_signals.Connect(nameof(_signals.ShipMoved), new Callable(this, nameof(ResetSystem)));
 	}
 	
 	private void PallyriaPressed()
 	{
 		_signals.EmitSignal(nameof(_signals.PallyriaClicked));
+	}
+
+	// Should somehow add all the ships and stuff that were created that turn
+	public void ResetSystem()
+	{
+		var bodiesCont = GetNode<HBoxContainer>("BodiesHBox");
+		for (int i = 1; i < bodiesCont.GetChildren().Count; i++)
+		{
+			var child = bodiesCont.GetChild(i);
+			child.QueueFree();
+		}
+		BuildSystemMap(_name);
+		GD.Print("Pretend it updated the system view");
+		
 	}
 
 	
@@ -40,10 +60,11 @@ public partial class star_system_view : Node2D
 	{
 		GD.Print("System Map Build Initiated");
 		GetNode<RichTextLabel>("SystemName").Text = name;
+		_name = name;
 		
 		// TODO: Manage multiple stars
 		List<Star> stars;
-		game_state.AllStarSystems.TryGetValue(name, out stars);
+		game_state.AllStarSystems.TryGetValue(_name, out stars);
 		var star = stars[_currentStarIndex]; // always 0
 
 		var bodiesCont = GetNode<HBoxContainer>("BodiesHBox");
@@ -88,73 +109,129 @@ public partial class star_system_view : Node2D
 		if (body.Name == "Pallyria")
 			inst.GetNode<TextureButton>("BodyContainer/MarginContainer/BodyButton").Pressed += PallyriaPressed;
 		else 
-			inst.GetNode<TextureButton>("BodyContainer/MarginContainer/BodyButton").Pressed += () => PlanetButtonPressed();
+			inst.GetNode<TextureButton>("BodyContainer/MarginContainer/BodyButton").Pressed += () => PlanetButtonPressed(body);
 		
 		
 		if (lastBody) inst.GetNode<MarginContainer>("SatellitesHCont/MarginContainer").Visible = false;
 		
-		
+		var satellitesVCont = inst.GetNode<VBoxContainer>("SatellitesVCont");
+		var satellitesHCont = inst.GetNode<HBoxContainer>("SatellitesHCont");
 		// Adding satellites vertically
 		if (body.HasSatellites && !body.IsSatellite)
 		{
-			var satellitesCont = inst.GetNode<VBoxContainer>("SatellitesVCont");
+			
 			for (var i = 0; i < body.Satellites.Count; i++)
 			{
 				var satellite = body.Satellites[i];
 				// last body
 				if (i == body.Satellites.Count - 1)
-					satellitesCont.AddChild(BuildCelestialBody(satellite, true));
+					satellitesVCont.AddChild(BuildCelestialBody(satellite, true));
 				else
-					satellitesCont.AddChild(BuildCelestialBody(satellite));
+					satellitesVCont.AddChild(BuildCelestialBody(satellite));
 			}
 		}
 		// Adding satellites horizontally
 		if (body.HasSatellites && body.IsSatellite)
 		{
-			var satellitesCont = inst.GetNode<HBoxContainer>("SatellitesHCont");
+			
 			for (var i = 0; i < body.Satellites.Count; i++)
 			{
 				var satellite = body.Satellites[i];
 				// last body
 				if (i == body.Satellites.Count - 1)
-					satellitesCont.AddChild(BuildCelestialBody(satellite, true));
+					satellitesHCont.AddChild(BuildCelestialBody(satellite, true));
 				else
-					satellitesCont.AddChild(BuildCelestialBody(satellite));
+					satellitesHCont.AddChild(BuildCelestialBody(satellite));
 			}
 		}
 
-		if (body.ShipsInOrbit != null)
+		// Adding ships vertically
+		if (body.ShipsInOrbit.Count > 0 && !body.IsSatellite)
 		{
-			BuildShipGroup(body);
+			for (var i = 0; i < body.ShipsInOrbit.Count; i++)
+			{
+				var ship = body.ShipsInOrbit[i];
+				// TODO: Add vertical white lines
+				satellitesVCont.AddChild(BuildShipInst(ship, true));
+			}
 		}
 		
+		// Adding ships horizontally
+		if (body.ShipsInOrbit.Count > 0 && body.IsSatellite)
+		{
+			for (var i = 0; i < body.ShipsInOrbit.Count; i++)
+			{
+				var ship = body.ShipsInOrbit[i];
+				// last body
+				if (i == body.ShipsInOrbit.Count - 1)
+					satellitesHCont.AddChild(BuildShipInst(ship, true));
+				else
+					satellitesHCont.AddChild(BuildShipInst(ship));
+			}
+		}
 
 		return inst;
 	}
-
-	// Build ship group's visuals
-	public void BuildShipGroup(CelestialBody body)
-	{
-		
-	}
 	
-	private void PlanetButtonPressed()
+	
+	private GridContainer BuildShipInst(Ship ship, bool lastBody = false)
+	{
+		// Set main body's properties
+		var scene = GD.Load<PackedScene>("res://Scenes/Parts/ShipScene.tscn");
+		var inst = (GridContainer)scene.Instantiate();
+		inst.GetNode<Label>("ShipContainer/ShipName").Text = ship.Name;
+
+		if (game_state.SelectedShip == ship)
+			inst.GetNode<TextureButton>("ShipContainer/MarginContainer/ShipButton").ButtonPressed = true;
+		else
+			inst.GetNode<TextureButton>("ShipContainer/MarginContainer/ShipButton").ButtonPressed = false;
+
+		inst.GetNode<TextureButton>("ShipContainer/MarginContainer/ShipButton").Pressed += () =>
+		{
+			if (game_state.SelectedShip == ship)
+				game_state.SelectedShip = null;
+			else
+				game_state.SelectedShip = ship;
+			if (game_state.SelectedShip != null) GD.Print(game_state.SelectedShip.Name);
+		};
+		
+		// Hide the white line
+		if (lastBody) inst.GetNode<MarginContainer>("NextLineHCont/MarginContainer").Visible = false;
+		
+		return inst;
+	}
+
+	
+	
+	private void PlanetButtonPressed(CelestialBody body)
 	{
 		var pallyriaScene = GD.Load<PackedScene>("res://Scenes/Parts/planet_info_window.tscn");
 		var inst = (Panel) pallyriaScene.Instantiate();
 		
 		var title = inst.GetNode<RichTextLabel>("MCont/VBox/TitleExitHBox/Title");
-		title.Text = "[b]Random Planet[/b]\nMolten Planet";
+		title.Text = "[b]"+ body.Name +"[/b]\nMolten Planet";
 		
 		var image = inst.GetNode<TextureRect>("MCont/VBox/ImageMargin/PlanetImage");
-		image.Texture = (Texture2D)GD.Load("res://Assets/Img/tmp/MoltenPlanet.png");
+		image.Texture = (Texture2D)GD.Load(body.ImagePath);
 		
 		var exitButton = inst.GetNode<Button>("MCont/VBox/TitleExitHBox/ExitButton");
-		
 		exitButton.Pressed += () =>
 		{
 			_signals.EmitSignal(nameof(_signals.InfoWindowClosed));
 		};
+		
+		var sendButtonMargin = inst.GetNode<MarginContainer>("MCont/VBox/SendShipMargin");
+		if (game_state.SelectedShip == null)
+			sendButtonMargin.Visible = false;
+		else
+		{
+			var sendButton = sendButtonMargin.GetNode<Button>("SendShipButton");
+			sendButton.Pressed += () =>
+			{
+				game_state.SelectedShip.SetLocation(body); 
+				_signals.EmitSignal(nameof(_signals.ShipMoved));
+			};
+		}
 		
 		// Add inst to the infoWindow control node in base scene UI canvas node
 		_signals.EmitSignal(nameof(_signals.PlanetInfoWindowRequested), inst);

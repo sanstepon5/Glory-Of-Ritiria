@@ -1,11 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 
 namespace GloryOfRitiria.Scripts.Utils;
 
 // A collection of shipConstruction slots order in following manner:
-// First full slots, then slots in progress, then empty slots, at the end always a single locked slot.
+// First empty slots (should only have a few at once), then building slots, then docked ships.
 public class SlotCollection: IEnumerable<ShipConstructionSlot>
 {
     private List<ShipConstructionSlot> _elements = new();
@@ -14,7 +13,7 @@ public class SlotCollection: IEnumerable<ShipConstructionSlot>
     public SlotCollection()
     {
         // By default has only a single locked slot
-        _elements.Add(new ShipConstructionSlot());
+        //_elements.Add(new ShipConstructionSlot());
     }
     
     // Adds a slot to the list, conserving the order
@@ -22,20 +21,20 @@ public class SlotCollection: IEnumerable<ShipConstructionSlot>
     {
         switch (slot.State)
         {
-            case SlotState.Full:
-                _elements.Insert(_fullEndIndex, slot);
-                _fullEndIndex++;
-                _buildingEndIndex++;
+            case SlotState.Empty:
+                _elements.Insert(_emptyEndIndex, slot);
                 _emptyEndIndex++;
+                _buildingEndIndex++;
+                _fullEndIndex++;
                 break;
             case SlotState.Building:
                 _elements.Insert(_buildingEndIndex, slot);
                 _buildingEndIndex++;
-                _emptyEndIndex++;
+                _fullEndIndex++;
                 break;
-            case SlotState.Empty:
-                _elements.Insert(_emptyEndIndex, slot);
-                _emptyEndIndex++;
+            case SlotState.Full:
+                _elements.Insert(_fullEndIndex, slot);
+                _fullEndIndex++;
                 break;
             case SlotState.Locked:
                 _elements.Insert(_elements.Count, slot);

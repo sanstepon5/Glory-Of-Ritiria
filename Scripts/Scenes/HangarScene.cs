@@ -53,7 +53,7 @@ public partial class HangarScene : Node2D
 			GetTree().Paused = false;
 			windowCont.GetChild(0).QueueFree();
 
-			var ship = new Ship(shipName.Text, slot.Location);
+			var ship = new Ship(shipName.Text, slot.Location, true);
 			var newSlot = new ShipConstructionSlot(slot.Location, ship);
 			game_state.ShipConstructionSlots.Add(newSlot);
 			

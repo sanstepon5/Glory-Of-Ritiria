@@ -69,3 +69,16 @@ theme_override_constants/margin_bottom = 20
 [node name="MissionSelect" type="Button" parent="MCont/VBox/ButtonMargin"]
 layout_mode = 2
 text = "Select Mission"
+
+[node name="SendShipMargin" type="MarginContainer" parent="MCont/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.3
+theme_override_constants/margin_left = 60
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 60
+theme_override_constants/margin_bottom = 20
+
+[node name="SendShipButton" type="Button" parent="MCont/VBox/SendShipMargin"]
+layout_mode = 2
+text = "SendShip"

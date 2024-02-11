@@ -35,6 +35,10 @@ public partial class game_state : Node
 	
 	public static SlotCollection ShipConstructionSlots = new();
 	public static List<Ship> AllShips = new();
+
+	public static Ship SelectedShip = null;
+	
+	public static GlobalSignals _signals;
 	
 	// Attributes
 	public static Dictionary<string, Tuple<Type, object>> GetAttributeValues()
@@ -59,6 +63,7 @@ public partial class game_state : Node
 		else AssetsDir = OS.GetExecutablePath().GetBaseDir() + "/Assets/";
 
 		Init();
+		_signals = GetNode<GlobalSignals>("/root/GlobalSignals");
 	}
 
 	public static void UpdateResources()
@@ -89,7 +94,10 @@ public partial class game_state : Node
 	{
 		foreach (var slot in ShipConstructionSlots)
 		{
-			slot.Update();
+			if (slot.Update())
+			{
+				_signals.EmitSignal(nameof(_signals.ShipFinishedBuilding));
+			}
 		}
 	}
 
@@ -113,8 +121,8 @@ public partial class game_state : Node
 		var gasGiant = new CelestialBody("Gas Giant", 30, AssetsDir + "Img/tmp/CelestialBodies/gasGiant.png");
 		var moon = new CelestialBody("Moon", 0, AssetsDir + "Img/tmp/CelestialBodies/icePlanet.png", true, true);
 		
-		var shipGroup = new ShipGroup("Fleet 1", AssetsDir + "Icons/shipGroup.png");
-		moon.AddShipGroup(shipGroup);
+		//var shipGroup = new ShipGroup("Fleet 1", AssetsDir + "Icons/shipGroup.png");
+		//moon.AddShipGroup(shipGroup);
 		gasGiant.AddSatellite(moon);
 		gasGiant.AddSatellite(new CelestialBody("Moon 2", 0, AssetsDir + "Img/tmp/CelestialBodies/icePlanet.png", true, true));
 		detnuraStar.AddCelestialBody(gasGiant);
@@ -148,13 +156,13 @@ public partial class game_state : Node
 
 
 		Ship irana = new Ship("Irana", earth);
-		Ship baraba = new Ship("Baraba", pallyria);
+		Ship baraba = new Ship("Baraba", pallyria, true);
 		AllShips.Add(irana);
 
-		ShipConstructionSlot fullSlot = new ShipConstructionSlot(irana.Location, SlotState.Full, irana);
+		//ShipConstructionSlot fullSlot = new ShipConstructionSlot(irana.Location, SlotState.Full, irana);
 		ShipConstructionSlot buildingSlot = new ShipConstructionSlot(pallyria, baraba, 7);
 		ShipConstructionSlot emptySlot = new ShipConstructionSlot(pallyria, SlotState.Empty);
-		ShipConstructionSlots.Add(fullSlot);
+		//ShipConstructionSlots.Add(fullSlot);
 		ShipConstructionSlots.Add(buildingSlot);
 		ShipConstructionSlots.Add(emptySlot);
 	}
