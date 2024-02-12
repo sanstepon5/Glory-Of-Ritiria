@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Godot;
 
 namespace GloryOfRitiria.Scripts.Utils;
@@ -7,13 +8,14 @@ public enum StarSystemType
 {
     GenericSimple,
     GenericBinary,
+    
     // Special named star systems
     Detnura,
     Sun
 }
 
 /// <summary> Class containing information about a star system on the interstellar map </summary>
-public class StarSystemInfo
+public partial class StarSystemInfo:Node
 {
     /// <summary> Name of the star system (usually the biggest star) </summary>
     public string Name;
@@ -23,6 +25,8 @@ public class StarSystemInfo
     public int Angle;
     /// <summary> The type of the star system: Binary system, Neutron star, special systems like Sun etc </summary>
     public StarSystemType SystemType;
+
+    public List<Star> SystemStars = new();
 
     public StarSystemInfo(string name, float distance, int angle, StarSystemType systemType = StarSystemType.GenericSimple)
     {

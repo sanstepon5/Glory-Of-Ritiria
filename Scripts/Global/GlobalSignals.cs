@@ -15,13 +15,13 @@ public partial class GlobalSignals : Node
     [Signal]
     public delegate void DetnuraSystemRequestedEventHandler();
     [Signal]
-    public delegate void StarViewRequestedEventHandler(string name);
+    public delegate void StarViewRequestedEventHandler(StarSystemInfo systemInfo);
     
     
     
     // Star System Building
     [Signal]
-    public delegate void StarViewBuildRequestedEventHandler(string name);
+    public delegate void StarViewBuildRequestedEventHandler(StarSystemInfo systemInfo);
     [Signal]
     public delegate void DetnuraBuildRequestedEventHandler();
     

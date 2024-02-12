@@ -4,6 +4,7 @@ using Godot;
 using GloryOfRitiria;
 using GloryOfRitiria.Scripts;
 using GloryOfRitiria.Scripts.Global;
+using GloryOfRitiria.Scripts.Utils;
 
 
 // VBox container for all bodies. All bodies have the same stretch ratio (5 for example). 
@@ -15,7 +16,7 @@ public partial class star_system_view : Node2D
 
 	private int _currentStarIndex = 0;
 	
-	private string _name;
+	private StarSystemInfo _currentSystem;
 
 
 	// Called when the node enters the scene tree for the first time.
@@ -43,7 +44,7 @@ public partial class star_system_view : Node2D
 			var child = bodiesCont.GetChild(i);
 			child.QueueFree();
 		}
-		BuildSystemMap(_name);
+		BuildSystemMap(_currentSystem);
 		GD.Print("Pretend it updated the system view");
 		
 	}
@@ -53,19 +54,18 @@ public partial class star_system_view : Node2D
 	public void BuildDetnuraSystem()
 	{
 		GD.Print("Detnura Entered");
-		BuildSystemMap("Detnura");
+		BuildSystemMap(game_state.Detnura);
 	}
 	
-	public void BuildSystemMap(string name)
+	public void BuildSystemMap(StarSystemInfo starSystem)
 	{
 		GD.Print("System Map Build Initiated");
-		GetNode<RichTextLabel>("SystemName").Text = name;
-		_name = name;
+		GetNode<RichTextLabel>("SystemName").Text = starSystem.Name;
+		_currentSystem = starSystem;
 		
 		// TODO: Manage multiple stars
-		List<Star> stars;
-		game_state.AllStarSystems.TryGetValue(_name, out stars);
-		var star = stars[_currentStarIndex]; // always 0
+		List<Star> stars = starSystem.SystemStars;
+		var star = stars[_currentStarIndex]; // always 0 for now
 
 		var bodiesCont = GetNode<HBoxContainer>("BodiesHBox");
 		bodiesCont.GetNode<TextureRect>("StarVCont/StarMCont/StarImage").Texture = (Texture2D)GD.Load(star.ImagePath);
@@ -209,7 +209,7 @@ public partial class star_system_view : Node2D
 		var inst = (Panel) pallyriaScene.Instantiate();
 		
 		var title = inst.GetNode<RichTextLabel>("MCont/VBox/TitleExitHBox/Title");
-		title.Text = "[b]"+ body.Name +"[/b]\nMolten Planet";
+		title.Text = "[b]"+ body.Name +"[/b]\n" + body.BodyType;
 		
 		var image = inst.GetNode<TextureRect>("MCont/VBox/ImageMargin/PlanetImage");
 		image.Texture = (Texture2D)GD.Load(body.ImagePath);

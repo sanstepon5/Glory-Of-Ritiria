@@ -1,8 +1,11 @@
+using System;
 using System.Collections.Generic;
+using GloryOfRitiria.Scripts.Utils;
+using Godot;
 
 public class Star
 {
-    public string Id; 
+    /// <summary> Name of the star </summary>
     public string Name;
     public string StarType; // Better to make enum
     public string ImagePath; // Better to make enum
@@ -12,10 +15,19 @@ public class Star
 
     public ShipGroup InnerSpace;
 
-    public Star(string name, string imagePath){
+    public StarSystemInfo StarSystem;
+
+    public Star(string name, StarSystemInfo starSystem, string imagePath){
         Name = name;
+        StarSystem = starSystem;
         ImagePath = imagePath;
         Bodies = new List<CelestialBody>();
+    }
+
+    // For inherited classes
+    public Star()
+    {
+        
     }
 
     // Populate the bodies list with celestial bodies of this system
@@ -43,5 +55,5 @@ public class Star
     {
         InnerSpace = shipGroup;
     }
-
+    
 }

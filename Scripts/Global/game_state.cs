@@ -30,13 +30,20 @@ public partial class game_state : Node
 	// Current scene isn't a star system
 	public static List<Star> SelectedStarSystem = new();
 	
-	public static Dictionary<string, List<Star>> AllStarSystems = new();
+	/// <summary> List of star system that can be viewed by the player</summary>
+	public static List<StarSystemInfo> DiscoveredSystems = new();
+
+	public static StarSystemInfo Detnura;
 	
 	
 	public static SlotCollection ShipConstructionSlots = new();
 	public static List<Ship> AllShips = new();
 
 	public static Ship SelectedShip = null;
+	
+	
+	
+	
 	
 	public static GlobalSignals _signals;
 	
@@ -106,62 +113,65 @@ public partial class game_state : Node
 	// tmp function to create test star systems, until I make an actual parser and stars file
 	public static void Init()
 	{
+		// Init star systems
+		var solSystem = new StarSystemInfo("Sol", 4.22f, 30, StarSystemType.Sun);
+		var barnardSystem = new StarSystemInfo("Barnard's star", 7.82f, 170);
+		var detnuraSystem = new StarSystemInfo("Detnura-Aeria System", 0, 0, StarSystemType.Detnura);
+		Detnura = detnuraSystem;
+		DiscoveredSystems.Add(detnuraSystem);
+		DiscoveredSystems.Add(solSystem);
+		DiscoveredSystems.Add(barnardSystem);
+		
+		
+		
 		// Detnura
-		var detnuraSystem = new List<Star>();
-		var detnuraStar = new Star("Detnura", AssetsDir+"Img/tmp/CelestialBodies/star2.png");
+		var detnuraStar = new Star("Detnura", detnuraSystem, AssetsDir+"Img/tmp/CelestialBodies/star2.png");
 
-
-		CelestialBody pallyria = new CelestialBody("Pallyria", 10, AssetsDir + "Img/tmp/PlanetIcon.png",
+		// Detnura planets
+		var pallyria = new CelestialBody("Pallyria", detnuraStar, AssetsDir + "Img/tmp/PlanetIcon.png",
 			CelestialBodyType.Pallyria);
 		detnuraStar.AddCelestialBody(pallyria);
 		
-		detnuraStar.AddCelestialBody(new CelestialBody("Other Planet", 20, AssetsDir+"Img/tmp/CelestialBodies/icePlanet.png"));
+		detnuraStar.AddCelestialBody(new CelestialBody("Other Planet", detnuraStar, AssetsDir+"Img/tmp/CelestialBodies/icePlanet.png"));
 		
 		// Gas giant that has satellites
-		var gasGiant = new CelestialBody("Gas Giant", 30, AssetsDir + "Img/tmp/CelestialBodies/gasGiant.png");
-		var moon = new CelestialBody("Moon", 0, AssetsDir + "Img/tmp/CelestialBodies/icePlanet.png", true, true);
+		var gasGiant = new CelestialBody("Gas Giant", detnuraStar, AssetsDir + "Img/tmp/CelestialBodies/gasGiant.png");
+		var moon = new CelestialBody("Moon", detnuraStar, AssetsDir + "Img/tmp/CelestialBodies/icePlanet.png", true, true);
 		
 		//var shipGroup = new ShipGroup("Fleet 1", AssetsDir + "Icons/shipGroup.png");
 		//moon.AddShipGroup(shipGroup);
 		gasGiant.AddSatellite(moon);
-		gasGiant.AddSatellite(new CelestialBody("Moon 2", 0, AssetsDir + "Img/tmp/CelestialBodies/icePlanet.png", true, true));
+		gasGiant.AddSatellite(new CelestialBody("Moon 2", detnuraStar, AssetsDir + "Img/tmp/CelestialBodies/icePlanet.png", true, true));
 		detnuraStar.AddCelestialBody(gasGiant);
 		
-		var asteroid = new MinorBody("Asteroid", 0, AssetsDir + "Img/tmp/CelestialBodies/asteroid.png", false);
+		var asteroid = new CelestialBody("Asteroid", detnuraStar, AssetsDir + "Img/tmp/CelestialBodies/asteroid.png", true, true, CelestialBodyType.MinorBody);
 		detnuraStar.AddCelestialBody(asteroid);
 		
-		detnuraSystem.Add(detnuraStar);
+		detnuraSystem.SystemStars.Add(detnuraStar);
 		
 		
-		// Sun
-		var solSystem = new List<Star>();
-		var sunStar = new Star("Sun", AssetsDir+"Img/tmp/RedStar64.png");
-		sunStar.AddCelestialBody(new CelestialBody("Mercury", 10, AssetsDir+"Img/tmp/MoltenPlanet.png"));
-		sunStar.AddCelestialBody(new CelestialBody("Venus", 20, AssetsDir+"Img/tmp/MoltenPlanet.png"));
-		CelestialBody earth = new CelestialBody("Earth", 30, AssetsDir + "Img/tmp/CelestialBodies/liveablePlanet.png");
+		// Sol
+		var sunStar = new Star("Sun", solSystem, AssetsDir+"Img/tmp/RedStar64.png");
+		sunStar.AddCelestialBody(new CelestialBody("Mercury", sunStar, AssetsDir+"Img/tmp/MoltenPlanet.png"));
+		sunStar.AddCelestialBody(new CelestialBody("Venus", sunStar, AssetsDir+"Img/tmp/MoltenPlanet.png"));
+		var earth = new CelestialBody("Earth", sunStar, AssetsDir + "Img/tmp/CelestialBodies/liveablePlanet.png");
 		sunStar.AddCelestialBody(earth);
-		solSystem.Add(sunStar);
+		solSystem.SystemStars.Add(sunStar);
 		
 		// Barnard's star
-		var barnardSystem = new List<Star>();
-		var barnardStar = new Star("Barnard's star", AssetsDir+"Img/tmp/RedStar64.png");
-		barnardStar.AddCelestialBody(new CelestialBody("Something", 10, AssetsDir+"Img/tmp/CelestialBodies/icePlanet.png"));
-		barnardSystem.Add(barnardStar);
+		var barnardStar = new Star("Barnard's star", barnardSystem, AssetsDir+"Img/tmp/RedStar64.png");
+		barnardStar.AddCelestialBody(new CelestialBody("Something", barnardStar, AssetsDir+"Img/tmp/CelestialBodies/icePlanet.png"));
+		barnardSystem.SystemStars.Add(barnardStar);
 		
-		// TODO: I really need to redo all names and acces for stars/star sustems
-		AllStarSystems.Add("Detnura", detnuraSystem);
-		AllStarSystems.Add("Sun", solSystem);
-		AllStarSystems.Add("Barnard's star", barnardSystem);
 
 
-
-		Ship irana = new Ship("Irana", earth);
-		Ship baraba = new Ship("Baraba", pallyria, true);
+		var irana = new Ship("Irana", earth);
+		var baraba = new Ship("Baraba", pallyria, true);
 		AllShips.Add(irana);
 
 		//ShipConstructionSlot fullSlot = new ShipConstructionSlot(irana.Location, SlotState.Full, irana);
-		ShipConstructionSlot buildingSlot = new ShipConstructionSlot(pallyria, baraba, 7);
-		ShipConstructionSlot emptySlot = new ShipConstructionSlot(pallyria, SlotState.Empty);
+		var buildingSlot = new ShipConstructionSlot(pallyria, baraba, 7);
+		var emptySlot = new ShipConstructionSlot(pallyria, SlotState.Empty);
 		//ShipConstructionSlots.Add(fullSlot);
 		ShipConstructionSlots.Add(buildingSlot);
 		ShipConstructionSlots.Add(emptySlot);

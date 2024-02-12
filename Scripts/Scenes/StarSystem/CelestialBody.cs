@@ -5,14 +5,15 @@ using Godot;
 public enum CelestialBodyType
 {
     GenericPlanet,
+    MinorBody,
     Pallyria
 }
 
 public class CelestialBody
 {
     public string Name;
-    // Distance from its parent star, probably in AU
-    public float Distance;
+    // Parent Star
+    public Star Star;
     // Random planet, some specific planet, asteroid, station....
     public string ImagePath;
     public CelestialBodyType BodyType;
@@ -22,31 +23,22 @@ public class CelestialBody
     public bool IsSatellite;
     public List<CelestialBody> Satellites;
     public List<Ship> ShipsInOrbit = new(); //public ShipGroup ShipsInOrbit;
-
-
-    // Constructor for inherited classes
-    public CelestialBody()
-    {
-        
-    }
-
+    
     // Default constructor, for the system's main celestial bodies such as planets
-    public CelestialBody(string name, float distance, string imagePath, CelestialBodyType type = CelestialBodyType.GenericPlanet){
+    public CelestialBody(string name, Star star, string imagePath, CelestialBodyType type = CelestialBodyType.GenericPlanet){
         Name = name;
-        Distance = distance;
+        Star = star;
         ImagePath = imagePath;
         BodyType = type;
         HasSatellites = true;
         Satellites = new List<CelestialBody>();
         IsSatellite = false;
-
-        
     }
     
-    public CelestialBody(string name, float distance, string imagePath, bool hasSatellites, 
+    public CelestialBody(string name, Star star, string imagePath, bool hasSatellites, 
                          bool isSatellite, CelestialBodyType type = CelestialBodyType.GenericPlanet){
         Name = name;
-        Distance = distance;
+        Star = star;
         ImagePath = imagePath;
         BodyType = type;
         HasSatellites = hasSatellites;
@@ -71,6 +63,12 @@ public class CelestialBody
         //ShipsInOrbit = shipGroup;
     }
 
+    public static int ComputeDistanceInTurns(CelestialBody body1, CelestialBody body2, Ship ship)
+    {
+        
+        return 0;
+    }
+
     // Get the position of the body on the map using distance and angle
     // public Vector2 GetGlobalPosition()
     // {
@@ -88,18 +86,18 @@ public class CelestialBody
 }
 
 
-public class MinorBody : CelestialBody
-{
-    public MinorBody(string name, float distance, string imagePath, bool isSatellite, CelestialBodyType type = CelestialBodyType.GenericPlanet){
-        Name = name;
-        Distance = distance;
-        ImagePath = imagePath;
-        BodyType = type;
-        
-        HasSatellites = false;
-        IsSatellite = isSatellite;
-    }
-}
+// public class MinorBody : CelestialBody
+// {
+//     public MinorBody(string name, float distance, string imagePath, bool isSatellite, CelestialBodyType type = CelestialBodyType.GenericPlanet){
+//         Name = name;
+//         Distance = distance;
+//         ImagePath = imagePath;
+//         BodyType = type;
+//         
+//         HasSatellites = false;
+//         IsSatellite = isSatellite;
+//     }
+// }
 
 public class ShipGroup
 {

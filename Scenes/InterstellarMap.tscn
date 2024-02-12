@@ -17,6 +17,7 @@ offset_bottom = 5000.0
 color = Color(0, 0, 0, 1)
 
 [node name="DetnuraVBox" type="VBoxContainer" parent="."]
+visible = false
 offset_left = 891.0
 offset_top = 484.0
 offset_right = 971.0
@@ -47,16 +48,6 @@ grow_vertical = 2
 [node name="DistancesCenter" type="Control" parent="DetnuraVBox/MarginContainer/DetnuraButton/CenterContainer"]
 layout_mode = 2
 
-[node name="5LYCircle" parent="DetnuraVBox/MarginContainer/DetnuraButton/CenterContainer/DistancesCenter" instance=ExtResource("3_8alt7")]
-
-[node name="10LYCircle" parent="DetnuraVBox/MarginContainer/DetnuraButton/CenterContainer/DistancesCenter" instance=ExtResource("3_8alt7")]
-Radius = 500.0
-DistanceText = "10 Light Years"
-
-[node name="15LYCircle" parent="DetnuraVBox/MarginContainer/DetnuraButton/CenterContainer/DistancesCenter" instance=ExtResource("3_8alt7")]
-Radius = 750.0
-DistanceText = "15 Light Years"
-
 [node name="Name" type="RichTextLabel" parent="DetnuraVBox"]
 layout_mode = 2
 bbcode_enabled = true
@@ -65,3 +56,19 @@ fit_content = true
 
 [node name="MapCamera" parent="." instance=ExtResource("4_kicdb")]
 position = Vector2(960, 540)
+
+[node name="CirclesCenter" type="Node2D" parent="."]
+position = Vector2(891, 484)
+
+[node name="5LYCircle" parent="CirclesCenter" instance=ExtResource("3_8alt7")]
+position = Vector2(50, 48)
+
+[node name="10LYCircle" parent="CirclesCenter" instance=ExtResource("3_8alt7")]
+position = Vector2(50, 48)
+Radius = 500.0
+DistanceText = "10 Light Years"
+
+[node name="15LYCircle" parent="CirclesCenter" instance=ExtResource("3_8alt7")]
+position = Vector2(50, 48)
+Radius = 750.0
+DistanceText = "15 Light Years"

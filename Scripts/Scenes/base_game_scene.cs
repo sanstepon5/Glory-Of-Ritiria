@@ -2,6 +2,7 @@ using Godot;
 using System;
 using GloryOfRitiria;
 using GloryOfRitiria.Scripts.Global;
+using GloryOfRitiria.Scripts.Utils;
 
 public partial class base_game_scene : Node2D
 {
@@ -73,7 +74,8 @@ public partial class base_game_scene : Node2D
 	}
 	
 	// Load a scene with a specified path, background path, and optional signal emission
-	private async void LoadScene(string scenePath, string backgroundPath, string signal = null, params String[] signalArgs)
+	// TODO: refactor, too many different scenes to load
+	private async void LoadScene(string scenePath, string backgroundPath, string signal = null, StarSystemInfo systemInfo=null, params String[] signalArgs)
 	{
 		ClearScene(); // Clear old scene
 		
@@ -96,6 +98,10 @@ public partial class base_game_scene : Node2D
 			if (!signalArgs.IsEmpty())
 			{
 				_signals.EmitSignal(signal, signalArgs[0]);
+			}
+			else if (systemInfo != null)
+			{
+				_signals.EmitSignal(signal, systemInfo);
 			}
 			else _signals.EmitSignal(signal);
 		}
@@ -128,9 +134,9 @@ public partial class base_game_scene : Node2D
 	}	
 	
 	// Load a star system view scene
-	public void LoadSystemMap(string name)
+	public void LoadSystemMap(StarSystemInfo systemInfo)
 	{
-		LoadScene("res://Scenes/star_system_view.tscn", "res://Assets/Img/tmp/SystemBackGround.png", nameof(_signals.StarViewBuildRequested), name);
+		LoadScene("res://Scenes/star_system_view.tscn", "res://Assets/Img/tmp/SystemBackGround.png", nameof(_signals.StarViewBuildRequested), systemInfo);
 	}
 	
 	// Load the Pallyria scene

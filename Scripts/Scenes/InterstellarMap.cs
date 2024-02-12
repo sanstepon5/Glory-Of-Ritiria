@@ -2,12 +2,11 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using GloryOfRitiria;
+using GloryOfRitiria.Scripts.Global;
 using GloryOfRitiria.Scripts.Utils;
 
 public partial class InterstellarMap : Node2D
 {
-	/// <summary> List of star system that can be viewed by the player</summary>
-	public List<StarSystemInfo> DiscoveredSystems = new List<StarSystemInfo>();
 	private GlobalSignals _signals;
 	
 	// Called when the node enters the scene tree for the first time.
@@ -15,13 +14,9 @@ public partial class InterstellarMap : Node2D
 	{
 		_signals = GetNode<GlobalSignals>("/root/GlobalSignals");
 		
-		BuildDetnura();
+		//BuildDetnura();
 		
-		// TODO: Refactor the whole StarSystemInfo deal, especially with the name (add list of stars?)
-		DiscoveredSystems.Add(new StarSystemInfo("Sun", 4.22f, 30, StarSystemType.Sun));
-		DiscoveredSystems.Add(new StarSystemInfo("Barnard's star", 7.82f, 170));
-		
-		foreach (var starSystemInfo in DiscoveredSystems)
+		foreach (var starSystemInfo in game_state.DiscoveredSystems)
 		{
 			BuildSystem(starSystemInfo);
 		}
@@ -45,7 +40,7 @@ public partial class InterstellarMap : Node2D
 		systemButton.Pressed += () =>
 		{
 			GD.Print("StarViewRequested Emitted");
-			_signals.EmitSignal(nameof(_signals.StarViewRequested), systemInfo.Name);
+			_signals.EmitSignal(nameof(_signals.StarViewRequested), systemInfo);
 		};
 		
 		AddChild(starSystemInst);
@@ -53,11 +48,11 @@ public partial class InterstellarMap : Node2D
 
 	// It's better to somehow merge it into BuildSystem since the only difference with any other system
 	// Is it's position in the center and of an anchor to orbit lines but not today. 
-	public void BuildDetnura()
-	{
-		var systemButton = GetNode<TextureButton>("DetnuraVBox/MarginContainer/DetnuraButton");
-		systemButton.Pressed += () => _signals.EmitSignal(nameof(_signals.DetnuraSystemRequested));
-	}
+	// public void BuildDetnura()
+	// {
+	// 	var systemButton = GetNode<TextureButton>("DetnuraVBox/MarginContainer/DetnuraButton");
+	// 	systemButton.Pressed += () => _signals.EmitSignal(nameof(_signals.DetnuraSystemRequested));
+	// }
 	
 	
 }
