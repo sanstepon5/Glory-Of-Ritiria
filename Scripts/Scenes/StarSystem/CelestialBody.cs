@@ -14,8 +14,10 @@ public class CelestialBody
     public string Name;
     // Parent Star
     public Star Star;
-    // Random planet, some specific planet, asteroid, station....
-    public string ImagePath;
+
+    /// <summary> The distance from the star to this body in light minutes</summary>
+    public double Distance;
+    
     public CelestialBodyType BodyType;
     // Determines if body should display satellites
     public bool HasSatellites;
@@ -24,10 +26,15 @@ public class CelestialBody
     public List<CelestialBody> Satellites;
     public List<Ship> ShipsInOrbit = new(); //public ShipGroup ShipsInOrbit;
     
+    // Random planet, some specific planet, asteroid, station....
+    public string ImagePath;
+    
+    
     // Default constructor, for the system's main celestial bodies such as planets
-    public CelestialBody(string name, Star star, string imagePath, CelestialBodyType type = CelestialBodyType.GenericPlanet){
+    public CelestialBody(string name, Star star, double distance, string imagePath, CelestialBodyType type = CelestialBodyType.GenericPlanet){
         Name = name;
         Star = star;
+        Distance = distance;
         ImagePath = imagePath;
         BodyType = type;
         HasSatellites = true;
@@ -35,10 +42,12 @@ public class CelestialBody
         IsSatellite = false;
     }
     
-    public CelestialBody(string name, Star star, string imagePath, bool hasSatellites, 
+    public CelestialBody(string name, Star star, double distance, string imagePath, bool hasSatellites, 
                          bool isSatellite, CelestialBodyType type = CelestialBodyType.GenericPlanet){
         Name = name;
         Star = star;
+        //if (isSatellite) Distance = 
+        Distance = distance;
         ImagePath = imagePath;
         BodyType = type;
         HasSatellites = hasSatellites;
@@ -62,42 +71,7 @@ public class CelestialBody
         }
         //ShipsInOrbit = shipGroup;
     }
-
-    public static int ComputeDistanceInTurns(CelestialBody body1, CelestialBody body2, Ship ship)
-    {
-        
-        return 0;
-    }
-
-    // Get the position of the body on the map using distance and angle
-    // public Vector2 GetGlobalPosition()
-    // {
-    //     return new Vector2();
-    // }
-
-
-    // Functions that get information about the body based on id or something
-    // public string GetBodyImage(){
-    //     return "";
-    // }
-    // public string GetBodyDescription(){
-    //     return "";
-    // }
 }
-
-
-// public class MinorBody : CelestialBody
-// {
-//     public MinorBody(string name, float distance, string imagePath, bool isSatellite, CelestialBodyType type = CelestialBodyType.GenericPlanet){
-//         Name = name;
-//         Distance = distance;
-//         ImagePath = imagePath;
-//         BodyType = type;
-//         
-//         HasSatellites = false;
-//         IsSatellite = isSatellite;
-//     }
-// }
 
 public class ShipGroup
 {

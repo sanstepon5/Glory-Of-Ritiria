@@ -1,7 +1,5 @@
-using System;
 using System.Collections.Generic;
 using GloryOfRitiria.Scripts.Utils;
-using Godot;
 
 public class Star
 {
@@ -10,18 +8,23 @@ public class Star
     public string StarType; // Better to make enum
     public string ImagePath; // Better to make enum
 
-    // Celestial bodies in orbits of the star
+    /// <summary> Celestial bodies in orbits of the star </summary>
     public List<CelestialBody> Bodies;
 
-    public ShipGroup InnerSpace;
+    public CelestialBody InnerSpace;
 
     public StarSystemInfo StarSystem;
 
-    public Star(string name, StarSystemInfo starSystem, string imagePath){
+    /// <summary> The distance from the star to the edge of the system </summary>
+    public double OuterSpaceDistance;
+
+    public Star(string name, StarSystemInfo starSystem, double distance, string imagePath){
         Name = name;
         StarSystem = starSystem;
         ImagePath = imagePath;
         Bodies = new List<CelestialBody>();
+        InnerSpace = new CelestialBody("Inner Space",  this, distance,"res://Assets/Icons/cross.png");
+        OuterSpaceDistance = distance;
     }
 
     // For inherited classes
@@ -53,7 +56,7 @@ public class Star
 
     public void SetInnerSpaceShips(ShipGroup shipGroup)
     {
-        InnerSpace = shipGroup;
+        InnerSpace.AddShipGroup(shipGroup);
     }
     
 }
