@@ -11,7 +11,6 @@ public class Ship
     public ShipDesign Design;
     public Cargo ShipCargo;
     public double Speed; // fraction of the speed of light, initially 1% (From Kuiper Belt to Earth (50 A.U.) in a month
-    public bool InRoute;
     public Route CurrentRoute;
 
     public Ship(string name, CelestialBody body, bool inConstruction = false, string cargoName = "Default")
@@ -23,13 +22,11 @@ public class Ship
             SetLocation(body);
         Design = new ShipDesign();
         ShipCargo = new Cargo(cargoName);
-        InRoute = false;
         Speed = 0.01;
     }
 
     public void SetLocation(CelestialBody location)
     {
-        InRoute = true;
         if (Location != null)
             Location.ShipsInOrbit.Remove(this);
         
@@ -40,27 +37,30 @@ public class Ship
     public void StartRoute(CelestialBody destination)
     {
         CurrentRoute = new Route(this, Location, destination);
-        InRoute = true;
     }
 
-    public void Update()
+    // returns true if ship changed location
+    public bool Update()
     {
-        if (!InRoute) return;
+        if (CurrentRoute == null) return false;
+        var oldStatus = CurrentRoute.Status;
         CurrentRoute.Update();
         switch (CurrentRoute.Status)
         {
             case Route.RouteStatus.Arrived:
+                if (oldStatus == Route.RouteStatus.Arrived) return false;
                 SetLocation(CurrentRoute.DestinationBody);
-                InRoute = false;
                 CurrentRoute = null;
-                return;
+                return true;
             case Route.RouteStatus.InStartingSystem:
+                //if (oldStatus == Route.RouteStatus.InStartingSystem) return false;
                 SetLocation(CurrentRoute.StartingBody.Star.InnerSpace);
-                return;
+                return true;
             case Route.RouteStatus.InDestinationSystem:
+                if (oldStatus == Route.RouteStatus.InDestinationSystem) return false;
                 SetLocation(CurrentRoute.DestinationBody.Star.InnerSpace);
-                return;
-            default: return;
+                return true;
+            default: return false;
         }
     }
 }

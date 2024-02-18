@@ -39,14 +39,24 @@ public partial class star_system_view : Node2D
 	public void ResetSystem()
 	{
 		var bodiesCont = GetNode<HBoxContainer>("BodiesHBox");
+		// Clear planets (1 because first is the star)
 		for (int i = 1; i < bodiesCont.GetChildren().Count; i++)
 		{
 			var child = bodiesCont.GetChild(i);
 			child.QueueFree();
 		}
-		BuildSystemMap(_currentSystem);
-		GD.Print("Pretend it updated the system view");
 		
+		// Clear all ships in inner space
+		var innerShipsHBox = GetNode<HBoxContainer>("InnerSpaceVBox/CenterCont/HBox");
+		for (var i = 0; i < innerShipsHBox.GetChildren().Count; i++)
+		{
+			var child = innerShipsHBox.GetChild(i);
+			child.QueueFree();
+		}
+		
+		// Rebuild system map
+		BuildSystemMap(_currentSystem);
+		GD.Print("System view updated");
 	}
 
 	
@@ -83,11 +93,26 @@ public partial class star_system_view : Node2D
 		var lastBody = BuildCelestialBody(star.Bodies[i], true);
 		bodiesCont.AddChild(lastBody);
 
-		// if (star.InnerSpace is not null)
-		// {
-		// 	var innerSpaceCont = GetNode<CenterContainer>("InnerSpaceVBox/CenterContainer");
-		// 	innerSpaceCont.GetChildren()[0].QueueFree();
-		// }
+
+		var emptyImg = GetNode<TextureRect>("InnerSpaceVBox/CenterCont/TextureRect");
+		var innerShipsHBox = GetNode<HBoxContainer>("InnerSpaceVBox/CenterCont/HBox");
+		var innerShipsLabel = GetNode<Label>("InnerSpaceVBox/Label");
+		if (star.InnerSpace.ShipsInOrbit.Count == 0)
+		{
+			emptyImg.Visible = true;
+			innerShipsHBox.Visible = false;
+			innerShipsLabel.Text = "Inner Space - No ships in transit";
+		}
+		else
+		{
+			innerShipsHBox.Visible = true;
+			emptyImg.Visible = false;
+			foreach (var ship in star.InnerSpace.ShipsInOrbit)
+			{
+				innerShipsHBox.AddChild(BuildShipInst(ship));
+			}
+			innerShipsLabel.Text = $"Inner Space - {star.InnerSpace.ShipsInOrbit.Count} ships in transit";
+		}
 	}
 
 	private GridContainer BuildCelestialBody(CelestialBody body, bool lastBody = false)
@@ -228,8 +253,8 @@ public partial class star_system_view : Node2D
 			var sendButton = sendButtonMargin.GetNode<Button>("SendShipButton");
 			sendButton.Pressed += () =>
 			{
-				game_state.SelectedShip.SetLocation(body); 
-				_signals.EmitSignal(nameof(_signals.ShipMoved));
+				game_state.SelectedShip.StartRoute(body); 
+				_signals.EmitSignal(nameof(_signals.ShipStartedRoute));
 			};
 		}
 		

@@ -168,6 +168,7 @@ public partial class base_game_scene : Node2D
 		game_state.SetCurrentYear();
 		game_state.UpdateResources();
 		game_state.UpdateShipConstruction();
+		game_state.UpdateActiveShips();
 		TopBarUpdate();
 		// Maybe it would make sense to merge the two
 		UpdateEvents();

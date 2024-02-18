@@ -107,6 +107,17 @@ public partial class game_state : Node
 			}
 		}
 	}
+	
+	public static void UpdateActiveShips()
+	{
+		foreach (var ship in AllShips)
+		{
+			if (ship.Update()) // if ship changed location
+			{
+				_signals.EmitSignal(nameof(_signals.ShipMoved));
+			}
+		}
+	}
 
 
 
@@ -125,7 +136,7 @@ public partial class game_state : Node
 		
 		
 		// Detnura
-		var detnuraStar = new Star("Detnura", detnuraSystem, 70,AssetsDir+"Img/tmp/CelestialBodies/star2.png");
+		var detnuraStar = new Star("Detnura", detnuraSystem, 700,AssetsDir+"Img/tmp/CelestialBodies/star2.png");
 
 		// Detnura planets
 		var pallyria = new CelestialBody("Pallyria", detnuraStar, 5, AssetsDir + "Img/tmp/PlanetIcon.png",
@@ -151,7 +162,7 @@ public partial class game_state : Node
 		
 		
 		// Sol
-		var sunStar = new Star("Sun", solSystem, 50, AssetsDir+"Img/tmp/RedStar64.png");
+		var sunStar = new Star("Sun", solSystem, 500, AssetsDir+"Img/tmp/RedStar64.png");
 		sunStar.AddCelestialBody(new CelestialBody("Mercury", sunStar, 1, AssetsDir+"Img/tmp/MoltenPlanet.png"));
 		sunStar.AddCelestialBody(new CelestialBody("Venus", sunStar, 4, AssetsDir+"Img/tmp/MoltenPlanet.png"));
 		var earth = new CelestialBody("Earth", sunStar, 7, AssetsDir + "Img/tmp/CelestialBodies/liveablePlanet.png");

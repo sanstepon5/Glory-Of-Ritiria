@@ -61,6 +61,10 @@ public partial class GlobalSignals : Node
     [Signal]
     public delegate void ShipFinishedBuildingEventHandler();
     
+    
+    // Ship movement
     [Signal]
     public delegate void ShipMovedEventHandler();
+    [Signal]
+    public delegate void ShipStartedRouteEventHandler();
 }
