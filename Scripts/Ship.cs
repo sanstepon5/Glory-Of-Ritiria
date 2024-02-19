@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection.PortableExecutable;
+using GloryOfRitiria.Scripts.Global;
 using GloryOfRitiria.Scripts.Utils;
 
 namespace GloryOfRitiria.Scripts;
@@ -7,11 +8,15 @@ namespace GloryOfRitiria.Scripts;
 public class Ship
 {
     public string Name;
+    public string ImagePath;
     public CelestialBody Location;
     public ShipDesign Design;
     public Cargo ShipCargo;
     public double Speed; // fraction of the speed of light, initially 1% (From Kuiper Belt to Earth (50 A.U.) in a month
+    public bool Selected;
     public Route CurrentRoute;
+    public ShipState State;
+    
 
     public Ship(string name, CelestialBody body, bool inConstruction = false, string cargoName = "Default")
     {
@@ -23,6 +28,8 @@ public class Ship
         Design = new ShipDesign();
         ShipCargo = new Cargo(cargoName);
         Speed = 0.01;
+        Selected = false;
+        Update();
     }
 
     public void SetLocation(CelestialBody location)
@@ -37,12 +44,19 @@ public class Ship
     public void StartRoute(CelestialBody destination)
     {
         CurrentRoute = new Route(this, Location, destination);
+        State = ShipState.StartingRoute;
+        // Deselect ship after sending it
+        Selected = false;
+        game_state.SelectedShip = null;
     }
 
     // returns true if ship changed location
     public bool Update()
     {
+        _updateState();
+        _updateImage();
         if (CurrentRoute == null) return false;
+        
         var oldStatus = CurrentRoute.Status;
         CurrentRoute.Update();
         switch (CurrentRoute.Status)
@@ -63,6 +77,38 @@ public class Ship
             default: return false;
         }
     }
+
+    private void _updateState()
+    {
+        if (CurrentRoute is null) State = Selected ? ShipState.DockedSelected : ShipState.Docked;
+        else
+        {   // Better somehow put this inside Route, trough status or something
+            if (CurrentRoute.TotalTraveledDistance > 0) State = ShipState.InRoute;
+            else State = Selected ? ShipState.StartingRouteSelected : ShipState.StartingRoute;
+        }
+    }
+
+    private void _updateImage()
+    {
+        switch (State)
+        {
+            case ShipState.Docked: ImagePath = "res://Assets/Icons/ship.png"; break;
+            case ShipState.DockedSelected: ImagePath = "res://Assets/Icons/selectedShip.png"; break;
+            case ShipState.StartingRoute: ImagePath = "res://Assets/Icons/ShipInRoute.png"; break;
+            case ShipState.StartingRouteSelected: ImagePath = "res://Assets/Icons/selectedShipInRoute.png"; break;
+            case ShipState.InRoute: ImagePath = "res://Assets/Icons/ShipInRoute.png"; break;
+            default: ImagePath = "res://Assets/Icons/ship.png"; break;
+        }
+    }
+}
+
+public enum ShipState
+{
+    Docked,
+    DockedSelected,
+    StartingRoute,
+    StartingRouteSelected,
+    InRoute
 }
 
 public class Cargo

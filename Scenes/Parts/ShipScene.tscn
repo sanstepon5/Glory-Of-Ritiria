@@ -1,7 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://fm3famnomsj"]
+[gd_scene load_steps=3 format=3 uid="uid://fm3famnomsj"]
 
 [ext_resource type="Texture2D" uid="uid://b8u7yi37jw0t0" path="res://Assets/Icons/ship.png" id="1_ajbyg"]
-[ext_resource type="Texture2D" uid="uid://yotckc60ey1p" path="res://Assets/Icons/selectedShip.png" id="2_mlamr"]
 [ext_resource type="Texture2D" uid="uid://h3ligan0kne5" path="res://Assets/Icons/lineBetweenBodies.png" id="2_vrgrv"]
 
 [node name="ShipScene" type="GridContainer"]
@@ -17,9 +16,8 @@ theme_override_constants/margin_right = 30
 
 [node name="ShipButton" type="TextureButton" parent="ShipContainer/MarginContainer"]
 layout_mode = 2
-toggle_mode = true
 texture_normal = ExtResource("1_ajbyg")
-texture_pressed = ExtResource("2_mlamr")
+texture_pressed = ExtResource("1_ajbyg")
 texture_hover = ExtResource("1_ajbyg")
 texture_disabled = ExtResource("1_ajbyg")
 texture_focused = ExtResource("1_ajbyg")

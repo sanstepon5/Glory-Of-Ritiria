@@ -206,18 +206,24 @@ public partial class star_system_view : Node2D
 		var inst = (GridContainer)scene.Instantiate();
 		inst.GetNode<Label>("ShipContainer/ShipName").Text = ship.Name;
 
-		if (game_state.SelectedShip == ship)
-			inst.GetNode<TextureButton>("ShipContainer/MarginContainer/ShipButton").ButtonPressed = true;
-		else
-			inst.GetNode<TextureButton>("ShipContainer/MarginContainer/ShipButton").ButtonPressed = false;
+		var textureButton = inst.GetNode<TextureButton>("ShipContainer/MarginContainer/ShipButton");
+		textureButton.TextureNormal = (Texture2D)GD.Load(ship.ImagePath);
+		textureButton.TexturePressed = (Texture2D)GD.Load(ship.ImagePath);
+		textureButton.TextureHover = (Texture2D)GD.Load(ship.ImagePath);
+		textureButton.TextureHover = (Texture2D)GD.Load(ship.ImagePath);
+		// if (game_state.SelectedShip == ship)
+		// 	textureButton.ButtonPressed = true;
+		// else
+		// 	textureButton.ButtonPressed = false;
 
-		inst.GetNode<TextureButton>("ShipContainer/MarginContainer/ShipButton").Pressed += () =>
+		textureButton.Pressed += () =>
 		{
 			if (game_state.SelectedShip == ship)
 				game_state.SelectedShip = null;
 			else
 				game_state.SelectedShip = ship;
 			if (game_state.SelectedShip != null) GD.Print(game_state.SelectedShip.Name);
+			ship.Update();
 		};
 		
 		// Hide the white line
