@@ -112,7 +112,7 @@ public partial class game_state : Node
 	{
 		foreach (var ship in AllShips)
 		{
-			if (ship.Update()) // if ship changed location
+			if (ship.MovementUpdate()) // if ship changed location
 			{
 				_signals.EmitSignal(nameof(_signals.ShipMoved));
 			}

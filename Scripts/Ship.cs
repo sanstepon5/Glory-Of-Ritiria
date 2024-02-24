@@ -11,7 +11,7 @@ public class Ship
     public string ImagePath;
     public CelestialBody Location;
     public ShipDesign Design;
-    public Cargo ShipCargo;
+    //public Cargo ShipCargo;
     public double Speed; // fraction of the speed of light, initially 1% (From Kuiper Belt to Earth (50 A.U.) in a month
     public bool Selected;
     public Route CurrentRoute;
@@ -26,10 +26,26 @@ public class Ship
         else
             SetLocation(body);
         Design = new ShipDesign();
-        ShipCargo = new Cargo(cargoName);
+        //ShipCargo = new Cargo(cargoName);
         Speed = 0.01;
         Selected = false;
-        Update();
+        State = ShipState.Docked;
+        MovementUpdate();
+    }
+
+    public void ChangeSelected()
+    {
+        Selected = !Selected;
+
+        if (game_state.SelectedShip == null) 
+            game_state.SelectedShip = this;
+        else if (game_state.SelectedShip != this)  // Deselect previous ship and select current
+        {
+            game_state.SelectedShip.Selected = false;
+            game_state.SelectedShip = this;
+        }
+        else // If this ship was selected, deselect it
+            game_state.SelectedShip = null; 
     }
 
     public void SetLocation(CelestialBody location)
@@ -44,17 +60,19 @@ public class Ship
     public void StartRoute(CelestialBody destination)
     {
         CurrentRoute = new Route(this, Location, destination);
-        State = ShipState.StartingRoute;
         // Deselect ship after sending it
-        Selected = false;
-        game_state.SelectedShip = null;
-    }
-
-    // returns true if ship changed location
-    public bool Update()
-    {
+        //Selected = false;
+        //game_state.SelectedShip = null;
         _updateState();
         _updateImage();
+    }
+
+    // Handles ship update on new turn (when movement possible) returns true if ship changed location
+    public bool MovementUpdate()
+    {
+        SimpleUpdate();
+        bool changeLocation;
+        
         if (CurrentRoute == null) return false;
         
         var oldStatus = CurrentRoute.Status;
@@ -62,20 +80,33 @@ public class Ship
         switch (CurrentRoute.Status)
         {
             case Route.RouteStatus.Arrived:
-                if (oldStatus == Route.RouteStatus.Arrived) return false;
+                //if (oldStatus == Route.RouteStatus.Arrived) return false;
                 SetLocation(CurrentRoute.DestinationBody);
                 CurrentRoute = null;
-                return true;
+                changeLocation = true;
+                break;
             case Route.RouteStatus.InStartingSystem:
                 //if (oldStatus == Route.RouteStatus.InStartingSystem) return false;
                 SetLocation(CurrentRoute.StartingBody.Star.InnerSpace);
-                return true;
+                changeLocation = true;
+                break;
             case Route.RouteStatus.InDestinationSystem:
-                if (oldStatus == Route.RouteStatus.InDestinationSystem) return false;
+                if (oldStatus == Route.RouteStatus.InDestinationSystem) changeLocation = false;
                 SetLocation(CurrentRoute.DestinationBody.Star.InnerSpace);
-                return true;
-            default: return false;
+                changeLocation = true;
+                break;
+            default: changeLocation = false; break;
         }
+        
+        // maybe overkill...
+        SimpleUpdate();
+        return changeLocation;
+    }
+    
+    public void SimpleUpdate()
+    {
+        _updateState();
+        _updateImage();
     }
 
     private void _updateState()

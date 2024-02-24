@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Godot;
 using GloryOfRitiria;
+using GloryOfRitiria.Scenes.Parts;
 using GloryOfRitiria.Scripts;
 using GloryOfRitiria.Scripts.Global;
 using GloryOfRitiria.Scripts.Utils;
@@ -18,10 +19,13 @@ public partial class star_system_view : Node2D
 	
 	private StarSystemInfo _currentSystem;
 
+	private List<Ship> _shipsInSystem;
+
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		_shipsInSystem = new List<Ship>();
 		_signals = GetNode<GlobalSignals>("/root/GlobalSignals");
 		
 		_signals.Connect(nameof(_signals.DetnuraBuildRequested), new Callable(this, nameof(BuildDetnuraSystem)));
@@ -38,6 +42,8 @@ public partial class star_system_view : Node2D
 	// Should somehow add all the ships and stuff that were created that turn
 	public void ResetSystem()
 	{
+		_shipsInSystem = new List<Ship>();
+		
 		var bodiesCont = GetNode<HBoxContainer>("BodiesHBox");
 		// Clear planets (1 because first is the star)
 		for (int i = 1; i < bodiesCont.GetChildren().Count; i++)
@@ -109,6 +115,7 @@ public partial class star_system_view : Node2D
 			emptyImg.Visible = false;
 			foreach (var ship in star.InnerSpace.ShipsInOrbit)
 			{
+				_shipsInSystem.Add(ship);
 				innerShipsHBox.AddChild(BuildShipInst(ship));
 			}
 			innerShipsLabel.Text = $"Inner Space - {star.InnerSpace.ShipsInOrbit.Count} ships in transit";
@@ -176,6 +183,7 @@ public partial class star_system_view : Node2D
 			for (var i = 0; i < body.ShipsInOrbit.Count; i++)
 			{
 				var ship = body.ShipsInOrbit[i];
+				_shipsInSystem.Add(ship);
 				// TODO: Add vertical white lines
 				satellitesVCont.AddChild(BuildShipInst(ship, true));
 			}
@@ -187,6 +195,7 @@ public partial class star_system_view : Node2D
 			for (var i = 0; i < body.ShipsInOrbit.Count; i++)
 			{
 				var ship = body.ShipsInOrbit[i];
+				_shipsInSystem.Add(ship);
 				// last body
 				if (i == body.ShipsInOrbit.Count - 1)
 					satellitesHCont.AddChild(BuildShipInst(ship, true));
@@ -203,37 +212,42 @@ public partial class star_system_view : Node2D
 	{
 		// Set main body's properties
 		var scene = GD.Load<PackedScene>("res://Scenes/Parts/ShipScene.tscn");
-		var inst = (GridContainer)scene.Instantiate();
+		var inst = (ShipScene)scene.Instantiate();
 		inst.GetNode<Label>("ShipContainer/ShipName").Text = ship.Name;
-
+		
+		// Set textures of this ship instance (doing it here to avoid updating all instances)
+		ship.SimpleUpdate();
 		var textureButton = inst.GetNode<TextureButton>("ShipContainer/MarginContainer/ShipButton");
 		textureButton.TextureNormal = (Texture2D)GD.Load(ship.ImagePath);
 		textureButton.TexturePressed = (Texture2D)GD.Load(ship.ImagePath);
 		textureButton.TextureHover = (Texture2D)GD.Load(ship.ImagePath);
 		textureButton.TextureHover = (Texture2D)GD.Load(ship.ImagePath);
-		// if (game_state.SelectedShip == ship)
-		// 	textureButton.ButtonPressed = true;
-		// else
-		// 	textureButton.ButtonPressed = false;
 
-		textureButton.Pressed += () =>
-		{
-			if (game_state.SelectedShip == ship)
-				game_state.SelectedShip = null;
-			else
-				game_state.SelectedShip = ship;
-			if (game_state.SelectedShip != null) GD.Print(game_state.SelectedShip.Name);
-			ship.Update();
-		};
+		textureButton.Pressed += () => { _handleShipButtonPress(ship); };
 		
 		// Hide the white line
 		if (lastBody) inst.GetNode<MarginContainer>("NextLineHCont/MarginContainer").Visible = false;
+
+		inst.Ship = ship;
 		
 		return inst;
 	}
 
-	
-	
+	private void _handleShipButtonPress(Ship ship)
+	{
+		//if (ship.State == ShipState.InRoute) return;
+		if (game_state.SelectedShip != null) GD.Print("Current selected ship: "+game_state.SelectedShip.Name);
+		ship.ChangeSelected();
+		ship.SimpleUpdate();
+		foreach (var otherShip in _shipsInSystem)
+		{
+			if (ship == otherShip) continue;
+			otherShip.Selected = false;
+			otherShip.SimpleUpdate();
+		}
+		_signals.EmitSignal(nameof(_signals.ShipClicked)); // Update all ship scenes
+	}
+
 	private void PlanetButtonPressed(CelestialBody body)
 	{
 		var pallyriaScene = GD.Load<PackedScene>("res://Scenes/Parts/planet_info_window.tscn");
@@ -252,7 +266,7 @@ public partial class star_system_view : Node2D
 		};
 		
 		var sendButtonMargin = inst.GetNode<MarginContainer>("MCont/VBox/SendShipMargin");
-		if (game_state.SelectedShip == null)
+		if (game_state.SelectedShip == null || game_state.SelectedShip.State == ShipState.InRoute)
 			sendButtonMargin.Visible = false;
 		else
 		{
@@ -270,15 +284,4 @@ public partial class star_system_view : Node2D
 		// Pause the rest of the game while this window is active.
 		GetTree().Paused =  true;
 	}
-
-	// Loads objects of the Star at _currentStarIndex
-	/*public void InitStarSystem(){
-		GD.Print(game_state.SelectedStarSystem[_currentStarIndex])
-	}
-	// Removes all objects relative to the current system
-	public void ClearCurrentSystem(){}
-
-	public void NextStar(){ClearCurrentSystem(); _currentStarIndex++; InitStarSystem();}
-	public void PreviousStar(){ClearCurrentSystem(); _currentStarIndex--; InitStarSystem();}
-*/
 }
