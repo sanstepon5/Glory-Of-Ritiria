@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Reflection.PortableExecutable;
 using GloryOfRitiria.Scripts.Global;
 using GloryOfRitiria.Scripts.Utils;
 
@@ -31,6 +30,13 @@ public class Ship
         Selected = false;
         State = ShipState.Docked;
         MovementUpdate();
+    }
+
+    public bool IsInRouteTo(CelestialBody body)
+    {
+        if (CurrentRoute == null) return false;
+        if (CurrentRoute.DestinationBody == body) return true;
+        return false;
     }
 
     public void ChangeSelected()

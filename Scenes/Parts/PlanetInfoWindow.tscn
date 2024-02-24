@@ -1,11 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://bqjif7igb3uik"]
+[gd_scene load_steps=3 format=3 uid="uid://bqjif7igb3uik"]
 
-[ext_resource type="Texture2D" uid="uid://cbymyk3gj0gw0" path="res://icon.svg" id="1_ma2rb"]
+[ext_resource type="Script" path="res://Scenes/Parts/PlanetInfoWindow.cs" id="1_bujdy"]
+[ext_resource type="Texture2D" uid="uid://cbymyk3gj0gw0" path="res://icon.svg" id="2_sw1hl"]
 
 [node name="PlanetInfoPanel" type="Panel"]
 process_mode = 2
 offset_right = 350.0
 offset_bottom = 600.0
+script = ExtResource("1_bujdy")
 
 [node name="MCont" type="MarginContainer" parent="."]
 layout_mode = 0
@@ -50,7 +52,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.6
-texture = ExtResource("1_ma2rb")
+texture = ExtResource("2_sw1hl")
 
 [node name="Description" type="RichTextLabel" parent="MCont/VBox"]
 layout_mode = 2

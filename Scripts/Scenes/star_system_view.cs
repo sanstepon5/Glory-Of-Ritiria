@@ -250,8 +250,10 @@ public partial class star_system_view : Node2D
 
 	private void PlanetButtonPressed(CelestialBody body)
 	{
-		var pallyriaScene = GD.Load<PackedScene>("res://Scenes/Parts/planet_info_window.tscn");
-		var inst = (Panel) pallyriaScene.Instantiate();
+		var pallyriaScene = GD.Load<PackedScene>("res://Scenes/Parts/PlanetInfoWindow.tscn");
+		var inst = (PlanetInfoWindow) pallyriaScene.Instantiate();
+
+		inst.Body = body;
 		
 		var title = inst.GetNode<RichTextLabel>("MCont/VBox/TitleExitHBox/Title");
 		title.Text = "[b]"+ body.Name +"[/b]\n" + body.BodyType;
@@ -266,15 +268,25 @@ public partial class star_system_view : Node2D
 		};
 		
 		var sendButtonMargin = inst.GetNode<MarginContainer>("MCont/VBox/SendShipMargin");
-		if (game_state.SelectedShip == null || game_state.SelectedShip.State == ShipState.InRoute)
+		if (game_state.SelectedShip == null 
+			|| game_state.SelectedShip.State == ShipState.InRoute 
+			|| game_state.SelectedShip.Location == body)
 			sendButtonMargin.Visible = false;
 		else
 		{
 			var sendButton = sendButtonMargin.GetNode<Button>("SendShipButton");
+			 if (game_state.SelectedShip.IsInRouteTo(body))
+			 {
+			 	sendButton.Disabled = true;
+			 	sendButton.Text = game_state.SelectedShip.Name + " in route here";
+			 }
+			else sendButton.Disabled = false;
 			sendButton.Pressed += () =>
 			{
 				game_state.SelectedShip.StartRoute(body); 
 				_signals.EmitSignal(nameof(_signals.ShipStartedRoute));
+				sendButton.Disabled = true;
+				sendButton.Text = game_state.SelectedShip.Name + " is in route here";
 			};
 		}
 		
