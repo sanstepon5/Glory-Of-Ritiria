@@ -37,6 +37,7 @@ public partial class star_system_view : Node2D
 	private void PallyriaPressed()
 	{
 		_signals.EmitSignal(nameof(_signals.PallyriaClicked));
+		_signals.EmitSignal(nameof(_signals.InfoWindowClosed));
 	}
 
 	// Should somehow add all the ships and stuff that were created that turn
@@ -139,7 +140,7 @@ public partial class star_system_view : Node2D
 		inst.GetNode<TextureButton>("BodyContainer/MarginContainer/BodyButton").TexturePressed = (Texture2D)GD.Load(body.ImagePath);
 			
 		if (body.Name == "Pallyria")
-			inst.GetNode<TextureButton>("BodyContainer/MarginContainer/BodyButton").Pressed += PallyriaPressed;
+			inst.GetNode<TextureButton>("BodyContainer/MarginContainer/BodyButton").Pressed += () => PlanetButtonPressed(body, true);
 		else 
 			inst.GetNode<TextureButton>("BodyContainer/MarginContainer/BodyButton").Pressed += () => PlanetButtonPressed(body);
 		
@@ -248,52 +249,60 @@ public partial class star_system_view : Node2D
 		_signals.EmitSignal(nameof(_signals.ShipClicked)); // Update all ship scenes
 	}
 
-	private void PlanetButtonPressed(CelestialBody body)
+	private void PlanetButtonPressed(CelestialBody body, bool isPallyria = false)
 	{
 		var pallyriaScene = GD.Load<PackedScene>("res://Scenes/Parts/PlanetInfoWindow.tscn");
-		var inst = (PlanetInfoWindow) pallyriaScene.Instantiate();
+		var inst = (PlanetInfoWindow)pallyriaScene.Instantiate();
 
 		inst.Body = body;
-		
+
 		var title = inst.GetNode<RichTextLabel>("MCont/VBox/TitleExitHBox/Title");
-		title.Text = "[b]"+ body.Name +"[/b]\n" + body.BodyType;
-		
+		title.Text = "[b]" + body.Name + "[/b]\n" + body.BodyType;
+
 		var image = inst.GetNode<TextureRect>("MCont/VBox/ImageMargin/PlanetImage");
 		image.Texture = (Texture2D)GD.Load(body.ImagePath);
-		
+
 		var exitButton = inst.GetNode<Button>("MCont/VBox/TitleExitHBox/ExitButton");
 		exitButton.Pressed += () =>
 		{
 			_signals.EmitSignal(nameof(_signals.InfoWindowClosed));
 		};
-		
+
 		var sendButtonMargin = inst.GetNode<MarginContainer>("MCont/VBox/SendShipMargin");
-		if (game_state.SelectedShip == null 
-			|| game_state.SelectedShip.State == ShipState.InRoute 
-			|| game_state.SelectedShip.Location == body)
-			sendButtonMargin.Visible = false;
-		else
+		if (game_state.SelectedShip != null
+			&& game_state.SelectedShip.State != ShipState.InRoute
+			&& game_state.SelectedShip.Location != body)
 		{
+			sendButtonMargin.Visible = true;
 			var sendButton = sendButtonMargin.GetNode<Button>("SendShipButton");
-			 if (game_state.SelectedShip.IsInRouteTo(body))
-			 {
-			 	sendButton.Disabled = true;
-			 	sendButton.Text = game_state.SelectedShip.Name + " in route here";
-			 }
+			if (game_state.SelectedShip.IsInRouteTo(body))
+			{
+				sendButton.Disabled = true;
+				sendButton.Text = game_state.SelectedShip.Name + " in route here";
+			}
 			else sendButton.Disabled = false;
+
 			sendButton.Pressed += () =>
 			{
-				game_state.SelectedShip.StartRoute(body); 
+				game_state.SelectedShip.StartRoute(body);
 				_signals.EmitSignal(nameof(_signals.ShipStartedRoute));
 				sendButton.Disabled = true;
 				sendButton.Text = game_state.SelectedShip.Name + " is in route here";
 			};
 		}
-		
+
+		if (isPallyria)
+		{
+			var toPallyriaMargin = inst.GetNode<MarginContainer>("MCont/VBox/ToPallyriaMargin");
+			toPallyriaMargin.Visible = true;
+			var toPallyriaButton = toPallyriaMargin.GetNode<Button>("ToPallyriaButton");
+			toPallyriaButton.Pressed += PallyriaPressed;
+		}
+
 		// Add inst to the infoWindow control node in base scene UI canvas node
 		_signals.EmitSignal(nameof(_signals.PlanetInfoWindowRequested), inst);
-		
+
 		// Pause the rest of the game while this window is active.
-		GetTree().Paused =  true;
+		GetTree().Paused = true;
 	}
 }

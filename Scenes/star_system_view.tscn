@@ -10,8 +10,8 @@ script = ExtResource("2_s55j1")
 [node name="BodiesHBox" type="HBoxContainer" parent="."]
 offset_left = 106.0
 offset_top = 288.0
-offset_right = 644.0
-offset_bottom = 414.0
+offset_right = 732.0
+offset_bottom = 501.0
 
 [node name="StarVCont" type="VBoxContainer" parent="BodiesHBox"]
 layout_mode = 2

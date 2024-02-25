@@ -153,12 +153,7 @@ public partial class base_game_scene : Node2D
 		var currentScene = GetNode<Node2D>("CurrentScene");
 		if (currentScene.GetChildren().Count > 0)
 		{
-			// Get the scene Node (Pallyria, Interstellar...). It should always be the only child.
-			// It's possible to change scene multiple times within a single frame so...
-			// Well I guess that's what's happening
-			
 			currentScene.GetChild<Node2D>(0).QueueFree();
-			
 		}
 	}
 	
