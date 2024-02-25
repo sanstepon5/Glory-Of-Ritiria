@@ -226,7 +226,7 @@ public partial class base_game_scene : Node2D
 		_eventContainer.AddChild(multiEventInst);
 	}	
 	
-	public void AddPlanetInfoWindow(Panel window)
+	public void AddPlanetInfoWindow(PanelContainer window)
 	{
 		_infoWindowContainer.Visible = true;
 		_infoWindowContainer.AddChild(window);

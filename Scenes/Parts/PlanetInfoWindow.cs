@@ -3,7 +3,7 @@ using System;
 using GloryOfRitiria;
 using GloryOfRitiria.Scripts.Global;
 
-public partial class PlanetInfoWindow : Panel
+public partial class PlanetInfoWindow : PanelContainer
 {
 	private GlobalSignals _signals;
 	public CelestialBody Body;

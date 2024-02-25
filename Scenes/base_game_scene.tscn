@@ -30,10 +30,12 @@ offset_bottom = 624.0
 
 [node name="InfoWindowControl" type="MarginContainer" parent="UICanvas"]
 visible = false
-offset_left = 1443.0
-offset_top = 77.0
+offset_left = 1522.0
+offset_top = 75.0
 offset_right = 1920.0
 offset_bottom = 813.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="EventWindowControl" type="MarginContainer" parent="UICanvas"]
 visible = false

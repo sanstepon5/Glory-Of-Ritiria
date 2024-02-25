@@ -3,16 +3,14 @@
 [ext_resource type="Script" path="res://Scenes/Parts/PlanetInfoWindow.cs" id="1_bujdy"]
 [ext_resource type="Texture2D" uid="uid://cbymyk3gj0gw0" path="res://icon.svg" id="2_sw1hl"]
 
-[node name="PlanetInfoPanel" type="Panel"]
+[node name="PlanetInfoPanel" type="PanelContainer"]
 process_mode = 2
 offset_right = 350.0
 offset_bottom = 600.0
 script = ExtResource("1_bujdy")
 
 [node name="MCont" type="MarginContainer" parent="."]
-layout_mode = 0
-offset_right = 350.0
-offset_bottom = 600.0
+layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
@@ -60,6 +58,7 @@ size_flags_vertical = 3
 text = "Second planet from Detnura, Pallyria is home to the civilization of Orassi, \"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\""
 
 [node name="ButtonMargin" type="MarginContainer" parent="MCont/VBox"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.3
