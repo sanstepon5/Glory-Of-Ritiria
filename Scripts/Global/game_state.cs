@@ -141,6 +141,8 @@ public partial class game_state : Node
 		// Detnura planets
 		var pallyria = new CelestialBody("Pallyria", detnuraStar, 5, AssetsDir + "Img/tmp/PlanetIcon.png",
 			CelestialBodyType.Pallyria);
+		pallyria.AddDockyard("Eradian Shipyard");
+		pallyria.AddDockyard("Sokhil Shipyard");
 		detnuraStar.AddCelestialBody(pallyria);
 		
 		detnuraStar.AddCelestialBody(new CelestialBody("Other Planet",  detnuraStar, 15,AssetsDir+"Img/tmp/CelestialBodies/icePlanet.png"));
@@ -166,6 +168,7 @@ public partial class game_state : Node
 		sunStar.AddCelestialBody(new CelestialBody("Mercury", sunStar, 1, AssetsDir+"Img/tmp/MoltenPlanet.png"));
 		sunStar.AddCelestialBody(new CelestialBody("Venus", sunStar, 4, AssetsDir+"Img/tmp/MoltenPlanet.png"));
 		var earth = new CelestialBody("Earth", sunStar, 7, AssetsDir + "Img/tmp/CelestialBodies/liveablePlanet.png");
+		earth.AddDockyard("UNOOSA European Dockyard");
 		sunStar.AddCelestialBody(earth);
 		solSystem.SystemStars.Add(sunStar);
 		

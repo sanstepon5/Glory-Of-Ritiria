@@ -1,8 +1,5 @@
 using Godot;
-using System;
-using System.Collections.Generic;
 using GloryOfRitiria;
-using GloryOfRitiria.Scripts;
 using GloryOfRitiria.Scripts.Global;
 using GloryOfRitiria.Scripts.Utils;
 
@@ -41,7 +38,6 @@ public partial class SlotList : GridContainer
 					break;
 			}
 		}
-		
 	}
 
 	public PanelContainer BuildFullSlot(ShipConstructionSlot slot)
@@ -115,7 +111,7 @@ public partial class SlotList : GridContainer
 		_slots = game_state.ShipConstructionSlots;
 		FillSlots();
 	}
-
+	
 	public void RequestOpenConstructionWindow(ShipConstructionSlot slot)
 	{
 		_signals.EmitSignal(nameof(_signals.ConstructionWindowRequested), slot);

@@ -1,0 +1,65 @@
+[gd_scene load_steps=5 format=3 uid="uid://cmgmkov212lej"]
+
+[ext_resource type="Texture2D" uid="uid://bngbobnj0khap" path="res://Assets/GUI/Icons/32/liveablePlanet.png" id="1_xqo6d"]
+[ext_resource type="Texture2D" uid="uid://yotckc60ey1p" path="res://Assets/Icons/selectedShip.png" id="2_dld5d"]
+[ext_resource type="Texture2D" uid="uid://fa48q1y1x4dd" path="res://Assets/Icons/ShipInRoute.png" id="3_spp2s"]
+[ext_resource type="Texture2D" uid="uid://b8u7yi37jw0t0" path="res://Assets/Icons/ship.png" id="4_ey2bd"]
+
+[node name="HangarMenu" type="PanelContainer"]
+offset_left = 7.0
+offset_top = 6.0
+offset_right = 307.0
+offset_bottom = 415.0
+
+[node name="VBox" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="BackMargin" type="MarginContainer" parent="VBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 0
+
+[node name="Button" type="Button" parent="VBox/BackMargin"]
+layout_mode = 2
+text = "Back to Pallyria"
+icon = ExtResource("1_xqo6d")
+
+[node name="ConstructionMargin" type="MarginContainer" parent="VBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 0
+
+[node name="Button" type="Button" parent="VBox/ConstructionMargin"]
+layout_mode = 2
+disabled = true
+text = "Ship Construction Bureau"
+icon = ExtResource("2_dld5d")
+
+[node name="DesignMargin" type="MarginContainer" parent="VBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 0
+
+[node name="Button" type="Button" parent="VBox/DesignMargin"]
+layout_mode = 2
+text = "Ship Design Bureau"
+icon = ExtResource("3_spp2s")
+
+[node name="FleetMargin" type="MarginContainer" parent="VBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 0
+
+[node name="Button" type="Button" parent="VBox/FleetMargin"]
+layout_mode = 2
+text = "Imperial Fleet Bureau"
+icon = ExtResource("4_ey2bd")

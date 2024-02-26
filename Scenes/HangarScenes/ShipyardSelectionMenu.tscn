@@ -1,0 +1,87 @@
+[gd_scene load_steps=2 format=3 uid="uid://colw3bv0dgf7u"]
+
+[ext_resource type="Texture2D" uid="uid://cygkd1k37vx86" path="res://Assets/Img/tmp/CelestialBodies/liveablePlanet.png" id="1_85763"]
+
+[node name="ShipyardSelectionMenu" type="PanelContainer"]
+offset_left = 329.0
+offset_top = 7.0
+offset_right = 1916.0
+offset_bottom = 85.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="PlanetMargin" type="MarginContainer" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 10
+
+[node name="VBox" type="VBoxContainer" parent="HBoxContainer/PlanetMargin"]
+layout_mode = 2
+
+[node name="PlanetLabel" type="Label" parent="HBoxContainer/PlanetMargin/VBox"]
+layout_mode = 2
+text = "Pallyria"
+
+[node name="ShipyardsHBox" type="HBoxContainer" parent="HBoxContainer/PlanetMargin/VBox"]
+layout_mode = 2
+
+[node name="ButtonMargin" type="MarginContainer" parent="HBoxContainer/PlanetMargin/VBox/ShipyardsHBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Button" type="Button" parent="HBoxContainer/PlanetMargin/VBox/ShipyardsHBox/ButtonMargin"]
+layout_mode = 2
+icon = ExtResource("1_85763")
+
+[node name="NamesVBox" type="VBoxContainer" parent="HBoxContainer/PlanetMargin/VBox/ShipyardsHBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/PlanetMargin/VBox/ShipyardsHBox/NamesVBox"]
+layout_mode = 2
+text = "Eradian Shipyard"
+
+[node name="Label2" type="Label" parent="HBoxContainer/PlanetMargin/VBox/ShipyardsHBox/NamesVBox"]
+layout_mode = 2
+text = "Sokhil Shipyard"
+
+[node name="PlanetMargin2" type="MarginContainer" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 10
+
+[node name="VBox" type="VBoxContainer" parent="HBoxContainer/PlanetMargin2"]
+layout_mode = 2
+
+[node name="PlanetLabel" type="Label" parent="HBoxContainer/PlanetMargin2/VBox"]
+layout_mode = 2
+text = "Earth"
+
+[node name="ShipyardsHBox" type="HBoxContainer" parent="HBoxContainer/PlanetMargin2/VBox"]
+layout_mode = 2
+
+[node name="ButtonMargin" type="MarginContainer" parent="HBoxContainer/PlanetMargin2/VBox/ShipyardsHBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Button" type="Button" parent="HBoxContainer/PlanetMargin2/VBox/ShipyardsHBox/ButtonMargin"]
+layout_mode = 2
+icon = ExtResource("1_85763")
+
+[node name="NamesVBox" type="VBoxContainer" parent="HBoxContainer/PlanetMargin2/VBox/ShipyardsHBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/PlanetMargin2/VBox/ShipyardsHBox/NamesVBox"]
+layout_mode = 2
+text = "UNOOSA European Dockyard"

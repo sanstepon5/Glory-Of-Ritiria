@@ -67,11 +67,6 @@ public partial class base_game_scene : Node2D
 		};
 
 	}
-
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
 	
 	// Load a scene with a specified path, background path, and optional signal emission
 	// TODO: refactor, too many different scenes to load
@@ -124,7 +119,7 @@ public partial class base_game_scene : Node2D
 	
 	public void LoadHangar()
 	{
-		LoadScene("res://Scenes/HangarScenes/HangarScene.tscn", "");
+		LoadScene("res://Scenes/HangarScenes/HangarScene.tscn", "res://Assets/Img/tmp/hangar.jpg");
 	}
 	
 	// Load the Detnura scene

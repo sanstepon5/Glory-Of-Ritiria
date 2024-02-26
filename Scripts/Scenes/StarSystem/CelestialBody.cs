@@ -28,6 +28,8 @@ public class CelestialBody
     
     // Random planet, some specific planet, asteroid, station....
     public string ImagePath;
+
+    public List<Dockyard> Dockyards = new();
     
     
     // Default constructor, for the system's main celestial bodies such as planets
@@ -70,6 +72,21 @@ public class CelestialBody
             ShipsInOrbit.Add(ship);
         }
         //ShipsInOrbit = shipGroup;
+    }
+
+    public void AddDockyard(string name)
+    {
+        Dockyards.Add(new Dockyard(name));
+    }
+}
+
+public class Dockyard
+{
+    public string Name;
+
+    public Dockyard(string name)
+    {
+        Name = name;
     }
 }
 

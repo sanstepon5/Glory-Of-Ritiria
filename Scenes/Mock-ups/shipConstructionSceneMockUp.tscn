@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://bgipxs3u8u5to"]
 
-[ext_resource type="Texture2D" uid="uid://cygkd1k37vx86" path="res://Assets/Img/tmp/CelestialBodies/liveablePlanet.png" id="1_eetvc"]
-[ext_resource type="Texture2D" uid="uid://bxqr26xuwbbxx" path="res://Assets/Img/tmp/CelestialBodies/asteroid.png" id="2_w4rkg"]
+[ext_resource type="PackedScene" uid="uid://cmgmkov212lej" path="res://Scenes/HangarScenes/HangarMenu.tscn" id="1_vuyae"]
+[ext_resource type="PackedScene" uid="uid://colw3bv0dgf7u" path="res://Scenes/HangarScenes/ShipyardSelectionMenu.tscn" id="2_t0ujg"]
 [ext_resource type="Script" path="res://Scenes/HangarScenes/SlotList.cs" id="3_ykkvc"]
 [ext_resource type="PackedScene" uid="uid://5qlac6unyqey" path="res://Scenes/Slots/ProgressShipSlot.tscn" id="4_h3ivi"]
 [ext_resource type="PackedScene" uid="uid://cm2m3bf5oiyn4" path="res://Scenes/Slots/EmptyShipSlot.tscn" id="5_ju4jq"]
@@ -11,144 +11,9 @@
 
 [node name="Node2D" type="Node2D"]
 
-[node name="Panel" type="Panel" parent="."]
-offset_left = 7.0
-offset_top = 6.0
-offset_right = 248.0
-offset_bottom = 461.0
+[node name="HangarMenu" parent="." instance=ExtResource("1_vuyae")]
 
-[node name="Button" type="Button" parent="Panel"]
-layout_mode = 0
-offset_left = 21.0
-offset_top = 35.0
-offset_right = 227.0
-offset_bottom = 120.0
-disabled = true
-text = "Ship Construction Bureau"
-
-[node name="Button2" type="Button" parent="Panel"]
-layout_mode = 0
-offset_left = 21.0
-offset_top = 134.0
-offset_right = 227.0
-offset_bottom = 219.0
-text = "Ship Design Bureau"
-
-[node name="Button3" type="Button" parent="Panel"]
-layout_mode = 0
-offset_left = 23.0
-offset_top = 239.0
-offset_right = 229.0
-offset_bottom = 324.0
-text = "Imperial Fleet Bureau"
-
-[node name="Button4" type="Button" parent="Panel"]
-layout_mode = 0
-offset_left = 20.0
-offset_top = 351.0
-offset_right = 226.0
-offset_bottom = 436.0
-text = "Imperial Fleet Bureau"
-
-[node name="Label" type="Label" parent="Panel"]
-layout_mode = 0
-offset_left = 73.0
-offset_top = 2.0
-offset_right = 173.0
-offset_bottom = 36.0
-text = "All Icons"
-
-[node name="ReferenceRect" type="ReferenceRect" parent="Panel"]
-layout_mode = 0
-offset_top = 33.0
-offset_right = 238.0
-offset_bottom = 119.0
-
-[node name="Panel2" type="Panel" parent="."]
-offset_left = 320.0
-offset_top = 7.0
-offset_right = 1907.0
-offset_bottom = 85.0
-
-[node name="Button" type="Button" parent="Panel2"]
-layout_mode = 0
-offset_left = 6.0
-offset_top = 5.0
-offset_right = 384.0
-offset_bottom = 73.0
-disabled = true
-text = "Eradian Shipyard"
-
-[node name="TextureRect" type="TextureRect" parent="Panel2/Button"]
-layout_mode = 0
-offset_left = -6.0
-offset_top = -5.0
-offset_right = 58.0
-offset_bottom = 59.0
-texture = ExtResource("1_eetvc")
-
-[node name="Label" type="Label" parent="Panel2/Button"]
-layout_mode = 0
-offset_left = 64.0
-offset_top = -5.0
-offset_right = 264.0
-offset_bottom = 39.0
-text = "Pallyria"
-
-[node name="ReferenceRect" type="ReferenceRect" parent="Panel2/Button"]
-layout_mode = 0
-offset_left = -6.0
-offset_top = -9.0
-offset_right = 384.0
-offset_bottom = 79.0
-
-[node name="Button2" type="Button" parent="Panel2"]
-layout_mode = 0
-offset_left = 416.0
-offset_top = 7.0
-offset_right = 797.0
-offset_bottom = 70.0
-text = "Sokhil Shipyard"
-
-[node name="TextureRect" type="TextureRect" parent="Panel2/Button2"]
-layout_mode = 0
-offset_left = -6.0
-offset_top = -5.0
-offset_right = 58.0
-offset_bottom = 59.0
-texture = ExtResource("1_eetvc")
-
-[node name="Label" type="Label" parent="Panel2/Button2"]
-layout_mode = 0
-offset_left = 64.0
-offset_top = -5.0
-offset_right = 264.0
-offset_bottom = 39.0
-text = "Pallyria"
-
-[node name="Button3" type="Button" parent="Panel2"]
-layout_mode = 0
-offset_left = 824.0
-offset_top = 4.0
-offset_right = 1194.0
-offset_bottom = 70.0
-text = "Somewhere in space Shipyard"
-
-[node name="TextureRect" type="TextureRect" parent="Panel2/Button3"]
-layout_mode = 0
-offset_left = -6.0
-offset_top = -5.0
-offset_right = 58.0
-offset_bottom = 59.0
-texture = ExtResource("2_w4rkg")
-
-[node name="Label" type="Label" parent="Panel2/Button3"]
-layout_mode = 0
-offset_left = 64.0
-offset_top = -5.0
-offset_right = 264.0
-offset_bottom = 39.0
-text = "Asteroid bla-bla"
+[node name="ShipyardSelectionMenu" parent="." instance=ExtResource("2_t0ujg")]
 
 [node name="SlotList" type="GridContainer" parent="."]
 offset_left = 8.0
@@ -198,7 +63,7 @@ offset_bottom = 1077.0
 texture = ExtResource("7_7b62n")
 
 [node name="ShipConstructionWindow" parent="." instance=ExtResource("8_qm44h")]
-offset_left = 1436.0
-offset_top = 118.0
-offset_right = 1893.0
-offset_bottom = 774.0
+offset_left = 1454.0
+offset_top = 144.0
+offset_right = 1911.0
+offset_bottom = 800.0
