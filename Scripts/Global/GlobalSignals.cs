@@ -11,7 +11,9 @@ public partial class GlobalSignals : Node
     [Signal]
     public delegate void PallyriaClickedEventHandler();
     [Signal]
-    public delegate void HangarButtonClickedEventHandler();
+    public delegate void ShipyardsButtonClickedEventHandler();
+    [Signal]
+    public delegate void FleetBureauButtonClickedEventHandler();
     [Signal]
     public delegate void DetnuraSystemRequestedEventHandler();
     [Signal]

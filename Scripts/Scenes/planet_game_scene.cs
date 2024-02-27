@@ -15,13 +15,19 @@ public partial class planet_game_scene : Node2D
 		var incButton = GetNode<Button>("IncRes1Button");
 		incButton.Pressed += OnIncButtonPressed;
 		
-		var hangarButton = GetNode<Button>("HangarButton");
-		hangarButton.Pressed += OnHangarButtonPressed;
+		var phoneButton = GetNode<MenuButton>("PhoneButton");
+		phoneButton.GetPopup().Connect("id_pressed", new Callable(this, nameof(_popupProcess)));
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
+
+	private void _popupProcess(int id)
 	{
+		switch (id)
+		{
+			case 0: _signals.EmitSignal(nameof(_signals.ShipyardsButtonClicked)); break;
+			case 1: _signals.EmitSignal(nameof(_signals.FleetBureauButtonClicked)); break;
+			default: GD.Print("Err"); break;
+		}
 	}
 	
 	public override void _Input(InputEvent @event)
@@ -43,8 +49,4 @@ public partial class planet_game_scene : Node2D
 		_signals.EmitSignal(nameof(_signals.TopBarUpdateRequired));
 	}
 
-	public void OnHangarButtonPressed()
-	{
-		_signals.EmitSignal(nameof(_signals.HangarButtonClicked));
-	}
 }

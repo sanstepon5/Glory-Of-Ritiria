@@ -38,7 +38,8 @@ public partial class base_game_scene : Node2D
 		TopBarUpdate();
 
 		_signals.Connect(nameof(_signals.SkyClicked), new Callable(this, nameof(LoadDetnuraMap)));
-		_signals.Connect(nameof(_signals.HangarButtonClicked), new Callable(this, nameof(LoadHangar)));
+		_signals.Connect(nameof(_signals.ShipyardsButtonClicked), new Callable(this, nameof(LoadShipyards)));
+		_signals.Connect(nameof(_signals.FleetBureauButtonClicked), new Callable(this, nameof(LoadFleetBureau)));
 		_signals.Connect(nameof(_signals.DetnuraSystemRequested), new Callable(this, nameof(LoadDetnuraMap)));
 		
 		_signals.Connect(nameof(_signals.StarViewRequested), new Callable(this, nameof(LoadSystemMap)));
@@ -117,9 +118,14 @@ public partial class base_game_scene : Node2D
 		LoadScene("res://Scenes/planet_game_scene.tscn", "res://Assets/Img/tmp/PallyriaOffice.png");
 	}
 	
-	public void LoadHangar()
+	public void LoadShipyards()
 	{
 		LoadScene("res://Scenes/HangarScenes/HangarScene.tscn", "res://Assets/Img/tmp/hangar.jpg");
+	}
+	
+	public void LoadFleetBureau()
+	{
+		LoadScene("res://Scenes/Mock-ups/shipConstructionSceneMockUp.tscn", "res://Assets/Img/tmp/hangar.jpg");
 	}
 	
 	// Load the Detnura scene
