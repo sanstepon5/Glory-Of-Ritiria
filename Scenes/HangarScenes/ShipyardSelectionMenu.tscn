@@ -38,6 +38,7 @@ theme_override_constants/margin_bottom = 10
 
 [node name="Button" type="Button" parent="HBoxContainer/PlanetMargin/VBox/ShipyardsHBox/ButtonMargin"]
 layout_mode = 2
+toggle_mode = true
 icon = ExtResource("1_85763")
 
 [node name="NamesVBox" type="VBoxContainer" parent="HBoxContainer/PlanetMargin/VBox/ShipyardsHBox"]
@@ -77,6 +78,7 @@ theme_override_constants/margin_bottom = 10
 
 [node name="Button" type="Button" parent="HBoxContainer/PlanetMargin2/VBox/ShipyardsHBox/ButtonMargin"]
 layout_mode = 2
+toggle_mode = true
 icon = ExtResource("1_85763")
 
 [node name="NamesVBox" type="VBoxContainer" parent="HBoxContainer/PlanetMargin2/VBox/ShipyardsHBox"]

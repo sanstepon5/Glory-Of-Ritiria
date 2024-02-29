@@ -1,9 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://cm2m3bf5oiyn4"]
+[gd_scene load_steps=2 format=3 uid="uid://cm2m3bf5oiyn4"]
 
 [ext_resource type="Texture2D" uid="uid://dwrykn3365u8g" path="res://Assets/Icons/cross.png" id="2_2bnlt"]
-[ext_resource type="Texture2D" uid="uid://cygkd1k37vx86" path="res://Assets/Img/tmp/CelestialBodies/liveablePlanet.png" id="3_kfmfe"]
 
 [node name="EmptyShipSlot" type="PanelContainer"]
+offset_right = 313.0
+offset_bottom = 215.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -18,30 +19,15 @@ theme_override_constants/margin_bottom = 10
 [node name="VBox" type="VBoxContainer" parent="MCont"]
 layout_mode = 2
 
-[node name="TopHBox" type="HBoxContainer" parent="MCont/VBox"]
-layout_mode = 2
-size_flags_vertical = 3
-
 [node name="AddButton" type="TextureButton" parent="MCont/VBox"]
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 3.0
+size_flags_stretch_ratio = 4.0
 texture_normal = ExtResource("2_2bnlt")
 stretch_mode = 3
 
-[node name="BottomHBox" type="HBoxContainer" parent="MCont/VBox"]
+[node name="ShipyardName" type="RichTextLabel" parent="MCont/VBox"]
 layout_mode = 2
 size_flags_vertical = 3
-
-[node name="LocationIcon" type="TextureRect" parent="MCont/VBox/BottomHBox"]
-layout_mode = 2
-size_flags_horizontal = 3
-texture = ExtResource("3_kfmfe")
-expand_mode = 4
-
-[node name="LocationLabel" type="RichTextLabel" parent="MCont/VBox/BottomHBox"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 10.0
-text = "Pallyria"
-fit_content = true
+bbcode_enabled = true
+text = "Default Shipyard"

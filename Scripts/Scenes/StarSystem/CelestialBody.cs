@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using GloryOfRitiria.Scripts;
+using GloryOfRitiria.Scripts.Global;
+using GloryOfRitiria.Scripts.Utils;
 using Godot;
 
 public enum CelestialBodyType
@@ -29,7 +31,7 @@ public class CelestialBody
     // Random planet, some specific planet, asteroid, station....
     public string ImagePath;
 
-    public List<Dockyard> Dockyards = new();
+    public List<Shipyard> Shipyards = new();
     
     
     // Default constructor, for the system's main celestial bodies such as planets
@@ -74,19 +76,22 @@ public class CelestialBody
         //ShipsInOrbit = shipGroup;
     }
 
-    public void AddDockyard(string name)
+    public void AddShipyard(string name)
     {
-        Dockyards.Add(new Dockyard(name));
+        if (Shipyards.Count == 0) game_state.BodiesWithShipyards.Add(this);
+        Shipyards.Add(new Shipyard(name, this));
     }
-}
-
-public class Dockyard
-{
-    public string Name;
-
-    public Dockyard(string name)
+    public void AddBusyShipyard(string name, Ship ship, int progress = 0)
     {
-        Name = name;
+        if (Shipyards.Count == 0) game_state.BodiesWithShipyards.Add(this);
+        Shipyards.Add(new Shipyard(name, this, ship, progress));
+    }
+
+
+    // Returns path to the small version (32x32) of the bodies' image
+    public string GetSmallImage()
+    {
+        return "res://Assets/GUI/Icons/32/liveablePlanet.png";
     }
 }
 

@@ -1,8 +1,6 @@
 using Godot;
-using System;
 using GloryOfRitiria;
 using GloryOfRitiria.Scripts;
-using GloryOfRitiria.Scripts.Global;
 using GloryOfRitiria.Scripts.Utils;
 
 public partial class HangarScene : Node2D
@@ -13,9 +11,10 @@ public partial class HangarScene : Node2D
 	{
 		_signals = GetNode<GlobalSignals>("/root/GlobalSignals");
 		_signals.Connect(nameof(_signals.ConstructionWindowRequested), new Callable(this, nameof(BuildConstructionWindow)));
+		_signals.EmitSignal(nameof(_signals.ShipyardsSceneOpened));
 	}
 
-	public void BuildConstructionWindow(ShipConstructionSlot slot)
+	public void BuildConstructionWindow(Shipyard shipyard)
 	{
 		var windowCont = GetNode<ReferenceRect>("RightWindow");
 		
@@ -25,22 +24,14 @@ public partial class HangarScene : Node2D
 		var shipName = inst.GetNode<LineEdit>("MCont/VBox/NameHBox/MCont/TextEdit");
 		var constructionLocation = inst.GetNode<RichTextLabel>("MCont/VBox/LocationHBox/MarginContainer/LocationLabel");
 
-		if (slot.State is SlotState.Building or SlotState.Full)
-		{
-			shipName.Text = slot.Ship.Name;
-			// If already has a ship, show ship's location
-			constructionLocation.Text = "[img]res://Assets/GUI/Icons/32/liveablePlanet.png[/img]  " + slot.Ship.Location.Name;
-		}
-
-		if (slot.State == SlotState.Empty)
-		{
-			// On an empty slot, show the slot's location
-			constructionLocation.Text = "[img]res://Assets/GUI/Icons/32/liveablePlanet.png[/img]  " + slot.Location.Name;
-		}
+		// if (shipyard.State is SlotState.Busy /*or SlotState.Full*/)
+		// {
+		// 	shipName.Text = shipyard.Ship.Name; // If already has a ship, show ship's location
+		// 	constructionLocation.Text = "[img]res://Assets/GUI/Icons/32/liveablePlanet.png[/img]  " + shipyard.Ship.Location.Name;
+		// }
+		constructionLocation.Text = "[img]res://Assets/GUI/Icons/32/liveablePlanet.png[/img]  " + shipyard.Location.Name;
 		
 		var exitButton = inst.GetNode<Button>("MCont/VBox/TitleExitHBox/ExitButton");
-		
-		
 		exitButton.Pressed += () =>
 		{
 			GetTree().Paused = false;
@@ -53,9 +44,8 @@ public partial class HangarScene : Node2D
 			GetTree().Paused = false;
 			windowCont.GetChild(0).QueueFree();
 
-			var ship = new Ship(shipName.Text, slot.Location, true);
-			var newSlot = new ShipConstructionSlot(slot.Location, ship);
-			game_state.ShipConstructionSlots.Add(newSlot);
+			var ship = new Ship(shipName.Text, shipyard.Location, true);
+			shipyard.StartConstruction(ship);
 			
 			_signals.EmitSignal(nameof(_signals.ShipBuildStarted));
 		};

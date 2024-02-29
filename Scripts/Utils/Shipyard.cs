@@ -4,58 +4,47 @@ using Godot;
 namespace GloryOfRitiria.Scripts.Utils;
 
 
-
-public partial class ShipConstructionSlot : Node
+// Has to inherit Node to pass in signals
+public partial class Shipyard : Node
 {
+    public string ShipyardName;
     public CelestialBody Location;
     public Ship Ship;
     public SlotState State;
     public int TurnCost;
     public int CurrentProgress;
     
-    
-    
-
-    public ShipConstructionSlot(CelestialBody location, SlotState state = SlotState.Locked, Ship ship = null)
+    // Constructor for empty shipyard
+    public Shipyard(string shipyardName, CelestialBody location)
     {
-        
+        ShipyardName = shipyardName;
         Location = location;
-        State = state;
-        Ship = ship;
+        State = SlotState.Empty;
+        Ship = null;
         CurrentProgress = 0;
-        if (ship != null) TurnCost = ship.Design.Cost;
     }
     
-    // Constructor for a slot in process of building
-    public ShipConstructionSlot(CelestialBody location, Ship ship, int currentProgress = 0)
+    // Constructor for a shipyard with a ship in construction
+    public Shipyard(string shipyardName, CelestialBody location, Ship ship, int currentProgress = 0)
     {
+        ShipyardName = shipyardName;
         Location = location;
-        State = SlotState.Building;
+        State = SlotState.Busy;
         Ship = ship;
         CurrentProgress = currentProgress;
         TurnCost = ship.Design.Cost;
     }
     
-    // Constructor for a simple locked slot
-    public ShipConstructionSlot()
-    {
-        Location = null;
-        State = SlotState.Locked;
-        Ship = null;
-        CurrentProgress = 0;
-        TurnCost = 0;
-    }
-
     public bool Update()
     {
-        if (State == SlotState.Building)
+        if (State == SlotState.Busy)
         {
             CurrentProgress++;
             if (CurrentProgress == TurnCost)
             {
                 Ship.SetLocation(Location);
                 game_state.AllShips.Add(Ship);
-                State = SlotState.Full;
+                State = SlotState.Empty;
                 //_signals.EmitSignal(nameof(_signals.ShipFinishedBuilding)); doesn't work, it's 
                 return true;
             }
@@ -64,12 +53,12 @@ public partial class ShipConstructionSlot : Node
         return false;
     }
 
-    public void SetShip(Ship ship)
+    public void StartConstruction(Ship ship)
     {
-        if (State == SlotState.Empty)
-        {
-            Ship = ship;
-        }
+        State = SlotState.Busy;
+        Ship = ship;
+        CurrentProgress = 0;
+        TurnCost = ship.Design.Cost;
     }
 
     public void CancelBuilding()
@@ -81,8 +70,6 @@ public partial class ShipConstructionSlot : Node
 
 public enum SlotState
 {
-    Full,
-    Building,
+    Busy,
     Empty,
-    Locked
 }

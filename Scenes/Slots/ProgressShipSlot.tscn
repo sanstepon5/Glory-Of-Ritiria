@@ -1,7 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://5qlac6unyqey"]
+[gd_scene load_steps=2 format=3 uid="uid://5qlac6unyqey"]
 
 [ext_resource type="Texture2D" uid="uid://c8nh7fshwsujm" path="res://Assets/GUI/CameraReticle.png" id="1_ytod3"]
-[ext_resource type="Texture2D" uid="uid://cygkd1k37vx86" path="res://Assets/Img/tmp/CelestialBodies/liveablePlanet.png" id="2_rbjex"]
 
 [node name="InProgressShipSlot" type="PanelContainer"]
 offset_right = 261.0
@@ -38,6 +37,7 @@ text = "Baraba"
 [node name="CenterVBox" type="VBoxContainer" parent="MCont/VBox"]
 layout_mode = 2
 size_flags_vertical = 3
+size_flags_stretch_ratio = 3.0
 
 [node name="MCont" type="MarginContainer" parent="MCont/VBox/CenterVBox"]
 layout_mode = 2
@@ -57,17 +57,8 @@ size_flags_vertical = 3
 size_flags_stretch_ratio = 5.0
 text = "N turns left"
 
-[node name="BottomHBox" type="HBoxContainer" parent="MCont/VBox"]
+[node name="ShipyardName" type="RichTextLabel" parent="MCont/VBox"]
 layout_mode = 2
-
-[node name="LocationIcon" type="TextureRect" parent="MCont/VBox/BottomHBox"]
-layout_mode = 2
-size_flags_horizontal = 3
-texture = ExtResource("2_rbjex")
-expand_mode = 4
-
-[node name="LocationLabel" type="RichTextLabel" parent="MCont/VBox/BottomHBox"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 10.0
-text = "Pallyria"
+size_flags_vertical = 3
+bbcode_enabled = true
+text = "Default Shipyard"

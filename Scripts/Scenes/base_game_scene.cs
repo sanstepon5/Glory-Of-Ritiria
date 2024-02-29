@@ -125,7 +125,7 @@ public partial class base_game_scene : Node2D
 	
 	public void LoadFleetBureau()
 	{
-		LoadScene("res://Scenes/Mock-ups/shipConstructionSceneMockUp.tscn", "res://Assets/Img/tmp/hangar.jpg");
+		LoadScene("res://Scenes/HangarScenes/FleetBureauScene.tscn", "res://Assets/Img/tmp/hangar.jpg");
 	}
 	
 	// Load the Detnura scene

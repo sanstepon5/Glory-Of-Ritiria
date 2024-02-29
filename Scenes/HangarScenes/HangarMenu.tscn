@@ -10,7 +10,7 @@
 offset_left = 7.0
 offset_top = 6.0
 offset_right = 307.0
-offset_bottom = 415.0
+offset_bottom = 406.0
 script = ExtResource("1_7u0vg")
 
 [node name="VBox" type="VBoxContainer" parent="."]
@@ -62,6 +62,5 @@ theme_override_constants/margin_bottom = 0
 
 [node name="Button" type="Button" parent="VBox/FleetMargin"]
 layout_mode = 2
-disabled = true
 text = "Imperial Fleet Bureau"
 icon = ExtResource("4_ey2bd")

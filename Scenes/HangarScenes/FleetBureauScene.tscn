@@ -1,0 +1,72 @@
+[gd_scene load_steps=8 format=3 uid="uid://bgipxs3u8u5to"]
+
+[ext_resource type="PackedScene" uid="uid://cmgmkov212lej" path="res://Scenes/HangarScenes/HangarMenu.tscn" id="1_dooul"]
+[ext_resource type="Script" path="res://Scenes/HangarScenes/SlotList.cs" id="3_743t0"]
+[ext_resource type="PackedScene" uid="uid://5qlac6unyqey" path="res://Scenes/Slots/ProgressShipSlot.tscn" id="4_5fakg"]
+[ext_resource type="PackedScene" uid="uid://cm2m3bf5oiyn4" path="res://Scenes/Slots/EmptyShipSlot.tscn" id="5_hhglq"]
+[ext_resource type="Texture2D" uid="uid://b8u7yi37jw0t0" path="res://Assets/Icons/ship.png" id="6_bcugf"]
+[ext_resource type="Texture2D" uid="uid://dwrykn3365u8g" path="res://Assets/Icons/cross.png" id="7_wbhwk"]
+[ext_resource type="PackedScene" uid="uid://nbje536nyo0b" path="res://Scenes/HangarScenes/ShipConstructionWindow.tscn" id="8_sp6rd"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="HangarMenu" parent="." instance=ExtResource("1_dooul")]
+offset_left = 5.0
+offset_top = 75.0
+offset_right = 305.0
+offset_bottom = 475.0
+Scene = 1
+
+[node name="SlotList" type="GridContainer" parent="."]
+offset_left = 8.0
+offset_top = 857.0
+offset_right = 1459.0
+offset_bottom = 1073.0
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 20
+columns = 4
+script = ExtResource("3_743t0")
+
+[node name="InProgressShipSlot" parent="SlotList" instance=ExtResource("4_5fakg")]
+layout_mode = 2
+
+[node name="EmptyShipSlot" parent="SlotList" instance=ExtResource("5_hhglq")]
+layout_mode = 2
+
+[node name="EmptyShipSlot2" parent="SlotList" instance=ExtResource("5_hhglq")]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = 33.0
+offset_top = 963.0
+offset_right = 322.0
+offset_bottom = 1027.0
+texture = ExtResource("6_bcugf")
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+offset_left = 8.0
+offset_top = 1024.0
+offset_right = 144.0
+offset_bottom = 1072.0
+texture = ExtResource("7_wbhwk")
+
+[node name="TextureRect3" type="TextureRect" parent="."]
+offset_left = 383.0
+offset_top = 1009.0
+offset_right = 519.0
+offset_bottom = 1073.0
+texture = ExtResource("7_wbhwk")
+
+[node name="TextureRect4" type="TextureRect" parent="."]
+offset_left = 749.0
+offset_top = 1013.0
+offset_right = 885.0
+offset_bottom = 1077.0
+texture = ExtResource("7_wbhwk")
+
+[node name="ShipConstructionWindow" parent="." instance=ExtResource("8_sp6rd")]
+offset_left = 1452.0
+offset_top = 211.0
+offset_right = 1909.0
+offset_bottom = 867.0
+metadata/_edit_use_anchors_ = true

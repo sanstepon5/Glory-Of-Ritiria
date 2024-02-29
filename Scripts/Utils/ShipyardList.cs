@@ -5,19 +5,18 @@ namespace GloryOfRitiria.Scripts.Utils;
 
 // A collection of shipConstruction slots order in following manner:
 // First empty slots (should only have a few at once), then building slots, then docked ships.
-public class SlotCollection: IEnumerable<ShipConstructionSlot>
+public class ShipyardList: IEnumerable<Shipyard>
 {
-    private List<ShipConstructionSlot> _elements = new();
-    private int _fullEndIndex, _buildingEndIndex, _emptyEndIndex = 0;
+    private List<Shipyard> _elements;
+    private int _buildingEndIndex, _emptyEndIndex = 0;
 
-    public SlotCollection()
+    public ShipyardList()
     {
-        // By default has only a single locked slot
-        //_elements.Add(new ShipConstructionSlot());
+        _elements = new List<Shipyard>();
     }
     
     // Adds a slot to the list, conserving the order
-    public void Add(ShipConstructionSlot slot)
+    public void Add(Shipyard slot)
     {
         switch (slot.State)
         {
@@ -25,24 +24,15 @@ public class SlotCollection: IEnumerable<ShipConstructionSlot>
                 _elements.Insert(_emptyEndIndex, slot);
                 _emptyEndIndex++;
                 _buildingEndIndex++;
-                _fullEndIndex++;
                 break;
-            case SlotState.Building:
+            case SlotState.Busy:
                 _elements.Insert(_buildingEndIndex, slot);
                 _buildingEndIndex++;
-                _fullEndIndex++;
-                break;
-            case SlotState.Full:
-                _elements.Insert(_fullEndIndex, slot);
-                _fullEndIndex++;
-                break;
-            case SlotState.Locked:
-                _elements.Insert(_elements.Count, slot);
                 break;
         }
     }
 
-    public IEnumerator<ShipConstructionSlot> GetEnumerator()
+    public IEnumerator<Shipyard> GetEnumerator()
     {
         return _elements.GetEnumerator();
     }

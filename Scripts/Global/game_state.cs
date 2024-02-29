@@ -36,8 +36,10 @@ public partial class game_state : Node
 	public static StarSystemInfo Detnura;
 	
 	
-	public static SlotCollection ShipConstructionSlots = new();
+	// public static ShipyardList ShipConstructionSlots = new();
 	public static List<Ship> AllShips = new();
+	
+	public static List<CelestialBody> BodiesWithShipyards = new();
 
 	public static Ship SelectedShip = null;
 	
@@ -99,12 +101,16 @@ public partial class game_state : Node
 
 	public static void UpdateShipConstruction()
 	{
-		foreach (var slot in ShipConstructionSlots)
+		foreach (var body in BodiesWithShipyards)
 		{
-			if (slot.Update())
+			foreach (var shipyard in body.Shipyards)
 			{
-				_signals.EmitSignal(nameof(_signals.ShipFinishedBuilding));
+				if (shipyard.Update())
+                {
+                	_signals.EmitSignal(nameof(_signals.ShipFinishedBuilding));
+                }
 			}
+			
 		}
 	}
 	
@@ -134,15 +140,13 @@ public partial class game_state : Node
 		DiscoveredSystems.Add(barnardSystem);
 		
 		
-		
 		// Detnura
 		var detnuraStar = new Star("Detnura", detnuraSystem, 700,AssetsDir+"Img/tmp/CelestialBodies/star2.png");
 
 		// Detnura planets
 		var pallyria = new CelestialBody("Pallyria", detnuraStar, 5, AssetsDir + "Img/tmp/PlanetIcon.png",
 			CelestialBodyType.Pallyria);
-		pallyria.AddDockyard("Eradian Shipyard");
-		pallyria.AddDockyard("Sokhil Shipyard");
+		pallyria.AddShipyard("Sokhil Shipyard");
 		detnuraStar.AddCelestialBody(pallyria);
 		
 		detnuraStar.AddCelestialBody(new CelestialBody("Other Planet",  detnuraStar, 15,AssetsDir+"Img/tmp/CelestialBodies/icePlanet.png"));
@@ -168,8 +172,9 @@ public partial class game_state : Node
 		sunStar.AddCelestialBody(new CelestialBody("Mercury", sunStar, 1, AssetsDir+"Img/tmp/MoltenPlanet.png"));
 		sunStar.AddCelestialBody(new CelestialBody("Venus", sunStar, 4, AssetsDir+"Img/tmp/MoltenPlanet.png"));
 		var earth = new CelestialBody("Earth", sunStar, 7, AssetsDir + "Img/tmp/CelestialBodies/liveablePlanet.png");
-		earth.AddDockyard("UNOOSA European Dockyard");
+		earth.AddShipyard("UNOOSA European Dockyard");
 		sunStar.AddCelestialBody(earth);
+		
 		solSystem.SystemStars.Add(sunStar);
 		
 		// Barnard's star
@@ -177,18 +182,13 @@ public partial class game_state : Node
 		barnardStar.AddCelestialBody(new CelestialBody("Something", barnardStar, 1, AssetsDir+"Img/tmp/CelestialBodies/icePlanet.png"));
 		barnardSystem.SystemStars.Add(barnardStar);
 		
-
-
+		
+		
 		var irana = new Ship("Irana", earth);
-		var baraba = new Ship("Baraba", pallyria, true);
 		AllShips.Add(irana);
-
-		//ShipConstructionSlot fullSlot = new ShipConstructionSlot(irana.Location, SlotState.Full, irana);
-		var buildingSlot = new ShipConstructionSlot(pallyria, baraba, 7);
-		var emptySlot = new ShipConstructionSlot(pallyria, SlotState.Empty);
-		//ShipConstructionSlots.Add(fullSlot);
-		ShipConstructionSlots.Add(buildingSlot);
-		ShipConstructionSlots.Add(emptySlot);
+		
+		var baraba = new Ship("Baraba", pallyria, true);
+		pallyria.AddBusyShipyard("Eradian Shipyard", baraba, 7);
 	}
 	
 }
