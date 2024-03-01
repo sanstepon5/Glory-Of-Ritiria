@@ -1,8 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://owct5lb7jgew"]
+[gd_scene load_steps=4 format=3 uid="uid://owct5lb7jgew"]
 
 [ext_resource type="Script" path="res://Scripts/Scenes/base_game_scene.cs" id="1_6tgt3"]
 [ext_resource type="PackedScene" uid="uid://b176rck77evnu" path="res://Scenes/Parts/top_bar.tscn" id="2_sapv7"]
-[ext_resource type="PackedScene" uid="uid://r6ijjsaj2h2q" path="res://Scenes/Parts/next_turn_button.tscn" id="3_3kb76"]
 [ext_resource type="PackedScene" uid="uid://dcb3tlebf675l" path="res://Scenes/Utils/CustomTooltip.tscn" id="4_on4ln"]
 
 [node name="BaseGameScene" type="Node2D"]
@@ -25,8 +24,6 @@ offset_bottom = 624.0
 [node name="UICanvas" type="CanvasLayer" parent="."]
 
 [node name="TopBar" parent="UICanvas" instance=ExtResource("2_sapv7")]
-
-[node name="NextTurnButton" parent="UICanvas" instance=ExtResource("3_3kb76")]
 
 [node name="InfoWindowControl" type="MarginContainer" parent="UICanvas"]
 visible = false
