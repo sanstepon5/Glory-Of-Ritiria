@@ -219,10 +219,10 @@ public partial class star_system_view : Node2D
 		// Set textures of this ship instance (doing it here to avoid updating all instances)
 		ship.SimpleUpdate();
 		var textureButton = inst.GetNode<TextureButton>("ShipContainer/MarginContainer/ShipButton");
-		textureButton.TextureNormal = (Texture2D)GD.Load(ship.ImagePath);
-		textureButton.TexturePressed = (Texture2D)GD.Load(ship.ImagePath);
-		textureButton.TextureHover = (Texture2D)GD.Load(ship.ImagePath);
-		textureButton.TextureHover = (Texture2D)GD.Load(ship.ImagePath);
+		textureButton.TextureNormal = (Texture2D)GD.Load(ship.GetImagePath());
+		textureButton.TexturePressed = (Texture2D)GD.Load(ship.GetImagePath());
+		textureButton.TextureHover = (Texture2D)GD.Load(ship.GetImagePath());
+		textureButton.TextureHover = (Texture2D)GD.Load(ship.GetImagePath());
 
 		textureButton.Pressed += () => { _handleShipButtonPress(ship); };
 		

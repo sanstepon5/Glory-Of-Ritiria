@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://nbje536nyo0b"]
 
-[ext_resource type="Texture2D" uid="uid://b8u7yi37jw0t0" path="res://Assets/Icons/ship.png" id="1_802j5"]
+[ext_resource type="Texture2D" uid="uid://b8u7yi37jw0t0" path="res://Assets/Icons/Ships/Small/ship.png" id="1_swe55"]
 [ext_resource type="ButtonGroup" uid="uid://trec3s178yi6" path="res://Resources/Hangar/PriorityButtonGroup.tres" id="2_kuw1o"]
 
 [node name="ShipConstructionWindow" type="PanelContainer"]
@@ -133,7 +133,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.6
-texture_normal = ExtResource("1_802j5")
+texture_normal = ExtResource("1_swe55")
 stretch_mode = 5
 
 [node name="PriorityHBox" type="HBoxContainer" parent="MCont/VBox"]

@@ -54,7 +54,8 @@ public partial class SlotList : GridContainer
 
 		foreach (var ship in CurrentBody.ShipsInOrbit)
 		{
-			AddChild(BuildFullSlot(ship));
+			if (!ship.IsInRoute())
+				AddChild(BuildFullSlot(ship));
 		}
 	}
 	
@@ -64,7 +65,7 @@ public partial class SlotList : GridContainer
 		CurrentScene = CurrentHangarScene.Fleet;
 		
 		foreach (var ship in game_state.AllShips)
-		{
+		{	// Shows ships that started moving too to be able to cancel the order
 			AddChild(BuildFullSlot(ship));
 		}
 	}
@@ -77,7 +78,7 @@ public partial class SlotList : GridContainer
 		var inst = (PanelContainer)scene.Instantiate();
 		
 		var slotImage = inst.GetNode<TextureRect>("MCont/VBox/ShipImage");
-		slotImage.Texture = (Texture2D)GD.Load(ship.ImagePath);;
+		slotImage.Texture = (Texture2D)GD.Load(ship.GetImagePath(ShipImageSize.Big));
 		
 		var slotName = inst.GetNode<RichTextLabel>("MCont/VBox/TopHBox/NameLabel");
 		slotName.Text = ship.Name;

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://decflhh66t37"]
 
-[ext_resource type="Texture2D" uid="uid://b8u7yi37jw0t0" path="res://Assets/Icons/ship.png" id="1_47fuu"]
+[ext_resource type="Texture2D" uid="uid://b8u7yi37jw0t0" path="res://Assets/Icons/Ships/Small/ship.png" id="1_47fuu"]
 [ext_resource type="ButtonGroup" uid="uid://trec3s178yi6" path="res://Resources/Hangar/PriorityButtonGroup.tres" id="2_t56wo"]
 
 [node name="ShipConstructionWindow" type="PanelContainer"]

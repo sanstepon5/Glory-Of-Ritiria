@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://fm3famnomsj"]
 
-[ext_resource type="Texture2D" uid="uid://b8u7yi37jw0t0" path="res://Assets/Icons/ship.png" id="1_ajbyg"]
+[ext_resource type="Texture2D" uid="uid://b8u7yi37jw0t0" path="res://Assets/Icons/Ships/Small/ship.png" id="1_ajbyg"]
 [ext_resource type="Script" path="res://Scenes/Parts/ShipScene.cs" id="1_bpqyv"]
 [ext_resource type="Texture2D" uid="uid://h3ligan0kne5" path="res://Assets/Icons/lineBetweenBodies.png" id="2_vrgrv"]
 

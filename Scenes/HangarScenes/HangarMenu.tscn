@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" path="res://Scenes/HangarScenes/HangarMenu.cs" id="1_7u0vg"]
 [ext_resource type="Texture2D" uid="uid://bngbobnj0khap" path="res://Assets/GUI/Icons/32/liveablePlanet.png" id="1_xqo6d"]
-[ext_resource type="Texture2D" uid="uid://yotckc60ey1p" path="res://Assets/Icons/selectedShip.png" id="2_dld5d"]
-[ext_resource type="Texture2D" uid="uid://fa48q1y1x4dd" path="res://Assets/Icons/ShipInRoute.png" id="3_spp2s"]
-[ext_resource type="Texture2D" uid="uid://b8u7yi37jw0t0" path="res://Assets/Icons/ship.png" id="4_ey2bd"]
+[ext_resource type="Texture2D" uid="uid://fa48q1y1x4dd" path="res://Assets/Icons/Ships/Small/ShipInRoute.png" id="3_3dvg0"]
+[ext_resource type="Texture2D" uid="uid://yotckc60ey1p" path="res://Assets/Icons/Ships/Small/selectedShip.png" id="4_xbxyg"]
+[ext_resource type="Texture2D" uid="uid://b8u7yi37jw0t0" path="res://Assets/Icons/Ships/Small/ship.png" id="5_50t86"]
 
 [node name="HangarMenu" type="PanelContainer"]
 offset_left = 7.0
@@ -39,7 +39,7 @@ theme_override_constants/margin_bottom = 0
 [node name="Button" type="Button" parent="VBox/FleetMargin"]
 layout_mode = 2
 text = "Imperial Fleet Bureau"
-icon = ExtResource("3_spp2s")
+icon = ExtResource("3_3dvg0")
 
 [node name="ConstructionMargin" type="MarginContainer" parent="VBox"]
 layout_mode = 2
@@ -51,7 +51,7 @@ theme_override_constants/margin_bottom = 0
 [node name="Button" type="Button" parent="VBox/ConstructionMargin"]
 layout_mode = 2
 text = "Ship Construction Bureau"
-icon = ExtResource("2_dld5d")
+icon = ExtResource("4_xbxyg")
 
 [node name="DesignMargin" type="MarginContainer" parent="VBox"]
 layout_mode = 2
@@ -63,4 +63,4 @@ theme_override_constants/margin_bottom = 0
 [node name="Button" type="Button" parent="VBox/DesignMargin"]
 layout_mode = 2
 text = "Ship Design Bureau"
-icon = ExtResource("4_ey2bd")
+icon = ExtResource("5_50t86")

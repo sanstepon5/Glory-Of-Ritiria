@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://Scripts/Scenes/planet_game_scene.cs" id="1_txril"]
 [ext_resource type="Texture2D" uid="uid://djuutdi23oyw1" path="res://Assets/Img/tmp/Phone.png" id="2_ebvfr"]
-[ext_resource type="Texture2D" uid="uid://b8u7yi37jw0t0" path="res://Assets/Icons/ship.png" id="2_mt1nb"]
-[ext_resource type="Texture2D" uid="uid://yotckc60ey1p" path="res://Assets/Icons/selectedShip.png" id="4_mw1dg"]
+[ext_resource type="Texture2D" uid="uid://yotckc60ey1p" path="res://Assets/Icons/Ships/Small/selectedShip.png" id="3_bmmcp"]
+[ext_resource type="Texture2D" uid="uid://b8u7yi37jw0t0" path="res://Assets/Icons/Ships/Small/ship.png" id="4_xidlm"]
 
 [node name="PlanetGameScene" type="Node2D"]
 script = ExtResource("1_txril")
@@ -29,8 +29,8 @@ icon = ExtResource("2_ebvfr")
 expand_icon = true
 item_count = 2
 popup/item_0/text = "Imperial Shipyards"
-popup/item_0/icon = ExtResource("4_mw1dg")
+popup/item_0/icon = ExtResource("3_bmmcp")
 popup/item_0/id = 0
 popup/item_1/text = "Imperial Fleet Bureau"
-popup/item_1/icon = ExtResource("2_mt1nb")
+popup/item_1/icon = ExtResource("4_xidlm")
 popup/item_1/id = 1

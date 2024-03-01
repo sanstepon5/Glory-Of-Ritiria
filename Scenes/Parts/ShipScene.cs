@@ -24,10 +24,10 @@ public partial class ShipScene : GridContainer
 	private void _setShipTextures()
 	{
 		var shipButton = GetNode<TextureButton>("ShipContainer/MarginContainer/ShipButton");
-		shipButton.TextureNormal = (Texture2D)GD.Load(Ship.ImagePath);
-		shipButton.TexturePressed = (Texture2D)GD.Load(Ship.ImagePath);
-		shipButton.TextureHover = (Texture2D)GD.Load(Ship.ImagePath);
-		shipButton.TextureHover = (Texture2D)GD.Load(Ship.ImagePath);
+		shipButton.TextureNormal = (Texture2D)GD.Load(Ship.GetImagePath());
+		shipButton.TexturePressed = (Texture2D)GD.Load(Ship.GetImagePath());
+		shipButton.TextureHover = (Texture2D)GD.Load(Ship.GetImagePath());
+		shipButton.TextureHover = (Texture2D)GD.Load(Ship.GetImagePath());
 	}
 	
 }

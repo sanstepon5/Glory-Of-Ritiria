@@ -16,7 +16,7 @@ Scene = 1
 
 [node name="SlotList" type="GridContainer" parent="."]
 offset_left = 8.0
-offset_top = 857.0
+offset_top = 884.0
 offset_right = 1459.0
 offset_bottom = 1073.0
 theme_override_constants/h_separation = 20

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://p1vm48qqfqv4"]
 
-[ext_resource type="Texture2D" uid="uid://b8u7yi37jw0t0" path="res://Assets/Icons/ship.png" id="1_mnrfq"]
+[ext_resource type="Texture2D" uid="uid://b8u7yi37jw0t0" path="res://Assets/Icons/Ships/Small/ship.png" id="1_mnrfq"]
 
 [node name="ShipInfoWindow" type="PanelContainer"]
 offset_right = 457.0
