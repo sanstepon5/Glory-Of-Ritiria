@@ -80,11 +80,12 @@ public partial class SlotList : GridContainer
 		var slotImage = inst.GetNode<TextureRect>("MCont/VBox/ShipImage");
 		slotImage.Texture = (Texture2D)GD.Load(ship.GetImagePath(ShipImageSize.Big));
 		
-		var slotName = inst.GetNode<RichTextLabel>("MCont/VBox/TopHBox/NameLabel");
-		slotName.Text = ship.Name;
+		var slotName = inst.GetNode<RichTextLabel>("MCont/VBox/NameLabel");
+		// TODO: Add dynamic type icon
+		slotName.Text = "[img]res://Assets/GUI/Icons/32/CameraReticle.png[/img]  " + ship.Name;
 		
-		var slotLocation = inst.GetNode<RichTextLabel>("MCont/VBox/BottomHBox/LocationLabel");
-		slotLocation.Text = ship.Location.Name;
+		var slotLocation = inst.GetNode<RichTextLabel>("MCont/VBox/LocationLabel");
+		slotLocation.Text = "[img]"+ ship.Location.GetSmallImage() + "[/img]  " + ship.Location.Name;
 
 		
 		return inst;
@@ -102,10 +103,18 @@ public partial class SlotList : GridContainer
 		var shipyardName = inst.GetNode<RichTextLabel>("MCont/VBox/ShipyardName");
 		shipyardName.Text = "[img]"+ slot.Location.GetSmallImage() + "[/img]  " + slot.ShipyardName;
 		
+		
+		
 		var progressBar = inst.GetNode<ProgressBar>("MCont/VBox/CenterVBox/MCont/ProgressBar");
 		var progressValue =  (double) slot.CurrentProgress / slot.TurnCost * 100;
 		progressBar.Value = progressValue;
 		
+		var turnsLeftLabel = inst.GetNode<RichTextLabel>("MCont/VBox/CenterVBox/RichTextLabel");
+		var turnsLeft = slot.TurnCost - slot.CurrentProgress;
+		if (turnsLeft > 1)
+			turnsLeftLabel.Text = turnsLeft + " turns left";
+		else 
+			turnsLeftLabel.Text = turnsLeft + " turn left";
 		return inst;
 	}
 

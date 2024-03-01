@@ -1,10 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://cwblvspsudkh3"]
+[gd_scene load_steps=2 format=3 uid="uid://cwblvspsudkh3"]
 
-[ext_resource type="Texture2D" uid="uid://c8nh7fshwsujm" path="res://Assets/GUI/CameraReticle.png" id="1_2xcqb"]
-[ext_resource type="Texture2D" uid="uid://cbymyk3gj0gw0" path="res://icon.svg" id="2_3fos8"]
-[ext_resource type="Texture2D" uid="uid://cygkd1k37vx86" path="res://Assets/Img/tmp/CelestialBodies/liveablePlanet.png" id="3_p2oga"]
+[ext_resource type="Texture2D" uid="uid://cs6t8bvo4er6b" path="res://Assets/Icons/Ships/Big/ship.png" id="2_h7185"]
 
 [node name="FullShipSlot" type="PanelContainer"]
+offset_right = 251.0
+offset_bottom = 183.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -19,37 +19,22 @@ theme_override_constants/margin_bottom = 10
 [node name="VBox" type="VBoxContainer" parent="MCont"]
 layout_mode = 2
 
-[node name="TopHBox" type="HBoxContainer" parent="MCont/VBox"]
-layout_mode = 2
-
-[node name="TypeIcon" type="TextureRect" parent="MCont/VBox/TopHBox"]
+[node name="NameLabel" type="RichTextLabel" parent="MCont/VBox"]
 layout_mode = 2
 size_flags_horizontal = 3
-texture = ExtResource("1_2xcqb")
-expand_mode = 4
-
-[node name="NameLabel" type="RichTextLabel" parent="MCont/VBox/TopHBox"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 10.0
-text = "Irana"
+size_flags_vertical = 3
+bbcode_enabled = true
+text = "[img]res://Assets/GUI/Icons/32/CameraReticle.png[/img]  Irana"
 
 [node name="ShipImage" type="TextureRect" parent="MCont/VBox"]
 layout_mode = 2
 size_flags_horizontal = 4
-texture = ExtResource("2_3fos8")
+size_flags_vertical = 3
+texture = ExtResource("2_h7185")
 
-[node name="BottomHBox" type="HBoxContainer" parent="MCont/VBox"]
-layout_mode = 2
-
-[node name="LocationIcon" type="TextureRect" parent="MCont/VBox/BottomHBox"]
+[node name="LocationLabel" type="RichTextLabel" parent="MCont/VBox"]
 layout_mode = 2
 size_flags_horizontal = 3
-texture = ExtResource("3_p2oga")
-expand_mode = 4
-
-[node name="LocationLabel" type="RichTextLabel" parent="MCont/VBox/BottomHBox"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 10.0
+size_flags_vertical = 3
+bbcode_enabled = true
 text = "Earth"

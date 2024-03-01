@@ -15,10 +15,12 @@ offset_bottom = 475.0
 Scene = 1
 
 [node name="SlotList" type="GridContainer" parent="."]
-offset_left = 8.0
-offset_top = 884.0
-offset_right = 1459.0
-offset_bottom = 1073.0
+offset_left = 10.0
+offset_top = 880.0
+offset_right = 1461.0
+offset_bottom = 1070.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 theme_override_constants/h_separation = 20
 theme_override_constants/v_separation = 20
 columns = 4

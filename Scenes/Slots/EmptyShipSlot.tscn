@@ -1,10 +1,10 @@
 [gd_scene load_steps=2 format=3 uid="uid://cm2m3bf5oiyn4"]
 
-[ext_resource type="Texture2D" uid="uid://dwrykn3365u8g" path="res://Assets/Icons/cross.png" id="2_2bnlt"]
+[ext_resource type="Texture2D" uid="uid://caf4ifcqrx83q" path="res://Assets/Icons/plus.png" id="1_ssemb"]
 
 [node name="EmptyShipSlot" type="PanelContainer"]
 offset_right = 313.0
-offset_bottom = 215.0
+offset_bottom = 158.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -23,7 +23,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 4.0
-texture_normal = ExtResource("2_2bnlt")
+texture_normal = ExtResource("1_ssemb")
 stretch_mode = 3
 
 [node name="ShipyardName" type="RichTextLabel" parent="MCont/VBox"]

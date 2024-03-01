@@ -9,10 +9,12 @@
 script = ExtResource("1_vioe8")
 
 [node name="SlotList" type="GridContainer" parent="."]
-offset_left = 5.0
-offset_top = 721.0
-offset_right = 1453.0
-offset_bottom = 935.0
+offset_left = 10.0
+offset_top = 880.0
+offset_right = 1458.0
+offset_bottom = 1070.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 theme_override_constants/h_separation = 20
 theme_override_constants/v_separation = 20
 columns = 4
@@ -34,12 +36,12 @@ offset_bottom = 822.0
 
 [node name="HangarMenu" parent="." instance=ExtResource("3_n6vaq")]
 offset_left = 5.0
-offset_top = 75.0
+offset_top = 80.0
 offset_right = 305.0
-offset_bottom = 475.0
+offset_bottom = 480.0
 
 [node name="ShipyardSelectionMenu" parent="." instance=ExtResource("4_b3j1h")]
-offset_left = 327.0
-offset_top = 76.0
-offset_right = 1914.0
-offset_bottom = 208.0
+offset_left = 330.0
+offset_top = 80.0
+offset_right = 1917.0
+offset_bottom = 212.0
