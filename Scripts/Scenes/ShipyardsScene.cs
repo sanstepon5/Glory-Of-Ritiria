@@ -1,9 +1,10 @@
 using Godot;
 using GloryOfRitiria;
 using GloryOfRitiria.Scripts;
+using GloryOfRitiria.Scripts.Global;
 using GloryOfRitiria.Scripts.Utils;
 
-public partial class HangarScene : Node2D
+public partial class ShipyardsScene : Node2D
 {
 	private GlobalSignals _signals;
 	
@@ -11,6 +12,9 @@ public partial class HangarScene : Node2D
 	{
 		_signals = GetNode<GlobalSignals>("/root/GlobalSignals");
 		_signals.Connect(nameof(_signals.ConstructionWindowRequested), new Callable(this, nameof(BuildConstructionWindow)));
+
+
+		InitBodiesSelectionMenu();
 		_signals.EmitSignal(nameof(_signals.ShipyardsSceneOpened));
 	}
 
@@ -54,5 +58,18 @@ public partial class HangarScene : Node2D
 		GetTree().Paused =  true;
 		
 		windowCont.AddChild(inst);
+	}
+
+	public void InitBodiesSelectionMenu()
+	{
+		// I shouldn't access a scene children here...
+		var bodiesHBox = GetNode<HBoxContainer>("ShipyardSelectionMenu/HBoxContainer");
+		foreach (var body in game_state.BodiesWithShipyards)
+		{
+			var scene = GD.Load<PackedScene>("res://Scenes/HangarScenes/HangarPlanetSelectionScene.tscn");
+			var inst = (HangarPlanetSelectionScene)scene.Instantiate();
+			inst.Body = body;
+			bodiesHBox.AddChild(inst);
+		}
 	}
 }

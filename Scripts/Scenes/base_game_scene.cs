@@ -120,7 +120,7 @@ public partial class base_game_scene : Node2D
 	
 	public void LoadShipyards()
 	{
-		LoadScene("res://Scenes/HangarScenes/HangarScene.tscn", "res://Assets/Img/tmp/hangar.jpg");
+		LoadScene("res://Scenes/HangarScenes/ShipyardsScene.tscn", "res://Assets/Img/tmp/hangar.jpg");
 	}
 	
 	public void LoadFleetBureau()

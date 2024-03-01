@@ -7,7 +7,7 @@ namespace GloryOfRitiria.Scripts;
 public class Ship
 {
     public string Name;
-    public string ImagePath;
+    public string ImagePath; // TODO: Need to distinguish small and big image sizes
     public CelestialBody Location;
     public ShipDesign Design;
     //public Cargo ShipCargo;

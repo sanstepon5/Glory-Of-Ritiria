@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=3 uid="uid://b06lm5hu6xv05"]
+
+[ext_resource type="Texture2D" uid="uid://cygkd1k37vx86" path="res://Assets/Img/tmp/CelestialBodies/liveablePlanet.png" id="1_oys7m"]
+[ext_resource type="Script" path="res://Scenes/HangarScenes/HangarPlanetSelectionScene.cs" id="1_pvtfo"]
+
+[node name="Margin" type="MarginContainer"]
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 10
+script = ExtResource("1_pvtfo")
+
+[node name="VBox" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="PlanetLabel" type="Label" parent="VBox"]
+layout_mode = 2
+text = "Pallyria"
+
+[node name="ShipyardsHBox" type="HBoxContainer" parent="VBox"]
+layout_mode = 2
+
+[node name="ButtonMargin" type="MarginContainer" parent="VBox/ShipyardsHBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Button" type="Button" parent="VBox/ShipyardsHBox/ButtonMargin"]
+layout_mode = 2
+icon = ExtResource("1_oys7m")
+
+[node name="NamesVBox" type="VBoxContainer" parent="VBox/ShipyardsHBox"]
+layout_mode = 2

@@ -65,6 +65,11 @@ public partial class GlobalSignals : Node
     
     [Signal]
     public delegate void ShipyardsSceneOpenedEventHandler();
+    [Signal]
+    public delegate void FleetBureauSceneOpenedEventHandler();
+    
+    [Signal] // index of the body in list of bodies with shipyards
+    public delegate void ShipyardsBodyChangedEventHandler(int index);
     
     
     // Ship update

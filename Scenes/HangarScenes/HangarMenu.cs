@@ -48,10 +48,3 @@ public partial class HangarMenu : PanelContainer
 	}
 
 }
-
-public enum CurrentHangarScene
-{
-	Shipyards,
-	Fleet,
-	Design
-}

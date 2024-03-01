@@ -7,36 +7,37 @@ using GloryOfRitiria.Scripts.Utils;
 public partial class SlotList : GridContainer
 {
 	public CelestialBody CurrentBody;
-	private ShipyardList _slots; // Should be ordered
+	public CurrentHangarScene CurrentScene;
 	private GlobalSignals _signals;
 	
 	public override void _Ready()
 	{
 		_signals = GetNode<GlobalSignals>("/root/GlobalSignals");
-		_slots = new ShipyardList();
-		//InitDefaultShipyards();
 		
 		_signals.Connect(nameof(_signals.ShipBuildStarted), new Callable(this, nameof(UpdateSlots)));
 		_signals.Connect(nameof(_signals.TurnPassed), new Callable(this, nameof(UpdateSlots)));
 		_signals.Connect(nameof(_signals.ShipyardsSceneOpened), new Callable(this, nameof(InitDefaultShipyards)));
+		_signals.Connect(nameof(_signals.FleetBureauSceneOpened), new Callable(this, nameof(InitFleetBureau)));
+		_signals.Connect(nameof(_signals.ShipyardsBodyChanged), new Callable(this, nameof(ChangeCurrentBody)));
 	}
 
 	// Called by signal to show shipyards of a different body
-	public void ChangeCurrentBody(CelestialBody body)
+	public void ChangeCurrentBody(int index)
 	{
-		CurrentBody = body;
+		CurrentBody = game_state.BodiesWithShipyards[index];
 		UpdateSlots();
 	}
 	
 	// Init with the first body in list of bodies with shipyards
 	public void InitDefaultShipyards()
 	{
+		CurrentScene = CurrentHangarScene.Shipyards;
 		CurrentBody = game_state.BodiesWithShipyards[0];
-		Init();
+		InitShipyards();
 	}
 	
 	// Called either by signal or in this class
-	public void Init()
+	public void InitShipyards()
 	{
 		foreach (var shipyard in CurrentBody.Shipyards)
 		{
@@ -57,13 +58,26 @@ public partial class SlotList : GridContainer
 		}
 	}
 	
+	// Called by signal
+	public void InitFleetBureau()
+	{
+		CurrentScene = CurrentHangarScene.Fleet;
+		
+		foreach (var ship in game_state.AllShips)
+		{
+			AddChild(BuildFullSlot(ship));
+		}
+	}
+	
 
 	// For docked ships that can be modified on the planet
 	public PanelContainer BuildFullSlot(Ship ship)
 	{
 		var scene = GD.Load<PackedScene>("res://Scenes/Slots/FullShipSlot.tscn");
 		var inst = (PanelContainer)scene.Instantiate();
-
+		
+		var slotImage = inst.GetNode<TextureRect>("MCont/VBox/ShipImage");
+		slotImage.Texture = (Texture2D)GD.Load(ship.ImagePath);;
 		
 		var slotName = inst.GetNode<RichTextLabel>("MCont/VBox/TopHBox/NameLabel");
 		slotName.Text = ship.Name;
@@ -116,8 +130,11 @@ public partial class SlotList : GridContainer
 			child.QueueFree();
 		}
 
-		_slots = new();
-		Init();
+		if (CurrentScene == CurrentHangarScene.Shipyards)
+			InitShipyards();
+		else
+			InitFleetBureau();
+		
 	}
 	
 	public void RequestOpenConstructionWindow(Shipyard shipyard)
