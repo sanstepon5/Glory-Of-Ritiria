@@ -75,7 +75,7 @@ public partial class star_system_view : Node2D
 	public void BuildSystemMap(StarSystemInfo starSystem)
 	{
 		GD.Print("System Map Build Initiated");
-		GetNode<RichTextLabel>("SystemName").Text = starSystem.Name;
+		GetNode<RichTextLabel>("SystemName").Text = starSystem.SystemName;
 		_currentSystem = starSystem;
 		
 		// TODO: Manage multiple stars
@@ -91,12 +91,15 @@ public partial class star_system_view : Node2D
 		while (i < star.Bodies.Count-1)
 		{
 			var body = star.Bodies[i];
-			bodiesCont.AddChild(BuildCelestialBody(body));
+			if (body.DiscoveryStatus != DiscoveryStatus.Undiscovered)
+				bodiesCont.AddChild(BuildCelestialBody(body));
 			i++;
 		}
-		var lastBody = BuildCelestialBody(star.Bodies[i], true);
-		bodiesCont.AddChild(lastBody);
-
+		if (star.Bodies[i].DiscoveryStatus != DiscoveryStatus.Undiscovered)
+		{
+			var lastBody = BuildCelestialBody(star.Bodies[i], true);
+			bodiesCont.AddChild(lastBody);
+		}
 
 		var emptyImg = GetNode<TextureRect>("InnerSpaceVBox/CenterCont/TextureRect");
 		var innerShipsHBox = GetNode<HBoxContainer>("InnerSpaceVBox/CenterCont/HBox");
@@ -126,7 +129,7 @@ public partial class star_system_view : Node2D
 		var inst = (GridContainer)scene.Instantiate();
 		inst.GetNode<Label>("BodyContainer/BodyName").Text = star.Name;
 		
-		inst.GetNode<TextureButton>("BodyContainer/MarginContainer/BodyButton").TextureNormal = (Texture2D)GD.Load(star.ImagePath);
+		inst.GetNode<TextureButton>("BodyContainer/MarginContainer/BodyButton").TextureNormal = (Texture2D)GD.Load(star.GetImage());
 		inst.GetNode<TextureButton>("BodyContainer/MarginContainer/BodyButton").Pressed += () => _starPressed(star);
 		
 		var satellitesVCont = inst.GetNode<VBoxContainer>("SatellitesVCont");
@@ -151,7 +154,7 @@ public partial class star_system_view : Node2D
 		inst.GetNode<Label>("BodyContainer/BodyName").Text = body.Name;
 			
 		// Setting textures for the button
-		inst.GetNode<TextureButton>("BodyContainer/MarginContainer/BodyButton").TextureNormal = (Texture2D)GD.Load(body.ImagePath);
+		inst.GetNode<TextureButton>("BodyContainer/MarginContainer/BodyButton").TextureNormal = (Texture2D)GD.Load(body.GetImage());
 		// For others, it's probably better to use some kind of naming convention for files instead of storing all paths
 		// For example only storing "Img/planet.png" and using "Img/planet"+"_hover"+"png"
 		//inst.GetNode<TextureButton>("BodyContainer/MarginContainer/BodyButton").TextureHover = (Texture2D)GD.Load(body.ImagePath);
@@ -178,9 +181,15 @@ public partial class star_system_view : Node2D
 				var satellite = body.Satellites[i];
 				// last body
 				if (i == body.Satellites.Count - 1)
-					satellitesVCont.AddChild(BuildCelestialBody(satellite, true));
+				{
+					if (satellite.DiscoveryStatus != DiscoveryStatus.Undiscovered)
+						satellitesVCont.AddChild(BuildCelestialBody(satellite, true));
+				}
 				else
-					satellitesVCont.AddChild(BuildCelestialBody(satellite));
+				{
+					if (satellite.DiscoveryStatus != DiscoveryStatus.Undiscovered)
+						satellitesVCont.AddChild(BuildCelestialBody(satellite));
+				}
 			}
 		}
 		// Adding satellites horizontally
@@ -192,9 +201,15 @@ public partial class star_system_view : Node2D
 				var satellite = body.Satellites[i];
 				// last body
 				if (i == body.Satellites.Count - 1)
-					satellitesHCont.AddChild(BuildCelestialBody(satellite, true));
+				{
+					if (satellite.DiscoveryStatus != DiscoveryStatus.Undiscovered)
+						satellitesHCont.AddChild(BuildCelestialBody(satellite, true));
+				}
 				else
-					satellitesHCont.AddChild(BuildCelestialBody(satellite));
+				{
+					if (satellite.DiscoveryStatus != DiscoveryStatus.Undiscovered)
+						satellitesHCont.AddChild(BuildCelestialBody(satellite));
+				}
 			}
 		}
 
@@ -280,7 +295,7 @@ public partial class star_system_view : Node2D
 		title.Text = "[b]" + body.Name + "[/b]\n" + body.BodyType;
 
 		var image = inst.GetNode<TextureRect>("MCont/VBox/ImageMargin/PlanetImage");
-		image.Texture = (Texture2D)GD.Load(body.ImagePath);
+		image.Texture = (Texture2D)GD.Load(body.GetImage());
 
 		var exitButton = inst.GetNode<Button>("MCont/VBox/TitleExitHBox/ExitButton");
 		exitButton.Pressed += () =>
@@ -337,7 +352,7 @@ public partial class star_system_view : Node2D
 		title.Text = "[b]" + star.Name + "[/b]\n" + star.BodyType;
 
 		var image = inst.GetNode<TextureRect>("MCont/VBox/ImageMargin/PlanetImage");
-		image.Texture = (Texture2D)GD.Load(star.ImagePath);
+		image.Texture = (Texture2D)GD.Load(star.GetImage());
 
 		var exitButton = inst.GetNode<Button>("MCont/VBox/TitleExitHBox/ExitButton");
 		exitButton.Pressed += () =>

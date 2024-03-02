@@ -4,14 +4,6 @@ using GloryOfRitiria.Scripts.Global;
 using GloryOfRitiria.Scripts.Utils;
 using Godot;
 
-public enum CelestialBodyType
-{
-    Star,
-    GenericPlanet,
-    MinorBody,
-    Pallyria
-}
-
 public class CelestialBody
 {
     public string Name;
@@ -20,6 +12,8 @@ public class CelestialBody
 
     /// <summary> The distance from the star to this body in light minutes</summary>
     public double Distance;
+
+    public DiscoveryStatus DiscoveryStatus;
     
     public CelestialBodyType BodyType;
     // Determines if body should display satellites
@@ -30,17 +24,20 @@ public class CelestialBody
     public List<Ship> ShipsInOrbit = new(); //public ShipGroup ShipsInOrbit;
     
     // Random planet, some specific planet, asteroid, station....
-    public string ImagePath;
+    private string _imagePath;
 
     public List<Shipyard> Shipyards = new();
     
     
     // Default constructor, for the system's main celestial bodies such as planets
-    public CelestialBody(string name, Star star, double distance, string imagePath, CelestialBodyType type = CelestialBodyType.GenericPlanet){
+    public CelestialBody(string name, Star star, double distance, string imagePath, 
+        DiscoveryStatus discoveryStatus = DiscoveryStatus.Undiscovered, 
+        CelestialBodyType type = CelestialBodyType.GenericPlanet){
         Name = name;
         Star = star;
         Distance = distance;
-        ImagePath = imagePath;
+        DiscoveryStatus = discoveryStatus;
+        _imagePath = imagePath;
         BodyType = type;
         HasSatellites = true;
         Satellites = new List<CelestialBody>();
@@ -48,12 +45,14 @@ public class CelestialBody
     }
     
     public CelestialBody(string name, Star star, double distance, string imagePath, bool hasSatellites, 
-                         bool isSatellite, CelestialBodyType type = CelestialBodyType.GenericPlanet){
+                         bool isSatellite, DiscoveryStatus discoveryStatus = DiscoveryStatus.Undiscovered, 
+                         CelestialBodyType type = CelestialBodyType.GenericPlanet){
         Name = name;
         Star = star;
-        //if (isSatellite) Distance = 
         Distance = distance;
-        ImagePath = imagePath;
+        Distance = distance;
+        DiscoveryStatus = discoveryStatus;
+        _imagePath = imagePath;
         BodyType = type;
         HasSatellites = hasSatellites;
         IsSatellite = isSatellite;
@@ -104,34 +103,17 @@ public class CelestialBody
     {
         return "res://Assets/GUI/Icons/32/liveablePlanet.png";
     }
+
+    public virtual string GetImage()
+    {
+        if (DiscoveryStatus == DiscoveryStatus.Discovered) return _imagePath;
+        return "res://Assets/Img/tmp/CelestialBodies/UndiscoveredPlanet.png";
+    }
 }
 
-public class ShipGroup
+public enum DiscoveryStatus
 {
-    public string Name;
-    public string ImagePath;
-    public List<Ship> Ships;
-    
-    
-    public ShipGroup(string name, string imagePath = "res://Assets/Icons/shipGroup.png", List<Ship> ships=null){
-        Name = name;
-        ImagePath = imagePath;
-
-        if (ships!=null) Ships = new List<Ship>();
-        else Ships = ships;
-    }
-    
-    public ShipGroup(string name){
-        Name = name;
-        ImagePath = "res://Assets/Icons/shipGroup.png";
-
-        Ships = new List<Ship>();
-    }
-
-    public void AddShip(Ship ship)
-    {
-        Ships.Add(ship);
-    }
-    
-    
+    Discovered,
+    ExistenceKnown,
+    Undiscovered
 }

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dge6yh73g7sbv"]
 
-[ext_resource type="Texture2D" uid="uid://ccxnltalv1f6t" path="res://Assets/Img/tmp/RedStar64.png" id="1_hha23"]
+[ext_resource type="Texture2D" uid="uid://ccxnltalv1f6t" path="res://Assets/Img/tmp/CelestialBodies/RedStar64.png" id="1_hha23"]
 
 [node name="StarSystem" type="VBoxContainer"]
 offset_left = 891.0

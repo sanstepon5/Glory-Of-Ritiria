@@ -18,19 +18,21 @@ public enum StarSystemType
 public partial class StarSystemInfo:Node
 {
     /// <summary> Name of the star system (usually the biggest star) </summary>
-    public string Name;
+    public string SystemName;
     /// <summary> Distance from Detnura to this system in light years </summary>
     public float Distance;
     /// <summary> Angle in degrees indicating the position of the system relative to Detnura on 2D plan </summary>
     public int Angle;
     /// <summary> The type of the star system: Binary system, Neutron star, special systems like Sun etc </summary>
     public StarSystemType SystemType;
+    /// <summary> If system is not discovered it won't show on the interstellar map </summary>
+    public bool Discovered;
 
     public List<Star> SystemStars = new();
 
-    public StarSystemInfo(string name, float distance, int angle, StarSystemType systemType = StarSystemType.GenericSimple)
+    public StarSystemInfo(string systemName, float distance, int angle, StarSystemType systemType = StarSystemType.GenericSimple)
     {
-        Name = name;
+        SystemName = systemName;
         Distance = distance;
         Angle = angle;
         SystemType = systemType;

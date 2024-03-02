@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://db6qdll8lf15i"]
 
-[ext_resource type="Texture2D" uid="uid://ccxnltalv1f6t" path="res://Assets/Img/tmp/RedStar64.png" id="1_p175l"]
+[ext_resource type="Texture2D" uid="uid://ccxnltalv1f6t" path="res://Assets/Img/tmp/CelestialBodies/RedStar64.png" id="1_p175l"]
 [ext_resource type="Script" path="res://Scripts/Scenes/InterstellarMap.cs" id="1_vxdfo"]
 [ext_resource type="PackedScene" uid="uid://dv4521t76hah1" path="res://Scenes/Utils/InterstellarDistanceCircle.tscn" id="3_8alt7"]
 [ext_resource type="PackedScene" uid="uid://pebc2oa4mffp" path="res://Scenes/MapCamera.tscn" id="4_kicdb"]

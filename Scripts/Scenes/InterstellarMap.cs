@@ -28,7 +28,7 @@ public partial class InterstellarMap : Node2D
 		var starSystem = GD.Load<PackedScene>("res://Scenes/Utils/StarSystem.tscn");
 		var starSystemInst = (VBoxContainer) starSystem.Instantiate();
 		
-		starSystemInst.GetNode<RichTextLabel>("SystemName").Text = systemInfo.Name;
+		starSystemInst.GetNode<RichTextLabel>("SystemName").Text = systemInfo.SystemName;
 		
 		// Position the system relative to the center of the map (which is Detnura)
 		var centerVBox = GetNode<VBoxContainer>("DetnuraVBox");

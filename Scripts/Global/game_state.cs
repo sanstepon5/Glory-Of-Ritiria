@@ -141,44 +141,44 @@ public partial class game_state : Node
 		
 		
 		// Detnura
-		var detnuraStar = new Star("Detnura", detnuraSystem, 700,AssetsDir+"Img/tmp/CelestialBodies/star2.png");
+		var detnuraStar = new Star("Detnura", detnuraSystem, 700, StarType.OrangeDwarf);
 
 		// Detnura planets
-		var pallyria = new CelestialBody("Pallyria", detnuraStar, 5, AssetsDir + "Img/tmp/PlanetIcon.png",
-			CelestialBodyType.Pallyria);
+		var pallyria = new CelestialBody("Pallyria", detnuraStar, 5, 
+			AssetsDir + "Img/tmp/PlanetIcon.png", DiscoveryStatus.Discovered, CelestialBodyType.Pallyria);
 		pallyria.AddShipyard("Sokhil Shipyard");
 		detnuraStar.AddCelestialBody(pallyria);
 		
-		detnuraStar.AddCelestialBody(new CelestialBody("Other Planet",  detnuraStar, 15,AssetsDir+"Img/tmp/CelestialBodies/icePlanet.png"));
+		detnuraStar.AddCelestialBody(new CelestialBody("Other Planet",  detnuraStar, 15,AssetsDir+"Img/tmp/CelestialBodies/icePlanet.png", DiscoveryStatus.Discovered));
 		
 		// Gas giant that has satellites
-		var gasGiant = new CelestialBody("Gas Giant", detnuraStar, 50, AssetsDir + "Img/tmp/CelestialBodies/gasGiant.png");
-		var moon = new CelestialBody("Moon", detnuraStar, 0, AssetsDir + "Img/tmp/CelestialBodies/icePlanet.png", true, true);
+		var gasGiant = new CelestialBody("Gas Giant", detnuraStar, 50, AssetsDir + "Img/tmp/CelestialBodies/gasGiant.png", DiscoveryStatus.Discovered);
+		var moon = new CelestialBody("Moon", detnuraStar, 0, AssetsDir + "Img/tmp/CelestialBodies/icePlanet.png", true, true, DiscoveryStatus.Discovered);
 		
 		//var shipGroup = new ShipGroup("Fleet 1", AssetsDir + "Icons/shipGroup.png");
 		//moon.AddShipGroup(shipGroup);
 		gasGiant.AddSatellite(moon);
-		gasGiant.AddSatellite(new CelestialBody("Moon 2", detnuraStar, 0, AssetsDir + "Img/tmp/CelestialBodies/icePlanet.png", true, true));
+		gasGiant.AddSatellite(new CelestialBody("Moon 2", detnuraStar, 0, AssetsDir + "Img/tmp/CelestialBodies/icePlanet.png", true, true, DiscoveryStatus.Discovered));
 		detnuraStar.AddCelestialBody(gasGiant);
 		
-		var asteroid = new CelestialBody("Asteroid", detnuraStar, 65, AssetsDir + "Img/tmp/CelestialBodies/asteroid.png", true, true, CelestialBodyType.MinorBody);
+		var asteroid = new CelestialBody("Asteroid", detnuraStar, 65, AssetsDir + "Img/tmp/CelestialBodies/asteroid.png", true, true, DiscoveryStatus.Discovered, CelestialBodyType.MinorBody);
 		detnuraStar.AddCelestialBody(asteroid);
 		
 		detnuraSystem.SystemStars.Add(detnuraStar);
 		
 		
 		// Sol
-		var sunStar = new Star("Sun", solSystem, 500, AssetsDir+"Img/tmp/RedStar64.png");
-		sunStar.AddCelestialBody(new CelestialBody("Mercury", sunStar, 1, AssetsDir+"Img/tmp/MoltenPlanet.png"));
-		sunStar.AddCelestialBody(new CelestialBody("Venus", sunStar, 4, AssetsDir+"Img/tmp/MoltenPlanet.png"));
-		var earth = new CelestialBody("Earth", sunStar, 7, AssetsDir + "Img/tmp/CelestialBodies/liveablePlanet.png");
+		var sunStar = new Star("Sun", solSystem, 500, StarType.YellowDwarf);
+		sunStar.AddCelestialBody(new CelestialBody("Mercury", sunStar, 1, AssetsDir+"Img/tmp/MoltenPlanet.png", DiscoveryStatus.ExistenceKnown));
+		sunStar.AddCelestialBody(new CelestialBody("Venus", sunStar, 4, AssetsDir+"Img/tmp/MoltenPlanet.png", DiscoveryStatus.ExistenceKnown));
+		var earth = new CelestialBody("Earth", sunStar, 7, AssetsDir + "Img/tmp/CelestialBodies/liveablePlanet.png", DiscoveryStatus.Discovered);
 		earth.AddShipyard("UNOOSA European Dockyard");
 		sunStar.AddCelestialBody(earth);
 		
 		solSystem.SystemStars.Add(sunStar);
 		
 		// Barnard's star
-		var barnardStar = new Star("Barnard's star", barnardSystem, 20, AssetsDir+"Img/tmp/RedStar64.png");
+		var barnardStar = new Star("Barnard's star", barnardSystem, 20);
 		barnardStar.AddCelestialBody(new CelestialBody("Something", barnardStar, 1, AssetsDir+"Img/tmp/CelestialBodies/icePlanet.png"));
 		barnardSystem.SystemStars.Add(barnardStar);
 		
