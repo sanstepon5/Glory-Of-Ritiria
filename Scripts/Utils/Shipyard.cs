@@ -5,7 +5,7 @@ namespace GloryOfRitiria.Scripts.Utils;
 
 
 // Has to inherit Node to pass in signals
-public partial class Shipyard : Node
+public partial class Shipyard : GodotObject
 {
     public string ShipyardName;
     public CelestialBody Location;

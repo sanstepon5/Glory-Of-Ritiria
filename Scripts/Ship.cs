@@ -1,10 +1,11 @@
 ﻿using System;
 using GloryOfRitiria.Scripts.Global;
 using GloryOfRitiria.Scripts.Utils;
+using Godot;
 
 namespace GloryOfRitiria.Scripts;
 
-public class Ship
+public partial class Ship: GodotObject
 {
     public string Name;
     public CelestialBody Location;
