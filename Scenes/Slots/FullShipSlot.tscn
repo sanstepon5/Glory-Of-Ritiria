@@ -1,5 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://cwblvspsudkh3"]
+[gd_scene load_steps=3 format=3 uid="uid://cwblvspsudkh3"]
 
+[ext_resource type="Script" path="res://Scenes/Slots/FullShipSlot.cs" id="1_t7pnv"]
 [ext_resource type="Texture2D" uid="uid://cs6t8bvo4er6b" path="res://Assets/Icons/Ships/Big/ship.png" id="2_h7185"]
 
 [node name="FullShipSlot" type="PanelContainer"]
@@ -7,6 +8,7 @@ offset_right = 251.0
 offset_bottom = 183.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+script = ExtResource("1_t7pnv")
 
 [node name="MCont" type="MarginContainer" parent="."]
 layout_mode = 2

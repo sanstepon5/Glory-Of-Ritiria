@@ -75,7 +75,8 @@ public partial class SlotList : GridContainer
 	public PanelContainer BuildFullSlot(Ship ship)
 	{
 		var scene = GD.Load<PackedScene>("res://Scenes/Slots/FullShipSlot.tscn");
-		var inst = (PanelContainer)scene.Instantiate();
+		var inst = (FullShipSlot)scene.Instantiate();
+		inst.Ship = ship;
 		
 		var slotImage = inst.GetNode<TextureRect>("MCont/VBox/ShipImage");
 		slotImage.Texture = (Texture2D)GD.Load(ship.GetImagePath(ShipImageSize.Big));

@@ -66,8 +66,8 @@ public partial class base_game_scene : Node2D
 			GetTree().Paused = false;
 			_infoWindowContainer.GetChild(0).QueueFree();
 		};
-
 	}
+
 	
 	// Load a scene with a specified path, background path, and optional signal emission
 	// TODO: refactor, too many different scenes to load

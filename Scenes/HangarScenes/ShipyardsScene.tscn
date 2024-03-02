@@ -22,10 +22,10 @@ script = ExtResource("2_4bv6m")
 
 [node name="RightWindow" type="ReferenceRect" parent="."]
 process_mode = 2
-offset_left = 1458.0
-offset_top = 214.0
-offset_right = 1916.0
-offset_bottom = 782.0
+offset_left = 1455.0
+offset_top = 220.0
+offset_right = 1915.0
+offset_bottom = 790.0
 
 [node name="CenterWindow" type="ReferenceRect" parent="."]
 visible = false
@@ -43,5 +43,5 @@ offset_bottom = 480.0
 [node name="ShipyardSelectionMenu" parent="." instance=ExtResource("4_b3j1h")]
 offset_left = 330.0
 offset_top = 80.0
-offset_right = 1917.0
-offset_bottom = 212.0
+offset_right = 1915.0
+offset_bottom = 210.0

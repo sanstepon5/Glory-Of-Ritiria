@@ -1,4 +1,5 @@
-﻿using GloryOfRitiria.Scripts.Utils;
+﻿using GloryOfRitiria.Scripts;
+using GloryOfRitiria.Scripts.Utils;
 using Godot;
 
 namespace GloryOfRitiria;
@@ -70,6 +71,9 @@ public partial class GlobalSignals : Node
     
     [Signal] // index of the body in list of bodies with shipyards
     public delegate void ShipyardsBodyChangedEventHandler(int index);
+    
+    [Signal]
+    public delegate void FullSlotClickedEventHandler(Ship ship);
     
     
     // Ship update

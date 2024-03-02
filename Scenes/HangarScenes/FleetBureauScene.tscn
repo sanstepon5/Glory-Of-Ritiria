@@ -25,3 +25,10 @@ theme_override_constants/h_separation = 20
 theme_override_constants/v_separation = 20
 columns = 4
 script = ExtResource("3_743t0")
+
+[node name="RightWindow" type="ReferenceRect" parent="."]
+process_mode = 2
+offset_left = 1455.0
+offset_top = 75.0
+offset_right = 1915.0
+offset_bottom = 645.0
