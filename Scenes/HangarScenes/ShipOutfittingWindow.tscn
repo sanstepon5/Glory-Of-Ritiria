@@ -1,0 +1,149 @@
+[gd_scene load_steps=2 format=3 uid="uid://cwexwtr02i6wf"]
+
+[ext_resource type="Texture2D" uid="uid://bv465o815xn1i" path="res://Assets/Icons/Loadouts/spaceTelescope.png" id="1_mv6os"]
+
+[node name="ShipOutfittingWindow" type="PanelContainer"]
+offset_right = 460.0
+offset_bottom = 570.0
+
+[node name="MCont" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBox" type="VBoxContainer" parent="MCont"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="TitleExitHBox" type="HBoxContainer" parent="MCont/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Title" type="RichTextLabel" parent="MCont/VBox/TitleExitHBox"]
+clip_contents = false
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+bbcode_enabled = true
+text = "[b]Ship outfitting[/b]
+"
+
+[node name="ExitButton" type="Button" parent="MCont/VBox/TitleExitHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+size_flags_stretch_ratio = 0.1
+theme_override_colors/font_color = Color(0.968627, 0, 0, 1)
+text = "X"
+
+[node name="NameHBox" type="HBoxContainer" parent="MCont/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="RichTextLabel" parent="MCont/VBox/NameHBox"]
+clip_contents = false
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+bbcode_enabled = true
+text = "Name : 
+"
+
+[node name="MCont" type="MarginContainer" parent="MCont/VBox/NameHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.0
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = 10
+
+[node name="ShipName" type="RichTextLabel" parent="MCont/VBox/NameHBox/MCont"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 7.0
+text = "Default ship"
+
+[node name="DesignVBox" type="VBoxContainer" parent="MCont/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+
+[node name="TextHBox" type="HBoxContainer" parent="MCont/VBox/DesignVBox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="RichTextLabel" parent="MCont/VBox/DesignVBox/TextHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+text = "Current loadout:"
+
+[node name="MCont" type="MarginContainer" parent="MCont/VBox/DesignVBox/TextHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.0
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = 10
+
+[node name="DesignName" type="RichTextLabel" parent="MCont/VBox/DesignVBox/TextHBox/MCont"]
+layout_mode = 2
+text = "Empty"
+
+[node name="ImageMargin" type="MarginContainer" parent="MCont/VBox/DesignVBox"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 4.0
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 20
+
+[node name="Panel" type="Panel" parent="MCont/VBox/DesignVBox/ImageMargin"]
+layout_mode = 2
+
+[node name="LoadOutButton" type="TextureButton" parent="MCont/VBox/DesignVBox/ImageMargin"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.6
+texture_normal = ExtResource("1_mv6os")
+stretch_mode = 5
+
+[node name="TimeCostHBox" type="HBoxContainer" parent="MCont/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="RichTextLabel" parent="MCont/VBox/TimeCostHBox"]
+clip_contents = false
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+bbcode_enabled = true
+text = "Expected time to completion : "
+
+[node name="MarginContainer" type="MarginContainer" parent="MCont/VBox/TimeCostHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.0
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = 10
+
+[node name="CostLabel" type="RichTextLabel" parent="MCont/VBox/TimeCostHBox/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.0
+bbcode_enabled = true
+text = "60 turns [img]res://Assets/GUI/Icons/32/time.png[/img]"
+
+[node name="ButtonMargin" type="MarginContainer" parent="MCont/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 60
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 60
+theme_override_constants/margin_bottom = 20
+
+[node name="OutfitButton" type="Button" parent="MCont/VBox/ButtonMargin"]
+layout_mode = 2
+text = "Outfit"
