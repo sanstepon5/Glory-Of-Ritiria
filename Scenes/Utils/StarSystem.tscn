@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dge6yh73g7sbv"]
 
-[ext_resource type="Texture2D" uid="uid://ccxnltalv1f6t" path="res://Assets/Img/tmp/CelestialBodies/RedStar64.png" id="1_hha23"]
+[ext_resource type="Texture2D" uid="uid://ba7vf2n0rglja" path="res://Assets/Img/tmp/CelestialBodies/RedDwarf.png" id="1_ky5n3"]
 
 [node name="StarSystem" type="VBoxContainer"]
 offset_left = 891.0
@@ -17,11 +17,7 @@ theme_override_constants/margin_bottom = 0
 
 [node name="StarButton" type="TextureButton" parent="MarginContainer"]
 layout_mode = 2
-texture_normal = ExtResource("1_hha23")
-texture_pressed = ExtResource("1_hha23")
-texture_hover = ExtResource("1_hha23")
-texture_disabled = ExtResource("1_hha23")
-texture_focused = ExtResource("1_hha23")
+texture_normal = ExtResource("1_ky5n3")
 
 [node name="SystemName" type="RichTextLabel" parent="."]
 layout_mode = 2
