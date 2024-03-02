@@ -86,19 +86,23 @@ public class Ship
         switch (_currentRoute.Status)
         {
             case Route.RouteStatus.Arrived:
-                //if (oldStatus == Route.RouteStatus.Arrived) return false;
                 SetLocation(_currentRoute.DestinationBody);
                 _currentRoute = null;
                 changeLocation = true;
                 break;
             case Route.RouteStatus.InStartingSystem:
-                //if (oldStatus == Route.RouteStatus.InStartingSystem) return false;
-                SetLocation(_currentRoute.StartingBody.Star.InnerSpace);
+                if (_currentRoute.StartingBody is Star startingStar)
+                    SetLocation(startingStar.InnerSpace);
+                else
+                    SetLocation(_currentRoute.StartingBody.Star.InnerSpace);
                 changeLocation = true;
                 break;
             case Route.RouteStatus.InDestinationSystem:
                 if (oldStatus == Route.RouteStatus.InDestinationSystem) changeLocation = false;
-                SetLocation(_currentRoute.DestinationBody.Star.InnerSpace);
+                if (_currentRoute.DestinationBody is Star destinationStar)
+                    SetLocation(destinationStar.InnerSpace);
+                else
+                    SetLocation(_currentRoute.DestinationBody.Star.InnerSpace);
                 changeLocation = true;
                 break;
             default: changeLocation = false; break;
@@ -190,21 +194,38 @@ public class Route
         TravellingShip = travellingShip;
         StartingBody = start;
         DestinationBody = destination;
-
-        FirstSystemDistance = StartingBody.Star.OuterSpaceDistance - StartingBody.Distance;
-        double secondSystemDistance = 0;
-        if (StartingBody.Star != DestinationBody.Star)
-        {
-            secondSystemDistance = DestinationBody.Star.OuterSpaceDistance - DestinationBody.Distance;
-        } 
         
-        TotalDistance = FirstSystemDistance + secondSystemDistance;
+        _setupDistances(start, destination);
         
         TotalTraveledDistance = 0;
         FirstSystemTraveledDistance = 0;
         Status = RouteStatus.InStartingSystem;
     }
 
+    private void _setupDistances(CelestialBody start, CelestialBody destination)
+    {
+        // Compute distances to travel
+        if (start.Star == destination.Star) // Travelling within the same system
+        {   
+            FirstSystemDistance = Math.Abs(destination.Distance - start.Distance);
+            TotalDistance = FirstSystemDistance;
+        }
+        else // Need to leave starting star system
+        {   // Compute distance within the starting system
+            if (start.Distance >= start.Star.OuterSpaceDistance)    // If farther then boundaries of the system
+                FirstSystemDistance = 0;
+            else 
+                FirstSystemDistance = start.Star.OuterSpaceDistance - start.Distance;
+            
+            // Compute distance within the destination system
+            double secondSystemDistance;
+            if (destination.Distance >= destination.Star.OuterSpaceDistance) // If farther then boundaries of the system
+                secondSystemDistance = 0;   // Can jump directly to destination
+            else 
+                secondSystemDistance = destination.Star.OuterSpaceDistance - destination.Distance;
+            TotalDistance = FirstSystemDistance + secondSystemDistance;
+        }
+    }
     public void Update()
     {
         var traveledDistance = ComputeTraveledDistanceInTurn(TravellingShip.Speed);

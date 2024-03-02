@@ -6,6 +6,7 @@ using Godot;
 
 public enum CelestialBodyType
 {
+    Star,
     GenericPlanet,
     MinorBody,
     Pallyria
@@ -57,6 +58,16 @@ public class CelestialBody
         HasSatellites = hasSatellites;
         IsSatellite = isSatellite;
         if (hasSatellites) Satellites = new List<CelestialBody>();
+    }
+
+    // Constructor for Star
+    public CelestialBody()
+    {
+        BodyType = CelestialBodyType.Star;
+        Distance = 0;
+        HasSatellites = false;
+        Satellites = null;
+        IsSatellite = false;
     }
 
     public void AddSatellite(CelestialBody satellite)

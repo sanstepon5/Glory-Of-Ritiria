@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using GloryOfRitiria.Scripts.Utils;
 
-public class Star
+public class Star: CelestialBody
 {
     /// <summary> Name of the star </summary>
-    public string Name;
+    //public string Name;
     public string StarType; // Better to make enum
-    public string ImagePath; // Better to make enum
+    //public string ImagePath; // Better to make enum
 
     /// <summary> Celestial bodies in orbits of the star </summary>
     public List<CelestialBody> Bodies;
@@ -18,7 +18,9 @@ public class Star
     /// <summary> The distance from the star to the edge of the system </summary>
     public double OuterSpaceDistance;
 
-    public Star(string name, StarSystemInfo starSystem, double distance, string imagePath){
+    public Star(string name, StarSystemInfo starSystem, double distance, string imagePath)
+    {
+        Star = this;
         Name = name;
         StarSystem = starSystem;
         ImagePath = imagePath;
@@ -26,13 +28,7 @@ public class Star
         InnerSpace = new CelestialBody("Inner Space",  this, distance,"res://Assets/Icons/cross.png");
         OuterSpaceDistance = distance;
     }
-
-    // For inherited classes
-    public Star()
-    {
-        
-    }
-
+    
     // Populate the bodies list with celestial bodies of this system
     // probably using its ID. I need to think how to populate them...
     public void LoadCelestialBodies(){

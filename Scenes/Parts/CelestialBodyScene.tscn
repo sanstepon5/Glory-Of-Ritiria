@@ -17,10 +17,6 @@ theme_override_constants/margin_right = 50
 [node name="BodyButton" type="TextureButton" parent="BodyContainer/MarginContainer"]
 layout_mode = 2
 texture_normal = ExtResource("1_xttfw")
-texture_pressed = ExtResource("1_xttfw")
-texture_hover = ExtResource("1_xttfw")
-texture_disabled = ExtResource("1_xttfw")
-texture_focused = ExtResource("1_xttfw")
 
 [node name="BodyName" type="Label" parent="BodyContainer"]
 layout_mode = 2

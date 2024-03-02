@@ -8,6 +8,7 @@
 script = ExtResource("1_6tgt3")
 
 [node name="BackGroundImage" type="TextureRect" parent="."]
+z_index = -999
 offset_top = 1.0
 offset_right = 1918.0
 offset_bottom = 1079.0

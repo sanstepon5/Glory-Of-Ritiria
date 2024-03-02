@@ -46,10 +46,8 @@ public partial class star_system_view : Node2D
 		_shipsInSystem = new List<Ship>();
 		
 		var bodiesCont = GetNode<HBoxContainer>("BodiesHBox");
-		// Clear planets (1 because first is the star)
-		for (int i = 1; i < bodiesCont.GetChildren().Count; i++)
+		foreach (var child in bodiesCont.GetChildren())
 		{
-			var child = bodiesCont.GetChild(i);
 			child.QueueFree();
 		}
 		
@@ -83,10 +81,9 @@ public partial class star_system_view : Node2D
 		// TODO: Manage multiple stars
 		List<Star> stars = starSystem.SystemStars;
 		var star = stars[_currentStarIndex]; // always 0 for now
-
+		
 		var bodiesCont = GetNode<HBoxContainer>("BodiesHBox");
-		bodiesCont.GetNode<TextureRect>("StarVCont/StarMCont/StarImage").Texture = (Texture2D)GD.Load(star.ImagePath);
-		bodiesCont.GetNode<Label>("StarVCont/StarName").Text = star.Name;
+		bodiesCont.AddChild(BuildStar(star));
 
 		// Adding system's main celestial bodies
 		// I use while here to make the last white line invisible. It's ugly, yes, and I should redo it.
@@ -123,6 +120,29 @@ public partial class star_system_view : Node2D
 		}
 	}
 
+	private GridContainer BuildStar(Star star)
+	{
+		var scene = GD.Load<PackedScene>("res://Scenes/Parts/CelestialBodyScene.tscn");
+		var inst = (GridContainer)scene.Instantiate();
+		inst.GetNode<Label>("BodyContainer/BodyName").Text = star.Name;
+		
+		inst.GetNode<TextureButton>("BodyContainer/MarginContainer/BodyButton").TextureNormal = (Texture2D)GD.Load(star.ImagePath);
+		inst.GetNode<TextureButton>("BodyContainer/MarginContainer/BodyButton").Pressed += () => _starPressed(star);
+		
+		var satellitesVCont = inst.GetNode<VBoxContainer>("SatellitesVCont");
+		if (star.ShipsInOrbit.Count > 0)
+		{
+			foreach (var ship in star.ShipsInOrbit)
+			{
+				_shipsInSystem.Add(ship);
+				// TODO: Add vertical white lines
+				satellitesVCont.AddChild(BuildShipInst(ship, true));
+			}
+		}
+		
+		return inst;
+	}
+
 	private GridContainer BuildCelestialBody(CelestialBody body, bool lastBody = false)
 	{
 		// Set main body's properties
@@ -134,10 +154,10 @@ public partial class star_system_view : Node2D
 		inst.GetNode<TextureButton>("BodyContainer/MarginContainer/BodyButton").TextureNormal = (Texture2D)GD.Load(body.ImagePath);
 		// For others, it's probably better to use some kind of naming convention for files instead of storing all paths
 		// For example only storing "Img/planet.png" and using "Img/planet"+"_hover"+"png"
-		inst.GetNode<TextureButton>("BodyContainer/MarginContainer/BodyButton").TextureHover = (Texture2D)GD.Load(body.ImagePath);
-		inst.GetNode<TextureButton>("BodyContainer/MarginContainer/BodyButton").TextureDisabled = (Texture2D)GD.Load(body.ImagePath);
-		inst.GetNode<TextureButton>("BodyContainer/MarginContainer/BodyButton").TextureFocused = (Texture2D)GD.Load(body.ImagePath);
-		inst.GetNode<TextureButton>("BodyContainer/MarginContainer/BodyButton").TexturePressed = (Texture2D)GD.Load(body.ImagePath);
+		//inst.GetNode<TextureButton>("BodyContainer/MarginContainer/BodyButton").TextureHover = (Texture2D)GD.Load(body.ImagePath);
+		//inst.GetNode<TextureButton>("BodyContainer/MarginContainer/BodyButton").TextureDisabled = (Texture2D)GD.Load(body.ImagePath);
+		//inst.GetNode<TextureButton>("BodyContainer/MarginContainer/BodyButton").TextureFocused = (Texture2D)GD.Load(body.ImagePath);
+		//inst.GetNode<TextureButton>("BodyContainer/MarginContainer/BodyButton").TexturePressed = (Texture2D)GD.Load(body.ImagePath);
 			
 		if (body.Name == "Pallyria")
 			inst.GetNode<TextureButton>("BodyContainer/MarginContainer/BodyButton").Pressed += () => PlanetButtonPressed(body, true);
@@ -251,8 +271,8 @@ public partial class star_system_view : Node2D
 
 	private void PlanetButtonPressed(CelestialBody body, bool isPallyria = false)
 	{
-		var pallyriaScene = GD.Load<PackedScene>("res://Scenes/Parts/PlanetInfoWindow.tscn");
-		var inst = (PlanetInfoWindow)pallyriaScene.Instantiate();
+		var planetInfoScene = GD.Load<PackedScene>("res://Scenes/Parts/PlanetInfoWindow.tscn");
+		var inst = (PlanetInfoWindow)planetInfoScene.Instantiate();
 
 		inst.Body = body;
 
@@ -299,6 +319,55 @@ public partial class star_system_view : Node2D
 			toPallyriaButton.Pressed += PallyriaPressed;
 		}
 
+		// Add inst to the infoWindow control node in base scene UI canvas node
+		_signals.EmitSignal(nameof(_signals.PlanetInfoWindowRequested), inst);
+
+		// Pause the rest of the game while this window is active.
+		GetTree().Paused = true;
+	}	
+	
+	private void _starPressed(Star star)
+	{
+		var planetInfoScene = GD.Load<PackedScene>("res://Scenes/Parts/PlanetInfoWindow.tscn");
+		var inst = (PlanetInfoWindow)planetInfoScene.Instantiate();
+
+		inst.Body = star;
+
+		var title = inst.GetNode<RichTextLabel>("MCont/VBox/TitleExitHBox/Title");
+		title.Text = "[b]" + star.Name + "[/b]\n" + star.BodyType;
+
+		var image = inst.GetNode<TextureRect>("MCont/VBox/ImageMargin/PlanetImage");
+		image.Texture = (Texture2D)GD.Load(star.ImagePath);
+
+		var exitButton = inst.GetNode<Button>("MCont/VBox/TitleExitHBox/ExitButton");
+		exitButton.Pressed += () =>
+		{
+			_signals.EmitSignal(nameof(_signals.InfoWindowClosed));
+		};
+
+		var sendButtonMargin = inst.GetNode<MarginContainer>("MCont/VBox/SendShipMargin");
+		if (game_state.SelectedShip != null
+			&& game_state.SelectedShip.State != ShipState.InRoute
+			&& game_state.SelectedShip.Location != star)
+		{
+			sendButtonMargin.Visible = true;
+			var sendButton = sendButtonMargin.GetNode<Button>("SendShipButton");
+			if (game_state.SelectedShip.IsInRouteTo(star))
+			{
+				sendButton.Disabled = true;
+				sendButton.Text = game_state.SelectedShip.Name + " in route here";
+			}
+			else sendButton.Disabled = false;
+
+			sendButton.Pressed += () =>
+			{
+				game_state.SelectedShip.StartRoute(star);
+				_signals.EmitSignal(nameof(_signals.ShipStartedRoute));
+				sendButton.Disabled = true;
+				sendButton.Text = game_state.SelectedShip.Name + " is in route here";
+			};
+		}
+		
 		// Add inst to the infoWindow control node in base scene UI canvas node
 		_signals.EmitSignal(nameof(_signals.PlanetInfoWindowRequested), inst);
 

@@ -11,7 +11,7 @@ script = ExtResource("1_vioe8")
 [node name="SlotList" type="GridContainer" parent="."]
 offset_left = 10.0
 offset_top = 880.0
-offset_right = 1458.0
+offset_right = 1910.0
 offset_bottom = 1070.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
