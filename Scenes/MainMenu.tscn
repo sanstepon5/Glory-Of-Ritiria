@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dueir764yg475"]
 
 [ext_resource type="Script" path="res://Scripts/Scenes/MainMenu.cs" id="1_vqlkk"]
-[ext_resource type="Texture2D" uid="uid://b6jucbl8f1kux" path="res://Assets/Img/tmp/MainMenuBG.jpg" id="2_rdpwp"]
+[ext_resource type="Texture2D" uid="uid://bdy617mvtnu0i" path="res://Assets/Img/tmp/MainMenuBG_Disclaimer.jpg" id="2_vvvsw"]
 
 [node name="MainMenu" type="Node2D"]
 script = ExtResource("1_vqlkk")
@@ -12,7 +12,7 @@ offset_right = 1918.0
 offset_bottom = 1079.0
 size_flags_horizontal = 0
 size_flags_vertical = 4
-texture = ExtResource("2_rdpwp")
+texture = ExtResource("2_vvvsw")
 
 [node name="VFlowContainer" type="VFlowContainer" parent="."]
 offset_left = 1532.0
@@ -53,3 +53,12 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 40
 text = "Quit
 "
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = -5.0
+offset_top = 998.0
+offset_right = 472.0
+offset_bottom = 1079.0
+theme_override_font_sizes/normal_font_size = 48
+bbcode_enabled = true
+text = "[color=red] NOT A FURRY GAME"
