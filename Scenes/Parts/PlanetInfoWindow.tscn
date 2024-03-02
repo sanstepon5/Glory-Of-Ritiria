@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bqjif7igb3uik"]
 
 [ext_resource type="Script" path="res://Scenes/Parts/PlanetInfoWindow.cs" id="1_bujdy"]
-[ext_resource type="Texture2D" uid="uid://cbymyk3gj0gw0" path="res://icon.svg" id="2_sw1hl"]
+[ext_resource type="Texture2D" uid="uid://cygkd1k37vx86" path="res://Assets/Img/tmp/CelestialBodies/liveablePlanet.png" id="2_e3b4b"]
 
 [node name="PlanetInfoPanel" type="PanelContainer"]
 process_mode = 2
@@ -23,7 +23,7 @@ theme_override_constants/separation = 10
 [node name="TitleExitHBox" type="HBoxContainer" parent="MCont/VBox"]
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.25
+size_flags_stretch_ratio = 2.0
 
 [node name="Title" type="RichTextLabel" parent="MCont/VBox/TitleExitHBox"]
 clip_contents = false
@@ -45,27 +45,31 @@ text = "X"
 
 [node name="ImageMargin" type="MarginContainer" parent="MCont/VBox"]
 layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 4.0
 
 [node name="PlanetImage" type="TextureRect" parent="MCont/VBox/ImageMargin"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.6
-texture = ExtResource("2_sw1hl")
+texture = ExtResource("2_e3b4b")
+expand_mode = 2
+stretch_mode = 5
 
 [node name="Description" type="RichTextLabel" parent="MCont/VBox"]
 layout_mode = 2
 size_flags_vertical = 3
+size_flags_stretch_ratio = 8.0
 text = "Second planet from Detnura, Pallyria is home to the civilization of Orassi, \"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\""
 
 [node name="ButtonMargin" type="MarginContainer" parent="MCont/VBox"]
 visible = false
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.3
 theme_override_constants/margin_left = 60
-theme_override_constants/margin_top = 20
+theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 60
-theme_override_constants/margin_bottom = 20
+theme_override_constants/margin_bottom = 10
 
 [node name="MissionSelect" type="Button" parent="MCont/VBox/ButtonMargin"]
 layout_mode = 2
@@ -75,11 +79,10 @@ text = "Select Mission"
 visible = false
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.3
 theme_override_constants/margin_left = 60
-theme_override_constants/margin_top = 20
+theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 60
-theme_override_constants/margin_bottom = 20
+theme_override_constants/margin_bottom = 10
 
 [node name="SendShipButton" type="Button" parent="MCont/VBox/SendShipMargin"]
 layout_mode = 2
@@ -89,11 +92,10 @@ text = "Send Ship"
 visible = false
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.3
 theme_override_constants/margin_left = 60
-theme_override_constants/margin_top = 20
+theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 60
-theme_override_constants/margin_bottom = 20
+theme_override_constants/margin_bottom = 10
 
 [node name="ToPallyriaButton" type="Button" parent="MCont/VBox/ToPallyriaMargin"]
 layout_mode = 2
