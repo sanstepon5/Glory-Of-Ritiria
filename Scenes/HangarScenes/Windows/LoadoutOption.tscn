@@ -1,0 +1,42 @@
+[gd_scene load_steps=2 format=3 uid="uid://n1xllq8fturn"]
+
+[ext_resource type="Texture2D" uid="uid://bv465o815xn1i" path="res://Assets/Icons/Loadouts/spaceTelescope.png" id="1_sp1ds"]
+
+[node name="LoadoutOption" type="PanelContainer"]
+custom_minimum_size = Vector2(250, 0)
+offset_right = 202.0
+offset_bottom = 236.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MarginCont" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxCont" type="VBoxContainer" parent="MarginCont"]
+layout_mode = 2
+
+[node name="Name" type="RichTextLabel" parent="MarginCont/VBoxCont"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Space telescope"
+fit_content = true
+autowrap_mode = 0
+
+[node name="Image" type="TextureRect" parent="MarginCont/VBoxCont"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+texture = ExtResource("1_sp1ds")
+stretch_mode = 5
+
+[node name="Desc" type="RichTextLabel" parent="MarginCont/VBoxCont"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+text = "A space telescope is used to discover new planets within a stellar system"
+fit_content = true
+context_menu_enabled = true

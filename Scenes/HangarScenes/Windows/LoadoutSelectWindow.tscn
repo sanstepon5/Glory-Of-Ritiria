@@ -1,0 +1,32 @@
+[gd_scene load_steps=2 format=3 uid="uid://cxe7rke4yc111"]
+
+[ext_resource type="PackedScene" uid="uid://n1xllq8fturn" path="res://Scenes/HangarScenes/Windows/LoadoutOption.tscn" id="1_dkprh"]
+
+[node name="LoadoutSelectWindow" type="PanelContainer"]
+offset_right = 285.0
+offset_bottom = 483.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="ScrollCont" type="ScrollContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="VBox" type="VBoxContainer" parent="MarginContainer/ScrollCont"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="LoadoutOption" parent="MarginContainer/ScrollCont/VBox" instance=ExtResource("1_dkprh")]
+layout_mode = 2
+
+[node name="LoadoutOption2" parent="MarginContainer/ScrollCont/VBox" instance=ExtResource("1_dkprh")]
+layout_mode = 2
+
+[node name="LoadoutOption3" parent="MarginContainer/ScrollCont/VBox" instance=ExtResource("1_dkprh")]
+layout_mode = 2
