@@ -1,6 +1,7 @@
 ﻿using GloryOfRitiria.Scripts;
 using GloryOfRitiria.Scripts.Utils;
 using Godot;
+using Ship = GloryOfRitiria.Scripts.ShipRelated.Ship;
 
 namespace GloryOfRitiria;
 

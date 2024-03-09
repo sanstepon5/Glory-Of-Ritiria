@@ -11,8 +11,8 @@ public class Choice
 
 	public Choice(string id, string desc)
 	{
-		this.Id = id;
-		this.Desc = desc; 
+		Id = id;
+		Desc = desc; 
 	}
 
 	// Mainly for parsing from file

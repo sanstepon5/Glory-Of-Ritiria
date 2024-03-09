@@ -3,6 +3,7 @@ using GloryOfRitiria;
 using GloryOfRitiria.Scripts;
 using GloryOfRitiria.Scripts.Global;
 using GloryOfRitiria.Scripts.Utils;
+using Ship = GloryOfRitiria.Scripts.ShipRelated.Ship;
 
 public partial class SlotList : GridContainer
 {

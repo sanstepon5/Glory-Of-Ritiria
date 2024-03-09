@@ -327,10 +327,8 @@ public class EventFileParser
 
         while (match.Success)
         {
-            var effect = new Effect();
-            effect.methodName = match.Groups["MethodName"].Value;
-            effect.value = match.Groups["Value"].Value;
-            effect.desc = match.Groups["Desc"].Value;
+            var effect = new Effect(match.Groups["MethodName"].Value, 
+                                    match.Groups["Value"].Value, match.Groups["Desc"].Value);
             effectsList.Add(effect);
             
             _currentLine = _eventFile.GetLine();

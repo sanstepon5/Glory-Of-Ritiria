@@ -1,23 +1,24 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using GloryOfRitiria.Scripts.Global;
 using GloryOfRitiria.Scripts.Utils;
 using Godot;
 
-namespace GloryOfRitiria.Scripts;
+namespace GloryOfRitiria.Scripts.ShipRelated;
 
 public partial class Ship: GodotObject
 {
     public string Name;
     public CelestialBody Location;
     public ShipDesign Design;
-    //public Cargo ShipCargo;
+    public List<Cargo> ShipCargo;
     public double Speed; // fraction of the speed of light, initially 1% (From Kuiper Belt to Earth (50 A.U.) in a month
     public bool Selected;
     public ShipState State;
+    public Mission CurrentMission;
     
     private Route _currentRoute;
 
-    public Ship(string name, CelestialBody body, bool inConstruction = false, string cargoName = "Default")
+    public Ship(string name, CelestialBody body, bool inConstruction = false)
     {
         Name = name;
         if (inConstruction)
@@ -30,6 +31,8 @@ public partial class Ship: GodotObject
         Selected = false;
         State = ShipState.Docked;
         MovementUpdate();
+
+        ShipCargo = new List<Cargo>();
     }
 
     public bool IsInRouteTo(CelestialBody body)
@@ -90,6 +93,10 @@ public partial class Ship: GodotObject
                 SetLocation(_currentRoute.DestinationBody);
                 _currentRoute = null;
                 changeLocation = true;
+                if (CurrentMission != null)
+                {
+                    CurrentMission.ExecuteEffects();
+                }
                 break;
             case Route.RouteStatus.InStartingSystem:
                 if (_currentRoute.StartingBody is Star startingStar)
@@ -128,6 +135,35 @@ public partial class Ship: GodotObject
             else State = Selected ? ShipState.StartingRouteSelected : ShipState.StartingRoute;
         }
     }
+
+    public List<Mission> GetAllMissions()
+    {
+        var res = new List<Mission>();
+        foreach (var cargo in ShipCargo)
+        {
+            res.AddRange(cargo.PossibleMissions);
+        }
+        return res;
+    }
+
+    public Mission GetMissionByName(string name)
+    {
+        foreach (var mission in GetAllMissions())
+        {
+            if (mission.Name.Equals(name)) return mission;
+        }
+
+        return null;
+    }
+
+    public void SetShipMission(string missionName, CelestialBody missionTarget)
+    {
+        CurrentMission = GetMissionByName(missionName);
+        foreach (var effect in CurrentMission.EffectsOnSuccess)
+        {
+            effect.Value = missionTarget.Name;
+        }
+    }
     
     // Returns path to a the ship icon based on ship's state and requested size
     public string GetImagePath(ShipImageSize size = ShipImageSize.Small)
@@ -151,120 +187,4 @@ public partial class Ship: GodotObject
         }
         return res;
     }
-}
-
-public enum ShipImageSize
-{
-    Small,
-    Big
-}
-
-public enum ShipState
-{
-    Docked,
-    DockedSelected,
-    StartingRoute,
-    StartingRouteSelected,
-    InRoute
-}
-
-public class Cargo
-{
-    public string Name;
-
-    public Cargo(String name)
-    {
-        Name = name;
-    }
-}
-
-public class Route
-{
-    public Ship TravellingShip;
-    public CelestialBody StartingBody;
-    public CelestialBody DestinationBody;
-    // Distance in light minutes
-    public double TotalDistance; 
-    public double FirstSystemDistance; 
-    public double TotalTraveledDistance;
-    public double FirstSystemTraveledDistance;
-    public RouteStatus Status;
-
-    public Route(Ship travellingShip, CelestialBody start, CelestialBody destination)
-    {
-        TravellingShip = travellingShip;
-        StartingBody = start;
-        DestinationBody = destination;
-        
-        _setupDistances(start, destination);
-        
-        TotalTraveledDistance = 0;
-        FirstSystemTraveledDistance = 0;
-        Status = RouteStatus.InStartingSystem;
-    }
-
-    private void _setupDistances(CelestialBody start, CelestialBody destination)
-    {
-        // Compute distances to travel
-        if (start.Star == destination.Star) // Travelling within the same system
-        {   
-            FirstSystemDistance = Math.Abs(destination.Distance - start.Distance);
-            TotalDistance = FirstSystemDistance;
-        }
-        else // Need to leave starting star system
-        {   // Compute distance within the starting system
-            if (start.Distance >= start.Star.OuterSpaceDistance)    // If farther then boundaries of the system
-                FirstSystemDistance = 0;
-            else 
-                FirstSystemDistance = start.Star.OuterSpaceDistance - start.Distance;
-            
-            // Compute distance within the destination system
-            double secondSystemDistance;
-            if (destination.Distance >= destination.Star.OuterSpaceDistance) // If farther then boundaries of the system
-                secondSystemDistance = 0;   // Can jump directly to destination
-            else 
-                secondSystemDistance = destination.Star.OuterSpaceDistance - destination.Distance;
-            TotalDistance = FirstSystemDistance + secondSystemDistance;
-        }
-    }
-    public void Update()
-    {
-        var traveledDistance = ComputeTraveledDistanceInTurn(TravellingShip.Speed);
-        if (Status == RouteStatus.InStartingSystem)
-        {
-            FirstSystemTraveledDistance += traveledDistance;
-        }
-        
-        TotalTraveledDistance += traveledDistance;
-        
-        if (TotalTraveledDistance >= TotalDistance)
-        {
-            Status = RouteStatus.Arrived;
-        }
-        else
-        {
-            if (FirstSystemTraveledDistance >= FirstSystemDistance)
-            {
-                Status = RouteStatus.InDestinationSystem;
-            }
-        }
-    }
-    
-    
-
-    // Compute how many light hours will be traveled in a single turn (one month)
-    // With a speed of 0.01c 7.2*60 light minutes will be travelled in a month
-    // 50 A.U ~= 7.2 light hours = 432 light minutes
-    public static double ComputeTraveledDistanceInTurn(double speed)
-    {
-        return 30 * 24 * 60 * speed;
-    }
-
-    public enum RouteStatus
-    {
-        InStartingSystem,
-        InDestinationSystem,
-        Arrived
-    }
-    
 }

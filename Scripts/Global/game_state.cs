@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using GloryOfRitiria.Scripts.ShipRelated;
 using GloryOfRitiria.Scripts.Utils;
 using GloryOfRitiria.Scripts.Utils.Events;
 using Godot;
@@ -42,12 +43,9 @@ public partial class game_state : Node
 	public static List<CelestialBody> BodiesWithShipyards = new();
 
 	public static Ship SelectedShip = null;
-	
-	
-	
-	
-	
-	public static GlobalSignals _signals;
+
+
+	private static GlobalSignals _signals;
 	
 	// Attributes
 	public static Dictionary<string, Tuple<Type, object>> GetAttributeValues()
@@ -73,6 +71,23 @@ public partial class game_state : Node
 
 		Init();
 		_signals = GetNode<GlobalSignals>("/root/GlobalSignals");
+	}
+
+	public static void DiscoverPlanet(string planetName)
+	{
+		foreach (var starSystem in DiscoveredSystems)
+		{
+			foreach (var star in starSystem.SystemStars)
+			{
+				foreach (var body in star.Bodies)
+				{
+					if (body.Name.Equals(planetName))
+					{
+						body.ElevateDiscoveryStatus();
+					}
+				}
+			}
+		}
 	}
 
 	public static void UpdateResources()
@@ -147,6 +162,7 @@ public partial class game_state : Node
 		var pallyria = new CelestialBody("Pallyria", detnuraStar, 5, 
 			AssetsDir + "Img/tmp/PlanetIcon.png", DiscoveryStatus.Discovered, CelestialBodyType.Pallyria);
 		pallyria.AddShipyard("Sokhil Shipyard");
+		pallyria.AddShipyard("Eradian Shipyard");
 		detnuraStar.AddCelestialBody(pallyria);
 		
 		detnuraStar.AddCelestialBody(new CelestialBody("Other Planet",  detnuraStar, 15,AssetsDir+"Img/tmp/CelestialBodies/icePlanet.png", DiscoveryStatus.Discovered));
@@ -172,7 +188,6 @@ public partial class game_state : Node
 		sunStar.AddCelestialBody(new CelestialBody("Mercury", sunStar, 1, AssetsDir+"Img/tmp/MoltenPlanet.png", DiscoveryStatus.ExistenceKnown));
 		sunStar.AddCelestialBody(new CelestialBody("Venus", sunStar, 4, AssetsDir+"Img/tmp/MoltenPlanet.png", DiscoveryStatus.ExistenceKnown));
 		var earth = new CelestialBody("Earth", sunStar, 7, AssetsDir + "Img/tmp/CelestialBodies/liveablePlanet.png", DiscoveryStatus.Discovered);
-		earth.AddShipyard("UNOOSA European Dockyard");
 		sunStar.AddCelestialBody(earth);
 		
 		solSystem.SystemStars.Add(sunStar);
@@ -184,11 +199,17 @@ public partial class game_state : Node
 		
 		
 		
-		var irana = new Ship("Irana", earth);
+		var columbia = new Ship("Columbia", earth, true);
+		var telescope = new Cargo("Telescope");
+		var discoveryMission = new Mission("Discover");
+		discoveryMission.AddEffect(new Effect("DiscoverPlanet"));
+		telescope.PossibleMissions.Add(discoveryMission);
+		columbia.ShipCargo.Add(telescope);
+		earth.AddBusyShipyard("UNOOSA European Dockyard", columbia, 7);
+		
+		var irana = new Ship("Irana", pallyria);
 		AllShips.Add(irana);
 		
-		var baraba = new Ship("Baraba", pallyria, true);
-		pallyria.AddBusyShipyard("Eradian Shipyard", baraba, 7);
 	}
 	
 }

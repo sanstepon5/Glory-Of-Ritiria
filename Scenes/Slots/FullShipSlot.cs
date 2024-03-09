@@ -1,7 +1,6 @@
 using Godot;
-using System;
 using GloryOfRitiria;
-using GloryOfRitiria.Scripts;
+using Ship = GloryOfRitiria.Scripts.ShipRelated.Ship;
 
 public partial class FullShipSlot : PanelContainer
 {

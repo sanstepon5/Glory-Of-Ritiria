@@ -1,8 +1,9 @@
-using Godot;
-using GloryOfRitiria;
-using GloryOfRitiria.Scripts;
 using GloryOfRitiria.Scripts.Global;
 using GloryOfRitiria.Scripts.Utils;
+using Godot;
+using Ship = GloryOfRitiria.Scripts.ShipRelated.Ship;
+
+namespace GloryOfRitiria.Scripts.Scenes;
 
 public partial class ShipyardsScene : Node2D
 {

@@ -1,15 +1,15 @@
 using System.Collections.Generic;
-using System.Linq;
-using Godot;
-using GloryOfRitiria;
 using GloryOfRitiria.Scenes.Parts;
-using GloryOfRitiria.Scripts;
 using GloryOfRitiria.Scripts.Global;
 using GloryOfRitiria.Scripts.Utils;
+using Godot;
+using Ship = GloryOfRitiria.Scripts.ShipRelated.Ship;
 
 
 // VBox container for all bodies. All bodies have the same stretch ratio (5 for example). 
 // Star's ratio is 1 * nb of celestial bodies to keep the same size. 
+
+namespace GloryOfRitiria.Scripts.Scenes;
 
 public partial class star_system_view : Node2D
 {
@@ -157,10 +157,6 @@ public partial class star_system_view : Node2D
 		inst.GetNode<TextureButton>("BodyContainer/MarginContainer/BodyButton").TextureNormal = (Texture2D)GD.Load(body.GetImage());
 		// For others, it's probably better to use some kind of naming convention for files instead of storing all paths
 		// For example only storing "Img/planet.png" and using "Img/planet"+"_hover"+"png"
-		//inst.GetNode<TextureButton>("BodyContainer/MarginContainer/BodyButton").TextureHover = (Texture2D)GD.Load(body.ImagePath);
-		//inst.GetNode<TextureButton>("BodyContainer/MarginContainer/BodyButton").TextureDisabled = (Texture2D)GD.Load(body.ImagePath);
-		//inst.GetNode<TextureButton>("BodyContainer/MarginContainer/BodyButton").TextureFocused = (Texture2D)GD.Load(body.ImagePath);
-		//inst.GetNode<TextureButton>("BodyContainer/MarginContainer/BodyButton").TexturePressed = (Texture2D)GD.Load(body.ImagePath);
 			
 		if (body.Name == "Pallyria")
 			inst.GetNode<TextureButton>("BodyContainer/MarginContainer/BodyButton").Pressed += () => PlanetButtonPressed(body, true);
@@ -304,25 +300,50 @@ public partial class star_system_view : Node2D
 		};
 
 		var sendButtonMargin = inst.GetNode<MarginContainer>("MCont/VBox/SendShipMargin");
+		var sendButton = sendButtonMargin.GetNode<Button>("SendShipButton");
 		if (game_state.SelectedShip != null
-			&& game_state.SelectedShip.State != ShipState.InRoute
-			&& game_state.SelectedShip.Location != body)
+		    && game_state.SelectedShip.State != ShipState.InRoute
+		    && game_state.SelectedShip.Location != body)
 		{
-			sendButtonMargin.Visible = true;
-			var sendButton = sendButtonMargin.GetNode<Button>("SendShipButton");
+			var missionButtonMargin = inst.GetNode<MarginContainer>("MCont/VBox/MissionMargin");
+			
+			missionButtonMargin.Visible = true;
+			var missionButton = missionButtonMargin.GetNode<OptionButton>("MissionSelect");
 			if (game_state.SelectedShip.IsInRouteTo(body))
-			{
+			{ // If the ship is already in route here, show the disabled button
+				sendButtonMargin.Visible = true;
+				missionButton.Disabled = true;
+				//missionButton.Selected = 0; Set current mission of the ship
 				sendButton.Disabled = true;
 				sendButton.Text = game_state.SelectedShip.Name + " in route here";
 			}
 			else sendButton.Disabled = false;
 
-			sendButton.Pressed += () =>
+			missionButton.AddItem("Move ship");
+			foreach (var mission in game_state.SelectedShip.GetAllMissions())
 			{
-				game_state.SelectedShip.StartRoute(body);
-				_signals.EmitSignal(nameof(_signals.ShipStartedRoute));
-				sendButton.Disabled = true;
-				sendButton.Text = game_state.SelectedShip.Name + " is in route here";
+				missionButton.AddItem(mission.Name);
+			}
+			
+			missionButton.Selected = -1;
+
+			missionButton.ItemSelected += index => // After player chooses a mission
+			{
+				sendButtonMargin.Visible = true;
+    
+				sendButton.Pressed += () =>
+				{
+					game_state.SelectedShip.StartRoute(body);
+					_signals.EmitSignal(nameof(_signals.ShipStartedRoute));
+					sendButton.Disabled = true;
+					sendButton.Text = game_state.SelectedShip.Name + " is in route here";
+
+					if (missionButton.Selected > 0)
+					{ // The first one is simple movement which isn't a mission
+						game_state.SelectedShip.SetShipMission(missionButton.GetItemText((int)index), body);
+					}
+	                
+				};
 			};
 		}
 
@@ -362,8 +383,8 @@ public partial class star_system_view : Node2D
 
 		var sendButtonMargin = inst.GetNode<MarginContainer>("MCont/VBox/SendShipMargin");
 		if (game_state.SelectedShip != null
-			&& game_state.SelectedShip.State != ShipState.InRoute
-			&& game_state.SelectedShip.Location != star)
+		    && game_state.SelectedShip.State != ShipState.InRoute
+		    && game_state.SelectedShip.Location != star)
 		{
 			sendButtonMargin.Visible = true;
 			var sendButton = sendButtonMargin.GetNode<Button>("SendShipButton");

@@ -1,4 +1,5 @@
 ﻿using GloryOfRitiria.Scripts.Global;
+using GloryOfRitiria.Scripts.ShipRelated;
 using Godot;
 
 namespace GloryOfRitiria.Scripts.Utils;

@@ -2,10 +2,11 @@ using System.Collections.Generic;
 using GloryOfRitiria.Scripts;
 using GloryOfRitiria.Scripts.Global;
 using GloryOfRitiria.Scripts.Utils;
-using Godot;
+using Ship = GloryOfRitiria.Scripts.ShipRelated.Ship;
 
 public class CelestialBody
 {
+    /**Also server as an "ID" for now*/
     public string Name;
     // Parent Star
     public Star Star;
@@ -95,6 +96,15 @@ public class CelestialBody
     {
         if (Shipyards.Count == 0) game_state.BodiesWithShipyards.Add(this);
         Shipyards.Add(new Shipyard(name, this, ship, progress));
+    }
+
+    public void ElevateDiscoveryStatus()
+    {
+        switch (DiscoveryStatus)
+        {
+            case DiscoveryStatus.Undiscovered: DiscoveryStatus = DiscoveryStatus.ExistenceKnown; break;
+            case DiscoveryStatus.ExistenceKnown: DiscoveryStatus = DiscoveryStatus.Discovered; break;
+        }
     }
 
 
