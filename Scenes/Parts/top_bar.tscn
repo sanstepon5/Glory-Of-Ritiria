@@ -1,10 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://b176rck77evnu"]
+[gd_scene load_steps=10 format=3 uid="uid://b176rck77evnu"]
 
 [ext_resource type="PackedScene" uid="uid://od2gg2tiw6fj" path="res://Scenes/Parts/top_bar_res.tscn" id="1_bxmsq"]
 [ext_resource type="Texture2D" uid="uid://8kxepv33yo8w" path="res://Assets/GUI/Icons/political_icon.png" id="2_ilm8f"]
 [ext_resource type="Texture2D" uid="uid://cca0p07quqq4v" path="res://Assets/GUI/Icons/lab-coat.png" id="3_jb5cb"]
 [ext_resource type="Texture2D" uid="uid://cbymyk3gj0gw0" path="res://icon.svg" id="4_wr70x"]
 [ext_resource type="PackedScene" uid="uid://b2toyoqgujy86" path="res://Scenes/Parts/NextTurnButton.tscn" id="5_uwfxi"]
+[ext_resource type="Texture2D" uid="uid://b8u7yi37jw0t0" path="res://Assets/Icons/Ships/Small/ship.png" id="6_4wq6g"]
+[ext_resource type="Texture2D" uid="uid://b875anrsg7itk" path="res://Assets/GUI/Icons/16/CameraReticle.png" id="7_flq4d"]
+[ext_resource type="Texture2D" uid="uid://bngbobnj0khap" path="res://Assets/GUI/Icons/32/liveablePlanet.png" id="8_m78dt"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s2hsm"]
 bg_color = Color(0.176471, 0.176471, 0.176471, 1)
@@ -37,14 +40,14 @@ text = "970 APE
 layout_mode = 0
 offset_left = 1200.0
 offset_top = 1.0
-offset_right = 1373.0
-offset_bottom = 72.0
+offset_right = 1380.0
+offset_bottom = 73.0
 text = "Open Events"
 
 [node name="InterstellarMapButton" type="Button" parent="."]
 layout_mode = 0
 offset_left = 1000.0
-offset_right = 1179.0
+offset_right = 1180.0
 offset_bottom = 72.0
 text = "Open Interstellar Map"
 
@@ -82,3 +85,75 @@ offset_left = 1714.0
 offset_top = 2.0
 offset_right = 1917.0
 offset_bottom = 70.0
+
+[node name="SelectedShip" type="PanelContainer" parent="."]
+layout_mode = 2
+offset_left = 550.0
+offset_right = 730.0
+offset_bottom = 72.0
+
+[node name="VBox" type="VBoxContainer" parent="SelectedShip"]
+layout_mode = 2
+
+[node name="MarginCont" type="MarginContainer" parent="SelectedShip/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 0
+
+[node name="HBox" type="HBoxContainer" parent="SelectedShip/VBox/MarginCont"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBox" type="HBoxContainer" parent="SelectedShip/VBox/MarginCont/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ShipIcon" type="TextureRect" parent="SelectedShip/VBox/MarginCont/HBox/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+texture = ExtResource("6_4wq6g")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="ShipTypeIcon" type="TextureRect" parent="SelectedShip/VBox/MarginCont/HBox/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("7_flq4d")
+stretch_mode = 2
+
+[node name="ShipName" type="RichTextLabel" parent="SelectedShip/VBox/MarginCont/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Columbia"
+scroll_active = false
+autowrap_mode = 0
+
+[node name="MarginCont2" type="MarginContainer" parent="SelectedShip/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+
+[node name="HBox" type="HBoxContainer" parent="SelectedShip/VBox/MarginCont2"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PlanetIcon" type="TextureRect" parent="SelectedShip/VBox/MarginCont2/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("8_m78dt")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="PlanetName" type="RichTextLabel" parent="SelectedShip/VBox/MarginCont2/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Pallyria"
+scroll_active = false
+autowrap_mode = 0
