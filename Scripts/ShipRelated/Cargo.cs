@@ -24,12 +24,23 @@ public class Cargo
         PossibleMissions = new List<Mission>();
     }
 
-    public Cargo(string name, int durability, int cost, string imagePath)
+    public Cargo(string name, int durability, int cost = 0, string imagePath = "")
     {
         Name = name;
         Durability = durability;
         Cost = cost;
         ImagePath = imagePath;
         PossibleMissions = new List<Mission>();
+    }
+
+    public void AddMission(Mission mission)
+    {
+        mission.SetAssociatedCargo(this);
+        PossibleMissions.Add(mission);
+    }
+
+    public void DecreaseDurability()
+    {
+        Durability--;
     }
 }

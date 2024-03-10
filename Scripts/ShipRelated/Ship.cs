@@ -12,10 +12,10 @@ public partial class Ship: GodotObject
     public CelestialBody Location;
     public ShipDesign Design;
     public List<Cargo> ShipCargo;
-    public double Speed; // fraction of the speed of light, initially 1% (From Kuiper Belt to Earth (50 A.U.) in a month
+    public double Speed; // fraction of the speed of light, initially 1% (From Kuiper Belt to Earth (50 A.U.) in a month)
     public bool Selected;
     public ShipState State;
-    public Mission CurrentMission;
+    private Mission _currentMission;
     
     private Route _currentRoute;
 
@@ -27,13 +27,12 @@ public partial class Ship: GodotObject
         else
             SetLocation(body);
         Design = new ShipDesign();
-        //ShipCargo = new Cargo(cargoName);
+        ShipCargo = new List<Cargo>();
         Speed = 0.01;
         Selected = false;
         State = ShipState.Docked;
-        MovementUpdate();
-
-        ShipCargo = new List<Cargo>();
+        
+        //MovementUpdate();
     }
 
     public bool IsInRouteTo(CelestialBody body)
@@ -94,9 +93,9 @@ public partial class Ship: GodotObject
                 SetLocation(_currentRoute.DestinationBody);
                 _currentRoute = null;
                 changeLocation = true;
-                if (CurrentMission != null)
+                if (_currentMission != null)
                 {
-                    CurrentMission.ExecuteEffects();
+                    _currentMission.ExecuteEffects();
                 }
                 break;
             case Route.RouteStatus.InStartingSystem:
@@ -125,6 +124,20 @@ public partial class Ship: GodotObject
     public void SimpleUpdate()
     {
         _updateState();
+        UpdateCargo();
+    }
+
+    /**Checks the cargo state and destroys it if durability reaches 0*/
+    private void UpdateCargo()
+    {
+        var cargoToRemove = new List<Cargo>();
+        foreach (var cargo in ShipCargo)
+            if (cargo.Durability <= 0)
+                cargoToRemove.Add(cargo);
+        foreach (var cargo in cargoToRemove)
+        {
+            ShipCargo.Remove(cargo);
+        }
     }
 
     private void _updateState()
@@ -159,8 +172,8 @@ public partial class Ship: GodotObject
 
     public void SetShipMission(string missionName, CelestialBody missionTarget)
     {
-        CurrentMission = GetMissionByName(missionName);
-        foreach (var effect in CurrentMission.EffectsOnSuccess)
+        _currentMission = GetMissionByName(missionName);
+        foreach (var effect in _currentMission.EffectsOnSuccess)
         {
             effect.Value = missionTarget.Name;
         }

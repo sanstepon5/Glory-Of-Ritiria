@@ -220,14 +220,14 @@ public partial class game_state : Node
 		
 		
 		var columbia = new Ship("Columbia", earth, true);
-		var planetExplorationKit = new Cargo("Planet exploration kit");
-		planetExplorationKit.PossibleMissions.Add(new PlanetExplorationMission());
+		var planetExplorationKit = new Cargo("Planet exploration kit", 5);
+		planetExplorationKit.AddMission(new PlanetExplorationMission());
 		columbia.ShipCargo.Add(planetExplorationKit);
 		earth.AddBusyShipyard("UNOOSA European Dockyard", columbia, 7);
 		
 		var irana = new Ship("Irana", pallyria);
-		var spaceTelescope = new Cargo("Space Telescope");
-		spaceTelescope.PossibleMissions.Add(new SystemExplorationMission());
+		var spaceTelescope = new Cargo("Space Telescope", 1);
+		spaceTelescope.AddMission(new SystemExplorationMission());
 		irana.ShipCargo.Add(spaceTelescope);
 		
 		AllShips.Add(irana);
