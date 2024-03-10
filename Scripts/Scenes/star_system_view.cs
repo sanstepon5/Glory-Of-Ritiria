@@ -159,9 +159,9 @@ public partial class star_system_view : Node2D
 		// For example only storing "Img/planet.png" and using "Img/planet"+"_hover"+"png"
 			
 		if (body.Name == "Pallyria")
-			inst.GetNode<TextureButton>("BodyContainer/MarginContainer/BodyButton").Pressed += () => PlanetButtonPressed(body, true);
+			inst.GetNode<TextureButton>("BodyContainer/MarginContainer/BodyButton").Pressed += () => CelestialBodyPressed(body, true);
 		else 
-			inst.GetNode<TextureButton>("BodyContainer/MarginContainer/BodyButton").Pressed += () => PlanetButtonPressed(body);
+			inst.GetNode<TextureButton>("BodyContainer/MarginContainer/BodyButton").Pressed += () => CelestialBodyPressed(body);
 		
 		
 		if (lastBody) inst.GetNode<MarginContainer>("SatellitesHCont/MarginContainer").Visible = false;
@@ -278,9 +278,10 @@ public partial class star_system_view : Node2D
 			otherShip.SimpleUpdate();
 		}
 		_signals.EmitSignal(nameof(_signals.ShipClicked)); // Update all ship scenes
+		_signals.EmitSignal(nameof(_signals.TopBarUpdateRequired)); // Update the topbar (really only need one part but later...)
 	}
 
-	private void PlanetButtonPressed(CelestialBody body, bool isPallyria = false)
+	private void CelestialBodyPressed(CelestialBody body, bool isPallyria = false)
 	{
 		var planetInfoScene = GD.Load<PackedScene>("res://Scenes/Parts/PlanetInfoWindow.tscn");
 		var inst = (PlanetInfoWindow)planetInfoScene.Instantiate();
@@ -299,53 +300,7 @@ public partial class star_system_view : Node2D
 			_signals.EmitSignal(nameof(_signals.InfoWindowClosed));
 		};
 
-		var sendButtonMargin = inst.GetNode<MarginContainer>("MCont/VBox/SendShipMargin");
-		var sendButton = sendButtonMargin.GetNode<Button>("SendShipButton");
-		if (game_state.SelectedShip != null
-		    && game_state.SelectedShip.State != ShipState.InRoute
-		    && game_state.SelectedShip.Location != body)
-		{
-			var missionButtonMargin = inst.GetNode<MarginContainer>("MCont/VBox/MissionMargin");
-			
-			missionButtonMargin.Visible = true;
-			var missionButton = missionButtonMargin.GetNode<OptionButton>("MissionSelect");
-			if (game_state.SelectedShip.IsInRouteTo(body))
-			{ // If the ship is already in route here, show the disabled button
-				sendButtonMargin.Visible = true;
-				missionButton.Disabled = true;
-				//missionButton.Selected = 0; Set current mission of the ship
-				sendButton.Disabled = true;
-				sendButton.Text = game_state.SelectedShip.Name + " in route here";
-			}
-			else sendButton.Disabled = false;
-
-			missionButton.AddItem("Move ship");
-			foreach (var mission in game_state.SelectedShip.GetAllMissions())
-			{
-				missionButton.AddItem(mission.Name);
-			}
-			
-			missionButton.Selected = -1;
-
-			missionButton.ItemSelected += index => // After player chooses a mission
-			{
-				sendButtonMargin.Visible = true;
-    
-				sendButton.Pressed += () =>
-				{
-					game_state.SelectedShip.StartRoute(body);
-					_signals.EmitSignal(nameof(_signals.ShipStartedRoute));
-					sendButton.Disabled = true;
-					sendButton.Text = game_state.SelectedShip.Name + " is in route here";
-
-					if (missionButton.Selected > 0)
-					{ // The first one is simple movement which isn't a mission
-						game_state.SelectedShip.SetShipMission(missionButton.GetItemText((int)index), body);
-					}
-	                
-				};
-			};
-		}
+		_setupSendButtons(body, inst);
 
 		if (isPallyria)
 		{
@@ -360,7 +315,7 @@ public partial class star_system_view : Node2D
 
 		// Pause the rest of the game while this window is active.
 		GetTree().Paused = true;
-	}	
+	}
 	
 	private void _starPressed(Star star)
 	{
@@ -381,33 +336,73 @@ public partial class star_system_view : Node2D
 			_signals.EmitSignal(nameof(_signals.InfoWindowClosed));
 		};
 
-		var sendButtonMargin = inst.GetNode<MarginContainer>("MCont/VBox/SendShipMargin");
-		if (game_state.SelectedShip != null
-		    && game_state.SelectedShip.State != ShipState.InRoute
-		    && game_state.SelectedShip.Location != star)
-		{
-			sendButtonMargin.Visible = true;
-			var sendButton = sendButtonMargin.GetNode<Button>("SendShipButton");
-			if (game_state.SelectedShip.IsInRouteTo(star))
-			{
-				sendButton.Disabled = true;
-				sendButton.Text = game_state.SelectedShip.Name + " in route here";
-			}
-			else sendButton.Disabled = false;
-
-			sendButton.Pressed += () =>
-			{
-				game_state.SelectedShip.StartRoute(star);
-				_signals.EmitSignal(nameof(_signals.ShipStartedRoute));
-				sendButton.Disabled = true;
-				sendButton.Text = game_state.SelectedShip.Name + " is in route here";
-			};
-		}
+		_setupSendButtons(star, inst);
 		
 		// Add inst to the infoWindow control node in base scene UI canvas node
 		_signals.EmitSignal(nameof(_signals.PlanetInfoWindowRequested), inst);
 
 		// Pause the rest of the game while this window is active.
 		GetTree().Paused = true;
+	}
+
+	private void _setupSendButtons(CelestialBody body, PlanetInfoWindow inst)
+	{
+		var sendButtonMargin = inst.GetNode<MarginContainer>("MCont/VBox/SendShipMargin");
+		var sendButton = sendButtonMargin.GetNode<Button>("SendShipButton");
+		if (game_state.SelectedShip != null
+			&& game_state.SelectedShip.State != ShipState.InRoute
+			&& game_state.SelectedShip.Location != body)
+		{
+			var missionButtonMargin = inst.GetNode<MarginContainer>("MCont/VBox/MissionMargin");
+			
+			missionButtonMargin.Visible = true;
+			var missionButton = missionButtonMargin.GetNode<OptionButton>("MissionSelect");
+			if (game_state.SelectedShip.IsInRouteTo(body))
+			{	// If the ship is already in route here, show the disabled button
+				sendButtonMargin.Visible = true;
+				missionButton.Disabled = true;
+				//missionButton.Selected = 0; Set current mission of the ship
+				sendButton.Disabled = true;
+				sendButton.Text = game_state.SelectedShip.Name + " in route here";
+			}
+			else sendButton.Disabled = false;
+
+			missionButton.AddItem("Move ship");
+			for (var i = 0; i < game_state.SelectedShip.GetAllMissions().Count; i++)
+			{
+				var mission = game_state.SelectedShip.GetAllMissions()[i];
+				missionButton.AddItem(mission.Name);
+				if (!body.IsMissionCompatible(mission))
+					missionButton.SetItemDisabled(i+1, true); // index 0 is for moving ship
+			}
+			
+			missionButton.Selected = -1;
+
+			missionButton.ItemSelected += index => // After player chooses a mission
+			{
+				sendButtonMargin.Visible = true;
+	
+				sendButton.Pressed += () => { _handleSendButton(body, sendButton, missionButton, index); };
+			};
+		}
+	}
+
+	/**
+	 * <param name="body">body that was clicked</param>
+	 * <param name="sendButton">Button sendButton: send button node</param>
+	 * <param name="missionButton">OptionButton missionButton: select mission button</param>
+	 * <param name="index">long index: index of the option selected in missionButton</param>
+	 */
+	private void _handleSendButton(CelestialBody body, Button sendButton, OptionButton missionButton, long index)
+	{
+		game_state.SelectedShip.StartRoute(body);
+		_signals.EmitSignal(nameof(_signals.ShipStartedRoute));
+		sendButton.Disabled = true;
+		sendButton.Text = game_state.SelectedShip.Name + " is in route here";
+
+		if (missionButton.Selected > 0)
+		{ // The first one is simple movement which isn't a mission
+			game_state.SelectedShip.SetShipMission(missionButton.GetItemText((int)index), body);
+		}
 	}
 }

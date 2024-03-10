@@ -44,10 +44,11 @@ public class Effect
                 game_state.CurrentFlags.Remove(flag);
                 }
                 break;
-            case "DiscoverPlanet":
-                {
-                    game_state.DiscoverPlanet(Value);
-                }
+            case "ExplorePlanet":
+                game_state.DiscoverPlanet(Value);
+                break;
+            case "DiscoverSystem":
+                game_state.DiscoverSystem(Value);
                 break;
         }
     }

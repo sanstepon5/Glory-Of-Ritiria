@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using GloryOfRitiria.Scripts;
 using GloryOfRitiria.Scripts.Global;
+using GloryOfRitiria.Scripts.ShipRelated.Missions;
 using GloryOfRitiria.Scripts.Utils;
+using Godot;
 using Ship = GloryOfRitiria.Scripts.ShipRelated.Ship;
 
 public class CelestialBody
@@ -98,12 +100,34 @@ public class CelestialBody
         Shipyards.Add(new Shipyard(name, this, ship, progress));
     }
 
-    public void ElevateDiscoveryStatus()
+    /**Explore the body giving more information about it on the system map*/
+    public void ExplorePlanet()
     {
-        switch (DiscoveryStatus)
+        if (DiscoveryStatus == DiscoveryStatus.ExistenceKnown)
+            DiscoveryStatus = DiscoveryStatus.Explored;
+        else
+            GD.Print("A ship tried exploring already explored body: " + Name);
+    }
+
+    /**Discover the body making it visible on the system map*/
+    public void DiscoverBody()
+    {
+        if (DiscoveryStatus == DiscoveryStatus.Undiscovered)
+            DiscoveryStatus = DiscoveryStatus.ExistenceKnown;
+        else
+            GD.Print("A ship tried discovering already known body: " + Name);
+    }
+
+    public bool IsMissionCompatible(Mission mission)
+    {
+        switch (mission)
         {
-            case DiscoveryStatus.Undiscovered: DiscoveryStatus = DiscoveryStatus.ExistenceKnown; break;
-            case DiscoveryStatus.ExistenceKnown: DiscoveryStatus = DiscoveryStatus.Discovered; break;
+            case PlanetExplorationMission:
+                return (this is not global::Star) && DiscoveryStatus != DiscoveryStatus.Explored;
+            case SystemExplorationMission: // Can still try to explore system even if everything is found
+                return (this is Star);
+            default:
+                return false;
         }
     }
 
@@ -116,14 +140,14 @@ public class CelestialBody
 
     public virtual string GetImage()
     {
-        if (DiscoveryStatus == DiscoveryStatus.Discovered) return _imagePath;
+        if (DiscoveryStatus == DiscoveryStatus.Explored) return _imagePath;
         return "res://Assets/Img/tmp/CelestialBodies/UndiscoveredPlanet.png";
     }
 }
 
 public enum DiscoveryStatus
 {
-    Discovered,
+    Explored,
     ExistenceKnown,
     Undiscovered
 }

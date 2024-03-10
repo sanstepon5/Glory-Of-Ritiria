@@ -23,7 +23,7 @@ public class Star: CelestialBody
         Star = this;
         Name = name;
         // If a star within a star system is not discovered, it shouldn't be selectable. Still not sure if it's needed...
-        DiscoveryStatus = DiscoveryStatus.Discovered; 
+        DiscoveryStatus = DiscoveryStatus.Explored; 
         StarSystem = starSystem;
         Bodies = new List<CelestialBody>();
         InnerSpace = new CelestialBody("Inner Space",  this, distance,"res://Assets/Icons/cross.png");

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using GloryOfRitiria.Scripts.ShipRelated;
+using GloryOfRitiria.Scripts.ShipRelated.Missions;
 using GloryOfRitiria.Scripts.Utils;
 using GloryOfRitiria.Scripts.Utils.Events;
 using Godot;
@@ -75,6 +76,7 @@ public partial class game_state : Node
 
 	public static void DiscoverPlanet(string planetName)
 	{
+		//TODO: transform into while and print error if not found
 		foreach (var starSystem in DiscoveredSystems)
 		{
 			foreach (var star in starSystem.SystemStars)
@@ -83,9 +85,27 @@ public partial class game_state : Node
 				{
 					if (body.Name.Equals(planetName))
 					{
-						body.ElevateDiscoveryStatus();
+						body.ExplorePlanet();
 					}
 				}
+			}
+		}
+	}
+	
+	public static void DiscoverSystem(string starName)
+	{
+		foreach (var starSystem in DiscoveredSystems)
+		{
+			foreach (var star in starSystem.SystemStars)
+			{
+				if (star.Name.Equals(starName))
+				{
+					foreach (var body in star.Bodies)
+                    {
+                    	body.DiscoverBody();
+                    }
+				}
+				
 			}
 		}
 	}
@@ -160,24 +180,24 @@ public partial class game_state : Node
 
 		// Detnura planets
 		var pallyria = new CelestialBody("Pallyria", detnuraStar, 5, 
-			AssetsDir + "Img/tmp/PlanetIcon.png", DiscoveryStatus.Discovered, CelestialBodyType.Pallyria);
+			AssetsDir + "Img/tmp/PlanetIcon.png", DiscoveryStatus.Explored, CelestialBodyType.Pallyria);
 		pallyria.AddShipyard("Sokhil Shipyard");
 		pallyria.AddShipyard("Eradian Shipyard");
 		detnuraStar.AddCelestialBody(pallyria);
 		
-		detnuraStar.AddCelestialBody(new CelestialBody("Other Planet",  detnuraStar, 15,AssetsDir+"Img/tmp/CelestialBodies/icePlanet.png", DiscoveryStatus.Discovered));
+		detnuraStar.AddCelestialBody(new CelestialBody("Other Planet",  detnuraStar, 15,AssetsDir+"Img/tmp/CelestialBodies/icePlanet.png", DiscoveryStatus.Explored));
 		
 		// Gas giant that has satellites
-		var gasGiant = new CelestialBody("Gas Giant", detnuraStar, 50, AssetsDir + "Img/tmp/CelestialBodies/gasGiant.png", DiscoveryStatus.Discovered);
-		var moon = new CelestialBody("Moon", detnuraStar, 0, AssetsDir + "Img/tmp/CelestialBodies/icePlanet.png", true, true, DiscoveryStatus.Discovered);
+		var gasGiant = new CelestialBody("Gas Giant", detnuraStar, 50, AssetsDir + "Img/tmp/CelestialBodies/gasGiant.png", DiscoveryStatus.Explored);
+		var moon = new CelestialBody("Moon", detnuraStar, 0, AssetsDir + "Img/tmp/CelestialBodies/icePlanet.png", true, true, DiscoveryStatus.Explored);
 		
 		//var shipGroup = new ShipGroup("Fleet 1", AssetsDir + "Icons/shipGroup.png");
 		//moon.AddShipGroup(shipGroup);
 		gasGiant.AddSatellite(moon);
-		gasGiant.AddSatellite(new CelestialBody("Moon 2", detnuraStar, 0, AssetsDir + "Img/tmp/CelestialBodies/icePlanet.png", true, true, DiscoveryStatus.Discovered));
+		gasGiant.AddSatellite(new CelestialBody("Moon 2", detnuraStar, 0, AssetsDir + "Img/tmp/CelestialBodies/icePlanet.png", true, true, DiscoveryStatus.Explored));
 		detnuraStar.AddCelestialBody(gasGiant);
 		
-		var asteroid = new CelestialBody("Asteroid", detnuraStar, 65, AssetsDir + "Img/tmp/CelestialBodies/asteroid.png", true, true, DiscoveryStatus.Discovered, CelestialBodyType.MinorBody);
+		var asteroid = new CelestialBody("Asteroid", detnuraStar, 65, AssetsDir + "Img/tmp/CelestialBodies/asteroid.png", true, true, DiscoveryStatus.Explored, CelestialBodyType.MinorBody);
 		detnuraStar.AddCelestialBody(asteroid);
 		
 		detnuraSystem.SystemStars.Add(detnuraStar);
@@ -187,7 +207,7 @@ public partial class game_state : Node
 		var sunStar = new Star("Sun", solSystem, 500, StarType.YellowDwarf);
 		sunStar.AddCelestialBody(new CelestialBody("Mercury", sunStar, 1, AssetsDir+"Img/tmp/MoltenPlanet.png", DiscoveryStatus.ExistenceKnown));
 		sunStar.AddCelestialBody(new CelestialBody("Venus", sunStar, 4, AssetsDir+"Img/tmp/MoltenPlanet.png", DiscoveryStatus.ExistenceKnown));
-		var earth = new CelestialBody("Earth", sunStar, 7, AssetsDir + "Img/tmp/CelestialBodies/liveablePlanet.png", DiscoveryStatus.Discovered);
+		var earth = new CelestialBody("Earth", sunStar, 7, AssetsDir + "Img/tmp/CelestialBodies/liveablePlanet.png", DiscoveryStatus.Explored);
 		sunStar.AddCelestialBody(earth);
 		
 		solSystem.SystemStars.Add(sunStar);
@@ -200,14 +220,16 @@ public partial class game_state : Node
 		
 		
 		var columbia = new Ship("Columbia", earth, true);
-		var telescope = new Cargo("Telescope");
-		var discoveryMission = new Mission("Discover");
-		discoveryMission.AddEffect(new Effect("DiscoverPlanet"));
-		telescope.PossibleMissions.Add(discoveryMission);
-		columbia.ShipCargo.Add(telescope);
+		var planetExplorationKit = new Cargo("Planet exploration kit");
+		planetExplorationKit.PossibleMissions.Add(new PlanetExplorationMission());
+		columbia.ShipCargo.Add(planetExplorationKit);
 		earth.AddBusyShipyard("UNOOSA European Dockyard", columbia, 7);
 		
 		var irana = new Ship("Irana", pallyria);
+		var spaceTelescope = new Cargo("Space Telescope");
+		spaceTelescope.PossibleMissions.Add(new SystemExplorationMission());
+		irana.ShipCargo.Add(spaceTelescope);
+		
 		AllShips.Add(irana);
 		
 	}
