@@ -171,13 +171,15 @@ public partial class base_game_scene : Node2D
 		InvokeEvents();
 	}
 
+	//TODO: Move all that to the TopBar Scene
 	public void TopBarUpdate()
 	{
-		var yearLabel = GetNode<Label>("UICanvas/TopBar/CurrentYear");
+		var topBar = GetNode<Panel>("UICanvas/TopBar");
+		var yearLabel = topBar.GetNode<Label>("CurrentYear");
 		yearLabel.Text = game_state.CurrentYear;
 		
 		// Res 1 update
-		var res1 = GetNode<HBoxContainer>("UICanvas/TopBar/ResourceContainer/Res1");
+		var res1 = topBar.GetNode<HBoxContainer>("ResourceContainer/Res1");
 		var res1Text = res1.GetNode<RichTextLabel>("ResText");
 		if (game_state.Res1Rate >= 0)
 			res1Text.Text = "" + game_state.Res1 + "[color=green] + "+ game_state.Res1Rate+"[/color]";
@@ -185,7 +187,7 @@ public partial class base_game_scene : Node2D
 			res1Text.Text = "" + game_state.Res1 + "\n[color=red] - "+ Math.Abs(game_state.Res1Rate)+"[/color]";
 		
 		// Science update
-		var scientific = GetNode<HBoxContainer>("UICanvas/TopBar/ResourceContainer/ScienceRes");
+		var scientific = topBar.GetNode<HBoxContainer>("ResourceContainer/ScienceRes");
 		var scientificText = scientific.GetNode<RichTextLabel>("ResText");
 		if 
 			(game_state.ScientificRes > 5) scientificText.Text = "" + game_state.ScientificRes + "%";
@@ -193,27 +195,38 @@ public partial class base_game_scene : Node2D
 			scientificText.Text = "[color=red]" + game_state.ScientificRes + "%[/color]";
 		
 		// Political power update
-		var political = GetNode<HBoxContainer>("UICanvas/TopBar/ResourceContainer/PoliticalRes");
+		var political = topBar.GetNode<HBoxContainer>("ResourceContainer/PoliticalRes");
 		var politicalText = political.GetNode<RichTextLabel>("ResText");
 		if (game_state.PoliticalRes > 5) 
 			politicalText.Text = "" + game_state.PoliticalRes + "%";
 		else 
 			politicalText.Text = "[color=red]" + game_state.PoliticalRes + "%[/color]";
+		
+		// Selected Ship update
+		var shipName = topBar.GetNode<RichTextLabel>("SelectedShip/VBox/MarginCont/HBox/ShipName");
+		shipName.Text = "No ship selected";
+		var planetName = topBar.GetNode<RichTextLabel>("SelectedShip/VBox/MarginCont2/HBox/PlanetName");
+		planetName.Text = "...";
+		if (game_state.SelectedShip != null)
+		{
+			shipName.Text = game_state.SelectedShip.Name;
+			planetName.Text = game_state.SelectedShip.Location.Name;
+		}
 	}
 
 	// Called on new turn, update the list of satisfied events
-	public void UpdateEvents()
+	private void UpdateEvents()
 	{
 		game_state.EventsForTurn = _eventManager.GetSatisfiedEvents();
 	}
-	
-	public void InvokeEvents()
+
+	private void InvokeEvents()
 	{
 		if (game_state.EventsForTurn.Count == 0) return;
 		BuildMultiEventWindow();
 	}
-	
-	public void BuildMultiEventWindow()
+
+	private void BuildMultiEventWindow()
 	{
 		var multiEventWindow = GD.Load<PackedScene>("res://Scenes/Parts/MultiEventWindow.tscn");
 		var multiEventInst = (Panel) multiEventWindow.Instantiate();
@@ -247,8 +260,5 @@ public partial class base_game_scene : Node2D
 		_warningWindowContainer.AddChild(warningWindowInst);
 		GetTree().Paused = true;
 	}
-
-
-	
 	
 }

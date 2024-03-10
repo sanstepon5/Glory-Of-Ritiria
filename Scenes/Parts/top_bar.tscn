@@ -88,8 +88,8 @@ offset_bottom = 70.0
 
 [node name="SelectedShip" type="PanelContainer" parent="."]
 layout_mode = 2
-offset_left = 550.0
-offset_right = 730.0
+offset_left = 700.0
+offset_right = 906.0
 offset_bottom = 72.0
 
 [node name="VBox" type="VBoxContainer" parent="SelectedShip"]
@@ -117,7 +117,7 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 texture = ExtResource("6_4wq6g")
 expand_mode = 2
-stretch_mode = 5
+stretch_mode = 4
 
 [node name="ShipTypeIcon" type="TextureRect" parent="SelectedShip/VBox/MarginCont/HBox/HBox"]
 layout_mode = 2
@@ -128,7 +128,8 @@ stretch_mode = 2
 [node name="ShipName" type="RichTextLabel" parent="SelectedShip/VBox/MarginCont/HBox"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Columbia"
+size_flags_stretch_ratio = 2.0
+text = "No ship selected"
 scroll_active = false
 autowrap_mode = 0
 
@@ -149,11 +150,12 @@ layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("8_m78dt")
 expand_mode = 2
-stretch_mode = 5
+stretch_mode = 4
 
 [node name="PlanetName" type="RichTextLabel" parent="SelectedShip/VBox/MarginCont2/HBox"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Pallyria"
+size_flags_stretch_ratio = 2.0
+text = "..."
 scroll_active = false
 autowrap_mode = 0
