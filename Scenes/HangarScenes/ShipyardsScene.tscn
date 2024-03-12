@@ -31,6 +31,7 @@ offset_right = 1915.0
 offset_bottom = 790.0
 
 [node name="CenterWindow" type="ReferenceRect" parent="."]
+process_mode = 2
 offset_left = 865.0
 offset_top = 241.0
 offset_right = 1264.0

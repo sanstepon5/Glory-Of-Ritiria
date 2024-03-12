@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://dxrljrkhsfk3n"]
+
+[ext_resource type="Texture2D" uid="uid://caf4ifcqrx83q" path="res://Assets/Icons/plus.png" id="1_2ct20"]
+
+[node name="MarginCont" type="MarginContainer"]
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+
+[node name="PanelCont" type="PanelContainer" parent="."]
+layout_mode = 2
+
+[node name="TextureButton" type="TextureButton" parent="PanelCont"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture_normal = ExtResource("1_2ct20")
+stretch_mode = 3

@@ -2,8 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://bv465o815xn1i" path="res://Assets/Icons/Loadouts/spaceTelescope.png" id="1_sp1ds"]
 
-[node name="LoadoutOption" type="PanelContainer"]
-custom_minimum_size = Vector2(250, 0)
+[node name="CargoOption" type="PanelContainer"]
+custom_minimum_size = Vector2(250, 230)
 offset_right = 202.0
 offset_bottom = 236.0
 size_flags_horizontal = 3
@@ -22,7 +22,8 @@ layout_mode = 2
 [node name="Name" type="RichTextLabel" parent="MarginCont/VBoxCont"]
 layout_mode = 2
 size_flags_vertical = 3
-text = "Space telescope"
+bbcode_enabled = true
+text = "[b]Space telescope[/b]"
 fit_content = true
 autowrap_mode = 0
 
@@ -40,3 +41,9 @@ size_flags_stretch_ratio = 2.0
 text = "A space telescope is used to discover new planets within a stellar system"
 fit_content = true
 context_menu_enabled = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginCont/VBoxCont"]
+layout_mode = 2
+size_flags_vertical = 3
+bbcode_enabled = true
+text = "[b]Has in storage:[/b][color=red] 0[/color]"

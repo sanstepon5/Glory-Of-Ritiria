@@ -1,10 +1,10 @@
 [gd_scene load_steps=2 format=3 uid="uid://cwexwtr02i6wf"]
 
-[ext_resource type="Texture2D" uid="uid://bv465o815xn1i" path="res://Assets/Icons/Loadouts/spaceTelescope.png" id="1_mv6os"]
+[ext_resource type="Script" path="res://Scenes/HangarScenes/Windows/CargoView.cs" id="1_x04iu"]
 
 [node name="ShipOutfittingWindow" type="PanelContainer"]
 offset_right = 460.0
-offset_bottom = 570.0
+offset_bottom = 592.0
 
 [node name="MCont" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -65,33 +65,18 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 7.0
 text = "Default ship"
 
-[node name="DesignVBox" type="VBoxContainer" parent="MCont/VBox"]
+[node name="CargoVBox" type="VBoxContainer" parent="MCont/VBox"]
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 2.0
-
-[node name="TextHBox" type="HBoxContainer" parent="MCont/VBox/DesignVBox"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="Label" type="RichTextLabel" parent="MCont/VBox/DesignVBox/TextHBox"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 2.0
-text = "Current loadout:"
-
-[node name="MCont" type="MarginContainer" parent="MCont/VBox/DesignVBox/TextHBox"]
-layout_mode = 2
-size_flags_horizontal = 3
 size_flags_stretch_ratio = 3.0
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_right = 10
 
-[node name="DesignName" type="RichTextLabel" parent="MCont/VBox/DesignVBox/TextHBox/MCont"]
+[node name="Label" type="RichTextLabel" parent="MCont/VBox/CargoVBox"]
 layout_mode = 2
-text = "Empty"
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Current cargo:"
 
-[node name="ImageMargin" type="MarginContainer" parent="MCont/VBox/DesignVBox"]
+[node name="ImageMargin" type="MarginContainer" parent="MCont/VBox/CargoVBox"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 4.0
@@ -99,15 +84,13 @@ theme_override_constants/margin_left = 30
 theme_override_constants/margin_right = 30
 theme_override_constants/margin_bottom = 20
 
-[node name="Panel" type="Panel" parent="MCont/VBox/DesignVBox/ImageMargin"]
+[node name="CargoView" type="PanelContainer" parent="MCont/VBox/CargoVBox/ImageMargin"]
 layout_mode = 2
+script = ExtResource("1_x04iu")
 
-[node name="LoadOutButton" type="TextureButton" parent="MCont/VBox/DesignVBox/ImageMargin"]
+[node name="GridCont" type="GridContainer" parent="MCont/VBox/CargoVBox/ImageMargin/CargoView"]
 layout_mode = 2
-size_flags_vertical = 3
-size_flags_stretch_ratio = 0.6
-texture_normal = ExtResource("1_mv6os")
-stretch_mode = 5
+columns = 4
 
 [node name="TimeCostHBox" type="HBoxContainer" parent="MCont/VBox"]
 layout_mode = 2

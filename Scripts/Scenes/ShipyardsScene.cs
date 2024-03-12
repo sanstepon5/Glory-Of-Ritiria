@@ -1,3 +1,4 @@
+using GloryOfRitiria.Scenes.HangarScenes;
 using GloryOfRitiria.Scripts.Global;
 using GloryOfRitiria.Scripts.Utils;
 using Godot;
@@ -15,6 +16,11 @@ public partial class ShipyardsScene : Node2D
 		_signals.Connect(nameof(_signals.ConstructionWindowRequested), new Callable(this, nameof(BuildConstructionWindow)));
 		
 		_signals.Connect(nameof(_signals.FullSlotClicked), new Callable(this, nameof(BuildOutfittingWindow)));
+		_signals.Connect(nameof(_signals.AddCargoClicked), new Callable(this, nameof(BuildCargoSelectWindow)));
+		
+		
+		_signals.Connect(nameof(_signals.ThirdLevelProcessEntered), new Callable(this, nameof(DisableRightWindowProcess)));
+		_signals.Connect(nameof(_signals.ThirdLevelProcessExited), new Callable(this, nameof(EnableRightWindowProcess)));
 
 
 		InitBodiesSelectionMenu();
@@ -52,6 +58,7 @@ public partial class ShipyardsScene : Node2D
 			shipyard.StartConstruction(ship);
 			
 			_signals.EmitSignal(nameof(_signals.ShipBuildStarted));
+			
 		};
 		
 		
@@ -87,9 +94,32 @@ public partial class ShipyardsScene : Node2D
 		};
 		
 		GetTree().Paused =  true;
+		windowCont.AddChild(inst);
+		// Need to do after adding, else CargoView wouldn't intercept signals yet
+		_signals.EmitSignal(nameof(_signals.OutfitWindowReady), ship); //TODO: Better do it in it's own script
 		
+	}
+	
+	public void BuildCargoSelectWindow()
+	{
+		var windowCont = GetNode<ReferenceRect>("CenterWindow");
+		
+		var scene = GD.Load<PackedScene>("res://Scenes/HangarScenes/Windows/CargoSelectWindow.tscn");
+		var inst = (PanelContainer)scene.Instantiate();
+		
+		var cargoVBox = inst.GetNode<VBoxContainer>("VBox/MarginCont/ScrollCont/VBox");
+		
+		var exitButton = inst.GetNode<Button>("VBox/TitleExitHBox/ExitButton");
+		exitButton.Pressed += () =>
+		{
+			_signals.EmitSignal(nameof(_signals.ThirdLevelProcessExited));
+			windowCont.GetChild(0).QueueFree();
+		};
+
+		_signals.EmitSignal(nameof(_signals.ThirdLevelProcessEntered));
 		windowCont.AddChild(inst);
 	}
+	
 
 	public void InitBodiesSelectionMenu()
 	{
@@ -103,4 +133,16 @@ public partial class ShipyardsScene : Node2D
 			bodiesHBox.AddChild(inst);
 		}
 	}
+
+	public void DisableRightWindowProcess()
+	{
+		var windowCont = GetNode<ReferenceRect>("RightWindow");
+		windowCont.ProcessMode = ProcessModeEnum.Disabled;
+	}
+	public void EnableRightWindowProcess()
+	{
+		var windowCont = GetNode<ReferenceRect>("RightWindow");
+		windowCont.ProcessMode = ProcessModeEnum.WhenPaused;
+	}
+	
 }

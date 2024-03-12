@@ -34,6 +34,8 @@ public partial class game_state : Node
 	
 	/// <summary> List of star system that can be viewed by the player</summary>
 	public static List<StarSystemInfo> DiscoveredSystems = new();
+	
+	public static List<Cargo> CargoStorage = new();
 
 	public static StarSystemInfo Detnura;
 	
@@ -218,7 +220,7 @@ public partial class game_state : Node
 		barnardSystem.SystemStars.Add(barnardStar);
 		
 		
-		
+		// Ships at the start of the game
 		var columbia = new Ship("Columbia", earth, true);
 		var planetExplorationKit = new Cargo("Planet exploration kit", 5);
 		planetExplorationKit.AddMission(new PlanetExplorationMission());

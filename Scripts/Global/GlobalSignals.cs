@@ -22,6 +22,15 @@ public partial class GlobalSignals : Node
     public delegate void StarViewRequestedEventHandler(StarSystemInfo systemInfo);
     
     
+    // Process Priority
+    // First level: Everything is unpaused
+    // Second level: Game is paused except for the active window
+    // Third level: A new window is active while the old window is now paused with the rest of the game
+    [Signal]
+    public delegate void ThirdLevelProcessEnteredEventHandler();
+    [Signal]
+    public delegate void ThirdLevelProcessExitedEventHandler();
+    
     
     // Star System Building
     [Signal]
@@ -75,6 +84,12 @@ public partial class GlobalSignals : Node
     
     [Signal]
     public delegate void FullSlotClickedEventHandler(Ship ship);
+    
+    [Signal]
+    public delegate void AddCargoClickedEventHandler();
+    
+    [Signal]
+    public delegate void OutfitWindowReadyEventHandler(Ship ship);
     
     
     // Ship update

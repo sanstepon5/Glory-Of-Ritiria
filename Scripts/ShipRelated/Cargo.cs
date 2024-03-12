@@ -10,7 +10,7 @@ public class Cargo
     public int Durability;
     /**Cost of 0 means Cargo can only be given by event or something*/
     public int Cost;
-    public string ImagePath;
+    private string _imagePath;
 
     public List<Mission> PossibleMissions;
 
@@ -20,16 +20,16 @@ public class Cargo
         Name = name;
         Durability = 1;
         Cost = 0;
-        ImagePath = "";
+        _imagePath = "res://Assets/Icons/Loadouts/spaceTelescope.png";
         PossibleMissions = new List<Mission>();
     }
 
-    public Cargo(string name, int durability, int cost = 0, string imagePath = "")
+    public Cargo(string name, int durability, int cost = 0, string imagePath = "res://Assets/Icons/Loadouts/spaceTelescope.png")
     {
         Name = name;
         Durability = durability;
         Cost = cost;
-        ImagePath = imagePath;
+        _imagePath = imagePath;
         PossibleMissions = new List<Mission>();
     }
 
@@ -42,5 +42,10 @@ public class Cargo
     public void DecreaseDurability()
     {
         Durability--;
+    }
+
+    public string GetImagePath()
+    {
+        return _imagePath;
     }
 }
