@@ -1,12 +1,13 @@
 [gd_scene load_steps=2 format=3 uid="uid://cxe7rke4yc111"]
 
-[ext_resource type="PackedScene" uid="uid://n1xllq8fturn" path="res://Scenes/HangarScenes/Windows/CargoOption.tscn" id="1_m0elj"]
+[ext_resource type="Script" path="res://Scenes/HangarScenes/Windows/CargoSelectWindow.cs" id="1_mrj4h"]
 
 [node name="CargoSelectWindow" type="PanelContainer"]
 offset_right = 285.0
 offset_bottom = 483.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+script = ExtResource("1_mrj4h")
 
 [node name="VBox" type="VBoxContainer" parent="."]
 layout_mode = 2
@@ -46,9 +47,3 @@ layout_mode = 2
 [node name="VBox" type="VBoxContainer" parent="VBox/MarginCont/ScrollCont"]
 layout_mode = 2
 theme_override_constants/separation = 10
-
-[node name="CargoOption" parent="VBox/MarginCont/ScrollCont/VBox" instance=ExtResource("1_m0elj")]
-layout_mode = 2
-
-[node name="CargoOption2" parent="VBox/MarginCont/ScrollCont/VBox" instance=ExtResource("1_m0elj")]
-layout_mode = 2

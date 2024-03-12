@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://n1xllq8fturn"]
+[gd_scene load_steps=3 format=3 uid="uid://n1xllq8fturn"]
 
 [ext_resource type="Texture2D" uid="uid://bv465o815xn1i" path="res://Assets/Icons/Loadouts/spaceTelescope.png" id="1_sp1ds"]
+[ext_resource type="PackedScene" uid="uid://bs8eymkp35881" path="res://Scenes/Utils/ClickableRectangle.tscn" id="2_6hh8r"]
 
 [node name="CargoOption" type="PanelContainer"]
 custom_minimum_size = Vector2(250, 230)
@@ -47,3 +48,10 @@ layout_mode = 2
 size_flags_vertical = 3
 bbcode_enabled = true
 text = "[b]Has in storage:[/b][color=red] 0[/color]"
+
+[node name="ClickableRectangle" parent="MarginCont" instance=ExtResource("2_6hh8r")]
+layout_mode = 2
+Parent = NodePath("..")
+SignalOnClick = "CargoSelectedForOutfit"
+
+[editable path="MarginCont/ClickableRectangle"]

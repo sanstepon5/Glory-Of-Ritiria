@@ -21,6 +21,8 @@ public partial class ShipyardsScene : Node2D
 		
 		_signals.Connect(nameof(_signals.ThirdLevelProcessEntered), new Callable(this, nameof(DisableRightWindowProcess)));
 		_signals.Connect(nameof(_signals.ThirdLevelProcessExited), new Callable(this, nameof(EnableRightWindowProcess)));
+		
+		_signals.Connect(nameof(_signals.CargoSelectedForOutfit), new Callable(this, nameof(ClearCenterWindow)));
 
 
 		InitBodiesSelectionMenu();
@@ -143,6 +145,13 @@ public partial class ShipyardsScene : Node2D
 	{
 		var windowCont = GetNode<ReferenceRect>("RightWindow");
 		windowCont.ProcessMode = ProcessModeEnum.WhenPaused;
+	}
+
+	public void ClearCenterWindow(string foo) //TODO: very messy...
+	{
+		var windowCont = GetNode<ReferenceRect>("CenterWindow");
+		windowCont.GetChild(0).QueueFree();
+		_signals.EmitSignal(nameof(_signals.ThirdLevelProcessExited));
 	}
 	
 }

@@ -6,6 +6,7 @@ public partial class ClickableRectangle : Control
 {
 	[Export] public NodePath Parent; 
 	[Export] public string SignalOnClick;
+	[Export] public string SignalParameter = "";
 	
 	private GlobalSignals _signals;
 	private Control _parentNode;
@@ -26,7 +27,10 @@ public partial class ClickableRectangle : Control
 			var clickPosition = GetGlobalMousePosition();
 			if (!HasPoint(GlobalPosition, _parentNode.Size, clickPosition)) return;
 
-			_signals.EmitSignal(SignalOnClick);
+			if (SignalParameter == "")
+				_signals.EmitSignal(SignalOnClick);
+			else
+				_signals.EmitSignal(SignalOnClick, SignalParameter);
 		}
 	}
 

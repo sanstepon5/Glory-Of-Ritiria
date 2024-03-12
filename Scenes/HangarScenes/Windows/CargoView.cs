@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using GloryOfRitiria.Scripts.Global;
 using GloryOfRitiria.Scripts.ShipRelated;
 using Godot;
 
@@ -9,17 +10,22 @@ public partial class CargoView : PanelContainer
 	private GlobalSignals _signals;
 	private List<Cargo> _shipCargo;
 	// When player adds more cargo to ship, cargo is added here. When outfitting is finished, cargo is transferred to the ship 
+	private Ship _ship;
+	
 
 	public override void _Ready()
 	{
 		_signals = GetNode<GlobalSignals>("/root/GlobalSignals");
 		_shipCargo = new List<Cargo>();
 		_signals.Connect(nameof(_signals.OutfitWindowReady), new Callable(this, nameof(_initCargo)));
+		
+		_signals.Connect(nameof(_signals.CargoSelectedForOutfit), new Callable(this, nameof(AddCargoToShip)));
 	}
 
 	private void _initCargo(Ship ship)
 	{
 		_shipCargo = ship.ShipCargo;
+		_ship = ship;
 		var cargoGrid = GetNode<GridContainer>("GridCont");
 
 		foreach (var cargo in ship.ShipCargo)
@@ -58,5 +64,10 @@ public partial class CargoView : PanelContainer
 	private void AddButtonPressed()
 	{
 		_signals.EmitSignal(nameof(_signals.AddCargoClicked));
+	}
+
+	public void AddCargoToShip(string cargoName)
+	{
+		_ship.ShipCargo.Add(game_state.PopCargo(cargoName));
 	}
 }

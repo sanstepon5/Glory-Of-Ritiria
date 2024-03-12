@@ -112,6 +112,25 @@ public partial class game_state : Node
 		}
 	}
 
+	public static Cargo PopCargo(string cargoName)
+	{
+		Cargo res = null;
+		var found = false;
+		var i = 0;
+		while (!found)
+		{
+			if (CargoStorage[i].Name.Equals(cargoName))
+			{
+				found = true;
+				res = CargoStorage[i];
+			}
+			i++;
+		}
+
+		CargoStorage.Remove(res);
+		return res;
+	}
+
 	public static void UpdateResources()
 	{
 		var random = new Random();
@@ -234,6 +253,17 @@ public partial class game_state : Node
 		
 		AllShips.Add(irana);
 		
+		
+		// Cargo at the start of the game
+		var planetExplorationKit2 = new Cargo("Planet exploration kit", 5);
+		planetExplorationKit2.AddMission(new PlanetExplorationMission());
+		var spaceTelescope2 = new Cargo("Space Telescope", 1);
+		spaceTelescope2.AddMission(new SystemExplorationMission());
+		var spaceTelescope3 = new Cargo("Space Telescope", 1);
+		spaceTelescope3.AddMission(new SystemExplorationMission());
+		CargoStorage.Add(planetExplorationKit2);
+		CargoStorage.Add(spaceTelescope2);
+		CargoStorage.Add(spaceTelescope3);
 	}
 	
 }
