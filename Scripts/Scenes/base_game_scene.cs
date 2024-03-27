@@ -12,6 +12,7 @@ public partial class base_game_scene : Node2D
 	private MarginContainer _eventContainer;
 	private MarginContainer _infoWindowContainer;
 	private MarginContainer _warningWindowContainer;
+	private AudioStreamPlayer _simpleButtonSound;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -24,6 +25,7 @@ public partial class base_game_scene : Node2D
 		_eventContainer = GetNode<MarginContainer>("UICanvas/EventWindowControl");
 		_infoWindowContainer = GetNode<MarginContainer>("UICanvas/InfoWindowControl");
 		_warningWindowContainer = GetNode<MarginContainer>("UICanvas/WarningWindowControl");
+		_simpleButtonSound = GetNode<AudioStreamPlayer>("Sound/SimpleButtonClick");
 		
 		// Pallyria will be the default scene
 		LoadPallyria(); 
@@ -66,6 +68,14 @@ public partial class base_game_scene : Node2D
 			GetTree().Paused = false;
 			_infoWindowContainer.GetChild(0).QueueFree();
 		};
+		
+		
+		
+		
+		// when _ready is called, there might already be nodes in the tree, so connect all existing buttons
+		ConnectButtons(GetTree().Root);
+		GetTree().Connect("node_added", new Callable(this, nameof(_on_SceneTree_node_added)));
+
 	}
 
 	
@@ -260,5 +270,44 @@ public partial class base_game_scene : Node2D
 		_warningWindowContainer.AddChild(warningWindowInst);
 		GetTree().Paused = true;
 	}
+
+
+
+
+	
+	/* Temporary (I hope) solution to add sound effects to all buttons. Later it should be redone using custom buttons*/
+	public void _on_SceneTree_node_added(Node node)
+	{
+		if (node is Button button)
+		{
+			ConnectToButton(button);
+		}
+	}
+   
+
+	public void _playButtonSound()
+	{
+		_simpleButtonSound.Play();
+	}
+	
+
+	//	recursively connect all buttons
+	public void ConnectButtons(Node root)
+	{
+		foreach (var child in root.GetChildren())
+		{
+			 if (child is BaseButton button)
+				 ConnectToButton(button);
+			 else
+				ConnectButtons(child);
+		}
+	}
+	
+
+	public void ConnectToButton(BaseButton button)
+	{
+		button.Connect("pressed", new Callable(this, "_playButtonSound"));
+	}
+	
 	
 }

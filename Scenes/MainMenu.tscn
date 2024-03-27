@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://dueir764yg475"]
+[gd_scene load_steps=5 format=3 uid="uid://dueir764yg475"]
 
 [ext_resource type="Script" path="res://Scripts/Scenes/MainMenu.cs" id="1_vqlkk"]
 [ext_resource type="Texture2D" uid="uid://bdy617mvtnu0i" path="res://Assets/Img/tmp/MainMenuBG_Disclaimer.jpg" id="2_vvvsw"]
+[ext_resource type="AudioStream" uid="uid://ep4x3403et1g" path="res://Assets/Sounds/UX/Favorites/SimpleButtonClick.mp3" id="3_ekag1"]
+[ext_resource type="AudioStream" uid="uid://cvt4tvn1o34bu" path="res://Assets/Sounds/Music/1.MainTheme-320bit(chosic.com).mp3" id="4_lu8oo"]
 
 [node name="MainMenu" type="Node2D"]
 script = ExtResource("1_vqlkk")
@@ -62,3 +64,16 @@ offset_bottom = 1079.0
 theme_override_font_sizes/normal_font_size = 48
 bbcode_enabled = true
 text = "[color=red] NOT A FURRY GAME"
+
+[node name="Sound" type="Node" parent="."]
+
+[node name="SimpleButtonClick" type="AudioStreamPlayer" parent="Sound"]
+process_mode = 3
+stream = ExtResource("3_ekag1")
+volume_db = 1.0
+
+[node name="BGM" type="AudioStreamPlayer" parent="Sound"]
+process_mode = 3
+stream = ExtResource("4_lu8oo")
+volume_db = -10.0
+autoplay = true
