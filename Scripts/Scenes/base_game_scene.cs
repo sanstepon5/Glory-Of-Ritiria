@@ -12,7 +12,11 @@ public partial class base_game_scene : Node2D
 	private MarginContainer _eventContainer;
 	private MarginContainer _infoWindowContainer;
 	private MarginContainer _warningWindowContainer;
+	
+	/*Sounds*/
 	private AudioStreamPlayer _simpleButtonSound;
+	private AudioStreamPlayer _nextEventClick;
+	private AudioStreamPlayer _eventOptionClick;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -25,7 +29,8 @@ public partial class base_game_scene : Node2D
 		_eventContainer = GetNode<MarginContainer>("UICanvas/EventWindowControl");
 		_infoWindowContainer = GetNode<MarginContainer>("UICanvas/InfoWindowControl");
 		_warningWindowContainer = GetNode<MarginContainer>("UICanvas/WarningWindowControl");
-		_simpleButtonSound = GetNode<AudioStreamPlayer>("Sound/SimpleButtonClick");
+		
+		
 		
 		// Pallyria will be the default scene
 		LoadPallyria(); 
@@ -71,11 +76,14 @@ public partial class base_game_scene : Node2D
 		
 		
 		
+		/*Sounds*/
+		_simpleButtonSound = GetNode<AudioStreamPlayer>("Sound/SimpleButtonClick");
+		_nextEventClick = GetNode<AudioStreamPlayer>("Sound/NextEventClick");
+		_eventOptionClick = GetNode<AudioStreamPlayer>("Sound/EventOptionClick");
 		
-		// when _ready is called, there might already be nodes in the tree, so connect all existing buttons
-		ConnectButtons(GetTree().Root);
-		GetTree().Connect("node_added", new Callable(this, nameof(_on_SceneTree_node_added)));
-
+		_signals.Connect(nameof(_signals.SimpleButtonClicked), new Callable(this, nameof(_playSimplePlayButtonSound)));
+		_signals.Connect(nameof(_signals.NextEventButtonClicked), new Callable(this, nameof(_playNextEventButtonSound)));
+		_signals.Connect(nameof(_signals.EventOptionButtonClicked), new Callable(this, nameof(_playEventOptionButtonSound)));
 	}
 
 	
@@ -272,42 +280,18 @@ public partial class base_game_scene : Node2D
 	}
 
 
-
-
 	
-	/* Temporary (I hope) solution to add sound effects to all buttons. Later it should be redone using custom buttons*/
-	public void _on_SceneTree_node_added(Node node)
-	{
-		if (node is Button button)
-		{
-			ConnectToButton(button);
-		}
-	}
-   
-
-	public void _playButtonSound()
+	/*Play sounds*/
+	private void _playSimplePlayButtonSound()
 	{
 		_simpleButtonSound.Play();
 	}
-	
-
-	//	recursively connect all buttons
-	public void ConnectButtons(Node root)
+	private void _playNextEventButtonSound()
 	{
-		foreach (var child in root.GetChildren())
-		{
-			 if (child is BaseButton button)
-				 ConnectToButton(button);
-			 else
-				ConnectButtons(child);
-		}
+		_nextEventClick.Play();
 	}
-	
-
-	public void ConnectToButton(BaseButton button)
+	private void _playEventOptionButtonSound()
 	{
-		button.Connect("pressed", new Callable(this, "_playButtonSound"));
+		_eventOptionClick.Play();
 	}
-	
-	
-}
+	}

@@ -1,10 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://owct5lb7jgew"]
+[gd_scene load_steps=9 format=3 uid="uid://owct5lb7jgew"]
 
 [ext_resource type="Script" path="res://Scripts/Scenes/base_game_scene.cs" id="1_6tgt3"]
 [ext_resource type="PackedScene" uid="uid://b176rck77evnu" path="res://Scenes/Parts/top_bar.tscn" id="2_sapv7"]
 [ext_resource type="AudioStream" uid="uid://ep4x3403et1g" path="res://Assets/Sounds/UX/Favorites/SimpleButtonClick.mp3" id="4_hgs2e"]
 [ext_resource type="PackedScene" uid="uid://dcb3tlebf675l" path="res://Scenes/Utils/CustomTooltip.tscn" id="4_on4ln"]
 [ext_resource type="AudioStream" uid="uid://d0yeo61gbfmyg" path="res://Assets/Sounds/Music/keys-of-moon-under-the-sun(chosic.com).mp3" id="5_pp5m4"]
+[ext_resource type="AudioStream" uid="uid://c28yp5k4wpqtg" path="res://Assets/Sounds/UX/Favorites/NextEvent.mp3" id="6_7plt8"]
+[ext_resource type="AudioStream" uid="uid://t8v6obl7i1g7" path="res://Assets/Sounds/UX/Favorites/GetMoney.mp3" id="7_3sgvv"]
+[ext_resource type="AudioStream" uid="uid://bc6t6rbfkfwda" path="res://Assets/Sounds/UX/Favorites/NewEvent.mp3" id="8_kb47j"]
 
 [node name="BaseGameScene" type="Node2D"]
 script = ExtResource("1_6tgt3")
@@ -57,13 +60,25 @@ size_flags_vertical = 3
 
 [node name="Sound" type="Node" parent="."]
 
-[node name="SimpleButtonClick" type="AudioStreamPlayer" parent="Sound"]
-process_mode = 3
-stream = ExtResource("4_hgs2e")
-volume_db = 1.0
-
 [node name="BGM" type="AudioStreamPlayer" parent="Sound"]
 process_mode = 3
 stream = ExtResource("5_pp5m4")
 volume_db = -15.0
 autoplay = true
+
+[node name="SimpleButtonClick" type="AudioStreamPlayer" parent="Sound"]
+process_mode = 3
+stream = ExtResource("4_hgs2e")
+volume_db = 1.0
+
+[node name="NextEventClick" type="AudioStreamPlayer" parent="Sound"]
+stream = ExtResource("6_7plt8")
+volume_db = -10.0
+
+[node name="EventOptionClick" type="AudioStreamPlayer" parent="Sound"]
+stream = ExtResource("7_3sgvv")
+volume_db = -5.0
+
+[node name="NewEventSound" type="AudioStreamPlayer" parent="Sound"]
+stream = ExtResource("8_kb47j")
+volume_db = -15.0

@@ -1,4 +1,3 @@
-using System;
 using GloryOfRitiria.Scripts.Global;
 using GloryOfRitiria.Scripts.Utils.Events;
 using Godot;
@@ -20,65 +19,75 @@ public partial class MultiEventWindow : Panel
 		_signals = GetNode<GlobalSignals>("/root/GlobalSignals");
 		
 		_leftEventButton = GetNode<Button>("VBox/HBoxEventHandling/MBoxLeft/ButtonLeft");
-		_leftEventButton.Pressed += PreviousEvent;
+		_leftEventButton.Pressed += () => {
+			_signals.EmitSignal(nameof(_signals.NextEventButtonClicked));
+			_previousEvent();
+		};
 		_leftEventButton.Disabled = true;
 		
 		_rightEventButton = GetNode<Button>("VBox/HBoxEventHandling/MBoxRight/ButtonRight");
-		_rightEventButton.Pressed += NextEvent;
+		_rightEventButton.Pressed += () => {
+			_signals.EmitSignal(nameof(_signals.NextEventButtonClicked));
+			_nextEvent();
+		};
 		_rightEventButton.Disabled = game_state.EventsForTurn.Count <= 1; // disabled if only one event
 		
 		var exitButton = GetNode<Button>("VBox/HBoxTitle/ExitButton");
 		exitButton.Pressed += () =>
 		{
 			_signals.EmitSignal(nameof(_signals.EventWindowClosed));
+			_signals.EmitSignal(nameof(_signals.SimpleButtonClicked));
 		};
 
 		// Show the first event
-		SetDisplayedEvent();
+		_setDisplayedEvent();
 		
 		// Disable all other buttons while event window is active
 		GetTree().Paused = true;
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
-
-
 	// Set the event displayed based on _eventIndex
-	public void SetDisplayedEvent()
+	private void _setDisplayedEvent()
 	{
 		if (game_state.EventsForTurn.Count > 0 && _eventIndex >= 0 && _eventIndex < game_state.EventsForTurn.Count)
-		{
-			BuildEventWindow(game_state.EventsForTurn[_eventIndex]);
-		}
+			_buildEventWindow(game_state.EventsForTurn[_eventIndex]);
 		else GD.Print("Tried displaying non existing event or event list empty");
 	}
 
-	private void NextEvent()
+	private void _nextEvent(bool deactivateLeft = false)
 	{
 		_eventIndex += 1;
-		_leftEventButton.Disabled = false; // If next event is called there is a previous event
-		if (_eventIndex >= game_state.EventsForTurn.Count-1) _rightEventButton.Disabled = true; // if no event right of the new one
+		if (deactivateLeft)
+			_leftEventButton.Disabled = true;
+		else 
+			_leftEventButton.Disabled = false; 
 		
-		SetDisplayedEvent();
+		if (_eventIndex >= game_state.EventsForTurn.Count-1) 
+			_rightEventButton.Disabled = true; // if no event right of the new one
+		
+		_setDisplayedEvent();
 	}
 
-	private void PreviousEvent()
+	private void _previousEvent(bool deactivateRight = false)
 	{
 		_eventIndex -= 1;
-		_rightEventButton.Disabled = false; // If previous event is called there is a next event
-		if (_eventIndex == 0) _leftEventButton.Disabled = true; // if on first event in the list
+		// If after moving to left, we're still on last event
+		if (deactivateRight)
+			_rightEventButton.Disabled = true;
+		else
+			_rightEventButton.Disabled = false; 
 		
-		SetDisplayedEvent();
+		if (_eventIndex == 0)
+			_leftEventButton.Disabled = true; // if on first event in the list
+		
+		_setDisplayedEvent();
 	}
-	
-	
-	public void BuildEventWindow(GameEvent ev)
+
+
+	private void _buildEventWindow(GameEvent ev)
 	{
 		// Remove currently displayed event if exists
-		HideDisplayedEvent();
+		_hideDisplayedEvent();
 		
 		// Load an event window instance
 		var eventWindow = GD.Load<PackedScene>("res://Scenes/Parts/event_window.tscn");
@@ -108,8 +117,9 @@ public partial class MultiEventWindow : Panel
 			choiceInst.Pressed += () =>
 			{
 				choice.ApplyEffects();
-				EndEvent(ev);
+				_endEvent(ev);
 				_signals.EmitSignal(nameof(_signals.TopBarUpdateRequired));
+				_signals.EmitSignal(nameof(_signals.EventOptionButtonClicked));
 			};
 			optionsBox.AddChild(choiceInst);
 		}
@@ -120,45 +130,37 @@ public partial class MultiEventWindow : Panel
 	}
 
 	// Removes an event permanently, should be called when player chooses an option in an event
-	private void EndEvent(GameEvent ev)
+	private void _endEvent(GameEvent ev)
 	{
-		// This section can surely could be refactored to use next/prevEvent()
-		// And surely some of the ifs aren't necessary
+		// If it was the last event, we simply destroy the current event
+		if (game_state.EventsForTurn.Count == 1) _hideDisplayedEvent();
 		
-		// If only one event left, just remove it
-		if (game_state.EventsForTurn.Count == 1)
-		{
-			game_state.EventsForTurn.Remove(ev);
-			HideDisplayedEvent();
-		}
-		
-		// if not on last event, load next event
-		else if (_eventIndex < game_state.EventsForTurn.Count - 1)
-		{
-			game_state.EventsForTurn.Remove(ev); // No need to increment index as we just removed an event
-			
-			if (_eventIndex != 0) _leftEventButton.Disabled = false; // if destroyed event wasn't the first one
-			if (_eventIndex >= game_state.EventsForTurn.Count-1)  _rightEventButton.Disabled = true; // if new event is last
-			
-			SetDisplayedEvent();
-		}
-		
-		// if on last event, load previous event
+		// If we were at the last event in chain, but there are others before, we go the the previous one
 		else if (_eventIndex == game_state.EventsForTurn.Count - 1)
 		{
-			game_state.EventsForTurn.Remove(ev);
-			_eventIndex -= 1; // Move to the left
-
-			if (_eventIndex != 0) _leftEventButton.Disabled = false; // if destroyed event wasn't the first one
-			if (_eventIndex >= game_state.EventsForTurn.Count - 1) _rightEventButton.Disabled = true; // if no event right of the new one
-			
-			SetDisplayedEvent();
+			_rightEventButton.Disabled = true;
+			_previousEvent(true);
 		}
-		else throw new IndexOutOfRangeException("Index of current event somehow out of range");
+		// If there were more than one event and it wasn't the last in chain, we go forward in chain
+		else 
+		{
+			if (_eventIndex == 0) // If we were on the first event, left should stay disabled
+			{
+				_nextEvent(true);
+				_eventIndex = 0; // Next event became new first event
+			}
+			else _nextEvent(); // If we weren't on first event, there will still be some events to the left
+		}
+		
+		game_state.EventsForTurn.Remove(ev);
+
+		// If after removing the event we're outside the events range
+		if (_eventIndex >= game_state.EventsForTurn.Count)
+			_eventIndex = game_state.EventsForTurn.Count - 1;
 	}
 
 	// Remove current event from being displayed without removing it from event list
-	private void HideDisplayedEvent()
+	private void _hideDisplayedEvent()
 	{
 		// Remove the displayed event
 		// Should either run once or never

@@ -56,6 +56,14 @@ public partial class GlobalSignals : Node
     [Signal]
     public delegate void PlanetInfoWindowRequestedEventHandler(Panel window);
     
+    //UI sound management (clicking, hovering etc)
+    [Signal]
+    public delegate void SimpleButtonClickedEventHandler();
+    [Signal]
+    public delegate void NextEventButtonClickedEventHandler();
+    [Signal]
+    public delegate void EventOptionButtonClickedEventHandler();
+    
     // Other UI handling
     [Signal]
     public delegate void HidePassTurnButtonRequestedEventHandler();
