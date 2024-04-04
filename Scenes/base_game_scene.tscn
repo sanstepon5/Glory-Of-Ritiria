@@ -59,15 +59,14 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Sound" type="Node" parent="."]
+process_mode = 3
 
 [node name="BGM" type="AudioStreamPlayer" parent="Sound"]
-process_mode = 3
 stream = ExtResource("5_pp5m4")
 volume_db = -15.0
 autoplay = true
 
 [node name="SimpleButtonClick" type="AudioStreamPlayer" parent="Sound"]
-process_mode = 3
 stream = ExtResource("4_hgs2e")
 volume_db = 1.0
 

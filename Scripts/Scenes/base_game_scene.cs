@@ -17,6 +17,7 @@ public partial class base_game_scene : Node2D
 	private AudioStreamPlayer _simpleButtonSound;
 	private AudioStreamPlayer _nextEventClick;
 	private AudioStreamPlayer _eventOptionClick;
+	private AudioStreamPlayer _newEventSound;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -37,10 +38,17 @@ public partial class base_game_scene : Node2D
 		
 		// Button to open events
 		var eventsButton = GetNode<Button>("UICanvas/TopBar/TestButton");
-		eventsButton.Pressed += BuildMultiEventWindow;
+		eventsButton.Pressed += () =>
+		{
+			_playSimplePlayButtonSound();
+			BuildMultiEventWindow();
+		};
 		
 		var interStellarMapButton = GetNode<Button>("UICanvas/TopBar/InterstellarMapButton");
-		interStellarMapButton.Pressed += LoadInterstellarMap;
+		interStellarMapButton.Pressed += () => {
+			_playSimplePlayButtonSound();
+			LoadInterstellarMap();
+		};
 
 		TopBarUpdate();
 
@@ -80,6 +88,7 @@ public partial class base_game_scene : Node2D
 		_simpleButtonSound = GetNode<AudioStreamPlayer>("Sound/SimpleButtonClick");
 		_nextEventClick = GetNode<AudioStreamPlayer>("Sound/NextEventClick");
 		_eventOptionClick = GetNode<AudioStreamPlayer>("Sound/EventOptionClick");
+		_newEventSound = GetNode<AudioStreamPlayer>("Sound/NewEventSound");
 		
 		_signals.Connect(nameof(_signals.SimpleButtonClicked), new Callable(this, nameof(_playSimplePlayButtonSound)));
 		_signals.Connect(nameof(_signals.NextEventButtonClicked), new Callable(this, nameof(_playNextEventButtonSound)));
@@ -241,6 +250,7 @@ public partial class base_game_scene : Node2D
 	private void InvokeEvents()
 	{
 		if (game_state.EventsForTurn.Count == 0) return;
+		_playNewEventSound();
 		BuildMultiEventWindow();
 	}
 
@@ -255,6 +265,7 @@ public partial class base_game_scene : Node2D
 	
 	public void AddPlanetInfoWindow(PanelContainer window)
 	{
+		_playNextEventButtonSound(); //TODO: Replace by unique sound for when window opens
 		_infoWindowContainer.Visible = true;
 		_infoWindowContainer.AddChild(window);
 	}
@@ -269,6 +280,7 @@ public partial class base_game_scene : Node2D
 		var exitButton = warningWindowInst.GetNode<Button>("VBox/ButtonMargin/OkButton");
 		exitButton.Pressed += () =>
 		{
+			_playSimplePlayButtonSound();
 			_warningWindowContainer.Visible = false;
 			GetTree().Paused = false;
 			_warningWindowContainer.GetChild(0).QueueFree();
@@ -276,6 +288,7 @@ public partial class base_game_scene : Node2D
 
 		_warningWindowContainer.Visible = true;
 		_warningWindowContainer.AddChild(warningWindowInst);
+		_playNextEventButtonSound(); //TODO: Replace by unique sound for when window opens
 		GetTree().Paused = true;
 	}
 
@@ -293,5 +306,10 @@ public partial class base_game_scene : Node2D
 	private void _playEventOptionButtonSound()
 	{
 		_eventOptionClick.Play();
+	}
+	
+	private void _playNewEventSound()
+	{
+		_newEventSound.Play();
 	}
 	}

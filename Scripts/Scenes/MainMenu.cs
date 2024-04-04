@@ -6,6 +6,8 @@ namespace GloryOfRitiria.Scripts.Scenes;
 
 public partial class MainMenu : Node2D
 {
+	private AudioStreamPlayer _simpleButtonSound;
+	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -15,6 +17,9 @@ public partial class MainMenu : Node2D
 		playButton.Pressed += PlayButtonPressed;
 		optionsButton.Pressed += OptionsButtonPressed;
 		quitButton.Pressed += QuitButtonPressed;
+		
+		
+		_simpleButtonSound = GetNode<AudioStreamPlayer>("Sound/SimpleButtonClick");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -22,18 +27,25 @@ public partial class MainMenu : Node2D
 	{
 	}
 
-	private void PlayButtonPressed()
+	private async void PlayButtonPressed()
 	{
 		LoadGameState();
+		
+		_playSimplePlayButtonSound();
+		// Without timer scene changes too quickly
+		await ToSignal(GetTree().CreateTimer(0.2f), "timeout");
 		GetTree().ChangeSceneToFile("res://Scenes/base_game_scene.tscn");
 	}
 	//TODO
 	private void OptionsButtonPressed()
 	{
-		
+		_playSimplePlayButtonSound();
 	}
-	private void QuitButtonPressed()
+	private async void QuitButtonPressed()
 	{
+		_playSimplePlayButtonSound();
+		// Without timer sound doesn't have time to play
+		await ToSignal(GetTree().CreateTimer(0.2f), "timeout");
 		GetTree().Quit();
 	}
 
@@ -70,5 +82,11 @@ public partial class MainMenu : Node2D
 			
 		}
 		return saveData;
+	}
+	
+	/*Play sounds*/
+	private void _playSimplePlayButtonSound()
+	{
+		_simpleButtonSound.Play();
 	}
 }
