@@ -33,12 +33,6 @@ public partial class star_system_view : Node2D
 		_signals.Connect(nameof(_signals.ShipFinishedBuilding), new Callable(this, nameof(ResetSystem)));
 		_signals.Connect(nameof(_signals.ShipMoved), new Callable(this, nameof(ResetSystem)));
 	}
-	
-	private void PallyriaPressed()
-	{
-		_signals.EmitSignal(nameof(_signals.PallyriaClicked));
-		_signals.EmitSignal(nameof(_signals.InfoWindowClosed));
-	}
 
 	// Should somehow add all the ships and stuff that were created that turn
 	public void ResetSystem()
@@ -324,7 +318,12 @@ public partial class star_system_view : Node2D
 			var toPallyriaMargin = inst.GetNode<MarginContainer>("MCont/VBox/ToPallyriaMargin");
 			toPallyriaMargin.Visible = true;
 			var toPallyriaButton = toPallyriaMargin.GetNode<Button>("ToPallyriaButton");
-			toPallyriaButton.Pressed += PallyriaPressed;
+			toPallyriaButton.Pressed += () =>
+			{
+				_signals.EmitSignal(nameof(_signals.SimpleButtonClicked));
+				_signals.EmitSignal(nameof(_signals.PallyriaClicked));
+				_signals.EmitSignal(nameof(_signals.InfoWindowClosed));
+			};
 		}
 
 		// Add inst to the infoWindow control node in base scene UI canvas node

@@ -41,6 +41,7 @@ public partial class CargoView : PanelContainer
 		var button = inst.GetNode<TextureButton>("PanelCont/TextureButton");
 
 		button.TextureNormal = (Texture2D)GD.Load(cargo.GetImagePath());
+		button.TextureHover = (Texture2D)GD.Load("res://Assets/Icons/change.png");
 		// TODO: Manage cargo tooltip
 		
 		//button.Pressed += () => CargoButtonPressed(); For now can't do anything with existing cargo
@@ -53,7 +54,8 @@ public partial class CargoView : PanelContainer
 		var inst = (MarginContainer)scene.Instantiate();
 		var button = inst.GetNode<TextureButton>("PanelCont/TextureButton");
 
-		button.TextureNormal = (Texture2D)GD.Load("res://Assets/Icons/plus.png");
+		button.TextureNormal = (Texture2D)GD.Load("res://Assets/Icons/empty.png");
+		button.TextureHover = (Texture2D)GD.Load("res://Assets/Icons/plus.png");
 		
 		button.Pressed += () => AddButtonPressed();
 		return inst;
