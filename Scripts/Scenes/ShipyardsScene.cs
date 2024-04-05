@@ -1,4 +1,4 @@
-using GloryOfRitiria.Scenes.HangarScenes;
+using GloryOfRitiria.Scenes.HangarScenes.Windows;
 using GloryOfRitiria.Scripts.Global;
 using GloryOfRitiria.Scripts.Utils;
 using Godot;
@@ -45,6 +45,7 @@ public partial class ShipyardsScene : Node2D
 		var exitButton = inst.GetNode<Button>("MCont/VBox/TitleExitHBox/ExitButton");
 		exitButton.Pressed += () =>
 		{
+			_signals.EmitSignal(nameof(_signals.SimpleButtonClicked));
 			GetTree().Paused = false;
 			windowCont.GetChild(0).QueueFree();
 		};
@@ -52,6 +53,7 @@ public partial class ShipyardsScene : Node2D
 		var buildButton = inst.GetNode<Button>("MCont/VBox/ButtonMargin/BuildButton");
 		buildButton.Pressed += () =>
 		{
+			_signals.EmitSignal(nameof(_signals.SimpleButtonClicked));
 			GetTree().Paused = false;
 			windowCont.GetChild(0).QueueFree();
 			
@@ -74,32 +76,10 @@ public partial class ShipyardsScene : Node2D
 		var windowCont = GetNode<ReferenceRect>("RightWindow");
 		
 		var scene = GD.Load<PackedScene>("res://Scenes/HangarScenes/ShipOutfittingWindow.tscn");
-		var inst = (PanelContainer)scene.Instantiate();
+		var inst = (ShipOutfittingWindow)scene.Instantiate();
+		inst.Init(ship, _signals);
 		
-		var shipNameLabel = inst.GetNode<RichTextLabel>("MCont/VBox/NameHBox/MCont/ShipName");
-		shipNameLabel.Text = ship.Name;
-		
-		var exitButton = inst.GetNode<Button>("MCont/VBox/TitleExitHBox/ExitButton");
-		exitButton.Pressed += () =>
-		{
-			GetTree().Paused = false;
-			windowCont.GetChild(0).QueueFree();
-		};
-		
-		var outfitButton = inst.GetNode<Button>("MCont/VBox/ButtonMargin/OutfitButton");
-		outfitButton.Pressed += () =>
-		{
-			GetTree().Paused = false;
-			windowCont.GetChild(0).QueueFree();
-			
-			// Ship.blablabla = blablabla			
-		};
-		
-		GetTree().Paused =  true;
 		windowCont.AddChild(inst);
-		// Need to do after adding, else CargoView wouldn't intercept signals yet
-		_signals.EmitSignal(nameof(_signals.OutfitWindowReady), ship); //TODO: Better do it in it's own script
-		
 	}
 	
 	public void BuildCargoSelectWindow()
@@ -114,6 +94,7 @@ public partial class ShipyardsScene : Node2D
 		var exitButton = inst.GetNode<Button>("VBox/TitleExitHBox/ExitButton");
 		exitButton.Pressed += () =>
 		{
+			_signals.EmitSignal(nameof(_signals.SimpleButtonClicked));
 			_signals.EmitSignal(nameof(_signals.ThirdLevelProcessExited));
 			windowCont.GetChild(0).QueueFree();
 		};

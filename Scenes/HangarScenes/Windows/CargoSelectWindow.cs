@@ -26,9 +26,7 @@ public partial class CargoSelectWindow : PanelContainer
 	{
 		var scene = GD.Load<PackedScene>("res://Scenes/HangarScenes/Windows/CargoOption.tscn");
 		var inst = (CargoOption)scene.Instantiate();
-		inst.Cargo = cargo;
-		inst.Signals = _signals;
-		inst.Init();
+		inst.Init(cargo, _signals);
 		
 		return inst;
 	}

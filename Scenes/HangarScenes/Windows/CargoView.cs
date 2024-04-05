@@ -7,7 +7,7 @@ namespace GloryOfRitiria.Scenes.HangarScenes.Windows;
 
 public partial class CargoView : PanelContainer
 {
-	private GlobalSignals _signals;
+	public GlobalSignals Signals;
 	private List<Cargo> _shipCargo;
 	// When player adds more cargo to ship, cargo is added here. When outfitting is finished, cargo is transferred to the ship 
 	private Ship _ship;
@@ -15,14 +15,12 @@ public partial class CargoView : PanelContainer
 
 	public override void _Ready()
 	{
-		_signals = GetNode<GlobalSignals>("/root/GlobalSignals");
 		_shipCargo = new List<Cargo>();
-		_signals.Connect(nameof(_signals.OutfitWindowReady), new Callable(this, nameof(_initCargo)));
 		
-		_signals.Connect(nameof(_signals.CargoSelectedForOutfit), new Callable(this, nameof(AddCargoToShip)));
+		Signals.Connect(nameof(Signals.CargoSelectedForOutfit), new Callable(this, nameof(AddCargoToShip)));
 	}
 
-	private void _initCargo(Ship ship)
+	public void Init(Ship ship)
 	{
 		_shipCargo = ship.ShipCargo;
 		_ship = ship;
@@ -63,11 +61,13 @@ public partial class CargoView : PanelContainer
 
 	private void AddButtonPressed()
 	{
-		_signals.EmitSignal(nameof(_signals.AddCargoClicked));
+		Signals.EmitSignal(nameof(Signals.AddCargoClicked));
+		Signals.EmitSignal(nameof(Signals.SimpleButtonClicked));
 	}
 
 	public void AddCargoToShip(string cargoName)
 	{
 		_ship.ShipCargo.Add(game_state.PopCargo(cargoName));
+		Signals.EmitSignal(nameof(Signals.CargoAdded));
 	}
 }

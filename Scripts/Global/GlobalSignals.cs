@@ -97,7 +97,7 @@ public partial class GlobalSignals : Node
     public delegate void AddCargoClickedEventHandler();
     
     [Signal]
-    public delegate void OutfitWindowReadyEventHandler(Ship ship);
+    public delegate void CargoAddedEventHandler();
     
     [Signal]
     public delegate void CargoSelectedForOutfitEventHandler(string cargoName); //TODO: find something better for this...
