@@ -1,9 +1,9 @@
 using Godot;
-using System;
-using GloryOfRitiria;
 
 // TODO: Right now different hangar scenes share nothing in common which is ok... Except for this menu.
 // It should be persistent between hangar scenes, only changing buttons because reloading it looks annoying
+namespace GloryOfRitiria.Scenes.HangarScenes;
+
 public partial class HangarMenu : PanelContainer
 {
 	private GlobalSignals _signals;
@@ -19,13 +19,25 @@ public partial class HangarMenu : PanelContainer
 		_signals = GetNode<GlobalSignals>("/root/GlobalSignals");
 
 		_backButton = GetNode<Button>("VBox/BackMargin/Button");
-		_backButton.Pressed += () => _signals.EmitSignal(nameof(_signals.PallyriaClicked));
+		_backButton.Pressed += () =>
+		{
+			_signals.EmitSignal(nameof(_signals.PallyriaClicked));
+			_signals.EmitSignal(nameof(_signals.SimpleButtonClicked));
+		};
 		
 		_shipyardsButton = GetNode<Button>("VBox/ConstructionMargin/Button");
-		_shipyardsButton.Pressed += () => _signals.EmitSignal(nameof(_signals.ShipyardsButtonClicked));
+		_shipyardsButton.Pressed += () =>
+		{
+			_signals.EmitSignal(nameof(_signals.ShipyardsButtonClicked));
+			_signals.EmitSignal(nameof(_signals.SimpleButtonClicked));
+		};
 		
 		_fleetButton = GetNode<Button>("VBox/FleetMargin/Button");
-		_fleetButton.Pressed += () => _signals.EmitSignal(nameof(_signals.FleetBureauButtonClicked));
+		_fleetButton.Pressed += () =>
+		{
+			_signals.EmitSignal(nameof(_signals.FleetBureauButtonClicked));
+			_signals.EmitSignal(nameof(_signals.SimpleButtonClicked));
+		};
 		
 		_designButton = GetNode<Button>("VBox/DesignMargin/Button");
 		//_designButton.Pressed += () => _signals.EmitSignal(nameof(_signals.FleetBureauButtonClicked));

@@ -5,27 +5,26 @@ using GloryOfRitiria.Scripts.Global;
 
 public partial class HangarPlanetSelectionScene : MarginContainer
 {
-
-	// Should be set-up when instantiating this in code
-	public CelestialBody Body;
+	private CelestialBody _body;
 		
 	private GlobalSignals _signals;
 	
 	public override void _Ready()
 	{
-		_signals = GetNode<GlobalSignals>("/root/GlobalSignals");
-		_signals.Connect(nameof(_signals.ShipyardsSceneOpened), new Callable(this, nameof(Init)));
 	}
 	
 	
 	// Called by signal once Body is set-up
-	public void Init()
+	public void Init(CelestialBody body, GlobalSignals signals)
 	{
+		_body = body;
+		_signals = signals;
+		
 		var bodyName = GetNode<Label>("VBox/PlanetLabel");
-		bodyName.Text = Body.Name;
+		bodyName.Text = _body.Name;
 
 		var shipyardBox = GetNode<VBoxContainer>("VBox/ShipyardsHBox/NamesVBox");
-		foreach (var shipyard in Body.Shipyards)
+		foreach (var shipyard in _body.Shipyards)
 		{
 			var shipyardLabel = new Label();
 			shipyardLabel.Text = shipyard.ShipyardName;
@@ -39,9 +38,10 @@ public partial class HangarPlanetSelectionScene : MarginContainer
 			// There will be only a handful of planets with shipyards so it shouldn't be a problem
 			for (int i = 0; i < game_state.BodiesWithShipyards.Count; i++)
 			{
-				if (game_state.BodiesWithShipyards[i] == Body) index = i;
+				if (game_state.BodiesWithShipyards[i] == _body) index = i;
 			}
 			_signals.EmitSignal(nameof(_signals.ShipyardsBodyChanged), index);
+			_signals.EmitSignal(nameof(_signals.SimpleButtonClicked));
 		};
 	}
 }

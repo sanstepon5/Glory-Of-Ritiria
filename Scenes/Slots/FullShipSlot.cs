@@ -1,27 +1,40 @@
+using GloryOfRitiria.Scripts;
 using Godot;
-using GloryOfRitiria;
 using Ship = GloryOfRitiria.Scripts.ShipRelated.Ship;
+
+namespace GloryOfRitiria.Scenes.Slots;
 
 public partial class FullShipSlot : PanelContainer
 {
 	private GlobalSignals _signals;
-	public Ship Ship;
+	private Ship _ship;
 	
 	public override void _Ready()
 	{
 		_signals = GetNode<GlobalSignals>("/root/GlobalSignals");
 	}
 
-	public override void _Input(InputEvent @event)
+	public void Init(Ship ship, GlobalSignals signals)
 	{
-		if (@event is not InputEventMouseButton mouseEvent) return;
+		_ship = ship;
+		_signals = signals;
 		
-		if (!mouseEvent.Pressed && mouseEvent.ButtonIndex is MouseButton.Left) // !Pressed is Released
-		{
-			var clickPosition = GetGlobalMousePosition();
-			if (!ClickableRectangle.HasPoint(GlobalPosition, Size, clickPosition)) return;
+		var slotImage = GetNode<TextureRect>("MCont/VBox/ShipImage");
+		slotImage.Texture = (Texture2D)GD.Load(_ship.GetImagePath(ShipImageSize.Big));
+		
+		var slotName = GetNode<RichTextLabel>("MCont/VBox/NameLabel");
+		// TODO: Add dynamic type icon
+		slotName.Text = "[img]res://Assets/GUI/Icons/32/CameraReticle.png[/img]  " + _ship.Name;
+		
+		var slotLocation = GetNode<RichTextLabel>("MCont/VBox/LocationLabel");
+		slotLocation.Text = "[img]"+ _ship.Location.GetSmallImage() + "[/img]  " + _ship.Location.Name;
 
-			_signals.EmitSignal(nameof(_signals.FullSlotClicked), Ship);
-		}
+
+		var button = GetNode<Button>("MCont/Button");
+		button.Pressed += () =>
+		{
+			_signals.EmitSignal(nameof(_signals.FullSlotClicked), _ship);
+			_signals.EmitSignal(nameof(_signals.SimpleButtonClicked));
+		};
 	}
 }

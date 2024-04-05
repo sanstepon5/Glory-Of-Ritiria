@@ -1,5 +1,6 @@
 using Godot;
 using GloryOfRitiria;
+using GloryOfRitiria.Scenes.Slots;
 using GloryOfRitiria.Scripts;
 using GloryOfRitiria.Scripts.Global;
 using GloryOfRitiria.Scripts.Utils;
@@ -73,22 +74,11 @@ public partial class SlotList : GridContainer
 	
 
 	// For docked ships that can be modified on the planet
-	public PanelContainer BuildFullSlot(Ship ship)
+	public FullShipSlot BuildFullSlot(Ship ship)
 	{
 		var scene = GD.Load<PackedScene>("res://Scenes/Slots/FullShipSlot.tscn");
 		var inst = (FullShipSlot)scene.Instantiate();
-		inst.Ship = ship;
-		
-		var slotImage = inst.GetNode<TextureRect>("MCont/VBox/ShipImage");
-		slotImage.Texture = (Texture2D)GD.Load(ship.GetImagePath(ShipImageSize.Big));
-		
-		var slotName = inst.GetNode<RichTextLabel>("MCont/VBox/NameLabel");
-		// TODO: Add dynamic type icon
-		slotName.Text = "[img]res://Assets/GUI/Icons/32/CameraReticle.png[/img]  " + ship.Name;
-		
-		var slotLocation = inst.GetNode<RichTextLabel>("MCont/VBox/LocationLabel");
-		slotLocation.Text = "[img]"+ ship.Location.GetSmallImage() + "[/img]  " + ship.Location.Name;
-
+		inst.Init(ship, _signals);
 		
 		return inst;
 	}
@@ -129,7 +119,11 @@ public partial class SlotList : GridContainer
 		shipyardName.Text = "[img]"+ slot.Location.GetSmallImage() + "[/img]  " + slot.ShipyardName;
 		
 		var addButton = inst.GetNode<TextureButton>("MCont/VBox/AddButton");
-		addButton.Pressed += () => RequestOpenConstructionWindow(slot);
+		addButton.Pressed += () =>
+		{
+			_signals.EmitSignal(nameof(_signals.SimpleButtonClicked));
+			RequestOpenConstructionWindow(slot);
+		};
 
 		
 		return inst;

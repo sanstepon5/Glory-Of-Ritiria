@@ -22,8 +22,6 @@ public partial class ShipyardsScene : Node2D
 		_signals.Connect(nameof(_signals.ThirdLevelProcessEntered), new Callable(this, nameof(DisableRightWindowProcess)));
 		_signals.Connect(nameof(_signals.ThirdLevelProcessExited), new Callable(this, nameof(EnableRightWindowProcess)));
 		
-		_signals.Connect(nameof(_signals.CargoSelectedForOutfit), new Callable(this, nameof(ClearCenterWindow)));
-
 
 		InitBodiesSelectionMenu();
 		_signals.EmitSignal(nameof(_signals.ShipyardsSceneOpened));
@@ -33,40 +31,9 @@ public partial class ShipyardsScene : Node2D
 	{
 		var windowCont = GetNode<ReferenceRect>("RightWindow");
 		
-		var scene = GD.Load<PackedScene>("res://Scenes/HangarScenes/ShipConstructionWindow.tscn");
-		var inst = (PanelContainer)scene.Instantiate();
-		
-		var constructionLocation = inst.GetNode<RichTextLabel>("MCont/VBox/LocationHBox/MarginContainer/LocationLabel");
-		constructionLocation.Text = "[img]res://Assets/GUI/Icons/32/liveablePlanet.png[/img]  " + shipyard.Location.Name;
-		
-		// var costLabel = inst.GetNode<RichTextLabel>("MCont/VBox/TimeCostHBox/MarginContainer/CostLabel");
-		// costLabel.Text = shipyard.TurnCost + "  [img]res://Assets/GUI/Icons/32/time.png[/img]";
-		
-		var exitButton = inst.GetNode<Button>("MCont/VBox/TitleExitHBox/ExitButton");
-		exitButton.Pressed += () =>
-		{
-			_signals.EmitSignal(nameof(_signals.SimpleButtonClicked));
-			GetTree().Paused = false;
-			windowCont.GetChild(0).QueueFree();
-		};
-		
-		var buildButton = inst.GetNode<Button>("MCont/VBox/ButtonMargin/BuildButton");
-		buildButton.Pressed += () =>
-		{
-			_signals.EmitSignal(nameof(_signals.SimpleButtonClicked));
-			GetTree().Paused = false;
-			windowCont.GetChild(0).QueueFree();
-			
-			var shipName = inst.GetNode<LineEdit>("MCont/VBox/NameHBox/MCont/TextEdit");
-			var ship = new Ship(shipName.Text, shipyard.Location, true);
-			shipyard.StartConstruction(ship);
-			
-			_signals.EmitSignal(nameof(_signals.ShipBuildStarted));
-			
-		};
-		
-		
-		GetTree().Paused =  true;
+		var scene = GD.Load<PackedScene>("res://Scenes/HangarScenes/Windows/ShipConstructionWindow.tscn");
+		var inst = (ShipConstructionWindow)scene.Instantiate();
+		inst.Init(shipyard, _signals);
 		
 		windowCont.AddChild(inst);
 	}	
@@ -75,7 +42,7 @@ public partial class ShipyardsScene : Node2D
 	{
 		var windowCont = GetNode<ReferenceRect>("RightWindow");
 		
-		var scene = GD.Load<PackedScene>("res://Scenes/HangarScenes/ShipOutfittingWindow.tscn");
+		var scene = GD.Load<PackedScene>("res://Scenes/HangarScenes/Windows/ShipOutfittingWindow.tscn");
 		var inst = (ShipOutfittingWindow)scene.Instantiate();
 		inst.Init(ship, _signals);
 		
@@ -87,19 +54,9 @@ public partial class ShipyardsScene : Node2D
 		var windowCont = GetNode<ReferenceRect>("CenterWindow");
 		
 		var scene = GD.Load<PackedScene>("res://Scenes/HangarScenes/Windows/CargoSelectWindow.tscn");
-		var inst = (PanelContainer)scene.Instantiate();
+		var inst = (CargoSelectWindow)scene.Instantiate();
+		inst.Init(_signals);
 		
-		var cargoVBox = inst.GetNode<VBoxContainer>("VBox/MarginCont/ScrollCont/VBox");
-		
-		var exitButton = inst.GetNode<Button>("VBox/TitleExitHBox/ExitButton");
-		exitButton.Pressed += () =>
-		{
-			_signals.EmitSignal(nameof(_signals.SimpleButtonClicked));
-			_signals.EmitSignal(nameof(_signals.ThirdLevelProcessExited));
-			windowCont.GetChild(0).QueueFree();
-		};
-
-		_signals.EmitSignal(nameof(_signals.ThirdLevelProcessEntered));
 		windowCont.AddChild(inst);
 	}
 	
@@ -112,7 +69,7 @@ public partial class ShipyardsScene : Node2D
 		{
 			var scene = GD.Load<PackedScene>("res://Scenes/HangarScenes/HangarPlanetSelectionScene.tscn");
 			var inst = (HangarPlanetSelectionScene)scene.Instantiate();
-			inst.Body = body;
+			inst.Init(body, _signals);
 			bodiesHBox.AddChild(inst);
 		}
 	}
@@ -128,11 +85,11 @@ public partial class ShipyardsScene : Node2D
 		windowCont.ProcessMode = ProcessModeEnum.WhenPaused;
 	}
 
-	public void ClearCenterWindow(string foo) //TODO: very messy...
+	public void ClearCenterWindow() 
 	{
 		var windowCont = GetNode<ReferenceRect>("CenterWindow");
 		windowCont.GetChild(0).QueueFree();
-		_signals.EmitSignal(nameof(_signals.ThirdLevelProcessExited));
+		EnableRightWindowProcess();
 	}
 	
 }

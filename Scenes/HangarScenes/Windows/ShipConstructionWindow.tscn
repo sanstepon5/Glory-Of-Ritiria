@@ -1,11 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://nbje536nyo0b"]
+[gd_scene load_steps=4 format=3 uid="uid://nbje536nyo0b"]
 
-[ext_resource type="Texture2D" uid="uid://b8u7yi37jw0t0" path="res://Assets/Icons/Ships/Small/ship.png" id="1_swe55"]
-[ext_resource type="ButtonGroup" uid="uid://trec3s178yi6" path="res://Resources/Hangar/PriorityButtonGroup.tres" id="2_kuw1o"]
+[ext_resource type="Script" path="res://Scenes/HangarScenes/Windows/ShipConstructionWindow.cs" id="1_njgik"]
+[ext_resource type="Texture2D" uid="uid://b8u7yi37jw0t0" path="res://Assets/Icons/Ships/Small/ship.png" id="1_wfh78"]
+[ext_resource type="ButtonGroup" uid="uid://trec3s178yi6" path="res://Resources/Hangar/PriorityButtonGroup.tres" id="2_v5036"]
 
 [node name="ShipConstructionWindow" type="PanelContainer"]
 offset_right = 457.0
 offset_bottom = 656.0
+script = ExtResource("1_njgik")
 
 [node name="MCont" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -133,7 +135,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.6
-texture_normal = ExtResource("1_swe55")
+texture_normal = ExtResource("1_wfh78")
 stretch_mode = 5
 
 [node name="PriorityHBox" type="HBoxContainer" parent="MCont/VBox"]
@@ -161,17 +163,17 @@ layout_mode = 2
 [node name="CheckBox" type="CheckBox" parent="MCont/VBox/PriorityHBox/MarginContainer/VBoxContainer"]
 layout_mode = 2
 button_pressed = true
-button_group = ExtResource("2_kuw1o")
+button_group = ExtResource("2_v5036")
 text = "High"
 
 [node name="CheckBox2" type="CheckBox" parent="MCont/VBox/PriorityHBox/MarginContainer/VBoxContainer"]
 layout_mode = 2
-button_group = ExtResource("2_kuw1o")
+button_group = ExtResource("2_v5036")
 text = "Medium"
 
 [node name="CheckBox3" type="CheckBox" parent="MCont/VBox/PriorityHBox/MarginContainer/VBoxContainer"]
 layout_mode = 2
-button_group = ExtResource("2_kuw1o")
+button_group = ExtResource("2_v5036")
 text = "Low"
 
 [node name="CostHBox" type="HBoxContainer" parent="MCont/VBox"]
