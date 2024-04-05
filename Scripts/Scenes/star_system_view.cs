@@ -130,7 +130,11 @@ public partial class star_system_view : Node2D
 		inst.GetNode<Label>("BodyContainer/BodyName").Text = star.Name;
 		
 		inst.GetNode<TextureButton>("BodyContainer/MarginContainer/BodyButton").TextureNormal = (Texture2D)GD.Load(star.GetImage());
-		inst.GetNode<TextureButton>("BodyContainer/MarginContainer/BodyButton").Pressed += () => _starPressed(star);
+		inst.GetNode<TextureButton>("BodyContainer/MarginContainer/BodyButton").Pressed += () =>
+		{
+			_signals.EmitSignal(nameof(_signals.SimpleButtonClicked));
+			_starPressed(star);
+		};
 		
 		var satellitesVCont = inst.GetNode<VBoxContainer>("SatellitesVCont");
 		if (star.ShipsInOrbit.Count > 0)
@@ -159,9 +163,17 @@ public partial class star_system_view : Node2D
 		// For example only storing "Img/planet.png" and using "Img/planet"+"_hover"+"png"
 			
 		if (body.Name == "Pallyria")
-			inst.GetNode<TextureButton>("BodyContainer/MarginContainer/BodyButton").Pressed += () => CelestialBodyPressed(body, true);
+			inst.GetNode<TextureButton>("BodyContainer/MarginContainer/BodyButton").Pressed += () =>
+			{
+				_signals.EmitSignal(nameof(_signals.SimpleButtonClicked));
+				CelestialBodyPressed(body, true);
+			};
 		else 
-			inst.GetNode<TextureButton>("BodyContainer/MarginContainer/BodyButton").Pressed += () => CelestialBodyPressed(body);
+			inst.GetNode<TextureButton>("BodyContainer/MarginContainer/BodyButton").Pressed += () =>
+			{
+				_signals.EmitSignal(nameof(_signals.SimpleButtonClicked));
+				CelestialBodyPressed(body);
+			};
 		
 		
 		if (lastBody) inst.GetNode<MarginContainer>("SatellitesHCont/MarginContainer").Visible = false;
@@ -255,7 +267,11 @@ public partial class star_system_view : Node2D
 		textureButton.TextureHover = (Texture2D)GD.Load(ship.GetImagePath());
 		textureButton.TextureHover = (Texture2D)GD.Load(ship.GetImagePath());
 
-		textureButton.Pressed += () => { _handleShipButtonPress(ship); };
+		textureButton.Pressed += () =>
+		{
+			_signals.EmitSignal(nameof(_signals.SimpleButtonClicked));
+			_handleShipButtonPress(ship);
+		};
 		
 		// Hide the white line
 		if (lastBody) inst.GetNode<MarginContainer>("NextLineHCont/MarginContainer").Visible = false;
@@ -297,6 +313,7 @@ public partial class star_system_view : Node2D
 		var exitButton = inst.GetNode<Button>("MCont/VBox/TitleExitHBox/ExitButton");
 		exitButton.Pressed += () =>
 		{
+			_signals.EmitSignal(nameof(_signals.SimpleButtonClicked));
 			_signals.EmitSignal(nameof(_signals.InfoWindowClosed));
 		};
 
@@ -382,7 +399,11 @@ public partial class star_system_view : Node2D
 			{
 				sendButtonMargin.Visible = true;
 	
-				sendButton.Pressed += () => { _handleSendButton(body, sendButton, missionButton, index); };
+				sendButton.Pressed += () =>
+				{
+					_signals.EmitSignal(nameof(_signals.SimpleButtonClicked));
+					_handleSendButton(body, sendButton, missionButton, index);
+				};
 			};
 		}
 	}

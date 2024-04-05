@@ -17,6 +17,7 @@ public partial class planet_game_scene : Node2D
 		
 		var phoneButton = GetNode<MenuButton>("PhoneButton");
 		phoneButton.GetPopup().Connect("id_pressed", new Callable(this, nameof(_popupProcess)));
+		phoneButton.Pressed += () =>  _signals.EmitSignal(nameof(_signals.SimpleButtonClicked));
 	}
 
 
@@ -24,8 +25,18 @@ public partial class planet_game_scene : Node2D
 	{
 		switch (id)
 		{
-			case 0: _signals.EmitSignal(nameof(_signals.ShipyardsButtonClicked)); break;
-			case 1: _signals.EmitSignal(nameof(_signals.FleetBureauButtonClicked)); break;
+			case 0:
+			{
+				_signals.EmitSignal(nameof(_signals.SimpleButtonClicked));
+				_signals.EmitSignal(nameof(_signals.ShipyardsButtonClicked));
+				break;
+			}
+			case 1:
+			{
+				_signals.EmitSignal(nameof(_signals.SimpleButtonClicked));
+				_signals.EmitSignal(nameof(_signals.FleetBureauButtonClicked));
+				break;
+			}
 			default: GD.Print("Err"); break;
 		}
 	}
@@ -39,6 +50,7 @@ public partial class planet_game_scene : Node2D
 			if (Geometry2D.IsPointInPolygon(clickPosition, collisionShape.Polygon))
 			{
 				_signals.EmitSignal(nameof(_signals.SkyClicked));
+				_signals.EmitSignal(nameof(_signals.SimpleButtonClicked));
 			}
 		}
 	}
@@ -47,6 +59,7 @@ public partial class planet_game_scene : Node2D
 	{
 		game_state.Res1 += 10;
 		_signals.EmitSignal(nameof(_signals.TopBarUpdateRequired));
+		_signals.EmitSignal(nameof(_signals.SimpleButtonClicked));
 	}
 
 }

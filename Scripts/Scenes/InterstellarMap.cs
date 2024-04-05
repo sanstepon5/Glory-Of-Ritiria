@@ -39,7 +39,7 @@ public partial class InterstellarMap : Node2D
 
 		systemButton.Pressed += () =>
 		{
-			GD.Print("StarViewRequested Emitted");
+			_signals.EmitSignal(nameof(_signals.SimpleButtonClicked));
 			_signals.EmitSignal(nameof(_signals.StarViewRequested), systemInfo);
 		};
 		
