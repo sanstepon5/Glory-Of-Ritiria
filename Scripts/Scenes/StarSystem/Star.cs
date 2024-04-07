@@ -5,7 +5,7 @@ public class Star: CelestialBody
 {
     /// <summary> Name of the star </summary>
     //public string Name;
-    public StarType Type; // Better to make enum
+    public StarClass StarClass; // Better to make enum
     //public string ImagePath; // Better to make enum
 
     /// <summary> Celestial bodies in orbits of the star </summary>
@@ -18,7 +18,7 @@ public class Star: CelestialBody
     /// <summary> The distance from the star to the edge of the system </summary>
     public double OuterSpaceDistance;
 
-    public Star(string name, StarSystemInfo starSystem, double distance, StarType type = StarType.RedDwarf)
+    public Star(string name, StarSystemInfo starSystem, double distance, StarClass starClass = StarClass.RedDwarf)
     {
         Star = this;
         Name = name;
@@ -28,7 +28,7 @@ public class Star: CelestialBody
         Bodies = new List<CelestialBody>();
         InnerSpace = new CelestialBody("Inner Space",  this, distance,"res://Assets/Icons/cross.png");
         OuterSpaceDistance = distance;
-        Type = type;
+        StarClass = starClass;
     }
     
     // Populate the bodies list with celestial bodies of this system
@@ -40,14 +40,14 @@ public class Star: CelestialBody
     // Returns the path to the star gfx based on the star type
     public override string GetImage()
     {
-        switch (Type)
+        switch (StarClass)
         {
-            case StarType.BrownDwarf: return "res://Assets/Img/tmp/CelestialBodies/BrownDwarf.png";
-            case StarType.RedDwarf: return "res://Assets/Img/tmp/CelestialBodies/RedDwarf.png";
-            case StarType.OrangeDwarf: return "res://Assets/Img/tmp/CelestialBodies/OrangeDwarf.png";
-            case StarType.YellowDwarf: return "res://Assets/Img/tmp/CelestialBodies/YellowDwarf.png";
-            case StarType.HotDwarf: return "res://Assets/Img/tmp/CelestialBodies/HotDwarf.png";
-            case StarType.WhiteDwarf: return "res://Assets/Img/tmp/CelestialBodies/WhiteDwarf.png";
+            case StarClass.BrownDwarf: return "res://Assets/Img/tmp/CelestialBodies/BrownDwarf.png";
+            case StarClass.RedDwarf: return "res://Assets/Img/tmp/CelestialBodies/RedDwarf.png";
+            case StarClass.OrangeDwarf: return "res://Assets/Img/tmp/CelestialBodies/OrangeDwarf.png";
+            case StarClass.YellowDwarf: return "res://Assets/Img/tmp/CelestialBodies/YellowDwarf.png";
+            case StarClass.HotDwarf: return "res://Assets/Img/tmp/CelestialBodies/HotDwarf.png";
+            case StarClass.WhiteDwarf: return "res://Assets/Img/tmp/CelestialBodies/WhiteDwarf.png";
             default: return "res://Assets/Img/tmp/CelestialBodies/OrangeDwarf.png";
         }
     }

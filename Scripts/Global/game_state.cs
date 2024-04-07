@@ -197,7 +197,7 @@ public partial class game_state : Node
 		
 		
 		// Detnura
-		var detnuraStar = new Star("Detnura", detnuraSystem, 700, StarType.OrangeDwarf);
+		var detnuraStar = new Star("Detnura", detnuraSystem, 700, StarClass.OrangeDwarf);
 
 		// Detnura planets
 		var pallyria = new CelestialBody("Pallyria", detnuraStar, 5, 
@@ -225,7 +225,7 @@ public partial class game_state : Node
 		
 		
 		// Sol
-		var sunStar = new Star("Sun", solSystem, 500, StarType.YellowDwarf);
+		var sunStar = new Star("Sun", solSystem, 500, StarClass.YellowDwarf);
 		sunStar.AddCelestialBody(new CelestialBody("Mercury", sunStar, 1, AssetsDir+"Img/tmp/MoltenPlanet.png", DiscoveryStatus.ExistenceKnown));
 		sunStar.AddCelestialBody(new CelestialBody("Venus", sunStar, 4, AssetsDir+"Img/tmp/MoltenPlanet.png", DiscoveryStatus.ExistenceKnown));
 		var earth = new CelestialBody("Earth", sunStar, 7, AssetsDir + "Img/tmp/CelestialBodies/liveablePlanet.png", DiscoveryStatus.Explored);

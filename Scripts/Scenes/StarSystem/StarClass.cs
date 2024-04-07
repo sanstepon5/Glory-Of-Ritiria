@@ -1,5 +1,5 @@
 ﻿// There are A LOT of different types so it's better to eventually make it a more developed class
-public enum StarType
+public enum StarClass
 {
     SubBrownDwarf, // WISE 0855−0714 - not discovered at start, very cold not really stars
     BrownDwarf, // Luhman 16 - typically not discovered at start

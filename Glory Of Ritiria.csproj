@@ -4,4 +4,15 @@
     <EnableDynamicLoading>true</EnableDynamicLoading>
     <RootNamespace>GloryOfRitiria</RootNamespace>
   </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Antlr4" Version="4.6.6">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Antlr4.Runtime.Standard" Version="4.13.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="StellarSystemParser\StellarSystem.g4" />
+    <Content Include="StellarSystemParser\Tests\test1.txt" />
+  </ItemGroup>
 </Project>
