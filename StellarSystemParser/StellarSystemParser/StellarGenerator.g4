@@ -1,12 +1,13 @@
-﻿grammar StellarSystem;
+grammar StellarGenerator;
 
 /*
 * Parser rules
-*/
-options {
-  language=Csharp;
-}
 
+
+options {
+  language=CSharp;
+}
+*/
 
 file                : (stellar_system)+ EOF ;
 stellar_system      : 'stellar_system' id '{' stellar_system_body '}' ;
@@ -34,44 +35,38 @@ ships               : 'ships' '{' (ship NEWLINE)+ '}' ;
 ship                : 'ship' id '{' ship_body '}' ;
 ship_body           : name NEWLINE (building_progress NEWLINE)? (modules)*  ;
 modules             : 'modules' '{' (module NEWLINE)+ '}' ;
-module              : id ('{' 'durability' ':' int '}')? ;
+module              : id ('{' 'durability' ':' inty '}')? ;
 
 
 
 name                : NAME ;
 icon                : TEXT ;
-distance_from       : 'distance_from_detnura'   ':' float;
-body_distance       : 'distance'                ':' int;
-angle               : 'map_angle'               ':' int;
-pull                : 'gravitational_pull'      ':' int;
-building_progress   : 'building_progress'       ':' int;
-star_class          : 'star_class'      ':'(
-                                            'orange_dwarf'
-                                          | 'red_dwarf'
-                                          | 'yellow_dwarf'
-                                        ) ;
-discovery_status    : 'discovery_status' ':'(
-                                            'explored'
-                                          | 'existence_known'
-                                          | 'undiscovered'
-                                        ) ;
+distance_from       : 'distance_from_detnura'   ':' floaty;
+body_distance       : 'distance'                ':' inty;
+angle               : 'map_angle'               ':' inty;
+pull                : 'gravitational_pull'      ':' inty;
+building_progress   : 'building_progress'       ':' inty;
+star_class          : 'star_class'              ':'( 'orange_dwarf' | 'red_dwarf' | 'yellow_dwarf' ) ;
+discovery_status    : 'discovery_status'        ':'( 'explored' | 'existence_known' | 'undiscovered' ) ;
 
-id                  : ID {PtGen.currentID=$ID.text;};
-int                 : INT {PtGen.currentID=$ID.text;};
-float               : FLOAT {PtGen.currentID=$ID.text;};
+id                   : ID;
+inty                 : INT;
+floaty               : FLOAT;
 
 
 fragment A          : ('A'|'a') ;
 fragment S          : ('S'|'s') ;
 fragment Y          : ('Y'|'y') ;
+fragment UNDERSCORE : '_' ;
 fragment LOWERCASE  : [a-z] ;
 fragment UPPERCASE  : [A-Z] ;
+fragment NUMBER     : [0-9] ;
 INT                 : '0'..'9'+ ;
 FLOAT               : (INT)+('.'INT)* ;
 SAYS                : S A Y S ;
-UNDERSCORE          : '_' ;
+
 WORD                : (LOWERCASE | UPPERCASE | UNDERSCORE)+ ;
-ID                  : ('a'..'z')('a'..'z' | '_'| INT)* ;
+ID                  : (LOWERCASE)(LOWERCASE | UNDERSCORE | NUMBER)* ;
 NAME                : (WORD)+ ;
 TEXT                : '"' .*? '"' ;
 WHITESPACE          : (' '|'\t')+ -> skip ;
