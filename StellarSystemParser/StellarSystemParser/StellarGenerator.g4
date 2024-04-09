@@ -9,9 +9,11 @@ options {
 }
 */
 
-file                : (stellar_system)+ EOF ;
-stellar_system      : 'stellar_system' id '{' stellar_system_body '}' ;
-stellar_system_body : name NEWLINE distance_from NEWLINE angle NEWLINE pull NEWLINE (star)+ ;
+file                :   {Test.pt(StellarGeneratorPoints.INITMAP);} (stellar_system)+ EOF ;
+stellar_system      :   'stellar_system' id {Test.pt(StellarGeneratorPoints.INITSYSTEM);} 
+                        '{' stellar_system_body '}' ;
+stellar_system_body :   name {Test.pt(StellarGeneratorPoints.SETSYSTEMNAME);} NEWLINE 
+                        distance_from NEWLINE angle NEWLINE pull NEWLINE (star)+ ;
 
 
 
@@ -49,9 +51,9 @@ building_progress   : 'building_progress'       ':' inty;
 star_class          : 'star_class'              ':'( 'orange_dwarf' | 'red_dwarf' | 'yellow_dwarf' ) ;
 discovery_status    : 'discovery_status'        ':'( 'explored' | 'existence_known' | 'undiscovered' ) ;
 
-id                   : ID;
-inty                 : INT;
-floaty               : FLOAT;
+id                   : ID {Test.CurrentText=$ID.text;};
+inty                 : INT {Test.CurrentInt = int.Parse($INT.text);};
+floaty               : FLOAT {Test.CurrentFloat = float.Parse($INT.text);};
 
 
 fragment A          : ('A'|'a') ;
@@ -70,5 +72,7 @@ ID                  : (LOWERCASE)(LOWERCASE | UNDERSCORE | NUMBER)* ;
 NAME                : (WORD)+ ;
 TEXT                : '"' .*? '"' ;
 WHITESPACE          : (' '|'\t')+ -> skip ;
+COMMENT             : '#' ~( '\r' | '\n' )* -> skip ; // Everything following # is a comment
+
 NEWLINE             : ('\r'? '\n' | '\r')+ ;
 
