@@ -28,10 +28,6 @@ public partial class event_manager : Node
 			GD.Print(err);
 		}
 	}
-
-	public override void _Process(double delta)
-	{
-	}
 	
 	public List<GameEvent> GetSatisfiedEvents()
 	{

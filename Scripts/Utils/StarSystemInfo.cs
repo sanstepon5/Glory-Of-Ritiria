@@ -18,6 +18,8 @@ public enum StarSystemType
 public partial class StarSystemInfo:Node
 {
     /// <summary> Name of the star system (usually the biggest star) </summary>
+    public string Id;
+    /// <summary> Name of the star system (usually the biggest star) </summary>
     public string SystemName;
     /// <summary> Distance from Detnura to this system in light years </summary>
     public float Distance;
@@ -36,6 +38,12 @@ public partial class StarSystemInfo:Node
         Distance = distance;
         Angle = angle;
         SystemType = systemType;
+    }
+    
+    /**Empty constructor for use in parsing*/
+    public StarSystemInfo(string id)
+    {
+        Id = id;
     }
 
     /// <summary>

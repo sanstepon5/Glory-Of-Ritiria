@@ -1,10 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
 using GloryOfRitiria.Scripts.ShipRelated;
 using GloryOfRitiria.Scripts.ShipRelated.Missions;
 using GloryOfRitiria.Scripts.Utils;
 using GloryOfRitiria.Scripts.Utils.Events;
 using Godot;
+using FileAccess = Godot.FileAccess;
 
 // This is a singleton that's loaded in every scene and will contain persistent state of the game.
 // It should be empty on main screen a be loaded when loading a save.
@@ -31,21 +34,21 @@ public partial class game_state : Node
 	// Has stars of the current star system. Should be empty when
 	// Current scene isn't a star system
 	public static List<Star> SelectedStarSystem = new();
+	public static StarSystemInfo Detnura;
 	
 	/// <summary> List of star system that can be viewed by the player</summary>
 	public static List<StarSystemInfo> DiscoveredSystems = new();
-	
-	public static List<Cargo> CargoStorage = new();
-
-	public static StarSystemInfo Detnura;
+	public static List<StarSystemInfo> AllSystems;
 	
 	
 	// public static ShipyardList ShipConstructionSlots = new();
 	public static List<Ship> AllShips = new();
+	public static List<Cargo> CargoStorage = new();
 	
 	public static List<CelestialBody> BodiesWithShipyards = new();
 
 	public static Ship SelectedShip = null;
+	
 
 
 	private static GlobalSignals _signals;
@@ -186,6 +189,24 @@ public partial class game_state : Node
 	// tmp function to create test star systems, until I make an actual parser and stars file
 	public static void Init()
 	{
+		var systemsInitFilePath = "";
+		
+		//TODO: Check for file not found
+		var fileStream = new StreamReader(AssetsDir + "StellarSystems.txt");
+		var stellarSystemsParser = new StellarSystemsParser(fileStream);
+		var data = stellarSystemsParser.Parse();
+		AllSystems = data.Systems;
+		AllShips = data.Ships;
+		BodiesWithShipyards = data.BodiesWithShipyards;
+		Detnura = data.Detnura;
+		
+		// This approach in theory doubles memory consumption for a brief moment when both parser and game_state are full of data
+		DiscoveredSystems = stellarSystemsParser.Systems;
+		AllShips = stellarSystemsParser.Ships;
+		BodiesWithShipyards = stellarSystemsParser.BodiesWithShipyards;
+		Detnura = stellarSystemsParser.Detnura; // I don't like this but for now it'll do
+		
+		
 		// Init star systems
 		var solSystem = new StarSystemInfo("Sol", 4.22f, 30, StarSystemType.Sun);
 		var barnardSystem = new StarSystemInfo("Barnard's star", 7.82f, 170);

@@ -8,10 +8,14 @@ options {
   language=CSharp;
 }
 */
+@header {
+    using System.Globalization;
+}
+
 
 file                :   {Test.pt(StellarGeneratorPoints.INITMAP);} (stellar_system)+ EOF ;
 stellar_system      :   'stellar_system' id {Test.pt(StellarGeneratorPoints.INITSYSTEM);} 
-                        '{' stellar_system_body '}' ;
+                        '{' stellar_system_body '}' {Test.pt(StellarGeneratorPoints.ADDSYSTEM);} ;
 stellar_system_body :   name {Test.pt(StellarGeneratorPoints.SETSYSTEMNAME);} NEWLINE 
                         distance_from NEWLINE angle NEWLINE pull NEWLINE (star)+ ;
 
@@ -41,8 +45,8 @@ module              : id ('{' 'durability' ':' inty '}')? ;
 
 
 
-name                : NAME ;
-icon                : TEXT ;
+name                : 'name'                    ':' NAME ;
+icon                : 'icon'                    ':' TEXT ;
 distance_from       : 'distance_from_detnura'   ':' floaty;
 body_distance       : 'distance'                ':' inty;
 angle               : 'map_angle'               ':' inty;
@@ -51,9 +55,9 @@ building_progress   : 'building_progress'       ':' inty;
 star_class          : 'star_class'              ':'( 'orange_dwarf' | 'red_dwarf' | 'yellow_dwarf' ) ;
 discovery_status    : 'discovery_status'        ':'( 'explored' | 'existence_known' | 'undiscovered' ) ;
 
-id                   : ID {Test.CurrentText=$ID.text;};
+id                   : ID {Test.CurrentText = $ID.text;};
 inty                 : INT {Test.CurrentInt = int.Parse($INT.text);};
-floaty               : FLOAT {Test.CurrentFloat = float.Parse($INT.text);};
+floaty               : FLOAT {Test.CurrentFloat = float.Parse($FLOAT.text, CultureInfo.InvariantCulture);};
 
 
 fragment A          : ('A'|'a') ;

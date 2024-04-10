@@ -17,4 +17,8 @@
     <EmbeddedResource Remove="StellarSystemParser\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Antlr4.Runtime" Version="4.6.6" />
+  </ItemGroup>
+
 </Project>
