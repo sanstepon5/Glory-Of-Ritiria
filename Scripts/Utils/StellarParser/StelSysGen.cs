@@ -22,9 +22,9 @@ public class StelSysGen
     public static Cargo CurrentModule;
     public static Shipyard CurrentShipyard;
 
-    public static bool IsSatellite;
-    public static bool ShipyardBusy;
-    public static bool InStar;
+    public static bool IsSatellite = false;
+    public static bool ShipyardBusy = false;
+    public static bool InStar = true;
     
 
     public static void pt(StellarGeneratorPoint point)
@@ -33,13 +33,12 @@ public class StelSysGen
         {
             case StellarGeneratorPoint.INITMAP:
             {
-                Data.Systems = new List<StarSystemInfo>();
                 break;
             }
             case StellarGeneratorPoint.ADDSYSTEM:
             {
                 Data.Systems.Add(CurrentSystem);
-                if (CurrentSystem.Id.Equals("detnura"))
+                if (CurrentSystem.Id.Equals("detnura_aeria_system"))
                     Data.Detnura = CurrentSystem;   
                 break;
             }
@@ -116,13 +115,14 @@ public class StelSysGen
             case StellarGeneratorPoint.INITBODY:
             {
                 var body = new CelestialBody(CurrentText);
-                CurrentBody.Star = CurrentStar;
+                body.Star = CurrentStar;
 
+                
                 if (IsSatellite)
                 {
                     body.ParentBody = CurrentBody;
                     body.Satellites = new List<CelestialBody>();
-                    CurrentBody.IsSatellite = true;
+                    body.IsSatellite = true;
                 }
 
                 CurrentBody = body;
@@ -135,9 +135,31 @@ public class StelSysGen
                 CurrentBody.Name = CurrentText;
                 break;
             }
+            case StellarGeneratorPoint.SETBODYTYPE:
+            {
+                switch (CurrentText)
+                {
+                    case "minor":
+                    {
+                        CurrentBody.BodyType = CelestialBodyType.MinorBody;
+                        break;
+                    }
+                    default:
+                    {
+                        Console.WriteLine("WARNING: Unrecognized body type " + CurrentText + ", default value is used");
+                        break;
+                    }
+                }
+                break;
+            }
             /* Star class */
             case StellarGeneratorPoint.SETBODYDISTANCE:
             {
+                if (CurrentInt==0)
+                {
+                    Console.WriteLine("ERROR: Body " + CurrentBody.Id + " is not satellite, specifying distance is required");
+                    CurrentBody.Distance = 0;
+                }
                 CurrentBody.Distance = CurrentInt;
                 break;
             }
@@ -148,7 +170,8 @@ public class StelSysGen
             }
             case StellarGeneratorPoint.SETISNTSATELLITE:
             {
-                IsSatellite = false; // ???
+                IsSatellite = false; // All satellites are added to the parent body, exiting back to the parent body
+                CurrentBody = CurrentBody.ParentBody;
                 break;
             }
             
@@ -158,11 +181,16 @@ public class StelSysGen
                 IsSatellite = true;
                 // Current body is the one that will have satellites, so all next bodies are satellites
                 CurrentBody.HasSatellites = true;
+                CurrentBody.Satellites = new List<CelestialBody>();
                 break;
             }
             case StellarGeneratorPoint.ADDSATELLITETOPARENT:
             {
-                
+                if (CurrentBody.Distance!=0)
+                {
+                    Console.WriteLine("WARNING: Body " + CurrentBody.Id + " is a satellite, distance is ignored");
+                    CurrentBody.Distance = 0;
+                }
                 CurrentBody.ParentBody.Satellites.Add(CurrentBody);
                 break;
             }
@@ -213,10 +241,11 @@ public class StelSysGen
             }
             case StellarGeneratorPoint.ADDSHIP:
             {
-                if (InStar)
-                    CurrentStar.ShipsInOrbit.Add(CurrentShip);
-                else
-                    CurrentBody.ShipsInOrbit.Add(CurrentShip);
+                // Not necessary as Ship class constructor already does that
+                // if (InStar)
+                //     CurrentStar.ShipsInOrbit.Add(CurrentShip);
+                // else
+                //     CurrentBody.ShipsInOrbit.Add(CurrentShip);
                 Data.Ships.Add(CurrentShip);
                 break;
             }
@@ -312,5 +341,12 @@ public class StelSysData
     public List<Ship> Ships;
     public List<CelestialBody> BodiesWithShipyards;
     public StarSystemInfo Detnura;
+
+    public StelSysData()
+    {
+        Systems = new List<StarSystemInfo>();
+        Ships = new List<Ship>();
+        BodiesWithShipyards = new List<CelestialBody>();
+    }
     
 }

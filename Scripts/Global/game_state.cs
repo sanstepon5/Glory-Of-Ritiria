@@ -218,6 +218,7 @@ public partial class game_state : Node
 		
 		
 		// Init star systems
+		/*
 		var solSystem = new StarSystemInfo("Sol", 4.22f, 30, StarSystemType.Sun);
 		var barnardSystem = new StarSystemInfo("Barnard's star", 7.82f, 170);
 		var detnuraSystem = new StarSystemInfo("Detnura-Aeria System", 0, 0, StarSystemType.Detnura);
@@ -284,7 +285,7 @@ public partial class game_state : Node
 		
 		AllShips.Add(irana);
 		
-		
+		*/
 		// Cargo at the start of the game
 		var planetExplorationKit2 = new Cargo("Planet exploration kit", 5);
 		planetExplorationKit2.AddMission(new PlanetExplorationMission());

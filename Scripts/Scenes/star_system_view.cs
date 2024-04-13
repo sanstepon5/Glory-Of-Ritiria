@@ -89,7 +89,7 @@ public partial class star_system_view : Node2D
 				bodiesCont.AddChild(BuildCelestialBody(body));
 			i++;
 		}
-		if (star.Bodies[i].DiscoveryStatus != DiscoveryStatus.Undiscovered)
+		if (i>=0 && star.Bodies[i].DiscoveryStatus != DiscoveryStatus.Undiscovered)
 		{
 			var lastBody = BuildCelestialBody(star.Bodies[i], true);
 			bodiesCont.AddChild(lastBody);

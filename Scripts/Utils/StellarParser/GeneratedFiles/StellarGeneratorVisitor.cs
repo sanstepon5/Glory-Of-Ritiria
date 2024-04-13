@@ -22,6 +22,7 @@
 namespace StellarSystemParser {
 
     using System.Globalization;
+    using GloryOfRitiria.Scripts.Utils;
 
 using Antlr4.Runtime.Misc;
 using Antlr4.Runtime.Tree;
@@ -162,6 +163,13 @@ public interface IStellarGeneratorVisitor<Result> : IParseTreeVisitor<Result> {
 	Result VisitIcon([NotNull] StellarGeneratorParser.IconContext context);
 
 	/// <summary>
+	/// Visit a parse tree produced by <see cref="StellarGeneratorParser.body_type"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitBody_type([NotNull] StellarGeneratorParser.Body_typeContext context);
+
+	/// <summary>
 	/// Visit a parse tree produced by <see cref="StellarGeneratorParser.distance_from"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -216,6 +224,13 @@ public interface IStellarGeneratorVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitId([NotNull] StellarGeneratorParser.IdContext context);
+
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="StellarGeneratorParser.text"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitText([NotNull] StellarGeneratorParser.TextContext context);
 
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="StellarGeneratorParser.inty"/>.

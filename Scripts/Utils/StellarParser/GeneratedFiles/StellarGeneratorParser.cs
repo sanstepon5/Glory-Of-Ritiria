@@ -11,9 +11,6 @@
 // Generated from D:\programs\Godot\GloryOfRitiria\StellarSystemParser\StellarSystemParser\StellarGenerator.g4 by ANTLR 4.6.6
 
 // Unreachable code detected
-
-
-
 #pragma warning disable 0162
 // The variable '...' is assigned but its value is never used
 #pragma warning disable 0219
@@ -41,29 +38,30 @@ public partial class StellarGeneratorParser : Parser {
 		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, T__8=9, 
 		T__9=10, T__10=11, T__11=12, T__12=13, T__13=14, T__14=15, T__15=16, T__16=17, 
 		T__17=18, T__18=19, T__19=20, T__20=21, T__21=22, T__22=23, T__23=24, 
-		T__24=25, T__25=26, T__26=27, T__27=28, T__28=29, INT=30, FLOAT=31, SAYS=32, 
-		WORD=33, ID=34, NAME=35, TEXT=36, WHITESPACE=37, COMMENT=38, NEWLINE=39;
+		T__24=25, T__25=26, T__26=27, T__27=28, T__28=29, T__29=30, INT=31, FLOAT=32, 
+		ID=33, WORD=34, TEXT=35, WHITESPACE=36, COMMENT=37, NEWLINE=38;
 	public const int
 		RULE_file = 0, RULE_stellar_system = 1, RULE_stellar_system_body = 2, 
 		RULE_star = 3, RULE_star_body = 4, RULE_celestial_body = 5, RULE_celestial_body_body = 6, 
 		RULE_satellites = 7, RULE_shipyards = 8, RULE_shipyard = 9, RULE_shipyard_body = 10, 
 		RULE_ships = 11, RULE_ship = 12, RULE_ship_body = 13, RULE_modules = 14, 
-		RULE_module = 15, RULE_name = 16, RULE_icon = 17, RULE_distance_from = 18, 
-		RULE_angle = 19, RULE_pull = 20, RULE_body_distance = 21, RULE_building_progress = 22, 
-		RULE_star_class = 23, RULE_discovery_status = 24, RULE_id = 25, RULE_inty = 26, 
-		RULE_floaty = 27;
+		RULE_module = 15, RULE_name = 16, RULE_icon = 17, RULE_body_type = 18, 
+		RULE_distance_from = 19, RULE_angle = 20, RULE_pull = 21, RULE_body_distance = 22, 
+		RULE_building_progress = 23, RULE_star_class = 24, RULE_discovery_status = 25, 
+		RULE_id = 26, RULE_text = 27, RULE_inty = 28, RULE_floaty = 29;
 	public static readonly string[] ruleNames = {
 		"file", "stellar_system", "stellar_system_body", "star", "star_body", 
 		"celestial_body", "celestial_body_body", "satellites", "shipyards", "shipyard", 
 		"shipyard_body", "ships", "ship", "ship_body", "modules", "module", "name", 
-		"icon", "distance_from", "angle", "pull", "body_distance", "building_progress", 
-		"star_class", "discovery_status", "id", "inty", "floaty"
+		"icon", "body_type", "distance_from", "angle", "pull", "body_distance", 
+		"building_progress", "star_class", "discovery_status", "id", "text", "inty", 
+		"floaty"
 	};
 
 	private static readonly string[] _LiteralNames = {
 		null, "'stellar_system'", "'{'", "'}'", "'star'", "'celestial_body'", 
 		"'satellites'", "'shipyards'", "'shipyard'", "'ships'", "'ship'", "'modules'", 
-		"'module'", "'durability'", "':'", "'name'", "'icon'", "'distance_from_detnura'", 
+		"'module'", "'durability'", "':'", "'name'", "'icon'", "'type'", "'distance_from_detnura'", 
 		"'map_angle'", "'gravitational_pull'", "'distance'", "'building_progress'", 
 		"'star_class'", "'orange_dwarf'", "'red_dwarf'", "'yellow_dwarf'", "'discovery_status'", 
 		"'explored'", "'existence_known'", "'undiscovered'"
@@ -71,8 +69,8 @@ public partial class StellarGeneratorParser : Parser {
 	private static readonly string[] _SymbolicNames = {
 		null, null, null, null, null, null, null, null, null, null, null, null, 
 		null, null, null, null, null, null, null, null, null, null, null, null, 
-		null, null, null, null, null, null, "INT", "FLOAT", "SAYS", "WORD", "ID", 
-		"NAME", "TEXT", "WHITESPACE", "COMMENT", "NEWLINE"
+		null, null, null, null, null, null, null, "INT", "FLOAT", "ID", "WORD", 
+		"TEXT", "WHITESPACE", "COMMENT", "NEWLINE"
 	};
 	public static readonly IVocabulary DefaultVocabulary = new Vocabulary(_LiteralNames, _SymbolicNames);
 
@@ -161,21 +159,21 @@ public partial class StellarGeneratorParser : Parser {
 			EnterOuterAlt(_localctx, 1);
 			{
 			StelSysGen.pt(StellarGeneratorPoint.INITMAP);
-			State = 58;
+			State = 62;
 			_errHandler.Sync(this);
 			_la = _input.La(1);
 			do {
 				{
 				{
-				State = 57; stellar_system();
+				State = 61; stellar_system();
 				}
 				}
-				State = 60;
+				State = 64;
 				_errHandler.Sync(this);
 				_la = _input.La(1);
 			} while ( _la==T__0 );
 			StelSysGen.pt(StellarGeneratorPoint.ERRORVERIFICATION);
-			State = 63; Match(Eof);
+			State = 67; Match(Eof);
 			}
 		}
 		catch (RecognitionException re) {
@@ -223,12 +221,12 @@ public partial class StellarGeneratorParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 65; Match(T__0);
-			State = 66; id();
+			State = 69; Match(T__0);
+			State = 70; id();
 			StelSysGen.pt(StellarGeneratorPoint.INITSYSTEM);
-			State = 68; Match(T__1);
-			State = 69; stellar_system_body();
-			State = 70; Match(T__2);
+			State = 72; Match(T__1);
+			State = 73; stellar_system_body();
+			State = 74; Match(T__2);
 			StelSysGen.pt(StellarGeneratorPoint.ADDSYSTEM);
 			}
 		}
@@ -246,10 +244,6 @@ public partial class StellarGeneratorParser : Parser {
 	public partial class Stellar_system_bodyContext : ParserRuleContext {
 		public NameContext name() {
 			return GetRuleContext<NameContext>(0);
-		}
-		public ITerminalNode[] NEWLINE() { return GetTokens(StellarGeneratorParser.NEWLINE); }
-		public ITerminalNode NEWLINE(int i) {
-			return GetToken(StellarGeneratorParser.NEWLINE, i);
 		}
 		public Distance_fromContext distance_from() {
 			return GetRuleContext<Distance_fromContext>(0);
@@ -294,15 +288,11 @@ public partial class StellarGeneratorParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 73; name();
+			State = 77; name();
 			StelSysGen.pt(StellarGeneratorPoint.SETSYSTEMNAME);
-			State = 75; Match(NEWLINE);
-			State = 76; distance_from();
-			State = 77; Match(NEWLINE);
-			State = 78; angle();
-			State = 79; Match(NEWLINE);
-			State = 80; pull();
-			State = 81; Match(NEWLINE);
+			State = 79; distance_from();
+			State = 80; angle();
+			State = 81; pull();
 			State = 85;
 			_errHandler.Sync(this);
 			_la = _input.La(1);
@@ -387,10 +377,6 @@ public partial class StellarGeneratorParser : Parser {
 		public NameContext name() {
 			return GetRuleContext<NameContext>(0);
 		}
-		public ITerminalNode[] NEWLINE() { return GetTokens(StellarGeneratorParser.NEWLINE); }
-		public ITerminalNode NEWLINE(int i) {
-			return GetToken(StellarGeneratorParser.NEWLINE, i);
-		}
 		public Star_classContext star_class() {
 			return GetRuleContext<Star_classContext>(0);
 		}
@@ -439,52 +425,48 @@ public partial class StellarGeneratorParser : Parser {
 			{
 			State = 96; name();
 			StelSysGen.pt(StellarGeneratorPoint.SETSTARNAME);
-			State = 98; Match(NEWLINE);
+			State = 99;
+			_errHandler.Sync(this);
+			_la = _input.La(1);
+			if (_la==T__22) {
+				{
+				State = 98; star_class();
+				}
+			}
+
 			State = 102;
 			_errHandler.Sync(this);
 			_la = _input.La(1);
-			if (_la==T__21) {
+			if (_la==T__26) {
 				{
-				State = 99; star_class();
-				State = 100; Match(NEWLINE);
+				State = 101; discovery_status();
 				}
 			}
 
-			State = 107;
+			State = 109;
 			_errHandler.Sync(this);
 			_la = _input.La(1);
-			if (_la==T__25) {
-				{
-				State = 104; discovery_status();
-				State = 105; Match(NEWLINE);
-				}
-			}
-
-			State = 113;
-			_errHandler.Sync(this);
-			_la = _input.La(1);
-			do {
+			while (_la==T__4) {
 				{
 				{
-				State = 109; celestial_body();
+				State = 104; celestial_body();
 				StelSysGen.pt(StellarGeneratorPoint.ADDBODYTOSTAR);
-				State = 111; Match(NEWLINE);
 				}
 				}
-				State = 115;
+				State = 111;
 				_errHandler.Sync(this);
 				_la = _input.La(1);
-			} while ( _la==T__4 );
-			State = 120;
+			}
+			State = 115;
 			_errHandler.Sync(this);
 			_la = _input.La(1);
 			while (_la==T__8) {
 				{
 				{
-				State = 117; ships();
+				State = 112; ships();
 				}
 				}
-				State = 122;
+				State = 117;
 				_errHandler.Sync(this);
 				_la = _input.La(1);
 			}
@@ -535,12 +517,12 @@ public partial class StellarGeneratorParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 123; Match(T__4);
-			State = 124; id();
+			State = 118; Match(T__4);
+			State = 119; id();
 			StelSysGen.pt(StellarGeneratorPoint.INITBODY);
-			State = 126; Match(T__1);
-			State = 127; celestial_body_body();
-			State = 128; Match(T__2);
+			State = 121; Match(T__1);
+			State = 122; celestial_body_body();
+			State = 123; Match(T__2);
 			}
 		}
 		catch (RecognitionException re) {
@@ -558,10 +540,6 @@ public partial class StellarGeneratorParser : Parser {
 		public NameContext name() {
 			return GetRuleContext<NameContext>(0);
 		}
-		public ITerminalNode[] NEWLINE() { return GetTokens(StellarGeneratorParser.NEWLINE); }
-		public ITerminalNode NEWLINE(int i) {
-			return GetToken(StellarGeneratorParser.NEWLINE, i);
-		}
 		public Body_distanceContext body_distance() {
 			return GetRuleContext<Body_distanceContext>(0);
 		}
@@ -570,6 +548,9 @@ public partial class StellarGeneratorParser : Parser {
 		}
 		public Discovery_statusContext discovery_status() {
 			return GetRuleContext<Discovery_statusContext>(0);
+		}
+		public Body_typeContext body_type() {
+			return GetRuleContext<Body_typeContext>(0);
 		}
 		public SatellitesContext[] satellites() {
 			return GetRuleContexts<SatellitesContext>();
@@ -617,71 +598,83 @@ public partial class StellarGeneratorParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 130; name();
+			State = 125; name();
 			StelSysGen.pt(StellarGeneratorPoint.SETBODYNAME);
-			State = 132; Match(NEWLINE);
-			State = 133; body_distance();
-			State = 134; Match(NEWLINE);
-			State = 139;
+			State = 128;
+			_errHandler.Sync(this);
+			_la = _input.La(1);
+			if (_la==T__20) {
+				{
+				State = 127; body_distance();
+				}
+			}
+
+			State = 133;
 			_errHandler.Sync(this);
 			_la = _input.La(1);
 			if (_la==T__15) {
 				{
-				State = 135; icon();
+				State = 130; icon();
 				StelSysGen.pt(StellarGeneratorPoint.SETBODYICON);
-				State = 137; Match(NEWLINE);
 				}
 			}
 
-			State = 144;
+			State = 136;
 			_errHandler.Sync(this);
 			_la = _input.La(1);
-			if (_la==T__25) {
+			if (_la==T__26) {
 				{
-				State = 141; discovery_status();
-				State = 142; Match(NEWLINE);
+				State = 135; discovery_status();
 				}
 			}
 
-			State = 152;
+			State = 141;
+			_errHandler.Sync(this);
+			_la = _input.La(1);
+			if (_la==T__16) {
+				{
+				State = 138; body_type();
+				StelSysGen.pt(StellarGeneratorPoint.SETBODYTYPE);
+				}
+			}
+
+			State = 148;
 			_errHandler.Sync(this);
 			_la = _input.La(1);
 			while (_la==T__5) {
 				{
 				{
-				State = 146; satellites();
+				State = 143; satellites();
 				StelSysGen.pt(StellarGeneratorPoint.SETISNTSATELLITE);
-				State = 148; Match(NEWLINE);
 				}
 				}
-				State = 154;
+				State = 150;
+				_errHandler.Sync(this);
+				_la = _input.La(1);
+			}
+			State = 154;
+			_errHandler.Sync(this);
+			_la = _input.La(1);
+			while (_la==T__6) {
+				{
+				{
+				State = 151; shipyards();
+				}
+				}
+				State = 156;
 				_errHandler.Sync(this);
 				_la = _input.La(1);
 			}
 			State = 160;
 			_errHandler.Sync(this);
 			_la = _input.La(1);
-			while (_la==T__6) {
-				{
-				{
-				State = 155; shipyards();
-				State = 156; Match(NEWLINE);
-				}
-				}
-				State = 162;
-				_errHandler.Sync(this);
-				_la = _input.La(1);
-			}
-			State = 166;
-			_errHandler.Sync(this);
-			_la = _input.La(1);
 			while (_la==T__8) {
 				{
 				{
-				State = 163; ships();
+				State = 157; ships();
 				}
 				}
-				State = 168;
+				State = 162;
 				_errHandler.Sync(this);
 				_la = _input.La(1);
 			}
@@ -704,10 +697,6 @@ public partial class StellarGeneratorParser : Parser {
 		}
 		public Celestial_bodyContext celestial_body(int i) {
 			return GetRuleContext<Celestial_bodyContext>(i);
-		}
-		public ITerminalNode[] NEWLINE() { return GetTokens(StellarGeneratorParser.NEWLINE); }
-		public ITerminalNode NEWLINE(int i) {
-			return GetToken(StellarGeneratorParser.NEWLINE, i);
 		}
 		public SatellitesContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
@@ -737,25 +726,24 @@ public partial class StellarGeneratorParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 169; Match(T__5);
+			State = 163; Match(T__5);
 			StelSysGen.pt(StellarGeneratorPoint.SETISSATELLITE);
-			State = 171; Match(T__1);
-			State = 176;
+			State = 165; Match(T__1);
+			State = 169;
 			_errHandler.Sync(this);
 			_la = _input.La(1);
 			do {
 				{
 				{
-				State = 172; celestial_body();
+				State = 166; celestial_body();
 				StelSysGen.pt(StellarGeneratorPoint.ADDSATELLITETOPARENT);
-				State = 174; Match(NEWLINE);
 				}
 				}
-				State = 178;
+				State = 171;
 				_errHandler.Sync(this);
 				_la = _input.La(1);
 			} while ( _la==T__4 );
-			State = 180; Match(T__2);
+			State = 173; Match(T__2);
 			}
 		}
 		catch (RecognitionException re) {
@@ -775,10 +763,6 @@ public partial class StellarGeneratorParser : Parser {
 		}
 		public ShipyardContext shipyard(int i) {
 			return GetRuleContext<ShipyardContext>(i);
-		}
-		public ITerminalNode[] NEWLINE() { return GetTokens(StellarGeneratorParser.NEWLINE); }
-		public ITerminalNode NEWLINE(int i) {
-			return GetToken(StellarGeneratorParser.NEWLINE, i);
 		}
 		public ShipyardsContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
@@ -808,24 +792,23 @@ public partial class StellarGeneratorParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 182; Match(T__6);
-			State = 183; Match(T__1);
-			State = 188;
+			State = 175; Match(T__6);
+			State = 176; Match(T__1);
+			State = 180;
 			_errHandler.Sync(this);
 			_la = _input.La(1);
 			do {
 				{
 				{
-				State = 184; shipyard();
+				State = 177; shipyard();
 				StelSysGen.pt(StellarGeneratorPoint.ADDSHIPYARD);
-				State = 186; Match(NEWLINE);
 				}
 				}
-				State = 190;
+				State = 182;
 				_errHandler.Sync(this);
 				_la = _input.La(1);
 			} while ( _la==T__7 );
-			State = 192; Match(T__2);
+			State = 184; Match(T__2);
 			}
 		}
 		catch (RecognitionException re) {
@@ -873,11 +856,11 @@ public partial class StellarGeneratorParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 194; Match(T__7);
-			State = 195; id();
-			State = 196; Match(T__1);
-			State = 197; shipyard_body();
-			State = 198; Match(T__2);
+			State = 186; Match(T__7);
+			State = 187; id();
+			State = 188; Match(T__1);
+			State = 189; shipyard_body();
+			State = 190; Match(T__2);
 			}
 		}
 		catch (RecognitionException re) {
@@ -895,7 +878,6 @@ public partial class StellarGeneratorParser : Parser {
 		public NameContext name() {
 			return GetRuleContext<NameContext>(0);
 		}
-		public ITerminalNode NEWLINE() { return GetToken(StellarGeneratorParser.NEWLINE, 0); }
 		public ShipContext ship() {
 			return GetRuleContext<ShipContext>(0);
 		}
@@ -927,16 +909,15 @@ public partial class StellarGeneratorParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 200; name();
+			State = 192; name();
 			StelSysGen.pt(StellarGeneratorPoint.INITSHIPYARD);
-			State = 202; Match(NEWLINE);
-			State = 205;
+			State = 196;
 			_errHandler.Sync(this);
 			_la = _input.La(1);
 			if (_la==T__9) {
 				{
 				StelSysGen.pt(StellarGeneratorPoint.SETSHIPYARDBUSY);
-				State = 204; ship();
+				State = 195; ship();
 				}
 			}
 
@@ -959,10 +940,6 @@ public partial class StellarGeneratorParser : Parser {
 		}
 		public ShipContext ship(int i) {
 			return GetRuleContext<ShipContext>(i);
-		}
-		public ITerminalNode[] NEWLINE() { return GetTokens(StellarGeneratorParser.NEWLINE); }
-		public ITerminalNode NEWLINE(int i) {
-			return GetToken(StellarGeneratorParser.NEWLINE, i);
 		}
 		public ShipsContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
@@ -992,24 +969,23 @@ public partial class StellarGeneratorParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 207; Match(T__8);
-			State = 208; Match(T__1);
-			State = 213;
+			State = 198; Match(T__8);
+			State = 199; Match(T__1);
+			State = 205;
 			_errHandler.Sync(this);
 			_la = _input.La(1);
-			do {
+			while (_la==T__9) {
 				{
 				{
-				State = 209; ship();
+				State = 200; ship();
 				StelSysGen.pt(StellarGeneratorPoint.ADDSHIP);
-				State = 211; Match(NEWLINE);
 				}
 				}
-				State = 215;
+				State = 207;
 				_errHandler.Sync(this);
 				_la = _input.La(1);
-			} while ( _la==T__9 );
-			State = 217; Match(T__2);
+			}
+			State = 208; Match(T__2);
 			}
 		}
 		catch (RecognitionException re) {
@@ -1057,11 +1033,11 @@ public partial class StellarGeneratorParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 219; Match(T__9);
-			State = 220; id();
-			State = 221; Match(T__1);
-			State = 222; ship_body();
-			State = 223; Match(T__2);
+			State = 210; Match(T__9);
+			State = 211; id();
+			State = 212; Match(T__1);
+			State = 213; ship_body();
+			State = 214; Match(T__2);
 			}
 		}
 		catch (RecognitionException re) {
@@ -1078,10 +1054,6 @@ public partial class StellarGeneratorParser : Parser {
 	public partial class Ship_bodyContext : ParserRuleContext {
 		public NameContext name() {
 			return GetRuleContext<NameContext>(0);
-		}
-		public ITerminalNode[] NEWLINE() { return GetTokens(StellarGeneratorParser.NEWLINE); }
-		public ITerminalNode NEWLINE(int i) {
-			return GetToken(StellarGeneratorParser.NEWLINE, i);
 		}
 		public Building_progressContext building_progress() {
 			return GetRuleContext<Building_progressContext>(0);
@@ -1120,30 +1092,28 @@ public partial class StellarGeneratorParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 225; name();
+			State = 216; name();
 			StelSysGen.pt(StellarGeneratorPoint.INITSHIP);
-			State = 227; Match(NEWLINE);
-			State = 232;
+			State = 221;
 			_errHandler.Sync(this);
 			_la = _input.La(1);
-			if (_la==T__20) {
+			if (_la==T__21) {
 				{
-				State = 228; building_progress();
+				State = 218; building_progress();
 				StelSysGen.pt(StellarGeneratorPoint.SETSHIPYARDBUILDINGPROGRESS);
-				State = 230; Match(NEWLINE);
 				}
 			}
 
-			State = 237;
+			State = 226;
 			_errHandler.Sync(this);
 			_la = _input.La(1);
 			while (_la==T__10) {
 				{
 				{
-				State = 234; modules();
+				State = 223; modules();
 				}
 				}
-				State = 239;
+				State = 228;
 				_errHandler.Sync(this);
 				_la = _input.La(1);
 			}
@@ -1167,10 +1137,6 @@ public partial class StellarGeneratorParser : Parser {
 		}
 		public ModuleContext module(int i) {
 			return GetRuleContext<ModuleContext>(i);
-		}
-		public ITerminalNode[] NEWLINE() { return GetTokens(StellarGeneratorParser.NEWLINE); }
-		public ITerminalNode NEWLINE(int i) {
-			return GetToken(StellarGeneratorParser.NEWLINE, i);
 		}
 		public ModulesContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
@@ -1200,24 +1166,23 @@ public partial class StellarGeneratorParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 242; Match(T__10);
-			State = 243; Match(T__1);
-			State = 248;
+			State = 231; Match(T__10);
+			State = 232; Match(T__1);
+			State = 236;
 			_errHandler.Sync(this);
 			_la = _input.La(1);
 			do {
 				{
 				{
-				State = 244; module();
+				State = 233; module();
 				StelSysGen.pt(StellarGeneratorPoint.ADDMODULE);
-				State = 246; Match(NEWLINE);
 				}
 				}
-				State = 250;
+				State = 238;
 				_errHandler.Sync(this);
 				_la = _input.La(1);
 			} while ( _la==T__11 );
-			State = 252; Match(T__2);
+			State = 240; Match(T__2);
 			}
 		}
 		catch (RecognitionException re) {
@@ -1266,20 +1231,20 @@ public partial class StellarGeneratorParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 254; Match(T__11);
-			State = 255; id();
+			State = 242; Match(T__11);
+			State = 243; id();
 			StelSysGen.pt(StellarGeneratorPoint.INITMODULE);
-			State = 264;
+			State = 252;
 			_errHandler.Sync(this);
 			_la = _input.La(1);
 			if (_la==T__1) {
 				{
-				State = 257; Match(T__1);
-				State = 258; Match(T__12);
-				State = 259; Match(T__13);
-				State = 260; inty();
+				State = 245; Match(T__1);
+				State = 246; Match(T__12);
+				State = 247; Match(T__13);
+				State = 248; inty();
 				StelSysGen.pt(StellarGeneratorPoint.SETMODULEDURABILITY);
-				State = 262; Match(T__2);
+				State = 250; Match(T__2);
 				}
 			}
 
@@ -1297,8 +1262,9 @@ public partial class StellarGeneratorParser : Parser {
 	}
 
 	public partial class NameContext : ParserRuleContext {
-		public IToken _NAME;
-		public ITerminalNode NAME() { return GetToken(StellarGeneratorParser.NAME, 0); }
+		public TextContext text() {
+			return GetRuleContext<TextContext>(0);
+		}
 		public NameContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
@@ -1326,10 +1292,9 @@ public partial class StellarGeneratorParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 266; Match(T__14);
-			State = 267; Match(T__13);
-			State = 268; _localctx._NAME = Match(NAME);
-			StelSysGen.CurrentText = (_localctx._NAME!=null?_localctx._NAME.Text:null);
+			State = 254; Match(T__14);
+			State = 255; Match(T__13);
+			State = 256; text();
 			}
 		}
 		catch (RecognitionException re) {
@@ -1344,8 +1309,9 @@ public partial class StellarGeneratorParser : Parser {
 	}
 
 	public partial class IconContext : ParserRuleContext {
-		public IToken _TEXT;
-		public ITerminalNode TEXT() { return GetToken(StellarGeneratorParser.TEXT, 0); }
+		public TextContext text() {
+			return GetRuleContext<TextContext>(0);
+		}
 		public IconContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
@@ -1373,10 +1339,56 @@ public partial class StellarGeneratorParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 271; Match(T__15);
-			State = 272; Match(T__13);
-			State = 273; _localctx._TEXT = Match(TEXT);
-			StelSysGen.CurrentText = (_localctx._TEXT!=null?_localctx._TEXT.Text:null);
+			State = 258; Match(T__15);
+			State = 259; Match(T__13);
+			State = 260; text();
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.ReportError(this, re);
+			_errHandler.Recover(this, re);
+		}
+		finally {
+			ExitRule();
+		}
+		return _localctx;
+	}
+
+	public partial class Body_typeContext : ParserRuleContext {
+		public IdContext id() {
+			return GetRuleContext<IdContext>(0);
+		}
+		public Body_typeContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_body_type; } }
+		public override void EnterRule(IParseTreeListener listener) {
+			IStellarGeneratorListener typedListener = listener as IStellarGeneratorListener;
+			if (typedListener != null) typedListener.EnterBody_type(this);
+		}
+		public override void ExitRule(IParseTreeListener listener) {
+			IStellarGeneratorListener typedListener = listener as IStellarGeneratorListener;
+			if (typedListener != null) typedListener.ExitBody_type(this);
+		}
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IStellarGeneratorVisitor<TResult> typedVisitor = visitor as IStellarGeneratorVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitBody_type(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+
+	[RuleVersion(0)]
+	public Body_typeContext body_type() {
+		Body_typeContext _localctx = new Body_typeContext(_ctx, State);
+		EnterRule(_localctx, 36, RULE_body_type);
+		try {
+			EnterOuterAlt(_localctx, 1);
+			{
+			State = 262; Match(T__16);
+			State = 263; Match(T__13);
+			State = 264; id();
 			}
 		}
 		catch (RecognitionException re) {
@@ -1417,13 +1429,13 @@ public partial class StellarGeneratorParser : Parser {
 	[RuleVersion(0)]
 	public Distance_fromContext distance_from() {
 		Distance_fromContext _localctx = new Distance_fromContext(_ctx, State);
-		EnterRule(_localctx, 36, RULE_distance_from);
+		EnterRule(_localctx, 38, RULE_distance_from);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 276; Match(T__16);
-			State = 277; Match(T__13);
-			State = 278; floaty();
+			State = 266; Match(T__17);
+			State = 267; Match(T__13);
+			State = 268; floaty();
 			StelSysGen.pt(StellarGeneratorPoint.SETSYSTEMDISTANCE);
 			}
 		}
@@ -1465,13 +1477,13 @@ public partial class StellarGeneratorParser : Parser {
 	[RuleVersion(0)]
 	public AngleContext angle() {
 		AngleContext _localctx = new AngleContext(_ctx, State);
-		EnterRule(_localctx, 38, RULE_angle);
+		EnterRule(_localctx, 40, RULE_angle);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 281; Match(T__17);
-			State = 282; Match(T__13);
-			State = 283; inty();
+			State = 271; Match(T__18);
+			State = 272; Match(T__13);
+			State = 273; inty();
 			StelSysGen.pt(StellarGeneratorPoint.SETSYSTEMANGLE);
 			}
 		}
@@ -1513,13 +1525,13 @@ public partial class StellarGeneratorParser : Parser {
 	[RuleVersion(0)]
 	public PullContext pull() {
 		PullContext _localctx = new PullContext(_ctx, State);
-		EnterRule(_localctx, 40, RULE_pull);
+		EnterRule(_localctx, 42, RULE_pull);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 286; Match(T__18);
-			State = 287; Match(T__13);
-			State = 288; inty();
+			State = 276; Match(T__19);
+			State = 277; Match(T__13);
+			State = 278; inty();
 			StelSysGen.pt(StellarGeneratorPoint.SETSYSTEMPULL);
 			}
 		}
@@ -1561,13 +1573,13 @@ public partial class StellarGeneratorParser : Parser {
 	[RuleVersion(0)]
 	public Body_distanceContext body_distance() {
 		Body_distanceContext _localctx = new Body_distanceContext(_ctx, State);
-		EnterRule(_localctx, 42, RULE_body_distance);
+		EnterRule(_localctx, 44, RULE_body_distance);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 291; Match(T__19);
-			State = 292; Match(T__13);
-			State = 293; inty();
+			State = 281; Match(T__20);
+			State = 282; Match(T__13);
+			State = 283; inty();
 			StelSysGen.pt(StellarGeneratorPoint.SETBODYDISTANCE);
 			}
 		}
@@ -1609,13 +1621,13 @@ public partial class StellarGeneratorParser : Parser {
 	[RuleVersion(0)]
 	public Building_progressContext building_progress() {
 		Building_progressContext _localctx = new Building_progressContext(_ctx, State);
-		EnterRule(_localctx, 44, RULE_building_progress);
+		EnterRule(_localctx, 46, RULE_building_progress);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 296; Match(T__20);
-			State = 297; Match(T__13);
-			State = 298; inty();
+			State = 286; Match(T__21);
+			State = 287; Match(T__13);
+			State = 288; inty();
 			}
 		}
 		catch (RecognitionException re) {
@@ -1653,30 +1665,30 @@ public partial class StellarGeneratorParser : Parser {
 	[RuleVersion(0)]
 	public Star_classContext star_class() {
 		Star_classContext _localctx = new Star_classContext(_ctx, State);
-		EnterRule(_localctx, 46, RULE_star_class);
+		EnterRule(_localctx, 48, RULE_star_class);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 300; Match(T__21);
-			State = 301; Match(T__13);
-			State = 308;
+			State = 290; Match(T__22);
+			State = 291; Match(T__13);
+			State = 298;
 			_errHandler.Sync(this);
 			switch (_input.La(1)) {
-			case T__22:
-				{
-				State = 302; Match(T__22);
-				StelSysGen.pt(StellarGeneratorPoint.SETSTARCLASSOD);
-				}
-				break;
 			case T__23:
 				{
-				State = 304; Match(T__23);
-				StelSysGen.pt(StellarGeneratorPoint.SETSTARCLASSRD);
+				State = 292; Match(T__23);
+				StelSysGen.pt(StellarGeneratorPoint.SETSTARCLASSOD);
 				}
 				break;
 			case T__24:
 				{
-				State = 306; Match(T__24);
+				State = 294; Match(T__24);
+				StelSysGen.pt(StellarGeneratorPoint.SETSTARCLASSRD);
+				}
+				break;
+			case T__25:
+				{
+				State = 296; Match(T__25);
 				StelSysGen.pt(StellarGeneratorPoint.SETSTARCLASSYD);
 				}
 				break;
@@ -1720,30 +1732,30 @@ public partial class StellarGeneratorParser : Parser {
 	[RuleVersion(0)]
 	public Discovery_statusContext discovery_status() {
 		Discovery_statusContext _localctx = new Discovery_statusContext(_ctx, State);
-		EnterRule(_localctx, 48, RULE_discovery_status);
+		EnterRule(_localctx, 50, RULE_discovery_status);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 310; Match(T__25);
-			State = 311; Match(T__13);
-			State = 318;
+			State = 300; Match(T__26);
+			State = 301; Match(T__13);
+			State = 308;
 			_errHandler.Sync(this);
 			switch (_input.La(1)) {
-			case T__26:
-				{
-				State = 312; Match(T__26);
-				StelSysGen.pt(StellarGeneratorPoint.SETSTATUSEXPLORED);
-				}
-				break;
 			case T__27:
 				{
-				State = 314; Match(T__27);
-				StelSysGen.pt(StellarGeneratorPoint.SETSTATUSKNOWN);
+				State = 302; Match(T__27);
+				StelSysGen.pt(StellarGeneratorPoint.SETSTATUSEXPLORED);
 				}
 				break;
 			case T__28:
 				{
-				State = 316; Match(T__28);
+				State = 304; Match(T__28);
+				StelSysGen.pt(StellarGeneratorPoint.SETSTATUSKNOWN);
+				}
+				break;
+			case T__29:
+				{
+				State = 306; Match(T__29);
 				StelSysGen.pt(StellarGeneratorPoint.SETSTATUSUNDISCOVERED);
 				}
 				break;
@@ -1789,12 +1801,57 @@ public partial class StellarGeneratorParser : Parser {
 	[RuleVersion(0)]
 	public IdContext id() {
 		IdContext _localctx = new IdContext(_ctx, State);
-		EnterRule(_localctx, 50, RULE_id);
+		EnterRule(_localctx, 52, RULE_id);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 320; _localctx._ID = Match(ID);
+			State = 310; _localctx._ID = Match(ID);
 			StelSysGen.CurrentText = (_localctx._ID!=null?_localctx._ID.Text:null);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.ReportError(this, re);
+			_errHandler.Recover(this, re);
+		}
+		finally {
+			ExitRule();
+		}
+		return _localctx;
+	}
+
+	public partial class TextContext : ParserRuleContext {
+		public IToken _TEXT;
+		public ITerminalNode TEXT() { return GetToken(StellarGeneratorParser.TEXT, 0); }
+		public TextContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_text; } }
+		public override void EnterRule(IParseTreeListener listener) {
+			IStellarGeneratorListener typedListener = listener as IStellarGeneratorListener;
+			if (typedListener != null) typedListener.EnterText(this);
+		}
+		public override void ExitRule(IParseTreeListener listener) {
+			IStellarGeneratorListener typedListener = listener as IStellarGeneratorListener;
+			if (typedListener != null) typedListener.ExitText(this);
+		}
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IStellarGeneratorVisitor<TResult> typedVisitor = visitor as IStellarGeneratorVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitText(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+
+	[RuleVersion(0)]
+	public TextContext text() {
+		TextContext _localctx = new TextContext(_ctx, State);
+		EnterRule(_localctx, 54, RULE_text);
+		try {
+			EnterOuterAlt(_localctx, 1);
+			{
+			State = 313; _localctx._TEXT = Match(TEXT);
+			StelSysGen.CurrentText = (_localctx._TEXT!=null?_localctx._TEXT.Text:null);
 			}
 		}
 		catch (RecognitionException re) {
@@ -1834,11 +1891,11 @@ public partial class StellarGeneratorParser : Parser {
 	[RuleVersion(0)]
 	public IntyContext inty() {
 		IntyContext _localctx = new IntyContext(_ctx, State);
-		EnterRule(_localctx, 52, RULE_inty);
+		EnterRule(_localctx, 56, RULE_inty);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 323; _localctx._INT = Match(INT);
+			State = 316; _localctx._INT = Match(INT);
 			StelSysGen.CurrentInt = int.Parse((_localctx._INT!=null?_localctx._INT.Text:null));
 			}
 		}
@@ -1879,11 +1936,11 @@ public partial class StellarGeneratorParser : Parser {
 	[RuleVersion(0)]
 	public FloatyContext floaty() {
 		FloatyContext _localctx = new FloatyContext(_ctx, State);
-		EnterRule(_localctx, 54, RULE_floaty);
+		EnterRule(_localctx, 58, RULE_floaty);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 326; _localctx._FLOAT = Match(FLOAT);
+			State = 319; _localctx._FLOAT = Match(FLOAT);
 			StelSysGen.CurrentFloat = float.Parse((_localctx._FLOAT!=null?_localctx._FLOAT.Text:null), CultureInfo.InvariantCulture);
 			}
 		}
@@ -1899,126 +1956,125 @@ public partial class StellarGeneratorParser : Parser {
 	}
 
 	public static readonly string _serializedATN =
-		"\x3\xAF6F\x8320\x479D\xB75C\x4880\x1605\x191C\xAB37\x3)\x14C\x4\x2\t\x2"+
+		"\x3\xAF6F\x8320\x479D\xB75C\x4880\x1605\x191C\xAB37\x3(\x145\x4\x2\t\x2"+
 		"\x4\x3\t\x3\x4\x4\t\x4\x4\x5\t\x5\x4\x6\t\x6\x4\a\t\a\x4\b\t\b\x4\t\t"+
 		"\t\x4\n\t\n\x4\v\t\v\x4\f\t\f\x4\r\t\r\x4\xE\t\xE\x4\xF\t\xF\x4\x10\t"+
 		"\x10\x4\x11\t\x11\x4\x12\t\x12\x4\x13\t\x13\x4\x14\t\x14\x4\x15\t\x15"+
 		"\x4\x16\t\x16\x4\x17\t\x17\x4\x18\t\x18\x4\x19\t\x19\x4\x1A\t\x1A\x4\x1B"+
-		"\t\x1B\x4\x1C\t\x1C\x4\x1D\t\x1D\x3\x2\x3\x2\x6\x2=\n\x2\r\x2\xE\x2>\x3"+
-		"\x2\x3\x2\x3\x2\x3\x3\x3\x3\x3\x3\x3\x3\x3\x3\x3\x3\x3\x3\x3\x3\x3\x4"+
-		"\x3\x4\x3\x4\x3\x4\x3\x4\x3\x4\x3\x4\x3\x4\x3\x4\x3\x4\x3\x4\x3\x4\x6"+
-		"\x4X\n\x4\r\x4\xE\x4Y\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x6"+
-		"\x3\x6\x3\x6\x3\x6\x3\x6\x3\x6\x5\x6i\n\x6\x3\x6\x3\x6\x3\x6\x5\x6n\n"+
-		"\x6\x3\x6\x3\x6\x3\x6\x3\x6\x6\x6t\n\x6\r\x6\xE\x6u\x3\x6\a\x6y\n\x6\f"+
-		"\x6\xE\x6|\v\x6\x3\a\x3\a\x3\a\x3\a\x3\a\x3\a\x3\a\x3\b\x3\b\x3\b\x3\b"+
-		"\x3\b\x3\b\x3\b\x3\b\x3\b\x5\b\x8E\n\b\x3\b\x3\b\x3\b\x5\b\x93\n\b\x3"+
-		"\b\x3\b\x3\b\x3\b\a\b\x99\n\b\f\b\xE\b\x9C\v\b\x3\b\x3\b\x3\b\a\b\xA1"+
-		"\n\b\f\b\xE\b\xA4\v\b\x3\b\a\b\xA7\n\b\f\b\xE\b\xAA\v\b\x3\t\x3\t\x3\t"+
-		"\x3\t\x3\t\x3\t\x3\t\x6\t\xB3\n\t\r\t\xE\t\xB4\x3\t\x3\t\x3\n\x3\n\x3"+
-		"\n\x3\n\x3\n\x3\n\x6\n\xBF\n\n\r\n\xE\n\xC0\x3\n\x3\n\x3\v\x3\v\x3\v\x3"+
-		"\v\x3\v\x3\v\x3\f\x3\f\x3\f\x3\f\x3\f\x5\f\xD0\n\f\x3\r\x3\r\x3\r\x3\r"+
-		"\x3\r\x3\r\x6\r\xD8\n\r\r\r\xE\r\xD9\x3\r\x3\r\x3\xE\x3\xE\x3\xE\x3\xE"+
-		"\x3\xE\x3\xE\x3\xF\x3\xF\x3\xF\x3\xF\x3\xF\x3\xF\x3\xF\x5\xF\xEB\n\xF"+
-		"\x3\xF\a\xF\xEE\n\xF\f\xF\xE\xF\xF1\v\xF\x3\xF\x3\xF\x3\x10\x3\x10\x3"+
-		"\x10\x3\x10\x3\x10\x3\x10\x6\x10\xFB\n\x10\r\x10\xE\x10\xFC\x3\x10\x3"+
-		"\x10\x3\x11\x3\x11\x3\x11\x3\x11\x3\x11\x3\x11\x3\x11\x3\x11\x3\x11\x3"+
-		"\x11\x5\x11\x10B\n\x11\x3\x12\x3\x12\x3\x12\x3\x12\x3\x12\x3\x13\x3\x13"+
-		"\x3\x13\x3\x13\x3\x13\x3\x14\x3\x14\x3\x14\x3\x14\x3\x14\x3\x15\x3\x15"+
-		"\x3\x15\x3\x15\x3\x15\x3\x16\x3\x16\x3\x16\x3\x16\x3\x16\x3\x17\x3\x17"+
-		"\x3\x17\x3\x17\x3\x17\x3\x18\x3\x18\x3\x18\x3\x18\x3\x19\x3\x19\x3\x19"+
-		"\x3\x19\x3\x19\x3\x19\x3\x19\x3\x19\x5\x19\x137\n\x19\x3\x1A\x3\x1A\x3"+
-		"\x1A\x3\x1A\x3\x1A\x3\x1A\x3\x1A\x3\x1A\x5\x1A\x141\n\x1A\x3\x1B\x3\x1B"+
-		"\x3\x1B\x3\x1C\x3\x1C\x3\x1C\x3\x1D\x3\x1D\x3\x1D\x3\x1D\x2\x2\x2\x1E"+
-		"\x2\x2\x4\x2\x6\x2\b\x2\n\x2\f\x2\xE\x2\x10\x2\x12\x2\x14\x2\x16\x2\x18"+
-		"\x2\x1A\x2\x1C\x2\x1E\x2 \x2\"\x2$\x2&\x2(\x2*\x2,\x2.\x2\x30\x2\x32\x2"+
-		"\x34\x2\x36\x2\x38\x2\x2\x2\x146\x2:\x3\x2\x2\x2\x4\x43\x3\x2\x2\x2\x6"+
-		"K\x3\x2\x2\x2\b[\x3\x2\x2\x2\n\x62\x3\x2\x2\x2\f}\x3\x2\x2\x2\xE\x84\x3"+
-		"\x2\x2\x2\x10\xAB\x3\x2\x2\x2\x12\xB8\x3\x2\x2\x2\x14\xC4\x3\x2\x2\x2"+
-		"\x16\xCA\x3\x2\x2\x2\x18\xD1\x3\x2\x2\x2\x1A\xDD\x3\x2\x2\x2\x1C\xE3\x3"+
-		"\x2\x2\x2\x1E\xF4\x3\x2\x2\x2 \x100\x3\x2\x2\x2\"\x10C\x3\x2\x2\x2$\x111"+
-		"\x3\x2\x2\x2&\x116\x3\x2\x2\x2(\x11B\x3\x2\x2\x2*\x120\x3\x2\x2\x2,\x125"+
-		"\x3\x2\x2\x2.\x12A\x3\x2\x2\x2\x30\x12E\x3\x2\x2\x2\x32\x138\x3\x2\x2"+
-		"\x2\x34\x142\x3\x2\x2\x2\x36\x145\x3\x2\x2\x2\x38\x148\x3\x2\x2\x2:<\b"+
-		"\x2\x1\x2;=\x5\x4\x3\x2<;\x3\x2\x2\x2=>\x3\x2\x2\x2><\x3\x2\x2\x2>?\x3"+
-		"\x2\x2\x2?@\x3\x2\x2\x2@\x41\b\x2\x1\x2\x41\x42\a\x2\x2\x3\x42\x3\x3\x2"+
-		"\x2\x2\x43\x44\a\x3\x2\x2\x44\x45\x5\x34\x1B\x2\x45\x46\b\x3\x1\x2\x46"+
-		"G\a\x4\x2\x2GH\x5\x6\x4\x2HI\a\x5\x2\x2IJ\b\x3\x1\x2J\x5\x3\x2\x2\x2K"+
-		"L\x5\"\x12\x2LM\b\x4\x1\x2MN\a)\x2\x2NO\x5&\x14\x2OP\a)\x2\x2PQ\x5(\x15"+
-		"\x2QR\a)\x2\x2RS\x5*\x16\x2SW\a)\x2\x2TU\x5\b\x5\x2UV\b\x4\x1\x2VX\x3"+
-		"\x2\x2\x2WT\x3\x2\x2\x2XY\x3\x2\x2\x2YW\x3\x2\x2\x2YZ\x3\x2\x2\x2Z\a\x3"+
-		"\x2\x2\x2[\\\a\x6\x2\x2\\]\x5\x34\x1B\x2]^\b\x5\x1\x2^_\a\x4\x2\x2_`\x5"+
-		"\n\x6\x2`\x61\a\x5\x2\x2\x61\t\x3\x2\x2\x2\x62\x63\x5\"\x12\x2\x63\x64"+
-		"\b\x6\x1\x2\x64h\a)\x2\x2\x65\x66\x5\x30\x19\x2\x66g\a)\x2\x2gi\x3\x2"+
-		"\x2\x2h\x65\x3\x2\x2\x2hi\x3\x2\x2\x2im\x3\x2\x2\x2jk\x5\x32\x1A\x2kl"+
-		"\a)\x2\x2ln\x3\x2\x2\x2mj\x3\x2\x2\x2mn\x3\x2\x2\x2ns\x3\x2\x2\x2op\x5"+
-		"\f\a\x2pq\b\x6\x1\x2qr\a)\x2\x2rt\x3\x2\x2\x2so\x3\x2\x2\x2tu\x3\x2\x2"+
-		"\x2us\x3\x2\x2\x2uv\x3\x2\x2\x2vz\x3\x2\x2\x2wy\x5\x18\r\x2xw\x3\x2\x2"+
-		"\x2y|\x3\x2\x2\x2zx\x3\x2\x2\x2z{\x3\x2\x2\x2{\v\x3\x2\x2\x2|z\x3\x2\x2"+
-		"\x2}~\a\a\x2\x2~\x7F\x5\x34\x1B\x2\x7F\x80\b\a\x1\x2\x80\x81\a\x4\x2\x2"+
-		"\x81\x82\x5\xE\b\x2\x82\x83\a\x5\x2\x2\x83\r\x3\x2\x2\x2\x84\x85\x5\""+
-		"\x12\x2\x85\x86\b\b\x1\x2\x86\x87\a)\x2\x2\x87\x88\x5,\x17\x2\x88\x8D"+
-		"\a)\x2\x2\x89\x8A\x5$\x13\x2\x8A\x8B\b\b\x1\x2\x8B\x8C\a)\x2\x2\x8C\x8E"+
-		"\x3\x2\x2\x2\x8D\x89\x3\x2\x2\x2\x8D\x8E\x3\x2\x2\x2\x8E\x92\x3\x2\x2"+
-		"\x2\x8F\x90\x5\x32\x1A\x2\x90\x91\a)\x2\x2\x91\x93\x3\x2\x2\x2\x92\x8F"+
-		"\x3\x2\x2\x2\x92\x93\x3\x2\x2\x2\x93\x9A\x3\x2\x2\x2\x94\x95\x5\x10\t"+
-		"\x2\x95\x96\b\b\x1\x2\x96\x97\a)\x2\x2\x97\x99\x3\x2\x2\x2\x98\x94\x3"+
-		"\x2\x2\x2\x99\x9C\x3\x2\x2\x2\x9A\x98\x3\x2\x2\x2\x9A\x9B\x3\x2\x2\x2"+
-		"\x9B\xA2\x3\x2\x2\x2\x9C\x9A\x3\x2\x2\x2\x9D\x9E\x5\x12\n\x2\x9E\x9F\a"+
-		")\x2\x2\x9F\xA1\x3\x2\x2\x2\xA0\x9D\x3\x2\x2\x2\xA1\xA4\x3\x2\x2\x2\xA2"+
-		"\xA0\x3\x2\x2\x2\xA2\xA3\x3\x2\x2\x2\xA3\xA8\x3\x2\x2\x2\xA4\xA2\x3\x2"+
-		"\x2\x2\xA5\xA7\x5\x18\r\x2\xA6\xA5\x3\x2\x2\x2\xA7\xAA\x3\x2\x2\x2\xA8"+
-		"\xA6\x3\x2\x2\x2\xA8\xA9\x3\x2\x2\x2\xA9\xF\x3\x2\x2\x2\xAA\xA8\x3\x2"+
-		"\x2\x2\xAB\xAC\a\b\x2\x2\xAC\xAD\b\t\x1\x2\xAD\xB2\a\x4\x2\x2\xAE\xAF"+
-		"\x5\f\a\x2\xAF\xB0\b\t\x1\x2\xB0\xB1\a)\x2\x2\xB1\xB3\x3\x2\x2\x2\xB2"+
-		"\xAE\x3\x2\x2\x2\xB3\xB4\x3\x2\x2\x2\xB4\xB2\x3\x2\x2\x2\xB4\xB5\x3\x2"+
-		"\x2\x2\xB5\xB6\x3\x2\x2\x2\xB6\xB7\a\x5\x2\x2\xB7\x11\x3\x2\x2\x2\xB8"+
-		"\xB9\a\t\x2\x2\xB9\xBE\a\x4\x2\x2\xBA\xBB\x5\x14\v\x2\xBB\xBC\b\n\x1\x2"+
-		"\xBC\xBD\a)\x2\x2\xBD\xBF\x3\x2\x2\x2\xBE\xBA\x3\x2\x2\x2\xBF\xC0\x3\x2"+
-		"\x2\x2\xC0\xBE\x3\x2\x2\x2\xC0\xC1\x3\x2\x2\x2\xC1\xC2\x3\x2\x2\x2\xC2"+
-		"\xC3\a\x5\x2\x2\xC3\x13\x3\x2\x2\x2\xC4\xC5\a\n\x2\x2\xC5\xC6\x5\x34\x1B"+
-		"\x2\xC6\xC7\a\x4\x2\x2\xC7\xC8\x5\x16\f\x2\xC8\xC9\a\x5\x2\x2\xC9\x15"+
-		"\x3\x2\x2\x2\xCA\xCB\x5\"\x12\x2\xCB\xCC\b\f\x1\x2\xCC\xCF\a)\x2\x2\xCD"+
-		"\xCE\b\f\x1\x2\xCE\xD0\x5\x1A\xE\x2\xCF\xCD\x3\x2\x2\x2\xCF\xD0\x3\x2"+
-		"\x2\x2\xD0\x17\x3\x2\x2\x2\xD1\xD2\a\v\x2\x2\xD2\xD7\a\x4\x2\x2\xD3\xD4"+
-		"\x5\x1A\xE\x2\xD4\xD5\b\r\x1\x2\xD5\xD6\a)\x2\x2\xD6\xD8\x3\x2\x2\x2\xD7"+
-		"\xD3\x3\x2\x2\x2\xD8\xD9\x3\x2\x2\x2\xD9\xD7\x3\x2\x2\x2\xD9\xDA\x3\x2"+
-		"\x2\x2\xDA\xDB\x3\x2\x2\x2\xDB\xDC\a\x5\x2\x2\xDC\x19\x3\x2\x2\x2\xDD"+
-		"\xDE\a\f\x2\x2\xDE\xDF\x5\x34\x1B\x2\xDF\xE0\a\x4\x2\x2\xE0\xE1\x5\x1C"+
-		"\xF\x2\xE1\xE2\a\x5\x2\x2\xE2\x1B\x3\x2\x2\x2\xE3\xE4\x5\"\x12\x2\xE4"+
-		"\xE5\b\xF\x1\x2\xE5\xEA\a)\x2\x2\xE6\xE7\x5.\x18\x2\xE7\xE8\b\xF\x1\x2"+
-		"\xE8\xE9\a)\x2\x2\xE9\xEB\x3\x2\x2\x2\xEA\xE6\x3\x2\x2\x2\xEA\xEB\x3\x2"+
-		"\x2\x2\xEB\xEF\x3\x2\x2\x2\xEC\xEE\x5\x1E\x10\x2\xED\xEC\x3\x2\x2\x2\xEE"+
-		"\xF1\x3\x2\x2\x2\xEF\xED\x3\x2\x2\x2\xEF\xF0\x3\x2\x2\x2\xF0\xF2\x3\x2"+
-		"\x2\x2\xF1\xEF\x3\x2\x2\x2\xF2\xF3\b\xF\x1\x2\xF3\x1D\x3\x2\x2\x2\xF4"+
-		"\xF5\a\r\x2\x2\xF5\xFA\a\x4\x2\x2\xF6\xF7\x5 \x11\x2\xF7\xF8\b\x10\x1"+
-		"\x2\xF8\xF9\a)\x2\x2\xF9\xFB\x3\x2\x2\x2\xFA\xF6\x3\x2\x2\x2\xFB\xFC\x3"+
-		"\x2\x2\x2\xFC\xFA\x3\x2\x2\x2\xFC\xFD\x3\x2\x2\x2\xFD\xFE\x3\x2\x2\x2"+
-		"\xFE\xFF\a\x5\x2\x2\xFF\x1F\x3\x2\x2\x2\x100\x101\a\xE\x2\x2\x101\x102"+
-		"\x5\x34\x1B\x2\x102\x10A\b\x11\x1\x2\x103\x104\a\x4\x2\x2\x104\x105\a"+
-		"\xF\x2\x2\x105\x106\a\x10\x2\x2\x106\x107\x5\x36\x1C\x2\x107\x108\b\x11"+
-		"\x1\x2\x108\x109\a\x5\x2\x2\x109\x10B\x3\x2\x2\x2\x10A\x103\x3\x2\x2\x2"+
-		"\x10A\x10B\x3\x2\x2\x2\x10B!\x3\x2\x2\x2\x10C\x10D\a\x11\x2\x2\x10D\x10E"+
-		"\a\x10\x2\x2\x10E\x10F\a%\x2\x2\x10F\x110\b\x12\x1\x2\x110#\x3\x2\x2\x2"+
-		"\x111\x112\a\x12\x2\x2\x112\x113\a\x10\x2\x2\x113\x114\a&\x2\x2\x114\x115"+
-		"\b\x13\x1\x2\x115%\x3\x2\x2\x2\x116\x117\a\x13\x2\x2\x117\x118\a\x10\x2"+
-		"\x2\x118\x119\x5\x38\x1D\x2\x119\x11A\b\x14\x1\x2\x11A\'\x3\x2\x2\x2\x11B"+
-		"\x11C\a\x14\x2\x2\x11C\x11D\a\x10\x2\x2\x11D\x11E\x5\x36\x1C\x2\x11E\x11F"+
-		"\b\x15\x1\x2\x11F)\x3\x2\x2\x2\x120\x121\a\x15\x2\x2\x121\x122\a\x10\x2"+
-		"\x2\x122\x123\x5\x36\x1C\x2\x123\x124\b\x16\x1\x2\x124+\x3\x2\x2\x2\x125"+
-		"\x126\a\x16\x2\x2\x126\x127\a\x10\x2\x2\x127\x128\x5\x36\x1C\x2\x128\x129"+
-		"\b\x17\x1\x2\x129-\x3\x2\x2\x2\x12A\x12B\a\x17\x2\x2\x12B\x12C\a\x10\x2"+
-		"\x2\x12C\x12D\x5\x36\x1C\x2\x12D/\x3\x2\x2\x2\x12E\x12F\a\x18\x2\x2\x12F"+
-		"\x136\a\x10\x2\x2\x130\x131\a\x19\x2\x2\x131\x137\b\x19\x1\x2\x132\x133"+
-		"\a\x1A\x2\x2\x133\x137\b\x19\x1\x2\x134\x135\a\x1B\x2\x2\x135\x137\b\x19"+
-		"\x1\x2\x136\x130\x3\x2\x2\x2\x136\x132\x3\x2\x2\x2\x136\x134\x3\x2\x2"+
-		"\x2\x137\x31\x3\x2\x2\x2\x138\x139\a\x1C\x2\x2\x139\x140\a\x10\x2\x2\x13A"+
-		"\x13B\a\x1D\x2\x2\x13B\x141\b\x1A\x1\x2\x13C\x13D\a\x1E\x2\x2\x13D\x141"+
-		"\b\x1A\x1\x2\x13E\x13F\a\x1F\x2\x2\x13F\x141\b\x1A\x1\x2\x140\x13A\x3"+
-		"\x2\x2\x2\x140\x13C\x3\x2\x2\x2\x140\x13E\x3\x2\x2\x2\x141\x33\x3\x2\x2"+
-		"\x2\x142\x143\a$\x2\x2\x143\x144\b\x1B\x1\x2\x144\x35\x3\x2\x2\x2\x145"+
-		"\x146\a \x2\x2\x146\x147\b\x1C\x1\x2\x147\x37\x3\x2\x2\x2\x148\x149\a"+
-		"!\x2\x2\x149\x14A\b\x1D\x1\x2\x14A\x39\x3\x2\x2\x2\x17>Yhmuz\x8D\x92\x9A"+
-		"\xA2\xA8\xB4\xC0\xCF\xD9\xEA\xEF\xFC\x10A\x136\x140";
+		"\t\x1B\x4\x1C\t\x1C\x4\x1D\t\x1D\x4\x1E\t\x1E\x4\x1F\t\x1F\x3\x2\x3\x2"+
+		"\x6\x2\x41\n\x2\r\x2\xE\x2\x42\x3\x2\x3\x2\x3\x2\x3\x3\x3\x3\x3\x3\x3"+
+		"\x3\x3\x3\x3\x3\x3\x3\x3\x3\x3\x4\x3\x4\x3\x4\x3\x4\x3\x4\x3\x4\x3\x4"+
+		"\x3\x4\x6\x4X\n\x4\r\x4\xE\x4Y\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3\x5\x3"+
+		"\x5\x3\x6\x3\x6\x3\x6\x5\x6\x66\n\x6\x3\x6\x5\x6i\n\x6\x3\x6\x3\x6\x3"+
+		"\x6\a\x6n\n\x6\f\x6\xE\x6q\v\x6\x3\x6\a\x6t\n\x6\f\x6\xE\x6w\v\x6\x3\a"+
+		"\x3\a\x3\a\x3\a\x3\a\x3\a\x3\a\x3\b\x3\b\x3\b\x5\b\x83\n\b\x3\b\x3\b\x3"+
+		"\b\x5\b\x88\n\b\x3\b\x5\b\x8B\n\b\x3\b\x3\b\x3\b\x5\b\x90\n\b\x3\b\x3"+
+		"\b\x3\b\a\b\x95\n\b\f\b\xE\b\x98\v\b\x3\b\a\b\x9B\n\b\f\b\xE\b\x9E\v\b"+
+		"\x3\b\a\b\xA1\n\b\f\b\xE\b\xA4\v\b\x3\t\x3\t\x3\t\x3\t\x3\t\x3\t\x6\t"+
+		"\xAC\n\t\r\t\xE\t\xAD\x3\t\x3\t\x3\n\x3\n\x3\n\x3\n\x3\n\x6\n\xB7\n\n"+
+		"\r\n\xE\n\xB8\x3\n\x3\n\x3\v\x3\v\x3\v\x3\v\x3\v\x3\v\x3\f\x3\f\x3\f\x3"+
+		"\f\x5\f\xC7\n\f\x3\r\x3\r\x3\r\x3\r\x3\r\a\r\xCE\n\r\f\r\xE\r\xD1\v\r"+
+		"\x3\r\x3\r\x3\xE\x3\xE\x3\xE\x3\xE\x3\xE\x3\xE\x3\xF\x3\xF\x3\xF\x3\xF"+
+		"\x3\xF\x5\xF\xE0\n\xF\x3\xF\a\xF\xE3\n\xF\f\xF\xE\xF\xE6\v\xF\x3\xF\x3"+
+		"\xF\x3\x10\x3\x10\x3\x10\x3\x10\x3\x10\x6\x10\xEF\n\x10\r\x10\xE\x10\xF0"+
+		"\x3\x10\x3\x10\x3\x11\x3\x11\x3\x11\x3\x11\x3\x11\x3\x11\x3\x11\x3\x11"+
+		"\x3\x11\x3\x11\x5\x11\xFF\n\x11\x3\x12\x3\x12\x3\x12\x3\x12\x3\x13\x3"+
+		"\x13\x3\x13\x3\x13\x3\x14\x3\x14\x3\x14\x3\x14\x3\x15\x3\x15\x3\x15\x3"+
+		"\x15\x3\x15\x3\x16\x3\x16\x3\x16\x3\x16\x3\x16\x3\x17\x3\x17\x3\x17\x3"+
+		"\x17\x3\x17\x3\x18\x3\x18\x3\x18\x3\x18\x3\x18\x3\x19\x3\x19\x3\x19\x3"+
+		"\x19\x3\x1A\x3\x1A\x3\x1A\x3\x1A\x3\x1A\x3\x1A\x3\x1A\x3\x1A\x5\x1A\x12D"+
+		"\n\x1A\x3\x1B\x3\x1B\x3\x1B\x3\x1B\x3\x1B\x3\x1B\x3\x1B\x3\x1B\x5\x1B"+
+		"\x137\n\x1B\x3\x1C\x3\x1C\x3\x1C\x3\x1D\x3\x1D\x3\x1D\x3\x1E\x3\x1E\x3"+
+		"\x1E\x3\x1F\x3\x1F\x3\x1F\x3\x1F\x2\x2\x2 \x2\x2\x4\x2\x6\x2\b\x2\n\x2"+
+		"\f\x2\xE\x2\x10\x2\x12\x2\x14\x2\x16\x2\x18\x2\x1A\x2\x1C\x2\x1E\x2 \x2"+
+		"\"\x2$\x2&\x2(\x2*\x2,\x2.\x2\x30\x2\x32\x2\x34\x2\x36\x2\x38\x2:\x2<"+
+		"\x2\x2\x2\x13F\x2>\x3\x2\x2\x2\x4G\x3\x2\x2\x2\x6O\x3\x2\x2\x2\b[\x3\x2"+
+		"\x2\x2\n\x62\x3\x2\x2\x2\fx\x3\x2\x2\x2\xE\x7F\x3\x2\x2\x2\x10\xA5\x3"+
+		"\x2\x2\x2\x12\xB1\x3\x2\x2\x2\x14\xBC\x3\x2\x2\x2\x16\xC2\x3\x2\x2\x2"+
+		"\x18\xC8\x3\x2\x2\x2\x1A\xD4\x3\x2\x2\x2\x1C\xDA\x3\x2\x2\x2\x1E\xE9\x3"+
+		"\x2\x2\x2 \xF4\x3\x2\x2\x2\"\x100\x3\x2\x2\x2$\x104\x3\x2\x2\x2&\x108"+
+		"\x3\x2\x2\x2(\x10C\x3\x2\x2\x2*\x111\x3\x2\x2\x2,\x116\x3\x2\x2\x2.\x11B"+
+		"\x3\x2\x2\x2\x30\x120\x3\x2\x2\x2\x32\x124\x3\x2\x2\x2\x34\x12E\x3\x2"+
+		"\x2\x2\x36\x138\x3\x2\x2\x2\x38\x13B\x3\x2\x2\x2:\x13E\x3\x2\x2\x2<\x141"+
+		"\x3\x2\x2\x2>@\b\x2\x1\x2?\x41\x5\x4\x3\x2@?\x3\x2\x2\x2\x41\x42\x3\x2"+
+		"\x2\x2\x42@\x3\x2\x2\x2\x42\x43\x3\x2\x2\x2\x43\x44\x3\x2\x2\x2\x44\x45"+
+		"\b\x2\x1\x2\x45\x46\a\x2\x2\x3\x46\x3\x3\x2\x2\x2GH\a\x3\x2\x2HI\x5\x36"+
+		"\x1C\x2IJ\b\x3\x1\x2JK\a\x4\x2\x2KL\x5\x6\x4\x2LM\a\x5\x2\x2MN\b\x3\x1"+
+		"\x2N\x5\x3\x2\x2\x2OP\x5\"\x12\x2PQ\b\x4\x1\x2QR\x5(\x15\x2RS\x5*\x16"+
+		"\x2SW\x5,\x17\x2TU\x5\b\x5\x2UV\b\x4\x1\x2VX\x3\x2\x2\x2WT\x3\x2\x2\x2"+
+		"XY\x3\x2\x2\x2YW\x3\x2\x2\x2YZ\x3\x2\x2\x2Z\a\x3\x2\x2\x2[\\\a\x6\x2\x2"+
+		"\\]\x5\x36\x1C\x2]^\b\x5\x1\x2^_\a\x4\x2\x2_`\x5\n\x6\x2`\x61\a\x5\x2"+
+		"\x2\x61\t\x3\x2\x2\x2\x62\x63\x5\"\x12\x2\x63\x65\b\x6\x1\x2\x64\x66\x5"+
+		"\x32\x1A\x2\x65\x64\x3\x2\x2\x2\x65\x66\x3\x2\x2\x2\x66h\x3\x2\x2\x2g"+
+		"i\x5\x34\x1B\x2hg\x3\x2\x2\x2hi\x3\x2\x2\x2io\x3\x2\x2\x2jk\x5\f\a\x2"+
+		"kl\b\x6\x1\x2ln\x3\x2\x2\x2mj\x3\x2\x2\x2nq\x3\x2\x2\x2om\x3\x2\x2\x2"+
+		"op\x3\x2\x2\x2pu\x3\x2\x2\x2qo\x3\x2\x2\x2rt\x5\x18\r\x2sr\x3\x2\x2\x2"+
+		"tw\x3\x2\x2\x2us\x3\x2\x2\x2uv\x3\x2\x2\x2v\v\x3\x2\x2\x2wu\x3\x2\x2\x2"+
+		"xy\a\a\x2\x2yz\x5\x36\x1C\x2z{\b\a\x1\x2{|\a\x4\x2\x2|}\x5\xE\b\x2}~\a"+
+		"\x5\x2\x2~\r\x3\x2\x2\x2\x7F\x80\x5\"\x12\x2\x80\x82\b\b\x1\x2\x81\x83"+
+		"\x5.\x18\x2\x82\x81\x3\x2\x2\x2\x82\x83\x3\x2\x2\x2\x83\x87\x3\x2\x2\x2"+
+		"\x84\x85\x5$\x13\x2\x85\x86\b\b\x1\x2\x86\x88\x3\x2\x2\x2\x87\x84\x3\x2"+
+		"\x2\x2\x87\x88\x3\x2\x2\x2\x88\x8A\x3\x2\x2\x2\x89\x8B\x5\x34\x1B\x2\x8A"+
+		"\x89\x3\x2\x2\x2\x8A\x8B\x3\x2\x2\x2\x8B\x8F\x3\x2\x2\x2\x8C\x8D\x5&\x14"+
+		"\x2\x8D\x8E\b\b\x1\x2\x8E\x90\x3\x2\x2\x2\x8F\x8C\x3\x2\x2\x2\x8F\x90"+
+		"\x3\x2\x2\x2\x90\x96\x3\x2\x2\x2\x91\x92\x5\x10\t\x2\x92\x93\b\b\x1\x2"+
+		"\x93\x95\x3\x2\x2\x2\x94\x91\x3\x2\x2\x2\x95\x98\x3\x2\x2\x2\x96\x94\x3"+
+		"\x2\x2\x2\x96\x97\x3\x2\x2\x2\x97\x9C\x3\x2\x2\x2\x98\x96\x3\x2\x2\x2"+
+		"\x99\x9B\x5\x12\n\x2\x9A\x99\x3\x2\x2\x2\x9B\x9E\x3\x2\x2\x2\x9C\x9A\x3"+
+		"\x2\x2\x2\x9C\x9D\x3\x2\x2\x2\x9D\xA2\x3\x2\x2\x2\x9E\x9C\x3\x2\x2\x2"+
+		"\x9F\xA1\x5\x18\r\x2\xA0\x9F\x3\x2\x2\x2\xA1\xA4\x3\x2\x2\x2\xA2\xA0\x3"+
+		"\x2\x2\x2\xA2\xA3\x3\x2\x2\x2\xA3\xF\x3\x2\x2\x2\xA4\xA2\x3\x2\x2\x2\xA5"+
+		"\xA6\a\b\x2\x2\xA6\xA7\b\t\x1\x2\xA7\xAB\a\x4\x2\x2\xA8\xA9\x5\f\a\x2"+
+		"\xA9\xAA\b\t\x1\x2\xAA\xAC\x3\x2\x2\x2\xAB\xA8\x3\x2\x2\x2\xAC\xAD\x3"+
+		"\x2\x2\x2\xAD\xAB\x3\x2\x2\x2\xAD\xAE\x3\x2\x2\x2\xAE\xAF\x3\x2\x2\x2"+
+		"\xAF\xB0\a\x5\x2\x2\xB0\x11\x3\x2\x2\x2\xB1\xB2\a\t\x2\x2\xB2\xB6\a\x4"+
+		"\x2\x2\xB3\xB4\x5\x14\v\x2\xB4\xB5\b\n\x1\x2\xB5\xB7\x3\x2\x2\x2\xB6\xB3"+
+		"\x3\x2\x2\x2\xB7\xB8\x3\x2\x2\x2\xB8\xB6\x3\x2\x2\x2\xB8\xB9\x3\x2\x2"+
+		"\x2\xB9\xBA\x3\x2\x2\x2\xBA\xBB\a\x5\x2\x2\xBB\x13\x3\x2\x2\x2\xBC\xBD"+
+		"\a\n\x2\x2\xBD\xBE\x5\x36\x1C\x2\xBE\xBF\a\x4\x2\x2\xBF\xC0\x5\x16\f\x2"+
+		"\xC0\xC1\a\x5\x2\x2\xC1\x15\x3\x2\x2\x2\xC2\xC3\x5\"\x12\x2\xC3\xC6\b"+
+		"\f\x1\x2\xC4\xC5\b\f\x1\x2\xC5\xC7\x5\x1A\xE\x2\xC6\xC4\x3\x2\x2\x2\xC6"+
+		"\xC7\x3\x2\x2\x2\xC7\x17\x3\x2\x2\x2\xC8\xC9\a\v\x2\x2\xC9\xCF\a\x4\x2"+
+		"\x2\xCA\xCB\x5\x1A\xE\x2\xCB\xCC\b\r\x1\x2\xCC\xCE\x3\x2\x2\x2\xCD\xCA"+
+		"\x3\x2\x2\x2\xCE\xD1\x3\x2\x2\x2\xCF\xCD\x3\x2\x2\x2\xCF\xD0\x3\x2\x2"+
+		"\x2\xD0\xD2\x3\x2\x2\x2\xD1\xCF\x3\x2\x2\x2\xD2\xD3\a\x5\x2\x2\xD3\x19"+
+		"\x3\x2\x2\x2\xD4\xD5\a\f\x2\x2\xD5\xD6\x5\x36\x1C\x2\xD6\xD7\a\x4\x2\x2"+
+		"\xD7\xD8\x5\x1C\xF\x2\xD8\xD9\a\x5\x2\x2\xD9\x1B\x3\x2\x2\x2\xDA\xDB\x5"+
+		"\"\x12\x2\xDB\xDF\b\xF\x1\x2\xDC\xDD\x5\x30\x19\x2\xDD\xDE\b\xF\x1\x2"+
+		"\xDE\xE0\x3\x2\x2\x2\xDF\xDC\x3\x2\x2\x2\xDF\xE0\x3\x2\x2\x2\xE0\xE4\x3"+
+		"\x2\x2\x2\xE1\xE3\x5\x1E\x10\x2\xE2\xE1\x3\x2\x2\x2\xE3\xE6\x3\x2\x2\x2"+
+		"\xE4\xE2\x3\x2\x2\x2\xE4\xE5\x3\x2\x2\x2\xE5\xE7\x3\x2\x2\x2\xE6\xE4\x3"+
+		"\x2\x2\x2\xE7\xE8\b\xF\x1\x2\xE8\x1D\x3\x2\x2\x2\xE9\xEA\a\r\x2\x2\xEA"+
+		"\xEE\a\x4\x2\x2\xEB\xEC\x5 \x11\x2\xEC\xED\b\x10\x1\x2\xED\xEF\x3\x2\x2"+
+		"\x2\xEE\xEB\x3\x2\x2\x2\xEF\xF0\x3\x2\x2\x2\xF0\xEE\x3\x2\x2\x2\xF0\xF1"+
+		"\x3\x2\x2\x2\xF1\xF2\x3\x2\x2\x2\xF2\xF3\a\x5\x2\x2\xF3\x1F\x3\x2\x2\x2"+
+		"\xF4\xF5\a\xE\x2\x2\xF5\xF6\x5\x36\x1C\x2\xF6\xFE\b\x11\x1\x2\xF7\xF8"+
+		"\a\x4\x2\x2\xF8\xF9\a\xF\x2\x2\xF9\xFA\a\x10\x2\x2\xFA\xFB\x5:\x1E\x2"+
+		"\xFB\xFC\b\x11\x1\x2\xFC\xFD\a\x5\x2\x2\xFD\xFF\x3\x2\x2\x2\xFE\xF7\x3"+
+		"\x2\x2\x2\xFE\xFF\x3\x2\x2\x2\xFF!\x3\x2\x2\x2\x100\x101\a\x11\x2\x2\x101"+
+		"\x102\a\x10\x2\x2\x102\x103\x5\x38\x1D\x2\x103#\x3\x2\x2\x2\x104\x105"+
+		"\a\x12\x2\x2\x105\x106\a\x10\x2\x2\x106\x107\x5\x38\x1D\x2\x107%\x3\x2"+
+		"\x2\x2\x108\x109\a\x13\x2\x2\x109\x10A\a\x10\x2\x2\x10A\x10B\x5\x36\x1C"+
+		"\x2\x10B\'\x3\x2\x2\x2\x10C\x10D\a\x14\x2\x2\x10D\x10E\a\x10\x2\x2\x10E"+
+		"\x10F\x5<\x1F\x2\x10F\x110\b\x15\x1\x2\x110)\x3\x2\x2\x2\x111\x112\a\x15"+
+		"\x2\x2\x112\x113\a\x10\x2\x2\x113\x114\x5:\x1E\x2\x114\x115\b\x16\x1\x2"+
+		"\x115+\x3\x2\x2\x2\x116\x117\a\x16\x2\x2\x117\x118\a\x10\x2\x2\x118\x119"+
+		"\x5:\x1E\x2\x119\x11A\b\x17\x1\x2\x11A-\x3\x2\x2\x2\x11B\x11C\a\x17\x2"+
+		"\x2\x11C\x11D\a\x10\x2\x2\x11D\x11E\x5:\x1E\x2\x11E\x11F\b\x18\x1\x2\x11F"+
+		"/\x3\x2\x2\x2\x120\x121\a\x18\x2\x2\x121\x122\a\x10\x2\x2\x122\x123\x5"+
+		":\x1E\x2\x123\x31\x3\x2\x2\x2\x124\x125\a\x19\x2\x2\x125\x12C\a\x10\x2"+
+		"\x2\x126\x127\a\x1A\x2\x2\x127\x12D\b\x1A\x1\x2\x128\x129\a\x1B\x2\x2"+
+		"\x129\x12D\b\x1A\x1\x2\x12A\x12B\a\x1C\x2\x2\x12B\x12D\b\x1A\x1\x2\x12C"+
+		"\x126\x3\x2\x2\x2\x12C\x128\x3\x2\x2\x2\x12C\x12A\x3\x2\x2\x2\x12D\x33"+
+		"\x3\x2\x2\x2\x12E\x12F\a\x1D\x2\x2\x12F\x136\a\x10\x2\x2\x130\x131\a\x1E"+
+		"\x2\x2\x131\x137\b\x1B\x1\x2\x132\x133\a\x1F\x2\x2\x133\x137\b\x1B\x1"+
+		"\x2\x134\x135\a \x2\x2\x135\x137\b\x1B\x1\x2\x136\x130\x3\x2\x2\x2\x136"+
+		"\x132\x3\x2\x2\x2\x136\x134\x3\x2\x2\x2\x137\x35\x3\x2\x2\x2\x138\x139"+
+		"\a#\x2\x2\x139\x13A\b\x1C\x1\x2\x13A\x37\x3\x2\x2\x2\x13B\x13C\a%\x2\x2"+
+		"\x13C\x13D\b\x1D\x1\x2\x13D\x39\x3\x2\x2\x2\x13E\x13F\a!\x2\x2\x13F\x140"+
+		"\b\x1E\x1\x2\x140;\x3\x2\x2\x2\x141\x142\a\"\x2\x2\x142\x143\b\x1F\x1"+
+		"\x2\x143=\x3\x2\x2\x2\x19\x42Y\x65hou\x82\x87\x8A\x8F\x96\x9C\xA2\xAD"+
+		"\xB8\xC6\xCF\xDF\xE4\xF0\xFE\x12C\x136";
 	public static readonly ATN _ATN =
 		new ATNDeserializer().Deserialize(_serializedATN.ToCharArray());
 }

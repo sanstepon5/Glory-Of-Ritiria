@@ -22,6 +22,7 @@
 namespace StellarSystemParser {
 
     using System.Globalization;
+    using GloryOfRitiria.Scripts.Utils;
 
 
 using Antlr4.Runtime.Misc;
@@ -273,6 +274,19 @@ public partial class StellarGeneratorBaseListener : IStellarGeneratorListener {
 	public virtual void ExitIcon([NotNull] StellarGeneratorParser.IconContext context) { }
 
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="StellarGeneratorParser.body_type"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterBody_type([NotNull] StellarGeneratorParser.Body_typeContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="StellarGeneratorParser.body_type"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitBody_type([NotNull] StellarGeneratorParser.Body_typeContext context) { }
+
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="StellarGeneratorParser.distance_from"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
@@ -375,6 +389,19 @@ public partial class StellarGeneratorBaseListener : IStellarGeneratorListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitId([NotNull] StellarGeneratorParser.IdContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="StellarGeneratorParser.text"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterText([NotNull] StellarGeneratorParser.TextContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="StellarGeneratorParser.text"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitText([NotNull] StellarGeneratorParser.TextContext context) { }
 
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="StellarGeneratorParser.inty"/>.

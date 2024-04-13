@@ -22,6 +22,7 @@
 namespace StellarSystemParser {
 
     using System.Globalization;
+    using GloryOfRitiria.Scripts.Utils;
 
 using Antlr4.Runtime.Misc;
 using Antlr4.Runtime.Tree;
@@ -236,6 +237,17 @@ public partial class StellarGeneratorBaseVisitor<Result> : AbstractParseTreeVisi
 	public virtual Result VisitIcon([NotNull] StellarGeneratorParser.IconContext context) { return VisitChildren(context); }
 
 	/// <summary>
+	/// Visit a parse tree produced by <see cref="StellarGeneratorParser.body_type"/>.
+	/// <para>
+	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
+	/// on <paramref name="context"/>.
+	/// </para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	public virtual Result VisitBody_type([NotNull] StellarGeneratorParser.Body_typeContext context) { return VisitChildren(context); }
+
+	/// <summary>
 	/// Visit a parse tree produced by <see cref="StellarGeneratorParser.distance_from"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
@@ -322,6 +334,17 @@ public partial class StellarGeneratorBaseVisitor<Result> : AbstractParseTreeVisi
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	public virtual Result VisitId([NotNull] StellarGeneratorParser.IdContext context) { return VisitChildren(context); }
+
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="StellarGeneratorParser.text"/>.
+	/// <para>
+	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
+	/// on <paramref name="context"/>.
+	/// </para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	public virtual Result VisitText([NotNull] StellarGeneratorParser.TextContext context) { return VisitChildren(context); }
 
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="StellarGeneratorParser.inty"/>.

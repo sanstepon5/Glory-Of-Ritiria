@@ -71,8 +71,8 @@
         ships {
         }
     }
-    star Aeria {
-         name : "Detnura" 
+    star aeria {
+         name : "Aeria" 
          star_class : yellow_dwarf
          discovery_status : explored   
     }
@@ -80,7 +80,7 @@
 
 stellar_system proxima {
     name : "Proxima Centauri"
-    distance_from_detnura : 0.21 # distance in light years
+    distance_from_detnura : 3.21 # distance in light years
     map_angle : 70 # angle in degrees relative to Detnura to position the system on the map
     gravitational_pull : 100 # distance at which ships can jump
     
@@ -91,7 +91,7 @@ stellar_system proxima {
     }
 }
 
-sol_system {
+stellar_system sol_system {
     name : "Sol"
     distance_from_detnura : 4.22 # distance in light years
     map_angle : 30 # angle in degrees relative to Detnura to position the system on the map

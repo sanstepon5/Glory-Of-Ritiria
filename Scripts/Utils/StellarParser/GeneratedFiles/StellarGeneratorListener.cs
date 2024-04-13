@@ -22,6 +22,7 @@
 namespace StellarSystemParser {
 
     using System.Globalization;
+    using GloryOfRitiria.Scripts.Utils;
 
 using Antlr4.Runtime.Misc;
 using IParseTreeListener = Antlr4.Runtime.Tree.IParseTreeListener;
@@ -233,6 +234,17 @@ public interface IStellarGeneratorListener : IParseTreeListener {
 	void ExitIcon([NotNull] StellarGeneratorParser.IconContext context);
 
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="StellarGeneratorParser.body_type"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterBody_type([NotNull] StellarGeneratorParser.Body_typeContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="StellarGeneratorParser.body_type"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitBody_type([NotNull] StellarGeneratorParser.Body_typeContext context);
+
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="StellarGeneratorParser.distance_from"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -319,6 +331,17 @@ public interface IStellarGeneratorListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitId([NotNull] StellarGeneratorParser.IdContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="StellarGeneratorParser.text"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterText([NotNull] StellarGeneratorParser.TextContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="StellarGeneratorParser.text"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitText([NotNull] StellarGeneratorParser.TextContext context);
 
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="StellarGeneratorParser.inty"/>.
