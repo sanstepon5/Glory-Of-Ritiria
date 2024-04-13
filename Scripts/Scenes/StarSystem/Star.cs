@@ -21,6 +21,7 @@ public class Star: CelestialBody
     public Star(string name, StarSystemInfo starSystem, double distance, StarClass starClass = StarClass.RedDwarf)
     {
         Star = this;
+        BodyType = CelestialBodyType.Star;
         Name = name;
         // If a star within a star system is not discovered, it shouldn't be selectable. Still not sure if it's needed...
         DiscoveryStatus = DiscoveryStatus.Explored; 
@@ -29,6 +30,18 @@ public class Star: CelestialBody
         InnerSpace = new CelestialBody("Inner Space",  this, distance,"res://Assets/Icons/cross.png");
         OuterSpaceDistance = distance;
         StarClass = starClass;
+    }
+    
+    /**Incomplete constructor for parsing. Other properties should be added during parsing*/
+    public Star(StarSystemInfo starSystem, double distance)
+    {
+        Star = this;
+        BodyType = CelestialBodyType.Star;
+
+        StarSystem = starSystem;
+        Bodies = new List<CelestialBody>();
+        InnerSpace = new CelestialBody("Inner Space",  this, distance,"res://Assets/Icons/cross.png");
+        OuterSpaceDistance = distance;
     }
     
     // Populate the bodies list with celestial bodies of this system

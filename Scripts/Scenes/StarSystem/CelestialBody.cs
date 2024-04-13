@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using GloryOfRitiria.Scripts;
 using GloryOfRitiria.Scripts.Global;
 using GloryOfRitiria.Scripts.ShipRelated.Missions;
 using GloryOfRitiria.Scripts.Utils;
@@ -8,10 +7,12 @@ using Ship = GloryOfRitiria.Scripts.ShipRelated.Ship;
 
 public class CelestialBody
 {
-    /**Also server as an "ID" for now*/
+    public string Id;
     public string Name;
     // Parent Star
     public Star Star;
+
+    public CelestialBody ParentBody = null;
 
     /// <summary> The distance from the star to this body in light minutes</summary>
     public double Distance;
@@ -27,7 +28,7 @@ public class CelestialBody
     public List<Ship> ShipsInOrbit = new(); //public ShipGroup ShipsInOrbit;
     
     // Random planet, some specific planet, asteroid, station....
-    private string _imagePath;
+    private string _imagePath; 
 
     public List<Shipyard> Shipyards = new();
     
@@ -70,6 +71,24 @@ public class CelestialBody
         HasSatellites = false;
         Satellites = null;
         IsSatellite = false;
+    }
+    
+    /* Constructor for parsing */
+    public CelestialBody(string id)
+    {
+        Id = id;
+        if (Id.Equals("pallyria"))
+            BodyType = CelestialBodyType.Pallyria;
+        else
+            BodyType = CelestialBodyType.GenericPlanet;
+        
+        HasSatellites = false;
+        IsSatellite = false;
+    }
+
+    public void SetImagePath(string path)
+    {
+        _imagePath = path;
     }
 
     public void AddSatellite(CelestialBody satellite)

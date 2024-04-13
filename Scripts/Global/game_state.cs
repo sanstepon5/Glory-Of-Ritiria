@@ -189,22 +189,32 @@ public partial class game_state : Node
 	// tmp function to create test star systems, until I make an actual parser and stars file
 	public static void Init()
 	{
-		var systemsInitFilePath = "";
-		
 		//TODO: Check for file not found
-		var fileStream = new StreamReader(AssetsDir + "StellarSystems.txt");
-		var stellarSystemsParser = new StellarSystemsParser(fileStream);
+		var file = FileAccess.Open(game_state.AssetsDir + "StellarSystems.txt", FileAccess.ModeFlags.Read);
+		//var fileStream = new StreamReader(AssetsDir + "StellarSystems.txt");
+		var stellarSystemsParser = new StellarSystemsParser(new StringReader(file.GetAsText()));
 		var data = stellarSystemsParser.Parse();
 		AllSystems = data.Systems;
+		foreach (var system in AllSystems)
+		{
+			foreach (var star in system.SystemStars)
+			{
+				if (star.DiscoveryStatus is DiscoveryStatus.Explored or DiscoveryStatus.ExistenceKnown)
+				{
+					DiscoveredSystems.Add(system);
+					break;
+				}
+			}
+		}
 		AllShips = data.Ships;
 		BodiesWithShipyards = data.BodiesWithShipyards;
 		Detnura = data.Detnura;
 		
 		// This approach in theory doubles memory consumption for a brief moment when both parser and game_state are full of data
-		DiscoveredSystems = stellarSystemsParser.Systems;
-		AllShips = stellarSystemsParser.Ships;
-		BodiesWithShipyards = stellarSystemsParser.BodiesWithShipyards;
-		Detnura = stellarSystemsParser.Detnura; // I don't like this but for now it'll do
+		// DiscoveredSystems = stellarSystemsParser.Systems;
+		// AllShips = stellarSystemsParser.Ships;
+		// BodiesWithShipyards = stellarSystemsParser.BodiesWithShipyards;
+		// Detnura = stellarSystemsParser.Detnura; // I don't like this but for now it'll do
 		
 		
 		// Init star systems
@@ -262,13 +272,13 @@ public partial class game_state : Node
 		
 		// Ships at the start of the game
 		var columbia = new Ship("Columbia", earth, true);
-		var planetExplorationKit = new Cargo("Planet exploration kit", 5);
+		var planetExplorationKit = new Cargo("planet_exploration_kit", 5);
 		planetExplorationKit.AddMission(new PlanetExplorationMission());
 		columbia.ShipCargo.Add(planetExplorationKit);
 		earth.AddBusyShipyard("UNOOSA European Dockyard", columbia, 7);
 		
 		var irana = new Ship("Irana", pallyria);
-		var spaceTelescope = new Cargo("Space Telescope", 1);
+		var spaceTelescope = new Cargo("space_telescope", 1);
 		spaceTelescope.AddMission(new SystemExplorationMission());
 		irana.ShipCargo.Add(spaceTelescope);
 		

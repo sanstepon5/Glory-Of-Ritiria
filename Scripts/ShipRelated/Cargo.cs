@@ -15,13 +15,37 @@ public class Cargo
     public List<Mission> PossibleMissions;
 
 
-    public Cargo(string name)
+    public Cargo(string id)
     {
-        Name = name;
+        Name = id;
         Durability = 1;
         Cost = 0;
         _imagePath = "res://Assets/Icons/Loadouts/spaceTelescope.png";
         PossibleMissions = new List<Mission>();
+
+
+        switch (id)
+        {
+            case "planet_exploration_kit":
+            {
+                Name = "Planet exploration kit";
+                Durability = 5;
+                Cost = 0;
+                _imagePath = "res://Assets/Icons/Loadouts/spaceTelescope.png";
+                AddMission(new PlanetExplorationMission());
+                
+                break;
+            }
+            case "space_telescope":
+            {
+                Name = "Space Telescope";
+                Durability = 1;
+                Cost = 0;
+                _imagePath = "res://Assets/Icons/Loadouts/spaceTelescope.png";
+                AddMission(new SystemExplorationMission());
+                break;
+            }
+        }
     }
 
     public Cargo(string name, int durability, int cost = 0, string imagePath = "res://Assets/Icons/Loadouts/spaceTelescope.png")

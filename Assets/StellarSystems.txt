@@ -1,30 +1,30 @@
 ﻿stellar_system detnura_aeria_system {
-    name : Detnura-Aeria System
-    distance_from_detnura : 0 # distance in light years
+    name : "Detnura-Aeria System"
+    distance_from_detnura : 0.0 # distance in light years
     map_angle : 0 # angle in degrees relative to Detnura to position the system on the map
     gravitational_pull : 700 # distance at which ships can jump
     
     star detnura {
-        name : Detnura 
+        name : "Detnura" 
         star_class : orange_dwarf
         discovery_status : explored
         
         celestial_body pallyria{
-            name : Pallyria
+            name : "Pallyria"
             distance : 5 # distance from the star in light minutes
             icon : "PlanetIcon.png"
             discovery_status : explored
             shipyards {
                 shipyard sokhil {
-                    name : Sokhil Shipyard
+                    name : "Sokhil Shipyard"
                 }
                 shipyard sokhil {
-                    name : Eradian Shipyard
+                    name : "Eradian Shipyard"
                 }
             }
             ships {
                 ship irana {
-                    name : Irana
+                    name : "Irana"
                     modules {
                         module space_telescope
                         module space_telescope
@@ -34,26 +34,26 @@
         }
 
         celestial_body other{
-            name : Other Planet
+            name : "Other Planet"
             distance : 15
             icon : "icePlanet.png"
-            discovery_status : Explored
+            discovery_status : explored
         }
         
         celestial_body gas_giant{
-            name : Gas Giant
+            name : "Gas Giant"
             distance : 50
             icon : "gasGiant.png"
             discovery_status : explored
-            
+
             satellites {
                 celestial_body moon{
-                    name : Moon
+                    name : "Moon"
                     icon : "icePlanet.png"
                     discovery_status : explored
                 }
                 celestial_body moon_2{
-                    name : Other Moon
+                    name : "Other Moon"
                     icon : "icePlanet.png"
                     discovery_status : explored
                 }                
@@ -61,7 +61,7 @@
         }
         
         celestial_body asteroid{
-            name : Asteroid
+            name : "Asteroid"
             distance : 15
             icon : "asteroid.png"
             discovery_status : explored
@@ -72,59 +72,59 @@
         }
     }
     star Aeria {
-         name : Detnura 
+         name : "Detnura" 
          star_class : yellow_dwarf
          discovery_status : explored   
     }
 }
 
 stellar_system proxima {
-    name : Proxima Centauri
+    name : "Proxima Centauri"
     distance_from_detnura : 0.21 # distance in light years
     map_angle : 70 # angle in degrees relative to Detnura to position the system on the map
     gravitational_pull : 100 # distance at which ships can jump
     
     star proxima {
-        name : Proxima Centauri
+        name : "Proxima Centauri"
         star_class : red_dwarf
         discovery_status : existence_known
     }
 }
 
 sol_system {
-    name : Sol
+    name : "Sol"
     distance_from_detnura : 4.22 # distance in light years
     map_angle : 30 # angle in degrees relative to Detnura to position the system on the map
     gravitational_pull : 500 # distance at which ships can jump
     
     star sun {
-        name : Sun 
+        name : "Sun" 
         star_class : yellow_dwarf
         discovery_status : existence_known
         
         celestial_body mercury{
-            name : Mercury
+            name : "Mercury"
             distance : 1
             icon : "MoltenPlanet.png"
             discovery_status : existence_known
         }
 
         celestial_body venus{
-            name : Venus
+            name : "Venus"
             distance : 4
             icon : "MoltenPlanet.png"
             discovery_status : existence_known
         }
         
         celestial_body earth{
-            name : Earth
+            name : "Earth"
             distance : 7
             icon : "liveablePlanet.png"
             discovery_status : explored
             
             satellites {
                 celestial_body luna{
-                    name : Luna
+                    name : "Luna"
                     icon : "icePlanet.png"
                     discovery_status : existence_known
                 }         
@@ -132,13 +132,13 @@ sol_system {
             
             shipyards {
                 shipyard unoosa_european {
-                    name : UNOOSA European Shipyard
+                    name : "UNOOSA European Shipyard"
                     ship columbia {
-                        name : Columbia
+                        name : "Columbia"
                         building_progress : 7
                         modules {
                             module planet_exploration {
-                                durability=5
+                                durability : 5
                             }
                         }
                     }
