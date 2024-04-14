@@ -64,7 +64,7 @@ shipyard            : 'shipyard' id
                       '{' shipyard_body '}' 
                       ;
 shipyard_body       : name {StelSysGen.pt(StellarGeneratorPoint.INITSHIPYARD);} 
-                      ( {StelSysGen.pt(StellarGeneratorPoint.SETSHIPYARDBUSY);} ship )? 
+                      ( {StelSysGen.pt(StellarGeneratorPoint.SETSHIPYARDBUSY);} ship {StelSysGen.pt(StellarGeneratorPoint.ADDTOSHIPYARD);} )? 
                       ;
 
 ships               : 'ships' '{' (ship {StelSysGen.pt(StellarGeneratorPoint.ADDSHIP);})* '}' ;
@@ -72,7 +72,6 @@ ship                : 'ship' id '{' ship_body '}' ;
 ship_body           : name {StelSysGen.pt(StellarGeneratorPoint.INITSHIP);} 
                       (building_progress {StelSysGen.pt(StellarGeneratorPoint.SETSHIPYARDBUILDINGPROGRESS);})? 
                       (modules)*  
-                      {StelSysGen.pt(StellarGeneratorPoint.ADDTOSHIPYARD);}
                       ;
 modules             : 'modules' '{' (module {StelSysGen.pt(StellarGeneratorPoint.ADDMODULE);})+ '}' ;
 module              : 'module' id {StelSysGen.pt(StellarGeneratorPoint.INITMODULE);} 

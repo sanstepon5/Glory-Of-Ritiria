@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using GloryOfRitiria.Scripts.ShipRelated;
+using Godot;
 
 namespace GloryOfRitiria.Scripts.Utils;
 
@@ -146,7 +147,7 @@ public class StelSysGen
                     }
                     default:
                     {
-                        Console.WriteLine("WARNING: Unrecognized body type " + CurrentText + ", default value is used");
+                        GD.Print("WARNING: Unrecognized body type " + CurrentText + ", default value is used");
                         break;
                     }
                 }
@@ -157,7 +158,7 @@ public class StelSysGen
             {
                 if (CurrentInt==0)
                 {
-                    Console.WriteLine("ERROR: Body " + CurrentBody.Id + " is not satellite, specifying distance is required");
+                    GD.Print("ERROR: Body " + CurrentBody.Id + " is not satellite, specifying distance is required");
                     CurrentBody.Distance = 0;
                 }
                 CurrentBody.Distance = CurrentInt;
@@ -188,7 +189,7 @@ public class StelSysGen
             {
                 if (CurrentBody.Distance!=0)
                 {
-                    Console.WriteLine("WARNING: Body " + CurrentBody.Id + " is a satellite, distance is ignored");
+                    GD.Print("WARNING: Body " + CurrentBody.Id + " is a satellite, distance is ignored");
                     CurrentBody.Distance = 0;
                 }
                 CurrentBody.ParentBody.Satellites.Add(CurrentBody);
@@ -209,43 +210,42 @@ public class StelSysGen
             }
             case StellarGeneratorPoint.ADDSHIPYARD:
             {
-                CurrentBody.Shipyards.Add(CurrentShipyard);
-                Data.BodiesWithShipyards.Add(CurrentBody);
+                CurrentBody.AddShipyard(CurrentShipyard);
+                
+                // Data.BodiesWithShipyards.Add(CurrentBody); Not necessary, AddShipyard already does that
+                
+                ShipyardBusy = false;
                 break;
             }
             
             /* Ships properties*/
             case StellarGeneratorPoint.INITSHIP:
             {
-                CurrentShip = new Ship(CurrentText, CurrentBody);
-                ShipyardBusy = false;
+                if (!ShipyardBusy)
+                    CurrentShip = new Ship(CurrentText, CurrentBody);
+                else
+                    CurrentShip = new Ship(CurrentText, CurrentBody, true);
                 break;
             }
             case StellarGeneratorPoint.SETSHIPYARDBUILDINGPROGRESS:
             {
                 if (!ShipyardBusy)
                 {
-                    Console.WriteLine("ERROR, ships in construction should be declared in shipyard");
+                    GD.Print("ERROR, ships in construction should be declared in shipyard");
                 }
                 CurrentShipyard.CurrentProgress = CurrentInt;
+                CurrentShipyard.State = SlotState.Busy;
+                
                 break;
             }
             case StellarGeneratorPoint.ADDTOSHIPYARD:
             {
-                if (ShipyardBusy)
-                {
-                    CurrentShipyard.Ship = CurrentShip;
-                    Data.Ships.Add(CurrentShip);
-                }
+                CurrentShipyard.Ship = CurrentShip;
+                CurrentShipyard.TurnCost = CurrentShip.Design.Cost;
                 break;
             }
             case StellarGeneratorPoint.ADDSHIP:
             {
-                // Not necessary as Ship class constructor already does that
-                // if (InStar)
-                //     CurrentStar.ShipsInOrbit.Add(CurrentShip);
-                // else
-                //     CurrentBody.ShipsInOrbit.Add(CurrentShip);
                 Data.Ships.Add(CurrentShip);
                 break;
             }
@@ -300,7 +300,7 @@ public class StelSysGen
             {
                 // Null checking
                 if (Data.Detnura == null)
-                    Console.WriteLine("ERROR, No Detnura system found in file");
+                    GD.Print("ERROR, No Detnura system found in file");
                 break;
             }
         }

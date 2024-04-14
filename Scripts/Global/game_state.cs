@@ -207,7 +207,7 @@ public partial class game_state : Node
 			}
 		}
 		AllShips = data.Ships;
-		BodiesWithShipyards = data.BodiesWithShipyards;
+		//BodiesWithShipyards = data.BodiesWithShipyards;
 		Detnura = data.Detnura;
 		
 		// This approach in theory doubles memory consumption for a brief moment when both parser and game_state are full of data

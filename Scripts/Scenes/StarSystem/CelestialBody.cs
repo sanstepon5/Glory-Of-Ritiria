@@ -113,6 +113,13 @@ public class CelestialBody
         if (Shipyards.Count == 0) game_state.BodiesWithShipyards.Add(this);
         Shipyards.Add(new Shipyard(name, this));
     }
+    
+    public void AddShipyard(Shipyard shipyard)
+    {
+        if (Shipyards.Count == 0) game_state.BodiesWithShipyards.Add(this);
+        Shipyards.Add(shipyard);
+    }
+    
     public void AddBusyShipyard(string name, Ship ship, int progress = 0)
     {
         if (Shipyards.Count == 0) game_state.BodiesWithShipyards.Add(this);
