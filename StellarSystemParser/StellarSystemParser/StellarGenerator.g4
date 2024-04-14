@@ -100,7 +100,7 @@ discovery_status    : 'discovery_status'        ':'( 'explored' {StelSysGen.pt(S
                                                    ) ;
 
 id                   : ID {StelSysGen.CurrentText = $ID.text;};
-text                 : TEXT {StelSysGen.CurrentText = $TEXT.text;} ;
+text                 : TEXT {StelSysGen.CurrentText = $TEXT.text.Replace('"', ' ').Trim();} ;
 inty                 : INT {StelSysGen.CurrentInt = int.Parse($INT.text);};
 floaty               : FLOAT {StelSysGen.CurrentFloat = float.Parse($FLOAT.text, CultureInfo.InvariantCulture);};
 

@@ -88,8 +88,8 @@ public class CelestialBody
 
     public void SetImagePath(string path)
     {
-        _imagePath = path;
-    }
+        _imagePath = game_state.AssetsDir + "Img/tmp/CelestialBodies/" + path;
+      }
 
     public void AddSatellite(CelestialBody satellite)
     {

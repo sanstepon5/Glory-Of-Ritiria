@@ -1851,7 +1851,7 @@ public partial class StellarGeneratorParser : Parser {
 			EnterOuterAlt(_localctx, 1);
 			{
 			State = 313; _localctx._TEXT = Match(TEXT);
-			StelSysGen.CurrentText = (_localctx._TEXT!=null?_localctx._TEXT.Text:null);
+			StelSysGen.CurrentText = (_localctx._TEXT!=null?_localctx._TEXT.Text:null).Replace('"', ' ').Trim();
 			}
 		}
 		catch (RecognitionException re) {

@@ -190,7 +190,7 @@ public partial class game_state : Node
 	public static void Init()
 	{
 		//TODO: Check for file not found
-		var file = FileAccess.Open(game_state.AssetsDir + "StellarSystems.txt", FileAccess.ModeFlags.Read);
+		var file = FileAccess.Open(AssetsDir + "StellarSystems.txt", FileAccess.ModeFlags.Read);
 		//var fileStream = new StreamReader(AssetsDir + "StellarSystems.txt");
 		var stellarSystemsParser = new StellarSystemsParser(new StringReader(file.GetAsText()));
 		var data = stellarSystemsParser.Parse();
