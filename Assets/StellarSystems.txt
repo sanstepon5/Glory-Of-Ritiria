@@ -137,7 +137,7 @@ stellar_system sol_system {
                         name : "Columbia"
                         building_progress : 7
                         modules {
-                            module planet_exploration {
+                            module planet_exploration_kit {
                                 durability : 5
                             }
                         }
