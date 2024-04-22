@@ -14,69 +14,69 @@ options {
 }
 
 
-file                :   {StelSysGen.pt(StellarGeneratorPoint.INITMAP);} (stellar_system)+ 
-                        {StelSysGen.pt(StellarGeneratorPoint.ERRORVERIFICATION);} EOF ;
-stellar_system      :   'stellar_system' id {StelSysGen.pt(StellarGeneratorPoint.INITSYSTEM);} 
+file                :   {StelSysGen.pt(StellarGeneratorPoint.Initmap);} (stellar_system)+ 
+                        {StelSysGen.pt(StellarGeneratorPoint.Errorverification);} EOF ;
+stellar_system      :   'stellar_system' id {StelSysGen.pt(StellarGeneratorPoint.Initsystem);} 
                         '{'  
                         stellar_system_body
-                        '}' {StelSysGen.pt(StellarGeneratorPoint.ADDSYSTEM);} 
+                        '}' {StelSysGen.pt(StellarGeneratorPoint.Addsystem);} 
                         ;
-stellar_system_body :   name {StelSysGen.pt(StellarGeneratorPoint.SETSYSTEMNAME);} 
+stellar_system_body :   name {StelSysGen.pt(StellarGeneratorPoint.Setsystemname);} 
                         distance_from 
                         angle 
                         pull
-                        (star {StelSysGen.pt(StellarGeneratorPoint.ADDSTAR);})+ ;
+                        (star {StelSysGen.pt(StellarGeneratorPoint.addstar);})+ ;
 
 
 
-star                : 'star' id {StelSysGen.pt(StellarGeneratorPoint.INITSTAR);}  
+star                : 'star' id {StelSysGen.pt(StellarGeneratorPoint.Initstar);}  
                        '{' star_body '}' 
                        ;
-star_body           : name {StelSysGen.pt(StellarGeneratorPoint.SETSTARNAME);} 
+star_body           : name {StelSysGen.pt(StellarGeneratorPoint.Setstarname);} 
                       (star_class)?  
                       (discovery_status)?
-                      (celestial_body {StelSysGen.pt(StellarGeneratorPoint.ADDBODYTOSTAR);})* 
+                      (celestial_body {StelSysGen.pt(StellarGeneratorPoint.Addbodytostar);})* 
                       (ships)*;
 
 
 
-celestial_body      : 'celestial_body' id {StelSysGen.pt(StellarGeneratorPoint.INITBODY);}  
+celestial_body      : 'celestial_body' id {StelSysGen.pt(StellarGeneratorPoint.Initbody);}  
                       '{' celestial_body_body '}'
                       ;
-celestial_body_body : name {StelSysGen.pt(StellarGeneratorPoint.SETBODYNAME);} 
+celestial_body_body : name {StelSysGen.pt(StellarGeneratorPoint.Setbodyname);} 
                       (body_distance)? 
-                      (icon {StelSysGen.pt(StellarGeneratorPoint.SETBODYICON);})?  
+                      (icon {StelSysGen.pt(StellarGeneratorPoint.Setbodyicon);})?  
                       (discovery_status)?
-                      (body_type {StelSysGen.pt(StellarGeneratorPoint.SETBODYTYPE);})?
-                      (satellites {StelSysGen.pt(StellarGeneratorPoint.SETISNTSATELLITE);})*  
+                      (body_type {StelSysGen.pt(StellarGeneratorPoint.Setbodytype);})?
+                      (satellites {StelSysGen.pt(StellarGeneratorPoint.Setisntsatellite);})*  
                       (shipyards)*  
                       (ships)* 
                       ;
 
 
-satellites          : 'satellites' {StelSysGen.pt(StellarGeneratorPoint.SETISSATELLITE);} '{' 
-                      (celestial_body {StelSysGen.pt(StellarGeneratorPoint.ADDSATELLITETOPARENT);})+ 
+satellites          : 'satellites' {StelSysGen.pt(StellarGeneratorPoint.Setissatellite);} '{' 
+                      (celestial_body {StelSysGen.pt(StellarGeneratorPoint.Addsatellitetoparent);})+ 
                       '}' 
                       ;
 
-shipyards           : 'shipyards' '{' (shipyard {StelSysGen.pt(StellarGeneratorPoint.ADDSHIPYARD);})+ '}' ;
+shipyards           : 'shipyards' '{' (shipyard {StelSysGen.pt(StellarGeneratorPoint.Addshipyard);})+ '}' ;
 shipyard            : 'shipyard' id
                       '{' shipyard_body '}' 
                       ;
-shipyard_body       : name {StelSysGen.pt(StellarGeneratorPoint.INITSHIPYARD);} 
-                      ( {StelSysGen.pt(StellarGeneratorPoint.SETSHIPYARDBUSY);} ship {StelSysGen.pt(StellarGeneratorPoint.ADDTOSHIPYARD);} )? 
+shipyard_body       : name {StelSysGen.pt(StellarGeneratorPoint.Initshipyard);} 
+                      ( {StelSysGen.pt(StellarGeneratorPoint.Setshipyardbusy);} ship {StelSysGen.pt(StellarGeneratorPoint.Addtoshipyard);} )? 
                       ;
 
-ships               : 'ships' '{' (ship {StelSysGen.pt(StellarGeneratorPoint.ADDSHIP);})* '}' ;
+ships               : 'ships' '{' (ship {StelSysGen.pt(StellarGeneratorPoint.Addship);})* '}' ;
 ship                : 'ship' id '{' ship_body '}' ;
-ship_body           : name {StelSysGen.pt(StellarGeneratorPoint.INITSHIP);} 
-                      (building_progress {StelSysGen.pt(StellarGeneratorPoint.SETSHIPYARDBUILDINGPROGRESS);})? 
+ship_body           : name {StelSysGen.pt(StellarGeneratorPoint.Initship);} 
+                      (building_progress {StelSysGen.pt(StellarGeneratorPoint.Setshipyardbuildingprogress);})? 
                       (modules)*  
                       ;
-modules             : 'modules' '{' (module {StelSysGen.pt(StellarGeneratorPoint.ADDMODULE);})+ '}' ;
-module              : 'module' id {StelSysGen.pt(StellarGeneratorPoint.INITMODULE);} 
+modules             : 'modules' '{' (module {StelSysGen.pt(StellarGeneratorPoint.Addmodule);})+ '}' ;
+module              : 'module' id {StelSysGen.pt(StellarGeneratorPoint.Initmodule);} 
                       ('{' 
-                        'durability' ':' inty {StelSysGen.pt(StellarGeneratorPoint.SETMODULEDURABILITY);} 
+                        'durability' ':' inty {StelSysGen.pt(StellarGeneratorPoint.Setmoduledurability);} 
                       '}')? ;
 
 
@@ -84,18 +84,18 @@ module              : 'module' id {StelSysGen.pt(StellarGeneratorPoint.INITMODUL
 name                : 'name'                    ':' text;
 icon                : 'icon'                    ':' text;
 body_type           : 'type'                    ':' id;
-distance_from       : 'distance_from_detnura'   ':' floaty {StelSysGen.pt(StellarGeneratorPoint.SETSYSTEMDISTANCE);};
-angle               : 'map_angle'               ':' inty {StelSysGen.pt(StellarGeneratorPoint.SETSYSTEMANGLE);} ;
-pull                : 'gravitational_pull'      ':' inty {StelSysGen.pt(StellarGeneratorPoint.SETSYSTEMPULL);};
-body_distance       : 'distance'                ':' inty {StelSysGen.pt(StellarGeneratorPoint.SETBODYDISTANCE);};
+distance_from       : 'distance_from_detnura'   ':' floaty {StelSysGen.pt(StellarGeneratorPoint.Setsystemdistance);};
+angle               : 'map_angle'               ':' inty {StelSysGen.pt(StellarGeneratorPoint.Setsystemangle);} ;
+pull                : 'gravitational_pull'      ':' inty {StelSysGen.pt(StellarGeneratorPoint.Setsystempull);};
+body_distance       : 'distance'                ':' inty {StelSysGen.pt(StellarGeneratorPoint.Setbodydistance);};
 building_progress   : 'building_progress'       ':' inty;
-star_class          : 'star_class'              ':'( 'orange_dwarf' {StelSysGen.pt(StellarGeneratorPoint.SETSTARCLASSOD);} 
-                                                   | 'red_dwarf' {StelSysGen.pt(StellarGeneratorPoint.SETSTARCLASSRD);}
-                                                   | 'yellow_dwarf' {StelSysGen.pt(StellarGeneratorPoint.SETSTARCLASSYD);} 
+star_class          : 'star_class'              ':'( 'orange_dwarf' {StelSysGen.pt(StellarGeneratorPoint.Setstarclassod);} 
+                                                   | 'red_dwarf' {StelSysGen.pt(StellarGeneratorPoint.Setstarclassrd);}
+                                                   | 'yellow_dwarf' {StelSysGen.pt(StellarGeneratorPoint.Setstarclassyd);} 
                                                    ) ;
-discovery_status    : 'discovery_status'        ':'( 'explored' {StelSysGen.pt(StellarGeneratorPoint.SETSTATUSEXPLORED);}
-                                                   | 'existence_known' {StelSysGen.pt(StellarGeneratorPoint.SETSTATUSKNOWN);}
-                                                   | 'undiscovered' {StelSysGen.pt(StellarGeneratorPoint.SETSTATUSUNDISCOVERED);}
+discovery_status    : 'discovery_status'        ':'( 'explored' {StelSysGen.pt(StellarGeneratorPoint.Setstatusexplored);}
+                                                   | 'existence_known' {StelSysGen.pt(StellarGeneratorPoint.Setstatusknown);}
+                                                   | 'undiscovered' {StelSysGen.pt(StellarGeneratorPoint.Setstatusundiscovered);}
                                                    ) ;
 
 id                   : ID {StelSysGen.CurrentText = $ID.text;};

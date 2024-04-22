@@ -19,6 +19,8 @@ public class StelSysGen
     public static StarSystemInfo CurrentSystem;
     public static Star CurrentStar;
     public static CelestialBody CurrentBody;
+    // Allows to trace back to the "highest" parent
+    public static Stack<CelestialBody> ParentBodies;
     public static Ship CurrentShip;
     public static Cargo CurrentModule;
     public static Shipyard CurrentShipyard;
@@ -32,11 +34,11 @@ public class StelSysGen
     {
         switch (point)
         {
-            case StellarGeneratorPoint.INITMAP:
+            case StellarGeneratorPoint.Initmap:
             {
                 break;
             }
-            case StellarGeneratorPoint.ADDSYSTEM:
+            case StellarGeneratorPoint.Addsystem:
             {
                 Data.Systems.Add(CurrentSystem);
                 if (CurrentSystem.Id.Equals("detnura_aeria_system"))
@@ -45,84 +47,84 @@ public class StelSysGen
             }
             
             /* Properties of Stellar System */
-            case StellarGeneratorPoint.INITSYSTEM:
+            case StellarGeneratorPoint.Initsystem:
             {
                 // CurrentText holds id
                 CurrentSystem = new StarSystemInfo(CurrentText);
                 break;
             }
-            case StellarGeneratorPoint.SETSYSTEMNAME:
+            case StellarGeneratorPoint.Setsystemname:
             {
                 CurrentSystem.SystemName = CurrentText;
                 break;
             }
-            case StellarGeneratorPoint.SETSYSTEMDISTANCE:
+            case StellarGeneratorPoint.Setsystemdistance:
             {
                 CurrentSystem.Distance = CurrentFloat;
                 break;
             }
-            case StellarGeneratorPoint.SETSYSTEMANGLE:
+            case StellarGeneratorPoint.Setsystemangle:
             {
                 CurrentSystem.Angle = CurrentInt;
                 break;
             }
-            case StellarGeneratorPoint.SETSYSTEMPULL:
+            case StellarGeneratorPoint.Setsystempull:
             {
                 CurrentSystemPull = CurrentInt;
                 break;
             }
-            case StellarGeneratorPoint.ADDSTAR:
+            case StellarGeneratorPoint.Addstar:
             {
                 CurrentSystem.SystemStars.Add(CurrentStar);
                 break;
             }
             
             /* Properties of Stellar System */
-            case StellarGeneratorPoint.INITSTAR:
+            case StellarGeneratorPoint.Initstar:
             {
                 CurrentStar = new Star(CurrentSystem, CurrentSystemPull);
+                ParentBodies = new Stack<CelestialBody>();
                 InStar = true;
                 break;
             }
-            case StellarGeneratorPoint.SETSTARNAME:
+            case StellarGeneratorPoint.Setstarname:
             {
                 CurrentStar.Name = CurrentText;
                 break;
             }
             /* Star class */
-            case StellarGeneratorPoint.SETSTARCLASSOD:
+            case StellarGeneratorPoint.Setstarclassod:
             {
                 CurrentStar.StarClass = StarClass.OrangeDwarf;
                 break;
             }
-            case StellarGeneratorPoint.SETSTARCLASSRD:
+            case StellarGeneratorPoint.Setstarclassrd:
             {
                 CurrentStar.StarClass = StarClass.RedDwarf;
                 break;
             }
-            case StellarGeneratorPoint.SETSTARCLASSYD:
+            case StellarGeneratorPoint.Setstarclassyd:
             {
                 CurrentStar.StarClass = StarClass.YellowDwarf;
                 break;
             }
             /*Add body to star*/
-            case StellarGeneratorPoint.ADDBODYTOSTAR:
+            case StellarGeneratorPoint.Addbodytostar:
             {
                 CurrentStar.Bodies.Add(CurrentBody);
                 break;
             }
             
             /* Properties of Celestial Body*/
-            case StellarGeneratorPoint.INITBODY:
+            case StellarGeneratorPoint.Initbody:
             {
                 var body = new CelestialBody(CurrentText);
                 body.Star = CurrentStar;
-
+                
                 
                 if (IsSatellite)
                 {
                     body.ParentBody = CurrentBody;
-                    body.Satellites = new List<CelestialBody>();
                     body.IsSatellite = true;
                 }
 
@@ -131,12 +133,12 @@ public class StelSysGen
                 
                 break;
             }
-            case StellarGeneratorPoint.SETBODYNAME:
+            case StellarGeneratorPoint.Setbodyname:
             {
                 CurrentBody.Name = CurrentText;
                 break;
             }
-            case StellarGeneratorPoint.SETBODYTYPE:
+            case StellarGeneratorPoint.Setbodytype:
             {
                 switch (CurrentText)
                 {
@@ -154,7 +156,7 @@ public class StelSysGen
                 break;
             }
             /* Star class */
-            case StellarGeneratorPoint.SETBODYDISTANCE:
+            case StellarGeneratorPoint.Setbodydistance:
             {
                 if (CurrentInt==0)
                 {
@@ -164,51 +166,54 @@ public class StelSysGen
                 CurrentBody.Distance = CurrentInt;
                 break;
             }
-            case StellarGeneratorPoint.SETBODYICON:
+            case StellarGeneratorPoint.Setbodyicon:
             {
                 CurrentBody.SetImagePath(CurrentText);
                 break;
             }
-            case StellarGeneratorPoint.SETISNTSATELLITE:
+            case StellarGeneratorPoint.Setisntsatellite:
             {
                 IsSatellite = false; // All satellites are added to the parent body, exiting back to the parent body
-                CurrentBody = CurrentBody.ParentBody;
+                CurrentBody = ParentBodies.Pop();
+                
                 break;
             }
             
             /* Satellite properties*/
-            case StellarGeneratorPoint.SETISSATELLITE:
+            case StellarGeneratorPoint.Setissatellite:
             {
                 IsSatellite = true;
                 // Current body is the one that will have satellites, so all next bodies are satellites
                 CurrentBody.HasSatellites = true;
                 CurrentBody.Satellites = new List<CelestialBody>();
+                ParentBodies.Push(CurrentBody);
                 break;
             }
-            case StellarGeneratorPoint.ADDSATELLITETOPARENT:
+            case StellarGeneratorPoint.Addsatellitetoparent:
             {
                 if (CurrentBody.Distance!=0)
                 {
                     GD.Print("WARNING: Body " + CurrentBody.Id + " is a satellite, distance is ignored");
                     CurrentBody.Distance = 0;
                 }
-                CurrentBody.ParentBody.Satellites.Add(CurrentBody);
+                // Parent body may have more satellites after this one
+                ParentBodies.Peek().AddSatellite(CurrentBody);
                 break;
             }
             
             /* Shipyard properties */
-            case StellarGeneratorPoint.INITSHIPYARD:
+            case StellarGeneratorPoint.Initshipyard:
             {
                 CurrentShipyard = new Shipyard(CurrentText, CurrentBody);
                 ShipyardBusy = false;
                 break;
             }
-            case StellarGeneratorPoint.SETSHIPYARDBUSY:
+            case StellarGeneratorPoint.Setshipyardbusy:
             {
                 ShipyardBusy = true;
                 break;
             }
-            case StellarGeneratorPoint.ADDSHIPYARD:
+            case StellarGeneratorPoint.Addshipyard:
             {
                 CurrentBody.AddShipyard(CurrentShipyard);
                 
@@ -219,7 +224,7 @@ public class StelSysGen
             }
             
             /* Ships properties*/
-            case StellarGeneratorPoint.INITSHIP:
+            case StellarGeneratorPoint.Initship:
             {
                 if (!ShipyardBusy)
                     CurrentShip = new Ship(CurrentText, CurrentBody);
@@ -227,7 +232,7 @@ public class StelSysGen
                     CurrentShip = new Ship(CurrentText, CurrentBody, true);
                 break;
             }
-            case StellarGeneratorPoint.SETSHIPYARDBUILDINGPROGRESS:
+            case StellarGeneratorPoint.Setshipyardbuildingprogress:
             {
                 if (!ShipyardBusy)
                 {
@@ -238,38 +243,38 @@ public class StelSysGen
                 
                 break;
             }
-            case StellarGeneratorPoint.ADDTOSHIPYARD:
+            case StellarGeneratorPoint.Addtoshipyard:
             {
                 CurrentShipyard.Ship = CurrentShip;
                 CurrentShipyard.TurnCost = CurrentShip.Design.Cost;
                 break;
             }
-            case StellarGeneratorPoint.ADDSHIP:
+            case StellarGeneratorPoint.Addship:
             {
                 Data.Ships.Add(CurrentShip);
                 break;
             }
             
             /* Modules (cargo) properties */
-            case StellarGeneratorPoint.INITMODULE:
+            case StellarGeneratorPoint.Initmodule:
             {
                 CurrentModule = new Cargo(CurrentText);
                 ShipyardBusy = false;
                 break;
             }
-            case StellarGeneratorPoint.SETMODULEDURABILITY:
+            case StellarGeneratorPoint.Setmoduledurability:
             {
                 CurrentModule.Durability = CurrentInt;
                 break;
             }
-            case StellarGeneratorPoint.ADDMODULE:
+            case StellarGeneratorPoint.Addmodule:
             {
                 CurrentShip.ShipCargo.Add(CurrentModule);
                 break;
             }
             
             /*Discovery status*/
-            case StellarGeneratorPoint.SETSTATUSEXPLORED:
+            case StellarGeneratorPoint.Setstatusexplored:
             {
                 if (InStar)
                     CurrentStar.DiscoveryStatus = DiscoveryStatus.Explored;
@@ -277,7 +282,7 @@ public class StelSysGen
                     CurrentBody.DiscoveryStatus = DiscoveryStatus.Explored;
                 break;
             }
-            case StellarGeneratorPoint.SETSTATUSKNOWN:
+            case StellarGeneratorPoint.Setstatusknown:
             {
                 if (InStar)
                     CurrentStar.DiscoveryStatus = DiscoveryStatus.ExistenceKnown;
@@ -285,7 +290,7 @@ public class StelSysGen
                     CurrentBody.DiscoveryStatus = DiscoveryStatus.ExistenceKnown;
                 break;
             }
-            case StellarGeneratorPoint.SETSTATUSUNDISCOVERED:
+            case StellarGeneratorPoint.Setstatusundiscovered:
             {
                 if (InStar)
                     CurrentStar.DiscoveryStatus = DiscoveryStatus.Undiscovered;
@@ -296,7 +301,7 @@ public class StelSysGen
             
             
             
-            case StellarGeneratorPoint.ERRORVERIFICATION:
+            case StellarGeneratorPoint.Errorverification:
             {
                 // Null checking
                 if (Data.Detnura == null)

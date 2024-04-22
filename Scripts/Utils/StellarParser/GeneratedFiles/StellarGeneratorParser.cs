@@ -158,7 +158,7 @@ public partial class StellarGeneratorParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			StelSysGen.pt(StellarGeneratorPoint.INITMAP);
+			StelSysGen.pt(StellarGeneratorPoint.Initmap);
 			State = 62;
 			_errHandler.Sync(this);
 			_la = _input.La(1);
@@ -172,7 +172,7 @@ public partial class StellarGeneratorParser : Parser {
 				_errHandler.Sync(this);
 				_la = _input.La(1);
 			} while ( _la==T__0 );
-			StelSysGen.pt(StellarGeneratorPoint.ERRORVERIFICATION);
+			StelSysGen.pt(StellarGeneratorPoint.Errorverification);
 			State = 67; Match(Eof);
 			}
 		}
@@ -223,11 +223,11 @@ public partial class StellarGeneratorParser : Parser {
 			{
 			State = 69; Match(T__0);
 			State = 70; id();
-			StelSysGen.pt(StellarGeneratorPoint.INITSYSTEM);
+			StelSysGen.pt(StellarGeneratorPoint.Initsystem);
 			State = 72; Match(T__1);
 			State = 73; stellar_system_body();
 			State = 74; Match(T__2);
-			StelSysGen.pt(StellarGeneratorPoint.ADDSYSTEM);
+			StelSysGen.pt(StellarGeneratorPoint.Addsystem);
 			}
 		}
 		catch (RecognitionException re) {
@@ -289,7 +289,7 @@ public partial class StellarGeneratorParser : Parser {
 			EnterOuterAlt(_localctx, 1);
 			{
 			State = 77; name();
-			StelSysGen.pt(StellarGeneratorPoint.SETSYSTEMNAME);
+			StelSysGen.pt(StellarGeneratorPoint.Setsystemname);
 			State = 79; distance_from();
 			State = 80; angle();
 			State = 81; pull();
@@ -300,7 +300,7 @@ public partial class StellarGeneratorParser : Parser {
 				{
 				{
 				State = 82; star();
-				StelSysGen.pt(StellarGeneratorPoint.ADDSTAR);
+				StelSysGen.pt(StellarGeneratorPoint.Addstar);
 				}
 				}
 				State = 87;
@@ -356,7 +356,7 @@ public partial class StellarGeneratorParser : Parser {
 			{
 			State = 89; Match(T__3);
 			State = 90; id();
-			StelSysGen.pt(StellarGeneratorPoint.INITSTAR);
+			StelSysGen.pt(StellarGeneratorPoint.Initstar);
 			State = 92; Match(T__1);
 			State = 93; star_body();
 			State = 94; Match(T__2);
@@ -424,7 +424,7 @@ public partial class StellarGeneratorParser : Parser {
 			EnterOuterAlt(_localctx, 1);
 			{
 			State = 96; name();
-			StelSysGen.pt(StellarGeneratorPoint.SETSTARNAME);
+			StelSysGen.pt(StellarGeneratorPoint.Setstarname);
 			State = 99;
 			_errHandler.Sync(this);
 			_la = _input.La(1);
@@ -450,7 +450,7 @@ public partial class StellarGeneratorParser : Parser {
 				{
 				{
 				State = 104; celestial_body();
-				StelSysGen.pt(StellarGeneratorPoint.ADDBODYTOSTAR);
+				StelSysGen.pt(StellarGeneratorPoint.Addbodytostar);
 				}
 				}
 				State = 111;
@@ -519,7 +519,7 @@ public partial class StellarGeneratorParser : Parser {
 			{
 			State = 118; Match(T__4);
 			State = 119; id();
-			StelSysGen.pt(StellarGeneratorPoint.INITBODY);
+			StelSysGen.pt(StellarGeneratorPoint.Initbody);
 			State = 121; Match(T__1);
 			State = 122; celestial_body_body();
 			State = 123; Match(T__2);
@@ -599,7 +599,7 @@ public partial class StellarGeneratorParser : Parser {
 			EnterOuterAlt(_localctx, 1);
 			{
 			State = 125; name();
-			StelSysGen.pt(StellarGeneratorPoint.SETBODYNAME);
+			StelSysGen.pt(StellarGeneratorPoint.Setbodyname);
 			State = 128;
 			_errHandler.Sync(this);
 			_la = _input.La(1);
@@ -615,7 +615,7 @@ public partial class StellarGeneratorParser : Parser {
 			if (_la==T__15) {
 				{
 				State = 130; icon();
-				StelSysGen.pt(StellarGeneratorPoint.SETBODYICON);
+				StelSysGen.pt(StellarGeneratorPoint.Setbodyicon);
 				}
 			}
 
@@ -634,7 +634,7 @@ public partial class StellarGeneratorParser : Parser {
 			if (_la==T__16) {
 				{
 				State = 138; body_type();
-				StelSysGen.pt(StellarGeneratorPoint.SETBODYTYPE);
+				StelSysGen.pt(StellarGeneratorPoint.Setbodytype);
 				}
 			}
 
@@ -645,7 +645,7 @@ public partial class StellarGeneratorParser : Parser {
 				{
 				{
 				State = 143; satellites();
-				StelSysGen.pt(StellarGeneratorPoint.SETISNTSATELLITE);
+				StelSysGen.pt(StellarGeneratorPoint.Setisntsatellite);
 				}
 				}
 				State = 150;
@@ -727,7 +727,7 @@ public partial class StellarGeneratorParser : Parser {
 			EnterOuterAlt(_localctx, 1);
 			{
 			State = 163; Match(T__5);
-			StelSysGen.pt(StellarGeneratorPoint.SETISSATELLITE);
+			StelSysGen.pt(StellarGeneratorPoint.Setissatellite);
 			State = 165; Match(T__1);
 			State = 169;
 			_errHandler.Sync(this);
@@ -736,7 +736,7 @@ public partial class StellarGeneratorParser : Parser {
 				{
 				{
 				State = 166; celestial_body();
-				StelSysGen.pt(StellarGeneratorPoint.ADDSATELLITETOPARENT);
+				StelSysGen.pt(StellarGeneratorPoint.Addsatellitetoparent);
 				}
 				}
 				State = 171;
@@ -801,7 +801,7 @@ public partial class StellarGeneratorParser : Parser {
 				{
 				{
 				State = 177; shipyard();
-				StelSysGen.pt(StellarGeneratorPoint.ADDSHIPYARD);
+				StelSysGen.pt(StellarGeneratorPoint.Addshipyard);
 				}
 				}
 				State = 182;
@@ -910,15 +910,15 @@ public partial class StellarGeneratorParser : Parser {
 			EnterOuterAlt(_localctx, 1);
 			{
 			State = 192; name();
-			StelSysGen.pt(StellarGeneratorPoint.INITSHIPYARD);
+			StelSysGen.pt(StellarGeneratorPoint.Initshipyard);
 			State = 198;
 			_errHandler.Sync(this);
 			_la = _input.La(1);
 			if (_la==T__9) {
 				{
-				StelSysGen.pt(StellarGeneratorPoint.SETSHIPYARDBUSY);
+				StelSysGen.pt(StellarGeneratorPoint.Setshipyardbusy);
 				State = 195; ship();
-				StelSysGen.pt(StellarGeneratorPoint.ADDTOSHIPYARD);
+				StelSysGen.pt(StellarGeneratorPoint.Addtoshipyard);
 				}
 			}
 
@@ -979,7 +979,7 @@ public partial class StellarGeneratorParser : Parser {
 				{
 				{
 				State = 202; ship();
-				StelSysGen.pt(StellarGeneratorPoint.ADDSHIP);
+				StelSysGen.pt(StellarGeneratorPoint.Addship);
 				}
 				}
 				State = 209;
@@ -1094,14 +1094,14 @@ public partial class StellarGeneratorParser : Parser {
 			EnterOuterAlt(_localctx, 1);
 			{
 			State = 218; name();
-			StelSysGen.pt(StellarGeneratorPoint.INITSHIP);
+			StelSysGen.pt(StellarGeneratorPoint.Initship);
 			State = 223;
 			_errHandler.Sync(this);
 			_la = _input.La(1);
 			if (_la==T__21) {
 				{
 				State = 220; building_progress();
-				StelSysGen.pt(StellarGeneratorPoint.SETSHIPYARDBUILDINGPROGRESS);
+				StelSysGen.pt(StellarGeneratorPoint.Setshipyardbuildingprogress);
 				}
 			}
 
@@ -1175,7 +1175,7 @@ public partial class StellarGeneratorParser : Parser {
 				{
 				{
 				State = 233; module();
-				StelSysGen.pt(StellarGeneratorPoint.ADDMODULE);
+				StelSysGen.pt(StellarGeneratorPoint.Addmodule);
 				}
 				}
 				State = 238;
@@ -1233,7 +1233,7 @@ public partial class StellarGeneratorParser : Parser {
 			{
 			State = 242; Match(T__11);
 			State = 243; id();
-			StelSysGen.pt(StellarGeneratorPoint.INITMODULE);
+			StelSysGen.pt(StellarGeneratorPoint.Initmodule);
 			State = 252;
 			_errHandler.Sync(this);
 			_la = _input.La(1);
@@ -1243,7 +1243,7 @@ public partial class StellarGeneratorParser : Parser {
 				State = 246; Match(T__12);
 				State = 247; Match(T__13);
 				State = 248; inty();
-				StelSysGen.pt(StellarGeneratorPoint.SETMODULEDURABILITY);
+				StelSysGen.pt(StellarGeneratorPoint.Setmoduledurability);
 				State = 250; Match(T__2);
 				}
 			}
@@ -1436,7 +1436,7 @@ public partial class StellarGeneratorParser : Parser {
 			State = 266; Match(T__17);
 			State = 267; Match(T__13);
 			State = 268; floaty();
-			StelSysGen.pt(StellarGeneratorPoint.SETSYSTEMDISTANCE);
+			StelSysGen.pt(StellarGeneratorPoint.Setsystemdistance);
 			}
 		}
 		catch (RecognitionException re) {
@@ -1484,7 +1484,7 @@ public partial class StellarGeneratorParser : Parser {
 			State = 271; Match(T__18);
 			State = 272; Match(T__13);
 			State = 273; inty();
-			StelSysGen.pt(StellarGeneratorPoint.SETSYSTEMANGLE);
+			StelSysGen.pt(StellarGeneratorPoint.Setsystemangle);
 			}
 		}
 		catch (RecognitionException re) {
@@ -1532,7 +1532,7 @@ public partial class StellarGeneratorParser : Parser {
 			State = 276; Match(T__19);
 			State = 277; Match(T__13);
 			State = 278; inty();
-			StelSysGen.pt(StellarGeneratorPoint.SETSYSTEMPULL);
+			StelSysGen.pt(StellarGeneratorPoint.Setsystempull);
 			}
 		}
 		catch (RecognitionException re) {
@@ -1580,7 +1580,7 @@ public partial class StellarGeneratorParser : Parser {
 			State = 281; Match(T__20);
 			State = 282; Match(T__13);
 			State = 283; inty();
-			StelSysGen.pt(StellarGeneratorPoint.SETBODYDISTANCE);
+			StelSysGen.pt(StellarGeneratorPoint.Setbodydistance);
 			}
 		}
 		catch (RecognitionException re) {
@@ -1677,19 +1677,19 @@ public partial class StellarGeneratorParser : Parser {
 			case T__23:
 				{
 				State = 292; Match(T__23);
-				StelSysGen.pt(StellarGeneratorPoint.SETSTARCLASSOD);
+				StelSysGen.pt(StellarGeneratorPoint.Setstarclassod);
 				}
 				break;
 			case T__24:
 				{
 				State = 294; Match(T__24);
-				StelSysGen.pt(StellarGeneratorPoint.SETSTARCLASSRD);
+				StelSysGen.pt(StellarGeneratorPoint.Setstarclassrd);
 				}
 				break;
 			case T__25:
 				{
 				State = 296; Match(T__25);
-				StelSysGen.pt(StellarGeneratorPoint.SETSTARCLASSYD);
+				StelSysGen.pt(StellarGeneratorPoint.Setstarclassyd);
 				}
 				break;
 			default:
@@ -1744,19 +1744,19 @@ public partial class StellarGeneratorParser : Parser {
 			case T__27:
 				{
 				State = 302; Match(T__27);
-				StelSysGen.pt(StellarGeneratorPoint.SETSTATUSEXPLORED);
+				StelSysGen.pt(StellarGeneratorPoint.Setstatusexplored);
 				}
 				break;
 			case T__28:
 				{
 				State = 304; Match(T__28);
-				StelSysGen.pt(StellarGeneratorPoint.SETSTATUSKNOWN);
+				StelSysGen.pt(StellarGeneratorPoint.Setstatusknown);
 				}
 				break;
 			case T__29:
 				{
 				State = 306; Match(T__29);
-				StelSysGen.pt(StellarGeneratorPoint.SETSTATUSUNDISCOVERED);
+				StelSysGen.pt(StellarGeneratorPoint.Setstatusundiscovered);
 				}
 				break;
 			default:
