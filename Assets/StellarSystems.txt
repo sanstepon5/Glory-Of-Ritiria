@@ -88,6 +88,27 @@ stellar_system proxima {
         name : "Proxima Centauri"
         star_class : red_dwarf
         discovery_status : existence_known
+
+        celestial_body proxima_b{
+            name: "Proxima b"
+            distance : 0.40
+            icon : "liveablePlanet.png"
+            discovery_status : undiscovered
+        }
+
+        celestial_body proxima_d{
+            name: "Proxima d"
+            distance : 0.25
+            icon : "MoltenPlanet.png"
+            discovery_status : undiscovered
+        }
+
+        celestial_body proxima_d{
+            name: "Proxima c"
+            distance : 10.0
+            icon : "icePlanet.png"
+            discovery_status : undiscovered
+        }
     }
 }
 
@@ -104,21 +125,21 @@ stellar_system sol_system {
         
         celestial_body mercury{
             name : "Mercury"
-            distance : 1
+            distance : 3.3
             icon : "MoltenPlanet.png"
             discovery_status : existence_known
         }
 
         celestial_body venus{
             name : "Venus"
-            distance : 4
+            distance : 6.0
             icon : "MoltenPlanet.png"
             discovery_status : existence_known
         }
         
         celestial_body earth{
             name : "Earth"
-            distance : 7
+            distance : 8.3
             icon : "liveablePlanet.png"
             discovery_status : explored
             
@@ -144,6 +165,41 @@ stellar_system sol_system {
                     }
                 }
             }
+        }
+
+        celestial_body venus{
+            name : "Mars"
+            distance : 12.7
+            icon : "MoltenPlanet.png"
+            discovery_status : existence_known
+        }
+
+        celestial_body jupiter{
+            name : "Jupiter"
+            distance : 43.0
+            icon : "BrownDwarf.png"
+            discovery_status : existence_known
+        }
+
+        celestial_body saturn{
+            name : "Saturn"
+            distance : 78.0
+            icon : "gasGiant.png"
+            discovery_status : existence_known
+        }
+
+        celestial_body uranus{
+            name : "Uranus"
+            distance : 162.0
+            icon : "gasGiant.png"
+            discovery_status : existence_known
+        }
+
+        celestial_body neptune{
+            name : "Neptune"
+            distance : 252.0
+            icon : "gasGiant.png"
+            discovery_status : existence_known
         }
     }
 }
