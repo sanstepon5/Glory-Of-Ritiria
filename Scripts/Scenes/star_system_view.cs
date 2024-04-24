@@ -80,20 +80,24 @@ public partial class star_system_view : Node2D
 		bodiesCont.AddChild(BuildStar(star));
 
 		// Adding system's main celestial bodies
-		// I use while here to make the last white line invisible. It's ugly, yes, and I should redo it.
-		var i = 0;
-		while (i < star.Bodies.Count-1)
+		if (star.Bodies.Count > 0)
 		{
-			var body = star.Bodies[i];
-			if (body.DiscoveryStatus != DiscoveryStatus.Undiscovered)
-				bodiesCont.AddChild(BuildCelestialBody(body));
-			i++;
+			var i = 0;
+			// TODO: I use while here to make the last white line invisible. It's ugly, yes, and I should redo it.
+			while (i < star.Bodies.Count-1)
+			{
+				var body = star.Bodies[i];
+				if (body.DiscoveryStatus != DiscoveryStatus.Undiscovered)
+					bodiesCont.AddChild(BuildCelestialBody(body));
+				i++;
+			}
+			if (i>=0 && star.Bodies[i].DiscoveryStatus != DiscoveryStatus.Undiscovered)
+			{
+				var lastBody = BuildCelestialBody(star.Bodies[i], true);
+				bodiesCont.AddChild(lastBody);
+			}
 		}
-		if (i>=0 && star.Bodies[i].DiscoveryStatus != DiscoveryStatus.Undiscovered)
-		{
-			var lastBody = BuildCelestialBody(star.Bodies[i], true);
-			bodiesCont.AddChild(lastBody);
-		}
+
 
 		var emptyImg = GetNode<TextureRect>("InnerSpaceVBox/CenterCont/TextureRect");
 		var innerShipsHBox = GetNode<HBoxContainer>("InnerSpaceVBox/CenterCont/HBox");
