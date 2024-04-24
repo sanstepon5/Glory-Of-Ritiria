@@ -7,7 +7,7 @@ class PlanetExplorationMission : Mission
     public PlanetExplorationMission()
     {
         Name = "Explore Planet";
-        EffectsOnSuccess = new List<Effect>();
-        AddEffect(new Effect("ExplorePlanet"));
+        EffectsOnSuccess = new List<ShipEffect>();
+        AddEffect(new ShipEffect("ExplorePlanet"));
     }
 }

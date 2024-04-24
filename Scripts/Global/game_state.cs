@@ -97,22 +97,12 @@ public partial class game_state : Node
 		}
 	}
 	
-	public static void DiscoverSystem(string starName)
+	public static void DiscoverSystem(Star star)
 	{
-		foreach (var starSystem in DiscoveredSystems)
-		{
-			foreach (var star in starSystem.SystemStars)
-			{
-				if (star.Name.Equals(starName))
-				{
-					foreach (var body in star.Bodies)
-                    {
-                    	body.DiscoverBody();
-                    }
-				}
-				
-			}
-		}
+		foreach (var body in star.Bodies)
+        {
+            body.DiscoverBody();
+        }
 	}
 
 	public static Cargo PopCargo(string cargoName)

@@ -6,7 +6,7 @@ namespace GloryOfRitiria.Scripts.ShipRelated.Missions;
 public abstract class Mission
 {
     public string Name;
-    public List<Effect> EffectsOnSuccess;
+    public List<ShipEffect> EffectsOnSuccess;
     
     private Cargo _associatedCargo;
     
@@ -17,7 +17,7 @@ public abstract class Mission
     
     
 
-    public void AddEffect(Effect effect)
+    public void AddEffect(ShipEffect effect)
     {
         EffectsOnSuccess.Add(effect);
     }

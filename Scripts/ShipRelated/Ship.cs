@@ -170,12 +170,13 @@ public partial class Ship: GodotObject
         return null;
     }
 
+    /** Assign the target body to the mission */
     public void SetShipMission(string missionName, CelestialBody missionTarget)
     {
         _currentMission = GetMissionByName(missionName);
         foreach (var effect in _currentMission.EffectsOnSuccess)
         {
-            effect.Value = missionTarget.Name;
+            effect.SetBodyParam(missionTarget);
         }
     }
     

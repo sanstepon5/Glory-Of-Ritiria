@@ -169,6 +169,18 @@ public class CelestialBody
         if (DiscoveryStatus == DiscoveryStatus.Explored) return _imagePath;
         return "res://Assets/Img/tmp/CelestialBodies/UndiscoveredPlanet.png";
     }
+
+
+    public override string ToString()
+    {
+        var result = "";
+
+        result += GetType().Name + ": " + Name + "\n";
+        result += "Exploration status: " + DiscoveryStatus + "\n";
+        result += "Image Path: " + _imagePath + "\n";
+        
+        return result;
+    }
 }
 
 public enum DiscoveryStatus

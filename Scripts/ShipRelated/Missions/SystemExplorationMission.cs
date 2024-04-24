@@ -7,7 +7,7 @@ class SystemExplorationMission : Mission
     public SystemExplorationMission()
     {
         Name = "Discover system's planets";
-        EffectsOnSuccess = new List<Effect>();
-        AddEffect(new Effect("DiscoverSystem"));
+        EffectsOnSuccess = new List<ShipEffect>();
+        AddEffect(new ShipEffect("DiscoverSystem"));
     }
 }
