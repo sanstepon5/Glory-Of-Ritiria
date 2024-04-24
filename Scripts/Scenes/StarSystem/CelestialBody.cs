@@ -120,11 +120,11 @@ public class CelestialBody
         Shipyards.Add(shipyard);
     }
     
-    public void AddBusyShipyard(string name, Ship ship, int progress = 0)
-    {
-        if (Shipyards.Count == 0) game_state.BodiesWithShipyards.Add(this);
-        Shipyards.Add(new Shipyard(name, this, ship, progress));
-    }
+    // public void AddBusyShipyard(string name, Ship ship, int progress = 0)
+    // {
+    //     if (Shipyards.Count == 0) game_state.BodiesWithShipyards.Add(this);
+    //     Shipyards.Add(new Shipyard(name, this, ship, progress));
+    // }
 
     /**Explore the body giving more information about it on the system map*/
     public void ExplorePlanet()

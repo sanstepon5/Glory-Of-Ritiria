@@ -1,10 +1,11 @@
-using Godot;
-using GloryOfRitiria;
+using System;
 using GloryOfRitiria.Scenes.Slots;
-using GloryOfRitiria.Scripts;
 using GloryOfRitiria.Scripts.Global;
 using GloryOfRitiria.Scripts.Utils;
+using Godot;
 using Ship = GloryOfRitiria.Scripts.ShipRelated.Ship;
+
+namespace GloryOfRitiria.Scenes.HangarScenes;
 
 public partial class SlotList : GridContainer
 {
@@ -39,7 +40,7 @@ public partial class SlotList : GridContainer
 	}
 	
 	// Called either by signal or in this class
-	public void InitShipyards()
+	private void InitShipyards()
 	{
 		foreach (var shipyard in CurrentBody.Shipyards)
 		{
@@ -85,6 +86,9 @@ public partial class SlotList : GridContainer
 
 	public PanelContainer BuildBuildingSlot(Shipyard slot)
 	{
+		slot.UpdateBuildingSpeed();
+		
+		
 		var scene = GD.Load<PackedScene>("res://Scenes/Slots/ProgressShipSlot.tscn");
 		var inst = (PanelContainer)scene.Instantiate();
 
@@ -98,15 +102,15 @@ public partial class SlotList : GridContainer
 		
 		
 		var progressBar = inst.GetNode<ProgressBar>("MCont/VBox/CenterVBox/MCont/ProgressBar");
-		var progressValue =  (double) slot.CurrentProgress / slot.TurnCost * 100;
+		var progressValue =  slot.CurrentProgress / slot.TurnCost * 100;
 		progressBar.Value = progressValue;
 		
 		var turnsLeftLabel = inst.GetNode<RichTextLabel>("MCont/VBox/CenterVBox/RichTextLabel");
-		var turnsLeft = slot.TurnCost - slot.CurrentProgress;
+		var turnsLeft = Math.Ceiling((slot.TurnCost - slot.CurrentProgress) / slot.BuildingSpeed);
 		if (turnsLeft > 1)
 			turnsLeftLabel.Text = turnsLeft + " turns left";
 		else 
-			turnsLeftLabel.Text = turnsLeft + " turn left";
+			turnsLeftLabel.Text = "Completed on next turn";
 		return inst;
 	}
 

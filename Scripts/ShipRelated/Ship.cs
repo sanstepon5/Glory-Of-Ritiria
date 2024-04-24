@@ -31,15 +31,12 @@ public partial class Ship: GodotObject
         Speed = 0.01;
         Selected = false;
         State = ShipState.Docked;
-        
-        //MovementUpdate();
     }
 
     public bool IsInRouteTo(CelestialBody body)
     {
         if (_currentRoute == null) return false;
-        if (_currentRoute.DestinationBody == body) return true;
-        return false;
+        return _currentRoute.DestinationBody == body;
     }
 
     public bool IsInRoute()

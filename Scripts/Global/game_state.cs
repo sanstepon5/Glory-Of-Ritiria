@@ -175,13 +175,10 @@ public partial class game_state : Node
 	}
 
 
-
-	// tmp function to create test star systems, until I make an actual parser and stars file
-	public static void Init()
+	private static void Init()
 	{
 		//TODO: Check for file not found
 		var file = FileAccess.Open(AssetsDir + "StellarSystems.txt", FileAccess.ModeFlags.Read);
-		//var fileStream = new StreamReader(AssetsDir + "StellarSystems.txt");
 		var stellarSystemsParser = new StellarSystemsParser(new StringReader(file.GetAsText()));
 		var data = stellarSystemsParser.Parse();
 		AllSystems = data.Systems;
@@ -197,85 +194,9 @@ public partial class game_state : Node
 			}
 		}
 		AllShips = data.Ships;
-		//BodiesWithShipyards = data.BodiesWithShipyards;
 		Detnura = data.Detnura;
 		
-		// This approach in theory doubles memory consumption for a brief moment when both parser and game_state are full of data
-		// DiscoveredSystems = stellarSystemsParser.Systems;
-		// AllShips = stellarSystemsParser.Ships;
-		// BodiesWithShipyards = stellarSystemsParser.BodiesWithShipyards;
-		// Detnura = stellarSystemsParser.Detnura; // I don't like this but for now it'll do
-		
-		
-		// Init star systems
-		/*
-		var solSystem = new StarSystemInfo("Sol", 4.22f, 30, StarSystemType.Sun);
-		var barnardSystem = new StarSystemInfo("Barnard's star", 7.82f, 170);
-		var detnuraSystem = new StarSystemInfo("Detnura-Aeria System", 0, 0, StarSystemType.Detnura);
-		Detnura = detnuraSystem;
-		DiscoveredSystems.Add(detnuraSystem);
-		DiscoveredSystems.Add(solSystem);
-		DiscoveredSystems.Add(barnardSystem);
-		
-		
-		// Detnura
-		var detnuraStar = new Star("Detnura", detnuraSystem, 700, StarClass.OrangeDwarf);
 
-		// Detnura planets
-		var pallyria = new CelestialBody("Pallyria", detnuraStar, 5, 
-			AssetsDir + "Img/tmp/PlanetIcon.png", DiscoveryStatus.Explored, CelestialBodyType.Pallyria);
-		pallyria.AddShipyard("Sokhil Shipyard");
-		pallyria.AddShipyard("Eradian Shipyard");
-		detnuraStar.AddCelestialBody(pallyria);
-		
-		detnuraStar.AddCelestialBody(new CelestialBody("Other Planet",  detnuraStar, 15,AssetsDir+"Img/tmp/CelestialBodies/icePlanet.png", DiscoveryStatus.Explored));
-		
-		// Gas giant that has satellites
-		var gasGiant = new CelestialBody("Gas Giant", detnuraStar, 50, AssetsDir + "Img/tmp/CelestialBodies/gasGiant.png", DiscoveryStatus.Explored);
-		var moon = new CelestialBody("Moon", detnuraStar, 0, AssetsDir + "Img/tmp/CelestialBodies/icePlanet.png", true, true, DiscoveryStatus.Explored);
-		
-		//var shipGroup = new ShipGroup("Fleet 1", AssetsDir + "Icons/shipGroup.png");
-		//moon.AddShipGroup(shipGroup);
-		gasGiant.AddSatellite(moon);
-		gasGiant.AddSatellite(new CelestialBody("Moon 2", detnuraStar, 0, AssetsDir + "Img/tmp/CelestialBodies/icePlanet.png", true, true, DiscoveryStatus.Explored));
-		detnuraStar.AddCelestialBody(gasGiant);
-		
-		var asteroid = new CelestialBody("Asteroid", detnuraStar, 65, AssetsDir + "Img/tmp/CelestialBodies/asteroid.png", true, true, DiscoveryStatus.Explored, CelestialBodyType.MinorBody);
-		detnuraStar.AddCelestialBody(asteroid);
-		
-		detnuraSystem.SystemStars.Add(detnuraStar);
-		
-		
-		// Sol
-		var sunStar = new Star("Sun", solSystem, 500, StarClass.YellowDwarf);
-		sunStar.AddCelestialBody(new CelestialBody("Mercury", sunStar, 1, AssetsDir+"Img/tmp/MoltenPlanet.png", DiscoveryStatus.ExistenceKnown));
-		sunStar.AddCelestialBody(new CelestialBody("Venus", sunStar, 4, AssetsDir+"Img/tmp/MoltenPlanet.png", DiscoveryStatus.ExistenceKnown));
-		var earth = new CelestialBody("Earth", sunStar, 7, AssetsDir + "Img/tmp/CelestialBodies/liveablePlanet.png", DiscoveryStatus.Explored);
-		sunStar.AddCelestialBody(earth);
-		
-		solSystem.SystemStars.Add(sunStar);
-		
-		// Barnard's star
-		var barnardStar = new Star("Barnard's star", barnardSystem, 20);
-		barnardStar.AddCelestialBody(new CelestialBody("Something", barnardStar, 1, AssetsDir+"Img/tmp/CelestialBodies/icePlanet.png"));
-		barnardSystem.SystemStars.Add(barnardStar);
-		
-		
-		// Ships at the start of the game
-		var columbia = new Ship("Columbia", earth, true);
-		var planetExplorationKit = new Cargo("planet_exploration_kit", 5);
-		planetExplorationKit.AddMission(new PlanetExplorationMission());
-		columbia.ShipCargo.Add(planetExplorationKit);
-		earth.AddBusyShipyard("UNOOSA European Dockyard", columbia, 7);
-		
-		var irana = new Ship("Irana", pallyria);
-		var spaceTelescope = new Cargo("space_telescope", 1);
-		spaceTelescope.AddMission(new SystemExplorationMission());
-		irana.ShipCargo.Add(spaceTelescope);
-		
-		AllShips.Add(irana);
-		
-		*/
 		// Cargo at the start of the game
 		var planetExplorationKit2 = new Cargo("Planet exploration kit", 5);
 		planetExplorationKit2.AddMission(new PlanetExplorationMission());

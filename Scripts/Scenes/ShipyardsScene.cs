@@ -2,7 +2,7 @@ using GloryOfRitiria.Scenes.HangarScenes.Windows;
 using GloryOfRitiria.Scripts.Global;
 using GloryOfRitiria.Scripts.Utils;
 using Godot;
-using Ship = GloryOfRitiria.Scripts.ShipRelated.Ship;
+using GloryOfRitiria.Scripts.ShipRelated;
 
 namespace GloryOfRitiria.Scripts.Scenes;
 
@@ -59,9 +59,9 @@ public partial class ShipyardsScene : Node2D
 		
 		windowCont.AddChild(inst);
 	}
-	
 
-	public void InitBodiesSelectionMenu()
+
+	private void InitBodiesSelectionMenu()
 	{
 		// I shouldn't access a scene children here...
 		var bodiesHBox = GetNode<HBoxContainer>("ShipyardSelectionMenu/HBoxContainer");
