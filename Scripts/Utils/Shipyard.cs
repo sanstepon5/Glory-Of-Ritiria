@@ -16,7 +16,9 @@ public partial class Shipyard : GodotObject
     public double CurrentProgress;
 
     public double BuildingEfficiency; // Base building efficiency
+    public double BuildingSpeedModifier;
     public double BuildingSpeed; // Final speed after modifiers
+    
     
     // Constructor for empty shipyard
     public Shipyard(string shipyardName, CelestialBody location, double buildingEfficiency = 1.0)
@@ -26,6 +28,7 @@ public partial class Shipyard : GodotObject
         State = SlotState.Empty;
         Ship = null;
         CurrentProgress = 0;
+        BuildingSpeedModifier = 0.0;
         BuildingEfficiency = buildingEfficiency;
         BuildingSpeed = BuildingEfficiency;
     }
@@ -65,12 +68,12 @@ public partial class Shipyard : GodotObject
         BuildingSpeed = BuildingEfficiency + (BuildingEfficiency * (game_state.ScientificRes / 100));
     }
 
-    public void StartConstruction(Ship ship)
+    public void StartConstruction(Ship ship, int turnCost)
     {
         State = SlotState.Busy;
         Ship = ship;
         CurrentProgress = 0;
-        TurnCost = ship.Design.Cost;
+        TurnCost = turnCost;
     }
 
     public void CancelBuilding()
