@@ -1,4 +1,5 @@
-﻿using GloryOfRitiria.Scripts.Global;
+﻿using System;
+using GloryOfRitiria.Scripts.Global;
 using GloryOfRitiria.Scripts.ShipRelated;
 using Godot;
 
@@ -17,7 +18,8 @@ public partial class Shipyard : GodotObject
 
     public double BuildingEfficiency; // Base building efficiency
     public double BuildingSpeedModifier;
-    public double BuildingSpeed; // Final speed after modifiers
+    /**Final speed after modifiers*/ 
+    public double BuildingSpeed;
     
     
     // Constructor for empty shipyard
@@ -59,13 +61,15 @@ public partial class Shipyard : GodotObject
         Ship.SetLocation(Location);
         game_state.AllShips.Add(Ship);
         State = SlotState.Empty;
+        CurrentProgress = 0;
+        BuildingSpeed = BuildingEfficiency;
 
         return true;
     }
 
     public void UpdateBuildingSpeed()
     {
-        BuildingSpeed = BuildingEfficiency + (BuildingEfficiency * (game_state.ScientificRes / 100));
+        BuildingSpeed = Math.Round(BuildingEfficiency + (BuildingEfficiency * (game_state.ScientificRes / 100)), 4);
     }
 
     public void StartConstruction(Ship ship, int turnCost)
