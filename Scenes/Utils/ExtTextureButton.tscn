@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://pd32ulghvb8v"]
+
+[ext_resource type="Texture2D" uid="uid://caf4ifcqrx83q" path="res://Assets/Icons/plus.png" id="1_u2son"]
+[ext_resource type="Script" path="res://Scenes/Utils/ExtTextureButton.cs" id="1_xxn86"]
+
+[node name="ExtTextureButton" type="TextureButton"]
+offset_right = 40.0
+offset_bottom = 40.0
+texture_normal = ExtResource("1_u2son")
+script = ExtResource("1_xxn86")

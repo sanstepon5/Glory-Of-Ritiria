@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://c4kivpb30eteu"]
+
+[ext_resource type="Script" path="res://Scenes/Utils/ExtButton.cs" id="1_lu4og"]
+
+[node name="ExtButton" type="Button"]
+editor_description = "This node sends LeftPressed and RightPressed on button pressed"
+offset_right = 64.0
+offset_bottom = 51.0
+script = ExtResource("1_lu4og")
