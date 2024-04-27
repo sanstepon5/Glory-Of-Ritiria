@@ -68,6 +68,8 @@ public partial class ShipConstructionWindow : PanelContainer
 			var shipName = GetNode<LineEdit>("MCont/VBox/NameHBox/MCont/TextEdit");
 			
 			var ship = new Ship(shipName.Text, _shipyard.Location, true);
+			SetShipSize(_sizeButton, ship);
+			
 			_shipyard.StartConstruction(ship, _turnCost);
 			_signals.EmitSignal(nameof(_signals.ShipBuildStarted));
 			
@@ -80,6 +82,25 @@ public partial class ShipConstructionWindow : PanelContainer
 
 
 		_updateTimeCostLabel();
+	}
+
+	private void SetShipSize(OptionButton sizeButton, Ship ship)
+	{
+		switch (sizeButton.GetItemText(sizeButton.Selected).Trim())
+		{
+			case "Small":
+				ship.Design.Size = ShipFrameSize.Small;
+				break;
+			case "Medium":
+				ship.Design.Size = ShipFrameSize.Medium;
+				break;
+			case "Large":
+				ship.Design.Size = ShipFrameSize.Large;
+				break;
+			default:
+				GD.PrintErr("Incorrect ship size selected : " + sizeButton.GetItemText(sizeButton.Selected).Trim());
+				break;
+		}
 	}
 
 	private void PriorityCheckBoxInit()
@@ -119,7 +140,7 @@ public partial class ShipConstructionWindow : PanelContainer
 				SetBuildCost((int)Math.Ceiling(shipCost + (shipCost * _costModifier)));
 				break;
 			default:
-				GD.PrintErr("Unknown ship size selected");
+				GD.PrintErr("Unknown ship size selected : " + sizeButton.GetItemText(sizeButton.Selected).Trim());
 				break;
 		}
 	}

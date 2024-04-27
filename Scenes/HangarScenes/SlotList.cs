@@ -105,6 +105,9 @@ public partial class SlotList : GridContainer
 		var progressValue =  slot.CurrentProgress / slot.TurnCost * 100;
 		progressBar.Value = progressValue;
 		
+		var efficiencyLabel = inst.GetNode<RichTextLabel>("MCont/VBox/CenterVBox/EfficiencyLabel");
+		efficiencyLabel.Text = "Current Efficiency : " + Math.Round(slot.BuildingSpeed*100, 4) + "%";
+		
 		var turnsLeftLabel = inst.GetNode<RichTextLabel>("MCont/VBox/CenterVBox/RichTextLabel");
 		var turnsLeft = Math.Ceiling((slot.TurnCost - slot.CurrentProgress) / slot.BuildingSpeed);
 		if (turnsLeft > 1)

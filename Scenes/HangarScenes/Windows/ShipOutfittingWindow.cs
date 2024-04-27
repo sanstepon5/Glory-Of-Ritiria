@@ -8,9 +8,14 @@ public partial class ShipOutfittingWindow : PanelContainer
 	private Ship _ship;
 
 	private GlobalSignals _signals;
+	private RichTextLabel _shipNameLabel;
+	private RichTextLabel _capacityLabel;
+	private CargoView _cargoView;
+
 	public override void _Ready()
 	{
 		GetTree().Paused =  true;
+		_signals.Connect(nameof(_signals.CargoSelectedForOutfit), new Callable(this, nameof(Update)));
 	}
 	
 	
@@ -19,8 +24,11 @@ public partial class ShipOutfittingWindow : PanelContainer
 		_signals = signals;
 		_ship = ship;
 		
-		var shipNameLabel = GetNode<RichTextLabel>("MCont/VBox/NameHBox/MCont/ShipName");
-		shipNameLabel.Text = _ship.Name;
+		_shipNameLabel = GetNode<RichTextLabel>("MCont/VBox/NameHBox/MCont/ShipName");
+		_shipNameLabel.Text = _ship.Name;
+
+		_capacityLabel = GetNode<RichTextLabel>("MCont/VBox/CargoVBox/Label");
+		_capacityLabel.Text = "Current cargo (" + ship.GetCargo().Count + "/" + ship.GetCargoCapacity() + "):";
 		
 		var exitButton = GetNode<Button>("MCont/VBox/TitleExitHBox/ExitButton");
 		exitButton.Pressed += () =>
@@ -30,19 +38,28 @@ public partial class ShipOutfittingWindow : PanelContainer
 			QueueFree();
 		};
 
-		var cargoView = GetNode<CargoView>("MCont/VBox/CargoVBox/ImageMargin/CargoView");
-		cargoView.Signals = _signals;
-		cargoView.Init(_ship);
+		_cargoView = GetNode<CargoView>("MCont/VBox/CargoVBox/ImageMargin/CargoView");
+		_cargoView.Signals = _signals;
+		_cargoView.Init(_ship);
 		
 		var outfitButton = GetNode<Button>("MCont/VBox/ButtonMargin/OutfitButton");
 		outfitButton.Pressed += () =>
 		{
 			_signals.EmitSignal(nameof(_signals.SimpleButtonClicked));
+			_cargoView.SendCargo(_ship);
 			GetTree().Paused = false;
 			QueueFree();
-			
-			// Ship.blablabla = blablabla			
 		};
+	}
+
+
+	/**the string param is only used to be able to use the signal that sends the string (irrelevant here)*/
+	public void Update(string foo = "")
+	{
+		
+		_capacityLabel.Text = "Current cargo (" + _cargoView.GetCargoCount() + "/" + _ship.GetCargoCapacity() + "):";
+		
+		_cargoView.Update();
 	}
 
 

@@ -8,7 +8,6 @@ namespace GloryOfRitiria.Scenes.HangarScenes.Windows;
 public partial class CargoSelectWindow : PanelContainer
 {
 	private GlobalSignals _signals;
-	public List<Cargo> InitialCargoList;
 	
 	public override void _Ready()
 	{

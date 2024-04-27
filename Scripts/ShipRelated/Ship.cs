@@ -11,10 +11,11 @@ public partial class Ship: GodotObject
     public string Name;
     public CelestialBody Location;
     public ShipDesign Design;
-    public List<Cargo> ShipCargo;
+    private List<Cargo> _shipCargo;
     public double Speed; // fraction of the speed of light, initially 1% (From Kuiper Belt to Earth (50 A.U.) in a month)
     public bool Selected;
     public ShipState State;
+
     private Mission _currentMission;
     
     private Route _currentRoute;
@@ -27,10 +28,46 @@ public partial class Ship: GodotObject
         else
             SetLocation(body);
         Design = new ShipDesign();
-        ShipCargo = new List<Cargo>();
+        _shipCargo = new List<Cargo>();
         Speed = 0.01;
         Selected = false;
         State = ShipState.Docked;
+    }
+    
+    public int GetCargoCapacity()
+    {
+        return Design.Size switch
+        {
+            ShipFrameSize.Small => 2,
+            ShipFrameSize.Medium => 4,
+            ShipFrameSize.Large => 8,
+            _ => 0
+        };
+    }
+
+    /** Returns false if ship already at maximum cargo capacity, otherwise adds cargo to ship*/
+    public bool AddCargo(Cargo cargo)
+    {
+        if (IsCargoFull())
+            return false;
+        _shipCargo.Add(cargo);
+        return true;
+    }
+
+    /** Forces ship's cargo to be the given list */
+    public void SetCargo(List<Cargo> cargoes)
+    {
+        _shipCargo = cargoes;
+    }
+
+    public bool IsCargoFull()
+    {
+        return _shipCargo.Count >= GetCargoCapacity();
+    }
+
+    public List<Cargo> GetCargo()
+    {
+        return _shipCargo;
     }
 
     public bool IsInRouteTo(CelestialBody body)
@@ -128,12 +165,12 @@ public partial class Ship: GodotObject
     private void UpdateCargo()
     {
         var cargoToRemove = new List<Cargo>();
-        foreach (var cargo in ShipCargo)
+        foreach (var cargo in _shipCargo)
             if (cargo.Durability <= 0)
                 cargoToRemove.Add(cargo);
         foreach (var cargo in cargoToRemove)
         {
-            ShipCargo.Remove(cargo);
+            _shipCargo.Remove(cargo);
         }
     }
 
@@ -150,7 +187,7 @@ public partial class Ship: GodotObject
     public List<Mission> GetAllMissions()
     {
         var res = new List<Mission>();
-        foreach (var cargo in ShipCargo)
+        foreach (var cargo in _shipCargo)
         {
             res.AddRange(cargo.PossibleMissions);
         }
@@ -181,22 +218,21 @@ public partial class Ship: GodotObject
     public string GetImagePath(ShipImageSize size = ShipImageSize.Small)
     {
         string res;
-        string sizeString;
-        switch (size)
+        string sizeString = size switch
         {
-            case ShipImageSize.Small: sizeString = "Small"; break;
-            case ShipImageSize.Big: sizeString = "Big"; break;
-            default: sizeString = "Small"; break;
-        }
-        switch (State)
+            ShipImageSize.Small => "Small",
+            ShipImageSize.Big => "Big",
+            _ => "Small"
+        };
+        res = State switch
         {
-            case ShipState.Docked: res = "res://Assets/Icons/Ships/"+sizeString+"/ship.png"; break;
-            case ShipState.DockedSelected: res = "res://Assets/Icons/Ships/"+sizeString+"/selectedShip.png"; break;
-            case ShipState.StartingRoute: res = "res://Assets/Icons/Ships/"+sizeString+"/ShipInRoute.png"; break;
-            case ShipState.StartingRouteSelected: res = "res://Assets/Icons/Ships/"+sizeString+"/selectedShipInRoute.png"; break;
-            case ShipState.InRoute: res = "res://Assets/Icons/Ships/"+sizeString+"/ShipInRoute.png"; break;
-            default: res = "res://Assets/Icons/Ships/"+sizeString+"/ship.png"; break;
-        }
+            ShipState.Docked => "res://Assets/Icons/Ships/" + sizeString + "/ship.png",
+            ShipState.DockedSelected => "res://Assets/Icons/Ships/" + sizeString + "/selectedShip.png",
+            ShipState.StartingRoute => "res://Assets/Icons/Ships/" + sizeString + "/ShipInRoute.png",
+            ShipState.StartingRouteSelected => "res://Assets/Icons/Ships/" + sizeString + "/selectedShipInRoute.png",
+            ShipState.InRoute => "res://Assets/Icons/Ships/" + sizeString + "/ShipInRoute.png",
+            _ => "res://Assets/Icons/Ships/" + sizeString + "/ship.png"
+        };
         return res;
     }
 }

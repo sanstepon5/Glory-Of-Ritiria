@@ -8,30 +8,64 @@ namespace GloryOfRitiria.Scenes.HangarScenes.Windows;
 public partial class CargoView : PanelContainer
 {
 	public GlobalSignals Signals;
-	private List<Cargo> _shipCargo;
+	private List<Cargo> _cargoToAdd;
 	// When player adds more cargo to ship, cargo is added here. When outfitting is finished, cargo is transferred to the ship 
 	private Ship _ship;
-	
+	private GridContainer _cargoGrid;
+
 
 	public override void _Ready()
 	{
-		_shipCargo = new List<Cargo>();
-		
-		Signals.Connect(nameof(Signals.CargoSelectedForOutfit), new Callable(this, nameof(AddCargoToShip)));
+		Signals.Connect(nameof(Signals.CargoSelectedForOutfit), new Callable(this, nameof(SaveCargo)));
 	}
 
 	public void Init(Ship ship)
 	{
-		_shipCargo = ship.ShipCargo;
+		_cargoToAdd = new List<Cargo>(ship.GetCargo());
 		_ship = ship;
-		var cargoGrid = GetNode<GridContainer>("GridCont");
+		_cargoGrid = GetNode<GridContainer>("GridCont");
 
-		foreach (var cargo in ship.ShipCargo)
+		foreach (var cargo in _cargoToAdd)
 		{
-			cargoGrid.AddChild(_buildCargoButton(cargo));
+			_cargoGrid.AddChild(_buildCargoButton(cargo));
 		}
 		
-		cargoGrid.AddChild(_buildAddCargoButton());
+		if (!ship.IsCargoFull())
+			_cargoGrid.AddChild(_buildAddCargoButton());
+	}
+
+	/**Updates the visuals to represent the new content*/
+	public void Update()
+	{
+		// Clear view
+		foreach (var node in _cargoGrid.GetChildren())
+		{
+			node.QueueFree();
+		}
+		
+		// Read everything
+		foreach (var cargo in _cargoToAdd)
+		{
+			_cargoGrid.AddChild(_buildCargoButton(cargo));
+		}
+		
+		if (!_ship.IsCargoFull())
+			_cargoGrid.AddChild(_buildAddCargoButton());
+	}
+
+	/**Returns the amount of cargo that will be in the ship after outfitting*/
+	public int GetCargoCount()
+	{
+		return _cargoToAdd.Count;
+	}
+	
+	
+	
+
+	/** Sets the cargo of the ship to be the selected cargo */
+	public void SendCargo(Ship ship)
+	{
+		ship.SetCargo(_cargoToAdd);
 	}
 	
 	private MarginContainer _buildCargoButton(Cargo cargo)
@@ -57,7 +91,7 @@ public partial class CargoView : PanelContainer
 		button.TextureNormal = (Texture2D)GD.Load("res://Assets/Icons/empty.png");
 		button.TextureHover = (Texture2D)GD.Load("res://Assets/Icons/plus.png");
 		
-		button.Pressed += () => AddButtonPressed();
+		button.Pressed += AddButtonPressed;
 		return inst;
 	}
 
@@ -67,9 +101,15 @@ public partial class CargoView : PanelContainer
 		Signals.EmitSignal(nameof(Signals.SimpleButtonClicked));
 	}
 
+	public void SaveCargo(string cargoName)
+	{
+		_cargoToAdd.Add(game_state.PopCargo(cargoName));
+		Signals.EmitSignal(nameof(Signals.CargoAdded));
+	}
+
 	public void AddCargoToShip(string cargoName)
 	{
-		_ship.ShipCargo.Add(game_state.PopCargo(cargoName));
+		_ship.AddCargo(game_state.PopCargo(cargoName));
 		Signals.EmitSignal(nameof(Signals.CargoAdded));
 	}
 }
