@@ -30,6 +30,7 @@ public partial class CargoOption : PanelContainer
 		{
 			_signals.EmitSignal(nameof(_signals.SimpleButtonClicked));
 			_signals.EmitSignal(nameof(_signals.CargoSelectedForOutfit), _cargo.Name);
+			_signals.EmitSignal(nameof(_signals.OutfitWindowUpdateRequired));
 		};
 	}
 }

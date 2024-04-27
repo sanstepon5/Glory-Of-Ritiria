@@ -15,7 +15,9 @@ public partial class ShipOutfittingWindow : PanelContainer
 	public override void _Ready()
 	{
 		GetTree().Paused =  true;
-		_signals.Connect(nameof(_signals.CargoSelectedForOutfit), new Callable(this, nameof(Update)));
+		_signals.Connect(nameof(_signals.OutfitWindowUpdateRequired), new Callable(this, nameof(Update)));
+		_signals.Connect(nameof(_signals.CargoButtonClicked), new Callable(this, nameof(Update)));
+
 	}
 	
 	
@@ -34,6 +36,7 @@ public partial class ShipOutfittingWindow : PanelContainer
 		exitButton.Pressed += () =>
 		{
 			_signals.EmitSignal(nameof(_signals.SimpleButtonClicked));
+			_cargoView.ResetGameState();
 			GetTree().Paused = false;
 			QueueFree();
 		};
@@ -46,15 +49,14 @@ public partial class ShipOutfittingWindow : PanelContainer
 		outfitButton.Pressed += () =>
 		{
 			_signals.EmitSignal(nameof(_signals.SimpleButtonClicked));
-			_cargoView.SendCargo(_ship);
+			_cargoView.OutfitCargo(_ship);
 			GetTree().Paused = false;
 			QueueFree();
 		};
 	}
 
 
-	/**the string param is only used to be able to use the signal that sends the string (irrelevant here)*/
-	public void Update(string foo = "")
+	public void Update()
 	{
 		
 		_capacityLabel.Text = "Current cargo (" + _cargoView.GetCargoCount() + "/" + _ship.GetCargoCapacity() + "):";

@@ -95,12 +95,13 @@ public partial class GlobalSignals : Node
     
     [Signal]
     public delegate void AddCargoClickedEventHandler();
+    [Signal]
+    public delegate void CargoButtonClickedEventHandler();
     
     [Signal]
-    public delegate void CargoAddedEventHandler();
-    
+    public delegate void CargoSelectedForOutfitEventHandler(string cargoName);
     [Signal]
-    public delegate void CargoSelectedForOutfitEventHandler(string cargoName); //TODO: find something better for this...
+    public delegate void OutfitWindowUpdateRequiredEventHandler();
     
     
     // Ship update
@@ -110,4 +111,9 @@ public partial class GlobalSignals : Node
     public delegate void ShipStartedRouteEventHandler();
     [Signal]
     public delegate void ShipClickedEventHandler();
+    
+    
+    /** Extended button (left and right click) */
+    [Signal] public delegate void LeftPressedEventHandler();
+    [Signal] public delegate void RightPressedEventHandler();
 }

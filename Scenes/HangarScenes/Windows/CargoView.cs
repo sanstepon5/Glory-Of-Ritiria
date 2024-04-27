@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Linq;
+using GloryOfRitiria.Scenes.Utils;
 using GloryOfRitiria.Scripts.Global;
 using GloryOfRitiria.Scripts.ShipRelated;
 using Godot;
@@ -9,9 +11,15 @@ public partial class CargoView : PanelContainer
 {
 	public GlobalSignals Signals;
 	private List<Cargo> _cargoToAdd;
+	private List<Cargo> _addedCargo;
+	private List<Cargo> _cargoToStore;
 	// When player adds more cargo to ship, cargo is added here. When outfitting is finished, cargo is transferred to the ship 
 	private Ship _ship;
 	private GridContainer _cargoGrid;
+
+	/** if true then store replace cargo too*/
+	private bool _replaceMode;
+	private Cargo _replacedCargo;
 
 
 	public override void _Ready()
@@ -22,6 +30,8 @@ public partial class CargoView : PanelContainer
 	public void Init(Ship ship)
 	{
 		_cargoToAdd = new List<Cargo>(ship.GetCargo());
+		_cargoToStore = new List<Cargo>();
+		_addedCargo = new List<Cargo>();
 		_ship = ship;
 		_cargoGrid = GetNode<GridContainer>("GridCont");
 
@@ -49,7 +59,7 @@ public partial class CargoView : PanelContainer
 			_cargoGrid.AddChild(_buildCargoButton(cargo));
 		}
 		
-		if (!_ship.IsCargoFull())
+		if (_cargoToAdd.Count < _ship.GetCargoCapacity())
 			_cargoGrid.AddChild(_buildAddCargoButton());
 	}
 
@@ -59,26 +69,44 @@ public partial class CargoView : PanelContainer
 		return _cargoToAdd.Count;
 	}
 	
-	
-	
-
-	/** Sets the cargo of the ship to be the selected cargo */
-	public void SendCargo(Ship ship)
+	/** Adds, replaces and stores the cargo for real this time */
+	public void OutfitCargo(Ship ship)
 	{
 		ship.SetCargo(_cargoToAdd);
+		foreach (var cargo in _cargoToStore)
+		{
+			game_state.AddCargo(cargo);
+		}
+		// foreach (var cargo in _addedCargo)
+		// {
+		// 	game_state.RemoveCargo(cargo);
+		// }
 	}
+
+	public void ResetGameState()
+	{
+		foreach (var cargo in _addedCargo)
+		{
+			game_state.AddCargo(cargo);
+		}
+	}
+	
+	
+	
 	
 	private MarginContainer _buildCargoButton(Cargo cargo)
 	{
 		var scene = GD.Load<PackedScene>("res://Scenes/HangarScenes/Windows/OutfitCargoButton.tscn");
 		var inst = (MarginContainer)scene.Instantiate();
-		var button = inst.GetNode<TextureButton>("PanelCont/TextureButton");
+		
+		var button = inst.GetNode<ExtTextureButton>("PanelCont/ExtTextureButton");
 
 		button.TextureNormal = (Texture2D)GD.Load(cargo.GetImagePath());
 		button.TextureHover = (Texture2D)GD.Load("res://Assets/Icons/change.png");
 		// TODO: Manage cargo tooltip
-		
-		//button.Pressed += () => CargoButtonPressed(); For now can't do anything with existing cargo
+
+		button.LeftPressed += () => ReplaceCargo(cargo);
+		button.RightPressed += () => RemoveCargo(cargo);
 		return inst;
 	}
 	
@@ -86,30 +114,48 @@ public partial class CargoView : PanelContainer
 	{
 		var scene = GD.Load<PackedScene>("res://Scenes/HangarScenes/Windows/OutfitCargoButton.tscn");
 		var inst = (MarginContainer)scene.Instantiate();
-		var button = inst.GetNode<TextureButton>("PanelCont/TextureButton");
+		var button = inst.GetNode<ExtTextureButton>("PanelCont/ExtTextureButton");
 
 		button.TextureNormal = (Texture2D)GD.Load("res://Assets/Icons/empty.png");
 		button.TextureHover = (Texture2D)GD.Load("res://Assets/Icons/plus.png");
 		
-		button.Pressed += AddButtonPressed;
+		button.LeftPressed += AddButtonPressed;
 		return inst;
+	}
+
+	private void ReplaceCargo(Cargo cargo)
+	{
+		Signals.EmitSignal(nameof(Signals.SimpleButtonClicked));
+		/*Needs to store cargo, open the add window but also be able to put the stored cargo back on ship if add window closed*/
+		_replaceMode = true;
+		_replacedCargo = cargo;
+		Signals.EmitSignal(nameof(Signals.AddCargoClicked)); // open selection window
+	}
+	
+	private void RemoveCargo(Cargo cargo)
+	{
+		Signals.EmitSignal(nameof(Signals.SimpleButtonClicked));
+		_cargoToAdd.Remove(cargo);
+		_cargoToStore.Add(cargo);
+		Signals.EmitSignal(nameof(Signals.CargoButtonClicked)); // Updates visuals
 	}
 
 	private void AddButtonPressed()
 	{
-		Signals.EmitSignal(nameof(Signals.AddCargoClicked));
+		_replaceMode = false;
+		Signals.EmitSignal(nameof(Signals.AddCargoClicked)); // open selection window
 		Signals.EmitSignal(nameof(Signals.SimpleButtonClicked));
 	}
 
 	public void SaveCargo(string cargoName)
 	{
-		_cargoToAdd.Add(game_state.PopCargo(cargoName));
-		Signals.EmitSignal(nameof(Signals.CargoAdded));
-	}
-
-	public void AddCargoToShip(string cargoName)
-	{
-		_ship.AddCargo(game_state.PopCargo(cargoName));
-		Signals.EmitSignal(nameof(Signals.CargoAdded));
+		var cargo = game_state.PopCargo(cargoName);
+		_cargoToAdd.Add(cargo);
+		_addedCargo.Add(cargo);
+		if (_replaceMode)
+		{
+			_cargoToAdd.Remove(_replacedCargo);
+			_cargoToStore.Add(_replacedCargo);
+		}
 	}
 }

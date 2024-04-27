@@ -105,23 +105,37 @@ public partial class game_state : Node
         }
 	}
 
-	public static Cargo PopCargo(string cargoName)
+
+	
+	public static Cargo FindCargo(string cargoName)
 	{
-		Cargo res = null;
-		var found = false;
-		var i = 0;
-		while (!found)
+		foreach (var cargo in CargoStorage)
 		{
-			if (CargoStorage[i].Name.Equals(cargoName))
+			if (cargo.Name.Equals(cargoName))
 			{
-				found = true;
-				res = CargoStorage[i];
+				return cargo;
 			}
-			i++;
 		}
 
+		return null;
+	}	
+	
+	/** Finds cargo by name and removes it from storage*/
+	public static Cargo PopCargo(string cargoName)
+	{
+		Cargo res = FindCargo(cargoName);
 		CargoStorage.Remove(res);
 		return res;
+	}
+	
+	public static void AddCargo(Cargo cargo)
+	{
+		CargoStorage.Add(cargo);
+	}
+	
+	public static void RemoveCargo(Cargo cargo)
+	{
+		CargoStorage.Remove(cargo);
 	}
 
 	public static void UpdateResources()
@@ -198,7 +212,7 @@ public partial class game_state : Node
 		
 
 		// Cargo at the start of the game
-		var planetExplorationKit2 = new Cargo("Planet exploration kit", 5);
+		var planetExplorationKit2 = new Cargo("Planet exploration kit", 5, AssetsDir+"Icons/Loadouts/planetExplorationKit.png");
 		planetExplorationKit2.AddMission(new PlanetExplorationMission());
 		var spaceTelescope2 = new Cargo("Space Telescope", 1);
 		spaceTelescope2.AddMission(new SystemExplorationMission());

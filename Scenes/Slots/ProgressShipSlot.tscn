@@ -57,6 +57,12 @@ size_flags_vertical = 3
 size_flags_stretch_ratio = 5.0
 text = "N turns left"
 
+[node name="EfficiencyLabel" type="RichTextLabel" parent="MCont/VBox/CenterVBox"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 5.0
+text = "Current Efficiency :"
+
 [node name="ShipyardName" type="RichTextLabel" parent="MCont/VBox"]
 layout_mode = 2
 size_flags_vertical = 3

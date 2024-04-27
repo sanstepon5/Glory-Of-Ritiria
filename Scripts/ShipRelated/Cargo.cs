@@ -48,7 +48,7 @@ public class Cargo
         }
     }
 
-    public Cargo(string name, int durability, int cost = 0, string imagePath = "res://Assets/Icons/Loadouts/spaceTelescope.png")
+    public Cargo(string name, int durability, string imagePath = "res://Assets/Icons/Loadouts/spaceTelescope.png", int cost = 0)
     {
         Name = name;
         Durability = durability;
