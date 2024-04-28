@@ -37,5 +37,6 @@ public enum StellarGeneratorPoint
     Setstatusknown,
     Setstatusundiscovered,
     Errorverification,
-    Setbodytype
+    Setbodytype,
+    Setshipsize
 }

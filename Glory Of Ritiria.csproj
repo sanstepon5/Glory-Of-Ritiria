@@ -10,27 +10,23 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="StellarSystemParser\**" />
     <Compile Remove="Assets\GUI\**" />
     <Compile Remove="Assets\Icons\**" />
     <Compile Remove="Assets\Img\**" />
     <Compile Remove="Assets\Sounds\**" />
+    <Compile Remove="Parsers\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Remove="StellarSystemParser\**" />
     <EmbeddedResource Remove="Assets\GUI\**" />
     <EmbeddedResource Remove="Assets\Icons\**" />
     <EmbeddedResource Remove="Assets\Img\**" />
     <EmbeddedResource Remove="Assets\Sounds\**" />
+    <EmbeddedResource Remove="Parsers\**" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Antlr4.Runtime" Version="4.6.6" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="StellarSystemParser\" />
   </ItemGroup>
 
 </Project>

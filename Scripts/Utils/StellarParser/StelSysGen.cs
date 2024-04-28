@@ -140,18 +140,12 @@ public class StelSysGen
             }
             case StellarGeneratorPoint.Setbodytype:
             {
-                switch (CurrentText)
+                if (Enum.TryParse(CurrentText, out CelestialBodyType type))
+                    CurrentBody.BodyType = type;
+                else
                 {
-                    case "minor":
-                    {
-                        CurrentBody.BodyType = CelestialBodyType.MinorBody;
-                        break;
-                    }
-                    default:
-                    {
-                        GD.Print("WARNING: Unrecognized body type " + CurrentText + ", default value is used");
-                        break;
-                    }
+                    CurrentBody.BodyType = CelestialBodyType.DefaultPlanet;
+                    GD.Print("WARNING: Unrecognized body type " + CurrentText + ", default value is used");
                 }
                 break;
             }
@@ -232,6 +226,11 @@ public class StelSysGen
                     CurrentShip = new Ship(CurrentText, CurrentBody, true);
                 break;
             }
+            case StellarGeneratorPoint.Setshipsize:
+            {
+                CurrentShip.SetSize(CurrentText);
+                break;
+            }
             case StellarGeneratorPoint.Setshipyardbuildingprogress:
             {
                 if (!ShipyardBusy)
@@ -269,7 +268,11 @@ public class StelSysGen
             }
             case StellarGeneratorPoint.Addmodule:
             {
-                CurrentShip.ShipCargo.Add(CurrentModule);
+                if (!CurrentShip.AddCargo(CurrentModule))
+                {
+                    GD.PrintErr("Ship " + CurrentShip.Name + " cargo capacity is at maximum (" + 
+                                CurrentShip.GetCargoCapacity()+"), module " + CurrentModule.Name + " is ignored");
+                }
                 break;
             }
             

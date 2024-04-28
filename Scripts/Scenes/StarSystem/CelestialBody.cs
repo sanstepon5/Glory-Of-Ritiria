@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using GloryOfRitiria.Scripts.Global;
 using GloryOfRitiria.Scripts.ShipRelated.Missions;
 using GloryOfRitiria.Scripts.Utils;
@@ -31,12 +32,14 @@ public class CelestialBody
     private string _imagePath; 
 
     public List<Shipyard> Shipyards = new();
+
+    private string _customDescription;
     
     
     // Default constructor, for the system's main celestial bodies such as planets
     public CelestialBody(string name, Star star, double distance, string imagePath, 
         DiscoveryStatus discoveryStatus = DiscoveryStatus.Undiscovered, 
-        CelestialBodyType type = CelestialBodyType.GenericPlanet){
+        CelestialBodyType type = CelestialBodyType.DefaultPlanet){
         Name = name;
         Star = star;
         Distance = distance;
@@ -50,7 +53,7 @@ public class CelestialBody
     
     public CelestialBody(string name, Star star, double distance, string imagePath, bool hasSatellites, 
                          bool isSatellite, DiscoveryStatus discoveryStatus = DiscoveryStatus.Undiscovered, 
-                         CelestialBodyType type = CelestialBodyType.GenericPlanet){
+                         CelestialBodyType type = CelestialBodyType.DefaultPlanet){
         Name = name;
         Star = star;
         Distance = distance;
@@ -80,7 +83,7 @@ public class CelestialBody
         if (Id.Equals("pallyria"))
             BodyType = CelestialBodyType.Pallyria;
         else
-            BodyType = CelestialBodyType.GenericPlanet;
+            BodyType = CelestialBodyType.DefaultPlanet;
         
         HasSatellites = false;
         IsSatellite = false;
@@ -105,7 +108,6 @@ public class CelestialBody
         {
             ShipsInOrbit.Add(ship);
         }
-        //ShipsInOrbit = shipGroup;
     }
 
     public void AddShipyard(string name)
@@ -120,12 +122,6 @@ public class CelestialBody
         Shipyards.Add(shipyard);
     }
     
-    // public void AddBusyShipyard(string name, Ship ship, int progress = 0)
-    // {
-    //     if (Shipyards.Count == 0) game_state.BodiesWithShipyards.Add(this);
-    //     Shipyards.Add(new Shipyard(name, this, ship, progress));
-    // }
-
     /**Explore the body giving more information about it on the system map*/
     public void ExplorePlanet()
     {
@@ -170,6 +166,51 @@ public class CelestialBody
         return "res://Assets/Img/tmp/CelestialBodies/UndiscoveredPlanet.png";
     }
 
+    public string GetDescription()
+    {
+        var result = "";
+        if (_customDescription != null)
+        {
+            result += _customDescription + "\n\n";
+        }
+        else
+        {
+            result += GetCelestialBodyTypeDesc() + "\n\n";
+        }
+        
+        if (IsSatellite)
+        {
+            result += Name + " is orbiting " + ParentBody.Name + "\n";
+            result += "Like it's parent body, it's orbiting " + Star.Name + " at a distance of " + ParentBody.Distance +
+                      " light minutes" + "\n\n";
+        }
+        else
+        {
+            result += Name + " is orbiting " + Star.Name + " at a distance of " + Distance +
+                      " light minutes" + "\n\n";
+        }
+
+        if (BodyType is not (CelestialBodyType.Pallyria or CelestialBodyType.Earth))
+        {
+            result += GetDiscoveryStatusDesc() + "\n\n";
+        }
+        
+
+        if (HasSatellites)
+        {
+            var knownSatellites = 
+                Satellites.Count(
+                satellite => satellite.DiscoveryStatus is DiscoveryStatus.ExistenceKnown or DiscoveryStatus.Explored
+                );
+            if (knownSatellites == 1)
+                result += Name + " has " + knownSatellites + " satellite around it that we know of" + "\n";
+            else if (knownSatellites > 1)
+                result += Name + " has " + knownSatellites + " satellites around it that we know of" + "\n";
+        }
+
+        return result;
+    }
+    
 
     public override string ToString()
     {
@@ -180,6 +221,62 @@ public class CelestialBody
         result += "Image Path: " + _imagePath + "\n";
         
         return result;
+    }
+    
+    
+    
+    
+    private string GetDiscoveryStatusDesc()
+    {
+        return (DiscoveryStatus) switch
+        {
+            DiscoveryStatus.Undiscovered =>
+                "It's undiscovered, you're not supposed seeing it, silly",
+            DiscoveryStatus.ExistenceKnown =>
+                "Existence of this body is almost certain",
+            DiscoveryStatus.Explored =>
+                "The surface of this body is well mapped",
+            _ =>
+                "Unknown status"
+        };
+    }
+    
+    private string GetCelestialBodyTypeDesc()
+    {
+        return BodyType switch
+        {
+            CelestialBodyType.Pallyria => "This is Pallyria, home to our species",
+            CelestialBodyType.Earth =>
+                "This is a Pallyria-like planet, thriving with life and home to the Human civilization",
+            CelestialBodyType.Luna =>
+                "This big rocky moon doesn't look like much from afar but it has a big impact on the life of " +
+                "Earth due to its sheer mass and proximity",
+            CelestialBodyType.GasGiant =>
+                "This giant body is mostly made of gas and could be a star if it had enough mass for fusion",
+            CelestialBodyType.RingedGasGiant =>
+                "This gas giant has a beautiful ring made of dust and sometimes bigger rocks around it",
+            CelestialBodyType.IceGiant =>
+                "This gas giant is made of heavier elements that traditional gas giants and can " +
+                "have oceans beneath its clouds",
+            CelestialBodyType.IcyPlanet => "This planet has extreme negative temperatures and is covered in ice",
+            CelestialBodyType.MoltenPlanet =>
+                "This planet is extremely hot and rivers of flowing lava can be seen from orbit",
+            CelestialBodyType.ToxicPlanet =>
+                "This rocky planet has a thick atmosphere made of gases toxic to traditional life",
+            CelestialBodyType.RockyPlanet =>
+                "This planet has a thin atmosphere and extreme temperatures " +
+                "but in its base it's not much different from our home",
+            CelestialBodyType.RockyMoon =>
+                "This moon is essentially a giant round-shaped asteroid",
+            CelestialBodyType.IcyMoon =>
+                "This moon is covered in ice",
+            CelestialBodyType.Asteroid =>
+                "This is an asteroid, essentially a really big rock, sometimes a very expensive rock",
+            CelestialBodyType.DefaultPlanet => "This is just your everyday planet",
+            CelestialBodyType.Star => // This one isn't supposed to be used, for stars their class should be used
+                "This is a star, apparently",
+            _ => ""
+        };
     }
 }
 

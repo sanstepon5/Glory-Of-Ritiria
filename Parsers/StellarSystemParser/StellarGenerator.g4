@@ -25,7 +25,7 @@ stellar_system_body :   name {StelSysGen.pt(StellarGeneratorPoint.Setsystemname)
                         distance_from 
                         angle 
                         pull
-                        (star {StelSysGen.pt(StellarGeneratorPoint.addstar);})+ ;
+                        (star {StelSysGen.pt(StellarGeneratorPoint.Addstar);})+ ;
 
 
 
@@ -47,7 +47,7 @@ celestial_body_body : name {StelSysGen.pt(StellarGeneratorPoint.Setbodyname);}
                       (body_distance)? 
                       (icon {StelSysGen.pt(StellarGeneratorPoint.Setbodyicon);})?  
                       (discovery_status)?
-                      (body_type {StelSysGen.pt(StellarGeneratorPoint.Setbodytype);})?
+                      body_type {StelSysGen.pt(StellarGeneratorPoint.Setbodytype);}
                       (satellites {StelSysGen.pt(StellarGeneratorPoint.Setisntsatellite);})*  
                       (shipyards)*  
                       (ships)* 
@@ -69,7 +69,8 @@ shipyard_body       : name {StelSysGen.pt(StellarGeneratorPoint.Initshipyard);}
 
 ships               : 'ships' '{' (ship {StelSysGen.pt(StellarGeneratorPoint.Addship);})* '}' ;
 ship                : 'ship' id '{' ship_body '}' ;
-ship_body           : name {StelSysGen.pt(StellarGeneratorPoint.Initship);} 
+ship_body           : name {StelSysGen.pt(StellarGeneratorPoint.Initship);}
+                      ship_size {StelSysGen.pt(StellarGeneratorPoint.Setshipsize);}
                       (building_progress {StelSysGen.pt(StellarGeneratorPoint.Setshipyardbuildingprogress);})? 
                       (modules)*  
                       ;
@@ -83,7 +84,8 @@ module              : 'module' id {StelSysGen.pt(StellarGeneratorPoint.Initmodul
 
 name                : 'name'                    ':' text;
 icon                : 'icon'                    ':' text;
-body_type           : 'type'                    ':' id;
+body_type           : 'type'                    ':' text;
+ship_size           : 'size'                    ':' text;
 distance_from       : 'distance_from_detnura'   ':' floaty {StelSysGen.pt(StellarGeneratorPoint.Setsystemdistance);};
 angle               : 'map_angle'               ':' inty {StelSysGen.pt(StellarGeneratorPoint.Setsystemangle);} ;
 pull                : 'gravitational_pull'      ':' inty {StelSysGen.pt(StellarGeneratorPoint.Setsystempull);};

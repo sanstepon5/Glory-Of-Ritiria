@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from D:\programs\Godot\GloryOfRitiria\StellarSystemParser\StellarSystemParser\StellarGenerator.g4 by ANTLR 4.6.6
+// Generated from D:\programs\Godot\GloryOfRitiria\Parsers\StellarSystemParser\StellarGenerator.g4 by ANTLR 4.6.6
 
 // Unreachable code detected
 #pragma warning disable 0162
@@ -285,6 +285,19 @@ public partial class StellarGeneratorBaseListener : IStellarGeneratorListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitBody_type([NotNull] StellarGeneratorParser.Body_typeContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="StellarGeneratorParser.ship_size"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterShip_size([NotNull] StellarGeneratorParser.Ship_sizeContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="StellarGeneratorParser.ship_size"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitShip_size([NotNull] StellarGeneratorParser.Ship_sizeContext context) { }
 
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="StellarGeneratorParser.distance_from"/>.

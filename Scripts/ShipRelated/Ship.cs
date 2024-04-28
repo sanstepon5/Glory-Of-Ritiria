@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using GloryOfRitiria.Scripts.Global;
 using GloryOfRitiria.Scripts.ShipRelated.Missions;
 using GloryOfRitiria.Scripts.Utils;
@@ -32,6 +33,21 @@ public partial class Ship: GodotObject
         Speed = 0.01;
         Selected = false;
         State = ShipState.Docked;
+    }
+
+    public void SetSize(ShipFrameSize size)
+    {
+        Design.Size = size;
+    }
+    public void SetSize(string size)
+    {
+        if (Enum.TryParse(size, out ShipFrameSize frameSize))
+            SetSize(frameSize);
+        else
+        {
+            SetSize(ShipFrameSize.Medium);
+            GD.Print("WARNING: Unrecognized ship frame size " + size + ", default value (Medium) is used");
+        }
     }
     
     public int GetCargoCapacity()

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from D:\programs\Godot\GloryOfRitiria\StellarSystemParser\StellarSystemParser\StellarGenerator.g4 by ANTLR 4.6.6
+// Generated from D:\programs\Godot\GloryOfRitiria\Parsers\StellarSystemParser\StellarGenerator.g4 by ANTLR 4.6.6
 
 // Unreachable code detected
 #pragma warning disable 0162
@@ -168,6 +168,13 @@ public interface IStellarGeneratorVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitBody_type([NotNull] StellarGeneratorParser.Body_typeContext context);
+
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="StellarGeneratorParser.ship_size"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitShip_size([NotNull] StellarGeneratorParser.Ship_sizeContext context);
 
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="StellarGeneratorParser.distance_from"/>.

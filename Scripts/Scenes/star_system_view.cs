@@ -308,6 +308,9 @@ public partial class star_system_view : Node2D
 		var image = inst.GetNode<TextureRect>("MCont/VBox/ImageMargin/PlanetImage");
 		image.Texture = (Texture2D)GD.Load(body.GetImage());
 
+		var descLabel = inst.GetNode<RichTextLabel>("MCont/VBox/DescMargin/Description");
+		descLabel.Text = body.GetDescription();
+
 		var exitButton = inst.GetNode<Button>("MCont/VBox/TitleExitHBox/ExitButton");
 		exitButton.Pressed += () =>
 		{

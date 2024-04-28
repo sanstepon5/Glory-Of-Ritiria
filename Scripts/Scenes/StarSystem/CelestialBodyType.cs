@@ -1,7 +1,18 @@
 ﻿public enum CelestialBodyType
 {
     Star,
-    GenericPlanet,
-    MinorBody,
-    Pallyria
+    GasGiant,
+    RingedGasGiant,
+    IceGiant,
+    IcyPlanet,
+    MoltenPlanet,
+    ToxicPlanet,
+    RockyPlanet,
+    IcyMoon,
+    RockyMoon,
+    Asteroid,
+    DefaultPlanet,
+    Pallyria,
+    Earth,
+    Luna
 }
