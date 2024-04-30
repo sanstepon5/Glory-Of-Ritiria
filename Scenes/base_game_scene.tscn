@@ -32,6 +32,7 @@ offset_bottom = 624.0
 [node name="TopBar" parent="UICanvas" instance=ExtResource("2_sapv7")]
 
 [node name="InfoWindowControl" type="MarginContainer" parent="UICanvas"]
+visible = false
 offset_left = 1443.0
 offset_top = 175.0
 offset_right = 1920.0

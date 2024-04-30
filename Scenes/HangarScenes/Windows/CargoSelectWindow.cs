@@ -22,7 +22,7 @@ public partial class CargoSelectWindow : PanelContainer
 	{
 		_signals = signals;
 		
-		var cargoVBox = GetNode<VBoxContainer>("VBox/MarginCont/ScrollCont/VBox");
+		var cargoVBox = GetNode<VBoxContainer>("VBox/MarginCont/ScrollCont/CenterCont/VBox");
 		foreach (var cargo in game_state.CargoStorage)
 		{
 			cargoVBox.AddChild(_initCargoOption(cargo));

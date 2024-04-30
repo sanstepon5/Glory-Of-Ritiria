@@ -103,6 +103,8 @@ public partial class CargoView : PanelContainer
 
 		button.TextureNormal = (Texture2D)GD.Load(cargo.GetImagePath());
 		button.TextureHover = (Texture2D)GD.Load("res://Assets/Icons/change.png");
+
+		inst.GetNode<TextureRect>("NewlyAddedImage").Visible = _addedCargo.Contains(cargo);
 		// TODO: Manage cargo tooltip
 
 		button.LeftPressed += () => ReplaceCargo(cargo);

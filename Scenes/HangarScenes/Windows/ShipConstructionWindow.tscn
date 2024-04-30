@@ -5,8 +5,10 @@
 [ext_resource type="ButtonGroup" uid="uid://trec3s178yi6" path="res://Resources/Hangar/PriorityButtonGroup.tres" id="2_v5036"]
 
 [node name="ShipConstructionWindow" type="PanelContainer"]
+custom_minimum_size = Vector2(0, 650)
 offset_right = 425.0
 offset_bottom = 656.0
+size_flags_vertical = 3
 script = ExtResource("1_njgik")
 
 [node name="MCont" type="MarginContainer" parent="."]

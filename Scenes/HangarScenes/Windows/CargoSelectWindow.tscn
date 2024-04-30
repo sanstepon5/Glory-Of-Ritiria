@@ -44,6 +44,11 @@ theme_override_constants/margin_bottom = 5
 [node name="ScrollCont" type="ScrollContainer" parent="VBox/MarginCont"]
 layout_mode = 2
 
-[node name="VBox" type="VBoxContainer" parent="VBox/MarginCont/ScrollCont"]
+[node name="CenterCont" type="CenterContainer" parent="VBox/MarginCont/ScrollCont"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBox" type="VBoxContainer" parent="VBox/MarginCont/ScrollCont/CenterCont"]
 layout_mode = 2
 theme_override_constants/separation = 10

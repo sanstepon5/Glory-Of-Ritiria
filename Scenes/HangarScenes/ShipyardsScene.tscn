@@ -23,18 +23,19 @@ theme_override_constants/v_separation = 20
 columns = 4
 script = ExtResource("2_4bv6m")
 
-[node name="RightWindow" type="ReferenceRect" parent="."]
+[node name="RightWindow" type="MarginContainer" parent="."]
 process_mode = 2
 offset_left = 1455.0
 offset_top = 220.0
 offset_right = 1915.0
-offset_bottom = 790.0
+offset_bottom = 637.0
+size_flags_vertical = 3
 
-[node name="CenterWindow" type="ReferenceRect" parent="."]
+[node name="CenterWindow" type="MarginContainer" parent="."]
 process_mode = 2
 offset_left = 865.0
 offset_top = 241.0
-offset_right = 1264.0
+offset_right = 1211.0
 offset_bottom = 731.0
 
 [node name="HangarMenu" parent="." instance=ExtResource("3_n6vaq")]

@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://dxrljrkhsfk3n"]
+[gd_scene load_steps=3 format=3 uid="uid://dxrljrkhsfk3n"]
 
 [ext_resource type="PackedScene" uid="uid://pd32ulghvb8v" path="res://Scenes/Utils/ExtTextureButton.tscn" id="1_o2seu"]
+[ext_resource type="Texture2D" uid="uid://bbmi1044xe0rr" path="res://Assets/Icons/greenSquare.png" id="2_2k4lh"]
 
 [node name="MarginCont" type="MarginContainer"]
 size_flags_horizontal = 3
@@ -16,3 +17,10 @@ layout_mode = 2
 [node name="ExtTextureButton" parent="PanelCont" instance=ExtResource("1_o2seu")]
 layout_mode = 2
 stretch_mode = 3
+
+[node name="NewlyAddedImage" type="TextureRect" parent="."]
+visible = false
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("2_2k4lh")
+stretch_mode = 5

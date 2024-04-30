@@ -29,7 +29,7 @@ public partial class ShipyardsScene : Node2D
 
 	public void BuildConstructionWindow(Shipyard shipyard)
 	{
-		var windowCont = GetNode<ReferenceRect>("RightWindow");
+		var windowCont = GetNode<MarginContainer>("RightWindow");
 		
 		var scene = GD.Load<PackedScene>("res://Scenes/HangarScenes/Windows/ShipConstructionWindow.tscn");
 		var inst = (ShipConstructionWindow)scene.Instantiate();
@@ -40,7 +40,7 @@ public partial class ShipyardsScene : Node2D
 	
 	public void BuildOutfittingWindow(Ship ship)
 	{
-		var windowCont = GetNode<ReferenceRect>("RightWindow");
+		var windowCont = GetNode<MarginContainer>("RightWindow");
 		
 		var scene = GD.Load<PackedScene>("res://Scenes/HangarScenes/Windows/ShipOutfittingWindow.tscn");
 		var inst = (ShipOutfittingWindow)scene.Instantiate();
@@ -51,7 +51,7 @@ public partial class ShipyardsScene : Node2D
 	
 	public void BuildCargoSelectWindow()
 	{
-		var windowCont = GetNode<ReferenceRect>("CenterWindow");
+		var windowCont = GetNode<MarginContainer>("CenterWindow");
 		
 		var scene = GD.Load<PackedScene>("res://Scenes/HangarScenes/Windows/CargoSelectWindow.tscn");
 		var inst = (CargoSelectWindow)scene.Instantiate();
@@ -76,12 +76,12 @@ public partial class ShipyardsScene : Node2D
 
 	public void DisableRightWindowProcess()
 	{
-		var windowCont = GetNode<ReferenceRect>("RightWindow");
+		var windowCont = GetNode<MarginContainer>("RightWindow");
 		windowCont.ProcessMode = ProcessModeEnum.Disabled;
 	}
 	public void EnableRightWindowProcess()
 	{
-		var windowCont = GetNode<ReferenceRect>("RightWindow");
+		var windowCont = GetNode<MarginContainer>("RightWindow");
 		windowCont.ProcessMode = ProcessModeEnum.WhenPaused;
 	}
 
