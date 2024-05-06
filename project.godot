@@ -30,3 +30,7 @@ window/stretch/mode="canvas_items"
 [dotnet]
 
 project/assembly_name="Glory Of Ritiria"
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
