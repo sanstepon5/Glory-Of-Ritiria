@@ -121,7 +121,7 @@ public partial class Ship: GodotObject
         Location.ShipsInOrbit.Add(this);
     }
 
-    public void StartRoute(CelestialBody destination)
+    public void StartRoute(CelestialBody destination, bool goBack = false)
     {
         _currentRoute = new Route(this, Location, destination);
         _updateState();
@@ -135,18 +135,25 @@ public partial class Ship: GodotObject
         
         if (_currentRoute == null) return false;
         
-        var oldStatus = _currentRoute.Status;
+        // var oldStatus = _currentRoute.Status;
         _currentRoute.Update();
         switch (_currentRoute.Status)
         {
             case Route.RouteStatus.Arrived:
                 SetLocation(_currentRoute.DestinationBody);
-                _currentRoute = null;
-                changeLocation = true;
-                if (_currentMission != null)
+                if (Location == game_state.Pallyria)
                 {
-                    _currentMission.ExecuteEffects();
+                    _currentRoute = null;
+                    if (_currentMission != null)
+                    {
+                        _currentMission.ExecuteEffects();
+                    }
                 }
+                else
+                {   // Return to Pallyria 
+                    StartRoute(game_state.Pallyria);
+                }
+                changeLocation = true;
                 break;
             case Route.RouteStatus.InStartingSystem:
                 if (_currentRoute.StartingBody is Star startingStar)
@@ -156,7 +163,7 @@ public partial class Ship: GodotObject
                 changeLocation = true;
                 break;
             case Route.RouteStatus.InDestinationSystem:
-                if (oldStatus == Route.RouteStatus.InDestinationSystem) changeLocation = false;
+                // if (oldStatus == Route.RouteStatus.InDestinationSystem) changeLocation = false;
                 if (_currentRoute.DestinationBody is Star destinationStar)
                     SetLocation(destinationStar.InnerSpace);
                 else

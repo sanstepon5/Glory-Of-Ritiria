@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using GloryOfRitiria.Scripts.Global;
 using GloryOfRitiria.Scripts.ShipRelated;
 using Godot;
 
@@ -112,6 +113,8 @@ public class StelSysGen
             case StellarGeneratorPoint.Addbodytostar:
             {
                 CurrentStar.Bodies.Add(CurrentBody);
+                if (CurrentBody.Id.Equals("pallyria"))
+                    game_state.Pallyria = CurrentBody;
                 break;
             }
             

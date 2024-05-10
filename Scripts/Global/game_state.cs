@@ -35,6 +35,7 @@ public partial class game_state : Node
 	// Current scene isn't a star system
 	public static List<Star> SelectedStarSystem = new();
 	public static StarSystemInfo Detnura;
+	public static CelestialBody Pallyria;
 	
 	/// <summary> List of star system that can be viewed by the player</summary>
 	public static List<StarSystemInfo> DiscoveredSystems = new();
