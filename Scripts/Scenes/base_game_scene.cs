@@ -3,6 +3,7 @@ using System;
 using GloryOfRitiria;
 using GloryOfRitiria.Scripts.Global;
 using GloryOfRitiria.Scripts.Utils;
+using StarSystemInfo = GloryOfRitiria.Scripts.StarSystem.StarSystemInfo;
 
 public partial class base_game_scene : Node2D
 {

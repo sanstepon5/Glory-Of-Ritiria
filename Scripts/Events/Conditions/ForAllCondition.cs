@@ -1,17 +1,17 @@
 ﻿using System.Collections.Generic;
 
-namespace GloryOfRitiria.Scripts.Utils.Events;
+namespace GloryOfRitiria.Scripts.Events.Conditions;
 
-public class AnyCondition : IEventCondition
+public class ForAllCondition : IEventCondition
 {
     private List<IEventCondition> _conditions;
 
-    public AnyCondition()
+    public ForAllCondition()
     {
         _conditions = new List<IEventCondition>();
     }
     
-    public AnyCondition(List<IEventCondition> conditions)
+    public ForAllCondition(List<IEventCondition> conditions)
     {
         _conditions = conditions;
     }
@@ -25,11 +25,11 @@ public class AnyCondition : IEventCondition
     {
         foreach (var condition in _conditions)
         {
-            if (condition.IsSatisfied())
+            if (!condition.IsSatisfied())
             {
-                return true;
+                return false;
             };
         }
-        return false;
+        return true;
     }
 }

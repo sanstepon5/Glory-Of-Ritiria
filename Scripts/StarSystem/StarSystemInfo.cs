@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Godot;
 
-namespace GloryOfRitiria.Scripts.Utils;
+namespace GloryOfRitiria.Scripts.StarSystem;
 
 public enum StarSystemType
 {

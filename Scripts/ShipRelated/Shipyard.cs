@@ -1,9 +1,8 @@
 ﻿using System;
 using GloryOfRitiria.Scripts.Global;
-using GloryOfRitiria.Scripts.ShipRelated;
 using Godot;
 
-namespace GloryOfRitiria.Scripts.Utils;
+namespace GloryOfRitiria.Scripts.ShipRelated;
 
 
 // Has to inherit Node to pass in signals

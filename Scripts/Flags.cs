@@ -1,4 +1,4 @@
-﻿namespace GloryOfRitiria.Scripts.Utils;
+﻿namespace GloryOfRitiria.Scripts;
 
 public enum Flags
 {

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using GloryOfRitiria;
 using GloryOfRitiria.Scripts.Global;
 using GloryOfRitiria.Scripts.Utils;
+using StarSystemInfo = GloryOfRitiria.Scripts.StarSystem.StarSystemInfo;
 
 public partial class InterstellarMap : Node2D
 {

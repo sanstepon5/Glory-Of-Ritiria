@@ -1,5 +1,5 @@
+using GloryOfRitiria.Scripts.Events;
 using GloryOfRitiria.Scripts.Global;
-using GloryOfRitiria.Scripts.Utils.Events;
 using Godot;
 
 namespace GloryOfRitiria.Scripts.Scenes.Parts;

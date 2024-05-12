@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using GloryOfRitiria.Scripts.Effects;
 
 namespace GloryOfRitiria.Scripts.ShipRelated.Missions;
 
@@ -6,7 +7,7 @@ namespace GloryOfRitiria.Scripts.ShipRelated.Missions;
 public abstract class Mission
 {
     public string Name;
-    public List<ShipEffect> EffectsOnSuccess;
+    public List<MissionEffect> EffectsOnSuccess;
     
     private Cargo _associatedCargo;
     
@@ -17,7 +18,7 @@ public abstract class Mission
     
     
 
-    public void AddEffect(ShipEffect effect)
+    public void AddEffect(MissionEffect effect)
     {
         EffectsOnSuccess.Add(effect);
     }

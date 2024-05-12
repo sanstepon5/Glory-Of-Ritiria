@@ -1,6 +1,6 @@
 using System.Collections.Generic;
+using GloryOfRitiria.Scripts.Events;
 using GloryOfRitiria.Scripts.Utils;
-using GloryOfRitiria.Scripts.Utils.Events;
 using Godot;
 
 // TODO: Add single fire events

@@ -1,4 +1,4 @@
-﻿namespace GloryOfRitiria.Scripts.Utils.Events;
+﻿namespace GloryOfRitiria.Scripts.Events.Conditions;
 
 public interface IEventCondition
 {

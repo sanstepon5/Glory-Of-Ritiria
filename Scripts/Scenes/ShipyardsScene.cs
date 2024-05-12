@@ -3,6 +3,7 @@ using GloryOfRitiria.Scripts.Global;
 using GloryOfRitiria.Scripts.Utils;
 using Godot;
 using GloryOfRitiria.Scripts.ShipRelated;
+using Shipyard = GloryOfRitiria.Scripts.ShipRelated.Shipyard;
 
 namespace GloryOfRitiria.Scripts.Scenes;
 

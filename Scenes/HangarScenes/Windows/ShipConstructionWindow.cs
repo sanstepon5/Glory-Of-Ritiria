@@ -3,6 +3,7 @@ using GloryOfRitiria.Scripts.Global;
 using GloryOfRitiria.Scripts.ShipRelated;
 using GloryOfRitiria.Scripts.Utils;
 using Godot;
+using Shipyard = GloryOfRitiria.Scripts.ShipRelated.Shipyard;
 
 namespace GloryOfRitiria.Scenes.HangarScenes.Windows;
 

@@ -4,6 +4,7 @@ using GloryOfRitiria.Scripts.Global;
 using GloryOfRitiria.Scripts.Utils;
 using Godot;
 using Ship = GloryOfRitiria.Scripts.ShipRelated.Ship;
+using StarSystemInfo = GloryOfRitiria.Scripts.StarSystem.StarSystemInfo;
 
 
 // VBox container for all bodies. All bodies have the same stretch ratio (5 for example). 

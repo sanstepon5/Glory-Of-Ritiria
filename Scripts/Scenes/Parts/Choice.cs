@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using GloryOfRitiria.Scripts.Utils.Events;
+using GloryOfRitiria.Scripts.Effects;
 
 namespace GloryOfRitiria.Scripts.Scenes.Parts;
 

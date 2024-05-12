@@ -1,13 +1,13 @@
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
+using GloryOfRitiria.Scripts.Events;
 using GloryOfRitiria.Scripts.ShipRelated;
 using GloryOfRitiria.Scripts.ShipRelated.Missions;
 using GloryOfRitiria.Scripts.Utils;
-using GloryOfRitiria.Scripts.Utils.Events;
 using Godot;
 using FileAccess = Godot.FileAccess;
+using StarSystemInfo = GloryOfRitiria.Scripts.StarSystem.StarSystemInfo;
 
 // This is a singleton that's loaded in every scene and will contain persistent state of the game.
 // It should be empty on main screen a be loaded when loading a save.

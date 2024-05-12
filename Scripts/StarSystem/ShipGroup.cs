@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using GloryOfRitiria.Scripts;
 using Ship = GloryOfRitiria.Scripts.ShipRelated.Ship;
 
 public class ShipGroup

@@ -31,6 +31,10 @@ window/stretch/mode="canvas_items"
 
 project/assembly_name="Glory Of Ritiria"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/collapsible_container/plugin.cfg")
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"

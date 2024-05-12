@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GloryOfRitiria.Scripts.Utils;
+namespace GloryOfRitiria.Scripts.ShipRelated;
 
 public class ShipDesign
 {

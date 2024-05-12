@@ -17,14 +17,14 @@ public class StelSysGen
     public static int CurrentSystemPull;
     
     public static StelSysData Data = new ();
-    public static StarSystemInfo CurrentSystem;
+    public static StarSystem.StarSystemInfo CurrentSystem;
     public static Star CurrentStar;
     public static CelestialBody CurrentBody;
     // Allows to trace back to the "highest" parent
     public static Stack<CelestialBody> ParentBodies;
     public static Ship CurrentShip;
     public static Cargo CurrentModule;
-    public static Shipyard CurrentShipyard;
+    public static ShipRelated.Shipyard CurrentShipyard;
 
     public static bool IsSatellite = false;
     public static bool ShipyardBusy = false;
@@ -51,7 +51,7 @@ public class StelSysGen
             case StellarGeneratorPoint.Initsystem:
             {
                 // CurrentText holds id
-                CurrentSystem = new StarSystemInfo(CurrentText);
+                CurrentSystem = new StarSystem.StarSystemInfo(CurrentText);
                 break;
             }
             case StellarGeneratorPoint.Setsystemname:
@@ -201,7 +201,7 @@ public class StelSysGen
             /* Shipyard properties */
             case StellarGeneratorPoint.Initshipyard:
             {
-                CurrentShipyard = new Shipyard(CurrentText, CurrentBody);
+                CurrentShipyard = new ShipRelated.Shipyard(CurrentText, CurrentBody);
                 ShipyardBusy = false;
                 break;
             }
@@ -348,14 +348,14 @@ public class StelSysGen
 /**Utility class that stores parsed data*/
 public class StelSysData
 {
-    public List<StarSystemInfo> Systems;
+    public List<StarSystem.StarSystemInfo> Systems;
     public List<Ship> Ships;
     public List<CelestialBody> BodiesWithShipyards;
-    public StarSystemInfo Detnura;
+    public StarSystem.StarSystemInfo Detnura;
 
     public StelSysData()
     {
-        Systems = new List<StarSystemInfo>();
+        Systems = new List<StarSystem.StarSystemInfo>();
         Ships = new List<Ship>();
         BodiesWithShipyards = new List<CelestialBody>();
     }

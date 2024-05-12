@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
+using GloryOfRitiria.Scripts.Events.Conditions;
 using GloryOfRitiria.Scripts.Scenes.Parts;
-using GloryOfRitiria.Scripts.Utils.Events.Conditions;
 
-namespace GloryOfRitiria.Scripts.Utils.Events;
+namespace GloryOfRitiria.Scripts.Events;
 
 public struct GameEvent
 {

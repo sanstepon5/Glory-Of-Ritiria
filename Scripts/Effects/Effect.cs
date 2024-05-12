@@ -3,7 +3,7 @@ using GloryOfRitiria.Scripts.Global;
 using GloryOfRitiria.Scripts.Utils;
 using Godot;
 
-namespace GloryOfRitiria.Scripts;
+namespace GloryOfRitiria.Scripts.Effects;
 
 public abstract class Effect
 {
@@ -20,6 +20,11 @@ public abstract class Effect
     {
         Desc = desc;
         MethodName = methodName;
+    }
+    
+    public Effect(string desc)
+    {
+        Desc = desc;
     }
     
     public abstract void ApplyEffect();
@@ -74,44 +79,18 @@ public class EventEffect : Effect
     }
 }
 
-public class ShipEffect : Effect
+public abstract class MissionEffect : Effect
 {
-    // I'm not a fan of this approach but I don't see a different direct enough approach to this
-    // Basically it makes life easier for effects created during the game (ie mission effects)
-    // We can know the target (a body for example) instance immediately, without the need to loop over everything
-    // For events it will still have to use the string id value as no instances exist on event parsing
-    public CelestialBody BodyParam;
+    public CelestialBody TargetBody;
 
-    public ShipEffect(string methodName, string desc = "idunnolol") : base(methodName, desc)
+    // Body should probably be an argument at construction, effect should know the target from the start?
+    public MissionEffect(string desc) : base(desc)
     {
         
     }
 
     public void SetBodyParam(CelestialBody body)
     {
-        BodyParam = body;
-    }
-    
-    public override void ApplyEffect()
-    {
-        if (BodyParam == null)
-        {
-            GD.PrintErr("Trying to apply effect with no target : " + MethodName);
-            return;
-        }
-        
-        switch (MethodName)
-        {
-            case "ExplorePlanet":
-                BodyParam.ExplorePlanet();
-                break;
-            case "DiscoverSystem":
-                var star = BodyParam as Star;
-                game_state.DiscoverSystem(star);
-                break;
-            default:
-                GD.PrintErr("Unsupported effect for ship mission");
-                break;
-        }
+        TargetBody = body;
     }
 }

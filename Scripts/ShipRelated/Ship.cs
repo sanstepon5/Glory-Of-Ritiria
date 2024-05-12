@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using GloryOfRitiria.Scripts.Global;
 using GloryOfRitiria.Scripts.ShipRelated.Missions;
-using GloryOfRitiria.Scripts.Utils;
 using Godot;
 
 namespace GloryOfRitiria.Scripts.ShipRelated;
