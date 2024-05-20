@@ -2,7 +2,7 @@ using System;
 using GloryOfRitiria.Scenes.Slots;
 using GloryOfRitiria.Scripts.Global;
 using GloryOfRitiria.Scripts.ShipRelated;
-using GloryOfRitiria.Scripts.Utils;
+using GloryOfRitiria.Scripts.StarSystem;
 using Godot;
 using Ship = GloryOfRitiria.Scripts.ShipRelated.Ship;
 using Shipyard = GloryOfRitiria.Scripts.ShipRelated.Shipyard;

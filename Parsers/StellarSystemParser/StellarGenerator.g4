@@ -47,6 +47,7 @@ celestial_body_body : name {StelSysGen.pt(StellarGeneratorPoint.Setbodyname);}
                       (body_distance)? 
                       (icon {StelSysGen.pt(StellarGeneratorPoint.Setbodyicon);})?  
                       (discovery_status)?
+                      (scientific_potential)?
                       body_type {StelSysGen.pt(StellarGeneratorPoint.Setbodytype);}
                       (satellites {StelSysGen.pt(StellarGeneratorPoint.Setisntsatellite);})*  
                       (shipyards)*  
@@ -90,6 +91,7 @@ distance_from       : 'distance_from_detnura'   ':' floaty {StelSysGen.pt(Stella
 angle               : 'map_angle'               ':' inty {StelSysGen.pt(StellarGeneratorPoint.Setsystemangle);} ;
 pull                : 'gravitational_pull'      ':' inty {StelSysGen.pt(StellarGeneratorPoint.Setsystempull);};
 body_distance       : 'distance'                ':' inty {StelSysGen.pt(StellarGeneratorPoint.Setbodydistance);};
+scientific_potential: 'science'                 ':' floaty {StelSysGen.pt(StellarGeneratorPoint.Setbodyscience);};
 building_progress   : 'building_progress'       ':' inty;
 star_class          : 'star_class'              ':'( 'orange_dwarf' {StelSysGen.pt(StellarGeneratorPoint.Setstarclassod);} 
                                                    | 'red_dwarf' {StelSysGen.pt(StellarGeneratorPoint.Setstarclassrd);}

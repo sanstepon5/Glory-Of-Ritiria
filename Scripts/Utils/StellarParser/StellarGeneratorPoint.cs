@@ -1,4 +1,4 @@
-namespace GloryOfRitiria.Scripts.Utils;
+namespace GloryOfRitiria.Scripts.Utils.StellarParser;
 
 public enum StellarGeneratorPoint
 {
@@ -38,5 +38,6 @@ public enum StellarGeneratorPoint
     Setstatusundiscovered,
     Errorverification,
     Setbodytype,
-    Setshipsize
+    Setshipsize,
+    Setbodyscience
 }

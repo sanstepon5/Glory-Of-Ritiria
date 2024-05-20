@@ -1,6 +1,6 @@
 ﻿using System;
 using GloryOfRitiria.Scripts.Global;
-using GloryOfRitiria.Scripts.Utils;
+using GloryOfRitiria.Scripts.StarSystem;
 using Godot;
 
 namespace GloryOfRitiria.Scripts.Effects;

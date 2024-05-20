@@ -4,6 +4,7 @@ using System.IO;
 using GloryOfRitiria.Scripts.Events;
 using GloryOfRitiria.Scripts.ShipRelated;
 using GloryOfRitiria.Scripts.ShipRelated.Missions;
+using GloryOfRitiria.Scripts.StarSystem;
 using GloryOfRitiria.Scripts.Utils;
 using Godot;
 using FileAccess = Godot.FileAccess;

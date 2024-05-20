@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using GloryOfRitiria.Scripts.StarSystem;
 using StarSystemInfo = GloryOfRitiria.Scripts.StarSystem.StarSystemInfo;
 
 public class Star: CelestialBody

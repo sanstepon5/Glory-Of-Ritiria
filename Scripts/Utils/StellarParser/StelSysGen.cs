@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using GloryOfRitiria.Scripts.Global;
 using GloryOfRitiria.Scripts.ShipRelated;
+using GloryOfRitiria.Scripts.StarSystem;
 using Godot;
 
-namespace GloryOfRitiria.Scripts.Utils;
+namespace GloryOfRitiria.Scripts.Utils.StellarParser;
 
 public class StelSysGen
 {
@@ -139,6 +140,11 @@ public class StelSysGen
             case StellarGeneratorPoint.Setbodyname:
             {
                 CurrentBody.Name = CurrentText;
+                break;
+            }
+            case StellarGeneratorPoint.Setbodyscience:
+            {
+                CurrentBody.SetScientificPotential(CurrentFloat);
                 break;
             }
             case StellarGeneratorPoint.Setbodytype:

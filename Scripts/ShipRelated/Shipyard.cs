@@ -1,5 +1,6 @@
 ﻿using System;
 using GloryOfRitiria.Scripts.Global;
+using GloryOfRitiria.Scripts.StarSystem;
 using Godot;
 
 namespace GloryOfRitiria.Scripts.ShipRelated;

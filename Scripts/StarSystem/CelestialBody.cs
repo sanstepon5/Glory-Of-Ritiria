@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using GloryOfRitiria.Scripts.Global;
+using GloryOfRitiria.Scripts.ShipRelated;
 using GloryOfRitiria.Scripts.ShipRelated.Missions;
-using GloryOfRitiria.Scripts.Utils;
 using Godot;
-using Ship = GloryOfRitiria.Scripts.ShipRelated.Ship;
-using Shipyard = GloryOfRitiria.Scripts.ShipRelated.Shipyard;
+
+namespace GloryOfRitiria.Scripts.StarSystem;
 
 public class CelestialBody
 {
@@ -35,7 +35,8 @@ public class CelestialBody
     public List<Shipyard> Shipyards = new();
 
     private string _customDescription;
-    
+
+    private float _scientificPotential = 0;
     
     // Default constructor, for the system's main celestial bodies such as planets
     public CelestialBody(string name, Star star, double distance, string imagePath, 
@@ -53,8 +54,8 @@ public class CelestialBody
     }
     
     public CelestialBody(string name, Star star, double distance, string imagePath, bool hasSatellites, 
-                         bool isSatellite, DiscoveryStatus discoveryStatus = DiscoveryStatus.Undiscovered, 
-                         CelestialBodyType type = CelestialBodyType.DefaultPlanet){
+        bool isSatellite, DiscoveryStatus discoveryStatus = DiscoveryStatus.Undiscovered, 
+        CelestialBodyType type = CelestialBodyType.DefaultPlanet){
         Name = name;
         Star = star;
         Distance = distance;
@@ -90,10 +91,21 @@ public class CelestialBody
         IsSatellite = false;
     }
 
+    /// <summary>
+    /// Sets the amount of scientific potential of the celestial body
+    /// </summary>
+    /// <param name="amount">Can be anything but is clamped between 0 and 100</param>
+    public void SetScientificPotential(float amount)
+    {
+        if (amount < 0) _scientificPotential = 0;
+        else if (amount > 100) _scientificPotential = 100;
+        else _scientificPotential = amount;
+    }
+
     public void SetImagePath(string path)
     {
         _imagePath = game_state.AssetsDir + "Img/tmp/CelestialBodies/" + path;
-      }
+    }
 
     public void AddSatellite(CelestialBody satellite)
     {
@@ -201,13 +213,41 @@ public class CelestialBody
         {
             var knownSatellites = 
                 Satellites.Count(
-                satellite => satellite.DiscoveryStatus is DiscoveryStatus.ExistenceKnown or DiscoveryStatus.Explored
+                    satellite => satellite.DiscoveryStatus is DiscoveryStatus.ExistenceKnown or DiscoveryStatus.Explored
                 );
             if (knownSatellites == 1)
                 result += Name + " has " + knownSatellites + " satellite around it that we know of" + "\n";
             else if (knownSatellites > 1)
                 result += Name + " has " + knownSatellites + " satellites around it that we know of" + "\n";
         }
+
+        if (BodyType is not (CelestialBodyType.Pallyria or CelestialBodyType.Earth))
+        {
+            switch (_scientificPotential)
+            {
+                case < 1:
+                    result += "This " + GetBodyTypeNameGeneralization() +
+                              " appears to be [b][color=red]worthless[/color][/b] for science" + "\n\n";;
+                    break;
+                case < 10:
+                    result += "This " + GetBodyTypeNameGeneralization() +
+                              " has [b][color=red]little[/color][/b] interest for science" + "\n\n";;
+                    break;
+                case < 30:
+                    result += "This " + GetBodyTypeNameGeneralization() +
+                              " has [color=yellow]little[/color] interest for science" + "\n\n";;
+                    break;
+                case < 70:
+                    result += "This " + GetBodyTypeNameGeneralization() +
+                              " has [color=green]a lot[/color] of scientific potential" + "\n\n";;
+                    break;
+                case <= 100:
+                    result += "This " + GetBodyTypeNameGeneralization() +
+                              " has [b][color=green]extraordinary[/color][/b] value for science" + "\n\n";;
+                    break;
+            }
+        }
+        
 
         return result;
     }
@@ -278,6 +318,30 @@ public class CelestialBody
                 "This is a star, apparently",
             _ => ""
         };
+    }
+
+    /// <returns> String "planet" or "moon" etc depending on celestial body type </returns>
+    private string GetBodyTypeNameGeneralization()
+    {
+        switch (BodyType)
+        {
+            case CelestialBodyType.Pallyria:
+            case CelestialBodyType.Earth:
+            case CelestialBodyType.ToxicPlanet:
+            case CelestialBodyType.IcyPlanet:
+            case CelestialBodyType.RockyPlanet:
+            case CelestialBodyType.IceGiant:
+            case CelestialBodyType.DefaultPlanet:
+            case CelestialBodyType.MoltenPlanet: return "planet";
+            case CelestialBodyType.Luna:
+            case CelestialBodyType.RockyMoon:
+            case CelestialBodyType.IcyMoon: return "moon";
+            case CelestialBodyType.GasGiant:
+            case CelestialBodyType.RingedGasGiant: return "gas giant";
+            case CelestialBodyType.Asteroid: return "asteroid";
+            case CelestialBodyType.Star: return "star";
+            default: return "celestial object";
+        }
     }
 }
 

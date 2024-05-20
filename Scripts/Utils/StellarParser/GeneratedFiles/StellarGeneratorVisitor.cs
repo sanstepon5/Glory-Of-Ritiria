@@ -205,6 +205,13 @@ public interface IStellarGeneratorVisitor<Result> : IParseTreeVisitor<Result> {
 	Result VisitBody_distance([NotNull] StellarGeneratorParser.Body_distanceContext context);
 
 	/// <summary>
+	/// Visit a parse tree produced by <see cref="StellarGeneratorParser.scientific_potential"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitScientific_potential([NotNull] StellarGeneratorParser.Scientific_potentialContext context);
+
+	/// <summary>
 	/// Visit a parse tree produced by <see cref="StellarGeneratorParser.building_progress"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>

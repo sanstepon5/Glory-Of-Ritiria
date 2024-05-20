@@ -300,6 +300,17 @@ public interface IStellarGeneratorListener : IParseTreeListener {
 	void ExitBody_distance([NotNull] StellarGeneratorParser.Body_distanceContext context);
 
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="StellarGeneratorParser.scientific_potential"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterScientific_potential([NotNull] StellarGeneratorParser.Scientific_potentialContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="StellarGeneratorParser.scientific_potential"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitScientific_potential([NotNull] StellarGeneratorParser.Scientific_potentialContext context);
+
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="StellarGeneratorParser.building_progress"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>

@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using Antlr4.Runtime;
-using GloryOfRitiria.Scripts.ShipRelated;
-using Godot;
+using GloryOfRitiria.Scripts.Utils.StellarParser;
 using StellarSystemParser;
 
 namespace GloryOfRitiria.Scripts.Utils;
@@ -11,10 +8,6 @@ namespace GloryOfRitiria.Scripts.Utils;
 public class StellarSystemsParser
 {
     private StellarGeneratorParser _parser;
-    // public List<StarSystemInfo> Systems;
-    // public List<Ship> Ships;
-    // public List<CelestialBody> BodiesWithShipyards;
-    // public StarSystemInfo Detnura;
     
     public StellarSystemsParser(StringReader fileStream)
     {

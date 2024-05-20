@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using GloryOfRitiria.Scenes.Parts;
 using GloryOfRitiria.Scripts.Global;
-using GloryOfRitiria.Scripts.Utils;
+using GloryOfRitiria.Scripts.StarSystem;
 using Godot;
 using Ship = GloryOfRitiria.Scripts.ShipRelated.Ship;
 using StarSystemInfo = GloryOfRitiria.Scripts.StarSystem.StarSystemInfo;

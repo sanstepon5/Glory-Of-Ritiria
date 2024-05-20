@@ -303,6 +303,17 @@ public partial class StellarGeneratorBaseVisitor<Result> : AbstractParseTreeVisi
 	public virtual Result VisitBody_distance([NotNull] StellarGeneratorParser.Body_distanceContext context) { return VisitChildren(context); }
 
 	/// <summary>
+	/// Visit a parse tree produced by <see cref="StellarGeneratorParser.scientific_potential"/>.
+	/// <para>
+	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
+	/// on <paramref name="context"/>.
+	/// </para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	public virtual Result VisitScientific_potential([NotNull] StellarGeneratorParser.Scientific_potentialContext context) { return VisitChildren(context); }
+
+	/// <summary>
 	/// Visit a parse tree produced by <see cref="StellarGeneratorParser.building_progress"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>

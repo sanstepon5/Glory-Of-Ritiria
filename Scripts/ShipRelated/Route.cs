@@ -1,4 +1,5 @@
 ﻿using System;
+using GloryOfRitiria.Scripts.StarSystem;
 
 namespace GloryOfRitiria.Scripts;
 

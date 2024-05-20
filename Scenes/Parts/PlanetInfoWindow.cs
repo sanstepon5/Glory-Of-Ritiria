@@ -1,7 +1,7 @@
 using Godot;
-using System;
 using GloryOfRitiria;
 using GloryOfRitiria.Scripts.Global;
+using GloryOfRitiria.Scripts.StarSystem;
 
 public partial class PlanetInfoWindow : PanelContainer
 {
