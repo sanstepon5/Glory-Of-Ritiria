@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using GloryOfRitiria.Scripts.Global;
@@ -36,7 +37,7 @@ public class CelestialBody
 
     private string _customDescription;
 
-    private float _scientificPotential = 0;
+    private double _scientificPotential = 0;
     
     // Default constructor, for the system's main celestial bodies such as planets
     public CelestialBody(string name, Star star, double distance, string imagePath, 
@@ -153,6 +154,28 @@ public class CelestialBody
             GD.Print("A ship tried discovering already known body: " + Name);
     }
 
+    /// <summary>
+    /// Perform some science on the celestial body (depletes scientific potential of the body).
+    /// The amount used is randomized
+    /// </summary>
+    /// <returns>The amount of scientific potential that was extracted</returns>
+    public double PerformScience()
+    {
+        var random = new Random();
+        var max = 25;
+        var amount = Math.Round(random.NextDouble() * max, 2, MidpointRounding.AwayFromZero);
+        _scientificPotential = Math.Round(_scientificPotential - amount, 2, MidpointRounding.AwayFromZero);
+        if (_scientificPotential >= 0)
+        {
+            return amount;
+        }
+
+        // if amount = 15 and _scientificPotential = 8, 8-15=-7, 15-(-7)=8
+        var realExploitedAmount = amount - (-_scientificPotential);
+        _scientificPotential = 0;
+        return Math.Round(realExploitedAmount, 2, MidpointRounding.AwayFromZero);
+    }
+
     public bool IsMissionCompatible(Mission mission)
     {
         switch (mission)
@@ -161,6 +184,8 @@ public class CelestialBody
                 return (this is not global::Star) && DiscoveryStatus != DiscoveryStatus.Explored;
             case SystemExplorationMission: // Can still try to explore system even if everything is found
                 return (this is Star);
+            case PlanetaryExperiments:
+                return (this is not global::Star);
             default:
                 return false;
         }

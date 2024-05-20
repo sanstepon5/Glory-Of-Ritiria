@@ -1,14 +1,11 @@
-﻿using System.Collections.Generic;
-using GloryOfRitiria.Scripts.Effects;
+﻿using GloryOfRitiria.Scripts.Effects;
 
 namespace GloryOfRitiria.Scripts.ShipRelated.Missions;
 
 class SystemExplorationMission : Mission
 {
-    public SystemExplorationMission()
+    public SystemExplorationMission(): base("Discover system's planets")
     {
-        Name = "Discover system's planets";
-        EffectsOnSuccess = new List<MissionEffect>();
-        AddEffect(new DiscoverBodiesEffect());
+        AddEffectOnArrival(new DiscoverBodiesEffect());
     }
 }

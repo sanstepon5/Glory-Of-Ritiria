@@ -1,5 +1,6 @@
 ﻿using System;
 using GloryOfRitiria.Scripts.Global;
+using GloryOfRitiria.Scripts.ShipRelated.Missions;
 using GloryOfRitiria.Scripts.StarSystem;
 using Godot;
 
@@ -82,11 +83,12 @@ public class EventEffect : Effect
 public abstract class MissionEffect : Effect
 {
     public CelestialBody TargetBody;
+    public Mission Mission;
 
     // Body should probably be an argument at construction, effect should know the target from the start?
-    public MissionEffect(string desc) : base(desc)
+    public MissionEffect(Mission mission, string desc) : base(desc)
     {
-        
+        Mission = mission;
     }
 
     public void SetBodyParam(CelestialBody body)

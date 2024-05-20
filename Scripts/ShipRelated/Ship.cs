@@ -146,11 +146,15 @@ public partial class Ship: GodotObject
                     _currentRoute = null;
                     if (_currentMission != null)
                     {
-                        _currentMission.ExecuteEffects();
+                        _currentMission.ExecuteEffectsOnReturn();
                     }
                 }
                 else
                 {   // Return to Pallyria 
+                    if (_currentMission != null)
+                    {
+                        _currentMission.ExecuteEffectsOnArrival();
+                    }
                     StartRoute(game_state.Pallyria);
                 }
                 changeLocation = true;
@@ -231,10 +235,7 @@ public partial class Ship: GodotObject
     public void SetShipMission(string missionName, CelestialBody missionTarget)
     {
         _currentMission = GetMissionByName(missionName);
-        foreach (var effect in _currentMission.EffectsOnSuccess)
-        {
-            effect.SetBodyParam(missionTarget);
-        }
+        _currentMission.SetTargetBody(missionTarget);
     }
     
     // Returns path to a the ship icon based on ship's state and requested size

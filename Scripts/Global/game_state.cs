@@ -140,6 +140,13 @@ public partial class game_state : Node
 		CargoStorage.Remove(cargo);
 	}
 
+	public static void AddScientificRes(double amount)
+	{
+		ScientificRes += amount;
+		if (ScientificRes < 0) ScientificRes = 0;
+		if (ScientificRes > 100) ScientificRes = 100;
+	}
+
 	public static void UpdateResources()
 	{
 		var random = new Random();
@@ -152,7 +159,7 @@ public partial class game_state : Node
 		
 		// Just random for the moment
 		PoliticalRes = Math.Round((PoliticalRes + random.NextDouble() * (maxRandomRes - minRandomRes) + minRandomRes), 2, MidpointRounding.AwayFromZero);
-		ScientificRes = Math.Round((ScientificRes + random.NextDouble() * (maxRandomRes - minRandomRes) + minRandomRes), 2, MidpointRounding.AwayFromZero);
+		// ScientificRes = Math.Round((ScientificRes + random.NextDouble() * (maxRandomRes - minRandomRes) + minRandomRes), 2, MidpointRounding.AwayFromZero);
 		
 		if (ScientificRes < 0) ScientificRes = 0;
 		if (PoliticalRes < 0) PoliticalRes = 0;

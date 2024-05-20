@@ -43,6 +43,7 @@ public class Cargo
                 Cost = 0;
                 _imagePath = "res://Assets/Icons/Loadouts/spaceTelescope.png";
                 AddMission(new SystemExplorationMission());
+                AddMission(new PlanetaryExperiments()); // TODO: this is for test only, there should be a separate module
                 break;
             }
         }
