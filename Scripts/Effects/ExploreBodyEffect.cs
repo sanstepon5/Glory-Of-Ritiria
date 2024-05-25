@@ -10,6 +10,5 @@ class ExploreBodyEffect : MissionEffect
     public override void ApplyEffect()
     {
         TargetBody.ExplorePlanet();
-
     }
 }

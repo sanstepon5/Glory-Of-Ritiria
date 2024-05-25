@@ -14,7 +14,7 @@
             distance : 5 # distance from the star in light minutes
             icon : "PlanetIcon.png"
             discovery_status : explored
-            type : "Pallyria"
+            type : "Pallyria" known
             shipyards {
                 shipyard sokhil {
                     name : "Sokhil Shipyard"
@@ -40,8 +40,8 @@
             distance : 15
             icon : "icePlanet.png"
             discovery_status : explored
-            science : 10.2
-            type : "IcyPlanet"
+            science : 10.2 known
+            type : "IcyPlanet" known
         }
         
         celestial_body gas_giant{
@@ -50,20 +50,20 @@
             icon : "gasGiant.png"
             discovery_status : explored
             science : 50.0
-            type : "RingedGasGiant"
+            type : "RingedGasGiant" known
 
             satellites {
                 celestial_body moon{
                     name : "Moon"
                     icon : "icePlanet.png"
                     discovery_status : explored
-                    type : "IcyMoon"
+                    type : "IcyMoon" known
                 }
                 celestial_body moon_2{
                     name : "Other Moon"
                     icon : "icePlanet.png"
                     discovery_status : explored
-                    type : "IcyMoon"
+                    type : "IcyMoon" known
                 }                
             }
         }
@@ -73,7 +73,7 @@
             distance : 15
             icon : "asteroid.png"
             discovery_status : explored
-            type : "Asteroid"
+            type : "Asteroid" known
         }
         
         ships {
@@ -153,7 +153,7 @@ stellar_system sol_system {
             distance : 3.3
             icon : "MoltenPlanet.png"
             discovery_status : existence_known
-            type : "MoltenPlanet"
+            type : "MoltenPlanet" known
         }
 
         celestial_body venus{
@@ -161,7 +161,7 @@ stellar_system sol_system {
             distance : 6.0
             icon : "MoltenPlanet.png"
             discovery_status : existence_known
-            type : "ToxicPlanet"
+            type : "ToxicPlanet" known
         }
         
         celestial_body earth{
@@ -169,14 +169,14 @@ stellar_system sol_system {
             distance : 8.3
             icon : "liveablePlanet.png"
             discovery_status : explored
-            type : "RockyPlanet"
+            type : "RockyPlanet" known
             
             satellites {
                 celestial_body luna{
                     name : "Luna"
                     icon : "icePlanet.png"
                     discovery_status : existence_known
-                    type : "RockyMoon"
+                    type : "RockyMoon" known
                 }         
             }
             
@@ -202,7 +202,7 @@ stellar_system sol_system {
             distance : 12.7
             icon : "MoltenPlanet.png"
             discovery_status : existence_known
-            type : "RockyPlanet"
+            type : "RockyPlanet" known
         }
 
         celestial_body jupiter{
@@ -210,7 +210,7 @@ stellar_system sol_system {
             distance : 43.0
             icon : "BrownDwarf.png"
             discovery_status : existence_known
-            type : "GasGiant"
+            type : "GasGiant" known
         }
 
         celestial_body saturn{
@@ -218,7 +218,7 @@ stellar_system sol_system {
             distance : 78.0
             icon : "gasGiant.png"
             discovery_status : existence_known
-            type : "RingedGasGiant"
+            type : "RingedGasGiant" known
         }
 
         celestial_body uranus{
@@ -226,7 +226,7 @@ stellar_system sol_system {
             distance : 162.0
             icon : "gasGiant.png"
             discovery_status : existence_known
-            type : "IceGiant"
+            type : "IceGiant" known
         }
 
         celestial_body neptune{
@@ -234,7 +234,7 @@ stellar_system sol_system {
             distance : 252.0
             icon : "gasGiant.png"
             discovery_status : existence_known
-            type : "IceGiant"
+            type : "IceGiant" known
         }
     }
 }

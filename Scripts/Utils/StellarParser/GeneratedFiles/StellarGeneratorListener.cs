@@ -22,7 +22,7 @@
 namespace StellarSystemParser {
 
     using System.Globalization;
-    using GloryOfRitiria.Scripts.Utils;
+    using GloryOfRitiria.Scripts.Utils.StellarParser;
 
 using Antlr4.Runtime.Misc;
 using IParseTreeListener = Antlr4.Runtime.Tree.IParseTreeListener;

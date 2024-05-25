@@ -22,7 +22,7 @@ public class CelestialBody
 
     public DiscoveryStatus DiscoveryStatus;
     
-    public CelestialBodyType BodyType;
+    
     // Determines if body should display satellites
     public bool HasSatellites;
     // Determines if bodies' satellites will be displayed vertically or horizontally
@@ -37,7 +37,10 @@ public class CelestialBody
 
     private string _customDescription;
 
-    private double _scientificPotential = 0;
+
+    public CelestialBodyState KnownState;
+    public CelestialBodyState ActualState;
+    
     
     // Default constructor, for the system's main celestial bodies such as planets
     public CelestialBody(string name, Star star, double distance, string imagePath, 
@@ -48,31 +51,24 @@ public class CelestialBody
         Distance = distance;
         DiscoveryStatus = discoveryStatus;
         _imagePath = imagePath;
-        BodyType = type;
         HasSatellites = true;
         Satellites = new List<CelestialBody>();
         IsSatellite = false;
-    }
-    
-    public CelestialBody(string name, Star star, double distance, string imagePath, bool hasSatellites, 
-        bool isSatellite, DiscoveryStatus discoveryStatus = DiscoveryStatus.Undiscovered, 
-        CelestialBodyType type = CelestialBodyType.DefaultPlanet){
-        Name = name;
-        Star = star;
-        Distance = distance;
-        Distance = distance;
-        DiscoveryStatus = discoveryStatus;
-        _imagePath = imagePath;
-        BodyType = type;
-        HasSatellites = hasSatellites;
-        IsSatellite = isSatellite;
-        if (hasSatellites) Satellites = new List<CelestialBody>();
+        
+        ActualState = new CelestialBodyState(type);
+        KnownState = new CelestialBodyState();
+        if (discoveryStatus == DiscoveryStatus.Explored)
+        {
+            KnownState.BodyType = type;
+        }
     }
 
     // Constructor for Star
     public CelestialBody()
     {
-        BodyType = CelestialBodyType.Star;
+        
+        ActualState = new CelestialBodyState(CelestialBodyType.Star);
+        KnownState = new CelestialBodyState(CelestialBodyType.Star);
         Distance = 0;
         HasSatellites = false;
         Satellites = null;
@@ -84,23 +80,62 @@ public class CelestialBody
     {
         Id = id;
         if (Id.Equals("pallyria"))
-            BodyType = CelestialBodyType.Pallyria;
+        {
+            ActualState = new CelestialBodyState(CelestialBodyType.Pallyria);
+            KnownState = ActualState;
+        }
         else
-            BodyType = CelestialBodyType.DefaultPlanet;
+        {
+            ActualState = new CelestialBodyState(CelestialBodyType.DefaultPlanet);
+            KnownState = new CelestialBodyState();
+        }
         
         HasSatellites = false;
         IsSatellite = false;
+        
+        ActualState = new CelestialBodyState();
+        KnownState = new CelestialBodyState();
+    }
+
+    public void SetActualBodyType(CelestialBodyType type)
+    {
+        ActualState.BodyType = type;
+    }
+    public void SetKnownBodyType(CelestialBodyType type)
+    {
+        KnownState.BodyType = type;
+    }
+    public void HarmonizeBodyType()
+    {
+        KnownState.BodyType = ActualState.BodyType;
+    }
+    
+    public CelestialBodyType GetActualBodyType()
+    {
+        return ActualState.BodyType;
+    }
+    public CelestialBodyType GetKnownBodyType()
+    {
+        return KnownState.BodyType;
     }
 
     /// <summary>
     /// Sets the amount of scientific potential of the celestial body
     /// </summary>
     /// <param name="amount">Can be anything but is clamped between 0 and 100</param>
-    public void SetScientificPotential(float amount)
+    public void SetActualScientificPotential(double amount)
     {
-        if (amount < 0) _scientificPotential = 0;
-        else if (amount > 100) _scientificPotential = 100;
-        else _scientificPotential = amount;
+        ActualState.SetScientificPotential(amount);
+    }
+    
+    public void SetKnownScientificPotential(double amount)
+    {
+        KnownState.SetScientificPotential(amount);
+    }
+    
+    public void HarmonizeScientificPotential()
+    {
+        KnownState.SetScientificPotential(ActualState.GetScientificPotential());
     }
 
     public void SetImagePath(string path)
@@ -123,12 +158,6 @@ public class CelestialBody
             ShipsInOrbit.Add(ship);
         }
     }
-
-    public void AddShipyard(string name)
-    {
-        if (Shipyards.Count == 0) game_state.BodiesWithShipyards.Add(this);
-        Shipyards.Add(new Shipyard(name, this));
-    }
     
     public void AddShipyard(Shipyard shipyard)
     {
@@ -140,7 +169,18 @@ public class CelestialBody
     public void ExplorePlanet()
     {
         if (DiscoveryStatus == DiscoveryStatus.ExistenceKnown)
+        {
             DiscoveryStatus = DiscoveryStatus.Explored;
+            HarmonizeBodyType();
+            
+            var random = new Random();
+            // The known science is randomized within 20% of actual value
+            var actualScience = ActualState.GetScientificPotential();
+            var max = actualScience + actualScience * 0.20;
+            var min = actualScience - actualScience * 0.20;
+            var knownScience = Math.Round(random.NextDouble() * (max  - min) + min, 2, MidpointRounding.AwayFromZero);
+            SetKnownScientificPotential(knownScience);
+        }            
         else
             GD.Print("A ship tried exploring already explored body: " + Name);
     }
@@ -164,15 +204,17 @@ public class CelestialBody
         var random = new Random();
         var max = 25;
         var amount = Math.Round(random.NextDouble() * max, 2, MidpointRounding.AwayFromZero);
-        _scientificPotential = Math.Round(_scientificPotential - amount, 2, MidpointRounding.AwayFromZero);
-        if (_scientificPotential >= 0)
+        var potential = ActualState.GetScientificPotential();
+        potential = Math.Round(potential - amount, 2, MidpointRounding.AwayFromZero);
+        ActualState.SetScientificPotential(potential);
+        if (potential >= 0)
         {
             return amount;
         }
 
         // if amount = 15 and _scientificPotential = 8, 8-15=-7, 15-(-7)=8
-        var realExploitedAmount = amount - (-_scientificPotential);
-        _scientificPotential = 0;
+        var realExploitedAmount = amount - (-potential);
+        ActualState.SetScientificPotential(0);
         return Math.Round(realExploitedAmount, 2, MidpointRounding.AwayFromZero);
     }
 
@@ -228,7 +270,7 @@ public class CelestialBody
                       " light minutes" + "\n\n";
         }
 
-        if (BodyType is not (CelestialBodyType.Pallyria or CelestialBodyType.Earth))
+        if (KnownState.BodyType is not (CelestialBodyType.Pallyria or CelestialBodyType.Earth))
         {
             result += GetDiscoveryStatusDesc() + "\n\n";
         }
@@ -241,34 +283,37 @@ public class CelestialBody
                     satellite => satellite.DiscoveryStatus is DiscoveryStatus.ExistenceKnown or DiscoveryStatus.Explored
                 );
             if (knownSatellites == 1)
-                result += Name + " has " + knownSatellites + " satellite around it that we know of" + "\n";
+                result += Name + " has " + knownSatellites + " satellite around it that we know of" + "\n\n";
             else if (knownSatellites > 1)
-                result += Name + " has " + knownSatellites + " satellites around it that we know of" + "\n";
+                result += Name + " has " + knownSatellites + " satellites around it that we know of" + "\n\n";
         }
 
-        if (BodyType is not (CelestialBodyType.Pallyria or CelestialBodyType.Earth))
+        if (KnownState.BodyType is not (CelestialBodyType.Pallyria or CelestialBodyType.Earth))
         {
-            switch (_scientificPotential)
+            switch (KnownState.GetScientificPotential())
             {
+                case -1:
+                    result += "We don't know how valuable this planet could be for science yet" + "\n\n";
+                    break;
                 case < 1:
                     result += "This " + GetBodyTypeNameGeneralization() +
-                              " appears to be [b][color=red]worthless[/color][/b] for science" + "\n\n";;
+                              " appears to be [b][color=red]worthless[/color][/b] for science" + "\n\n";
                     break;
                 case < 10:
                     result += "This " + GetBodyTypeNameGeneralization() +
-                              " has [b][color=red]little[/color][/b] interest for science" + "\n\n";;
+                              " has [b][color=red]little[/color][/b] interest for science" + "\n\n";
                     break;
                 case < 30:
                     result += "This " + GetBodyTypeNameGeneralization() +
-                              " has [color=yellow]little[/color] interest for science" + "\n\n";;
+                              " has [color=yellow]little[/color] interest for science" + "\n\n";
                     break;
                 case < 70:
                     result += "This " + GetBodyTypeNameGeneralization() +
-                              " has [color=green]a lot[/color] of scientific potential" + "\n\n";;
+                              " has [color=green]a lot[/color] of scientific potential" + "\n\n";
                     break;
                 case <= 100:
                     result += "This " + GetBodyTypeNameGeneralization() +
-                              " has [b][color=green]extraordinary[/color][/b] value for science" + "\n\n";;
+                              " has [b][color=green]extraordinary[/color][/b] value for science" + "\n\n";
                     break;
             }
         }
@@ -309,7 +354,7 @@ public class CelestialBody
     
     private string GetCelestialBodyTypeDesc()
     {
-        return BodyType switch
+        return KnownState.BodyType switch
         {
             CelestialBodyType.Pallyria => "This is Pallyria, home to our species",
             CelestialBodyType.Earth =>
@@ -339,6 +384,9 @@ public class CelestialBody
             CelestialBodyType.Asteroid =>
                 "This is an asteroid, essentially a really big rock, sometimes a very expensive rock",
             CelestialBodyType.DefaultPlanet => "This is just your everyday planet",
+            CelestialBodyType.Unknown => "We don't know the nature of this object",
+            CelestialBodyType.UnknownMajorBody => "We don't know what kind of planet this is yet",
+            CelestialBodyType.UnknownMinorBody => "We don't know what kind of celestial body this is yet",
             CelestialBodyType.Star => // This one isn't supposed to be used, for stars their class should be used
                 "This is a star, apparently",
             _ => ""
@@ -348,7 +396,7 @@ public class CelestialBody
     /// <returns> String "planet" or "moon" etc depending on celestial body type </returns>
     private string GetBodyTypeNameGeneralization()
     {
-        switch (BodyType)
+        switch (KnownState.BodyType)
         {
             case CelestialBodyType.Pallyria:
             case CelestialBodyType.Earth:
@@ -368,6 +416,41 @@ public class CelestialBody
             default: return "celestial object";
         }
     }
+}
+
+public class CelestialBodyState
+{
+    public CelestialBodyType BodyType;
+    private double _scientificPotential;
+
+    
+    public CelestialBodyState(
+        CelestialBodyType bodyType, 
+        double scientificPotential = -1
+        )
+    {
+        BodyType = bodyType;
+        _scientificPotential = scientificPotential;
+    }
+    
+    public CelestialBodyState()
+    {
+        BodyType = CelestialBodyType.Unknown;
+        _scientificPotential = -1;
+    }
+
+    public void SetScientificPotential(double amount)
+    {
+        if (amount < 0) _scientificPotential = 0;
+        else if (amount > 100) _scientificPotential = 100;
+        else _scientificPotential = amount;
+    }
+
+    public double GetScientificPotential()
+    {
+        return _scientificPotential;
+    }
+    
 }
 
 public enum DiscoveryStatus

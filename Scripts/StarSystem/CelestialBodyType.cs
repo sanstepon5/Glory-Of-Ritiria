@@ -12,6 +12,9 @@
     RockyMoon,
     Asteroid,
     DefaultPlanet,
+    Unknown,
+    UnknownMajorBody,
+    UnknownMinorBody,
     Pallyria,
     Earth,
     Luna

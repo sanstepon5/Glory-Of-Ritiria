@@ -304,7 +304,7 @@ public partial class star_system_view : Node2D
 		inst.Body = body;
 
 		var title = inst.GetNode<RichTextLabel>("MCont/VBox/TitleExitHBox/Title");
-		title.Text = "[b]" + body.Name + "[/b]\n" + body.BodyType;
+		title.Text = "[b]" + body.Name + "[/b]\n" + body.GetKnownBodyType();
 
 		var image = inst.GetNode<TextureRect>("MCont/VBox/ImageMargin/PlanetImage");
 		image.Texture = (Texture2D)GD.Load(body.GetImage());
@@ -349,7 +349,7 @@ public partial class star_system_view : Node2D
 		inst.Body = star;
 
 		var title = inst.GetNode<RichTextLabel>("MCont/VBox/TitleExitHBox/Title");
-		title.Text = "[b]" + star.Name + "[/b]\n" + star.BodyType;
+		title.Text = "[b]" + star.Name + "[/b]\n" + star.StarClass;
 
 		var image = inst.GetNode<TextureRect>("MCont/VBox/ImageMargin/PlanetImage");
 		image.Texture = (Texture2D)GD.Load(star.GetImage());

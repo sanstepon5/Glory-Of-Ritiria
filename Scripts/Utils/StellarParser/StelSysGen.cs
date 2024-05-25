@@ -144,18 +144,28 @@ public class StelSysGen
             }
             case StellarGeneratorPoint.Setbodyscience:
             {
-                CurrentBody.SetScientificPotential(CurrentFloat);
+                CurrentBody.SetActualScientificPotential(CurrentFloat);
+                break;
+            }
+            case StellarGeneratorPoint.SetScienceKnown:
+            {
+                CurrentBody.HarmonizeScientificPotential();
                 break;
             }
             case StellarGeneratorPoint.Setbodytype:
             {
                 if (Enum.TryParse(CurrentText, out CelestialBodyType type))
-                    CurrentBody.BodyType = type;
+                    CurrentBody.SetActualBodyType(type);
                 else
                 {
-                    CurrentBody.BodyType = CelestialBodyType.DefaultPlanet;
+                    CurrentBody.SetActualBodyType(CelestialBodyType.DefaultPlanet);
                     GD.Print("WARNING: Unrecognized body type " + CurrentText + ", default value is used");
                 }
+                break;
+            }
+            case StellarGeneratorPoint.SetBodyTypeKnown:
+            {
+                CurrentBody.HarmonizeBodyType();
                 break;
             }
             /* Star class */

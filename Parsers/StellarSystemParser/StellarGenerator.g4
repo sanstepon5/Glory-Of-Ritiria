@@ -10,7 +10,7 @@ options {
 */
 @header {
     using System.Globalization;
-    using GloryOfRitiria.Scripts.Utils;
+    using GloryOfRitiria.Scripts.Utils.StellarParser;
 }
 
 
@@ -48,7 +48,7 @@ celestial_body_body : name {StelSysGen.pt(StellarGeneratorPoint.Setbodyname);}
                       (icon {StelSysGen.pt(StellarGeneratorPoint.Setbodyicon);})?  
                       (discovery_status)?
                       (scientific_potential)?
-                      body_type {StelSysGen.pt(StellarGeneratorPoint.Setbodytype);}
+                      body_type
                       (satellites {StelSysGen.pt(StellarGeneratorPoint.Setisntsatellite);})*  
                       (shipyards)*  
                       (ships)* 
@@ -85,13 +85,13 @@ module              : 'module' id {StelSysGen.pt(StellarGeneratorPoint.Initmodul
 
 name                : 'name'                    ':' text;
 icon                : 'icon'                    ':' text;
-body_type           : 'type'                    ':' text;
+body_type           : 'type'                    ':' text {StelSysGen.pt(StellarGeneratorPoint.Setbodytype);}  ('known' {StelSysGen.pt(StellarGeneratorPoint.SetBodyTypeKnown);})?;
 ship_size           : 'size'                    ':' text;
 distance_from       : 'distance_from_detnura'   ':' floaty {StelSysGen.pt(StellarGeneratorPoint.Setsystemdistance);};
 angle               : 'map_angle'               ':' inty {StelSysGen.pt(StellarGeneratorPoint.Setsystemangle);} ;
 pull                : 'gravitational_pull'      ':' inty {StelSysGen.pt(StellarGeneratorPoint.Setsystempull);};
 body_distance       : 'distance'                ':' inty {StelSysGen.pt(StellarGeneratorPoint.Setbodydistance);};
-scientific_potential: 'science'                 ':' floaty {StelSysGen.pt(StellarGeneratorPoint.Setbodyscience);};
+scientific_potential: 'science'                 ':' floaty {StelSysGen.pt(StellarGeneratorPoint.Setbodyscience);} ('known' {StelSysGen.pt(StellarGeneratorPoint.SetScienceKnown);})?;
 building_progress   : 'building_progress'       ':' inty;
 star_class          : 'star_class'              ':'( 'orange_dwarf' {StelSysGen.pt(StellarGeneratorPoint.Setstarclassod);} 
                                                    | 'red_dwarf' {StelSysGen.pt(StellarGeneratorPoint.Setstarclassrd);}

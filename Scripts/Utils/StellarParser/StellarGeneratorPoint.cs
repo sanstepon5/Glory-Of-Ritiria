@@ -39,5 +39,7 @@ public enum StellarGeneratorPoint
     Errorverification,
     Setbodytype,
     Setshipsize,
-    Setbodyscience
+    Setbodyscience,
+    SetBodyTypeKnown,
+    SetScienceKnown
 }
