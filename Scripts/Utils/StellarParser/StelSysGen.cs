@@ -174,9 +174,9 @@ public class StelSysGen
                 if (CurrentInt==0)
                 {
                     GD.Print("ERROR: Body " + CurrentBody.Id + " is not satellite, specifying distance is required");
-                    CurrentBody.Distance = 0;
+                    CurrentBody.SetDistance(0);
                 }
-                CurrentBody.Distance = CurrentInt;
+                CurrentBody.SetDistance(CurrentFloat);
                 break;
             }
             case StellarGeneratorPoint.Setbodyicon:
@@ -204,10 +204,10 @@ public class StelSysGen
             }
             case StellarGeneratorPoint.Addsatellitetoparent:
             {
-                if (CurrentBody.Distance!=0)
+                if (CurrentBody.GetDistance()!=0)
                 {
                     GD.Print("WARNING: Body " + CurrentBody.Id + " is a satellite, distance is ignored");
-                    CurrentBody.Distance = 0;
+                    CurrentBody.SetDistance(0);
                 }
                 // Parent body may have more satellites after this one
                 ParentBodies.Peek().AddSatellite(CurrentBody);

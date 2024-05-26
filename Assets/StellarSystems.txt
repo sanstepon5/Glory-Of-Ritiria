@@ -2,7 +2,7 @@
     name : "Detnura-Aeria System"
     distance_from_detnura : 0.0 # distance in light years
     map_angle : 0 # angle in degrees relative to Detnura to position the system on the map
-    gravitational_pull : 700 # distance at which ships can jump
+    gravitational_pull : 432 # distance at which ships can jump
     
     star detnura {
         name : "Detnura" 
@@ -11,7 +11,7 @@
         
         celestial_body pallyria{
             name : "Pallyria"
-            distance : 5 # distance from the star in light minutes
+            distance : 5.0 # distance from the star in light minutes
             icon : "PlanetIcon.png"
             discovery_status : explored
             type : "Pallyria" known
@@ -37,7 +37,7 @@
 
         celestial_body other{
             name : "Other Planet"
-            distance : 15
+            distance : 15.0
             icon : "icePlanet.png"
             discovery_status : explored
             science : 10.2 known
@@ -46,7 +46,7 @@
         
         celestial_body gas_giant{
             name : "Gas Giant"
-            distance : 50
+            distance : 50.0
             icon : "gasGiant.png"
             discovery_status : explored
             science : 50.0
@@ -70,7 +70,7 @@
         
         celestial_body asteroid{
             name : "Asteroid"
-            distance : 15
+            distance : 15.0
             icon : "asteroid.png"
             discovery_status : explored
             type : "Asteroid" known
@@ -90,7 +90,7 @@ stellar_system proxima {
     name : "Proxima Centauri"
     distance_from_detnura : 3.21 # distance in light years
     map_angle : 70 # angle in degrees relative to Detnura to position the system on the map
-    gravitational_pull : 100 # distance at which ships can jump
+    gravitational_pull : 30 # distance at which ships can jump
     
     star proxima {
         name : "Proxima Centauri"
@@ -141,7 +141,7 @@ stellar_system sol_system {
     name : "Sol"
     distance_from_detnura : 4.22 # distance in light years
     map_angle : 30 # angle in degrees relative to Detnura to position the system on the map
-    gravitational_pull : 500 # distance at which ships can jump
+    gravitational_pull : 432 # distance at which ships can jump in light seconds
     
     star sun {
         name : "Sun" 

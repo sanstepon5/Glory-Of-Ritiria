@@ -30,7 +30,7 @@ public partial class Ship: GodotObject
             SetLocation(body);
         Design = new ShipDesign();
         _shipCargo = new List<Cargo>();
-        Speed = 0.01;
+        Speed = 0.02; // Not sure about the exact speed. 2% is one month to go to Earth, one more to come back. (2 weeks to edge of system)
         Selected = false;
         State = ShipState.Docked;
     }
@@ -236,6 +236,7 @@ public partial class Ship: GodotObject
     {
         _currentMission = GetMissionByName(missionName);
         _currentMission.SetTargetBody(missionTarget);
+        // _currentMission.TargetBody = missionTarget;
     }
     
     // Returns path to a the ship icon based on ship's state and requested size

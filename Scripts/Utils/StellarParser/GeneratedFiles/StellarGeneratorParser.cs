@@ -1617,8 +1617,8 @@ public partial class StellarGeneratorParser : Parser {
 	}
 
 	public partial class Body_distanceContext : ParserRuleContext {
-		public IntyContext inty() {
-			return GetRuleContext<IntyContext>(0);
+		public FloatyContext floaty() {
+			return GetRuleContext<FloatyContext>(0);
 		}
 		public Body_distanceContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
@@ -1649,7 +1649,7 @@ public partial class StellarGeneratorParser : Parser {
 			{
 			State = 294; Match(T__22);
 			State = 295; Match(T__13);
-			State = 296; inty();
+			State = 296; floaty();
 			StelSysGen.pt(StellarGeneratorPoint.Setbodydistance);
 			}
 		}
@@ -2194,7 +2194,7 @@ public partial class StellarGeneratorParser : Parser {
 		"+\x3\x2\x2\x2\x11E\x11F\a\x17\x2\x2\x11F\x120\a\x10\x2\x2\x120\x121\x5"+
 		"> \x2\x121\x122\b\x17\x1\x2\x122-\x3\x2\x2\x2\x123\x124\a\x18\x2\x2\x124"+
 		"\x125\a\x10\x2\x2\x125\x126\x5> \x2\x126\x127\b\x18\x1\x2\x127/\x3\x2"+
-		"\x2\x2\x128\x129\a\x19\x2\x2\x129\x12A\a\x10\x2\x2\x12A\x12B\x5> \x2\x12B"+
+		"\x2\x2\x128\x129\a\x19\x2\x2\x129\x12A\a\x10\x2\x2\x12A\x12B\x5@!\x2\x12B"+
 		"\x12C\b\x19\x1\x2\x12C\x31\x3\x2\x2\x2\x12D\x12E\a\x1A\x2\x2\x12E\x12F"+
 		"\a\x10\x2\x2\x12F\x130\x5@!\x2\x130\x133\b\x1A\x1\x2\x131\x132\a\x14\x2"+
 		"\x2\x132\x134\b\x1A\x1\x2\x133\x131\x3\x2\x2\x2\x133\x134\x3\x2\x2\x2"+

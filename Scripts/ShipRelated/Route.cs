@@ -33,22 +33,22 @@ public class Route
         // Compute distances to travel
         if (start.Star == destination.Star) // Travelling within the same system
         {   
-            FirstSystemDistance = Math.Abs(destination.Distance - start.Distance);
+            FirstSystemDistance = Math.Abs(destination.GetDistance() - start.GetDistance());
             TotalDistance = FirstSystemDistance;
         }
         else // Need to leave starting star system
         {   // Compute distance within the starting system
-            if (start.Distance >= start.Star.OuterSpaceDistance)    // If farther then boundaries of the system
+            if (start.GetDistance() >= start.Star.OuterSpaceDistance)    // If farther then boundaries of the system
                 FirstSystemDistance = 0;
             else 
-                FirstSystemDistance = start.Star.OuterSpaceDistance - start.Distance;
+                FirstSystemDistance = start.Star.OuterSpaceDistance - start.GetDistance();
             
             // Compute distance within the destination system
             double secondSystemDistance;
-            if (destination.Distance >= destination.Star.OuterSpaceDistance) // If farther then boundaries of the system
+            if (destination.GetDistance() >= destination.Star.OuterSpaceDistance) // If farther then boundaries of the system
                 secondSystemDistance = 0;   // Can jump directly to destination
             else 
-                secondSystemDistance = destination.Star.OuterSpaceDistance - destination.Distance;
+                secondSystemDistance = destination.Star.OuterSpaceDistance - destination.GetDistance();
             TotalDistance = FirstSystemDistance + secondSystemDistance;
         }
     }
@@ -77,12 +77,12 @@ public class Route
     
     
 
-    // Compute how many light hours will be traveled in a single turn (one month)
+    // Compute how many light hours will be traveled in a single turn (one week)
     // With a speed of 0.01c 7.2*60 light minutes will be travelled in a month
     // 50 A.U ~= 7.2 light hours = 432 light minutes
     public static double ComputeTraveledDistanceInTurn(double speed)
     {
-        return 30 * 24 * 60 * speed;
+        return 7 * 24 * 60 * speed;
     }
 
     public enum RouteStatus

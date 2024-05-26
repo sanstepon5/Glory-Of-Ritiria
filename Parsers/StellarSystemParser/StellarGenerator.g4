@@ -90,7 +90,7 @@ ship_size           : 'size'                    ':' text;
 distance_from       : 'distance_from_detnura'   ':' floaty {StelSysGen.pt(StellarGeneratorPoint.Setsystemdistance);};
 angle               : 'map_angle'               ':' inty {StelSysGen.pt(StellarGeneratorPoint.Setsystemangle);} ;
 pull                : 'gravitational_pull'      ':' inty {StelSysGen.pt(StellarGeneratorPoint.Setsystempull);};
-body_distance       : 'distance'                ':' inty {StelSysGen.pt(StellarGeneratorPoint.Setbodydistance);};
+body_distance       : 'distance'                ':' floaty {StelSysGen.pt(StellarGeneratorPoint.Setbodydistance);};
 scientific_potential: 'science'                 ':' floaty {StelSysGen.pt(StellarGeneratorPoint.Setbodyscience);} ('known' {StelSysGen.pt(StellarGeneratorPoint.SetScienceKnown);})?;
 building_progress   : 'building_progress'       ':' inty;
 star_class          : 'star_class'              ':'( 'orange_dwarf' {StelSysGen.pt(StellarGeneratorPoint.Setstarclassod);} 
