@@ -1,14 +1,16 @@
-﻿namespace GloryOfRitiria.Scripts.Effects;
+﻿using GloryOfRitiria.Scripts.ShipRelated.Missions;
 
-class ExploreBodyEffect : MissionEffect
+namespace GloryOfRitiria.Scripts.Effects;
+
+class ExploreBodyEffect : EffectOnArrival
 {
-    public ExploreBodyEffect(string desc = "idunnolol") : base(null, desc)
+    public ExploreBodyEffect(Mission mission, string desc = "idunnolol") : base(mission, desc)
     {
         
     }
     
     public override void ApplyEffect()
     {
-        TargetBody.ExplorePlanet();
+        Mission.AddEffectOnReturn(new DeliverExplorationResults(Mission));
     }
 }

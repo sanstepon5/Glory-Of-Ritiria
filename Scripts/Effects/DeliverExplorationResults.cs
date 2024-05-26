@@ -3,13 +3,11 @@ using GloryOfRitiria.Scripts.ShipRelated.Missions;
 
 namespace GloryOfRitiria.Scripts.Effects;
 
-class DeliverScience : EffectOnReturn
+class DeliverExplorationResults : EffectOnReturn
 {
-    private double _amount;
     
-    public DeliverScience(Mission mission, double amount, string desc = "Ship returns with scientific results") : base(mission, desc)
+    public DeliverExplorationResults(Mission mission, string desc = "Ship returns with scientific results") : base(mission, desc)
     {
-        _amount = amount;
     }
 
     // TODO: make it take time to analyse results
@@ -17,7 +15,6 @@ class DeliverScience : EffectOnReturn
     // Maybe with a list of "triggers" that each have a number of turns left and the associated event to execute
     public override void ApplyEffect()
     {
-        Mission.TargetBody.HarmonizeScientificPotential();
-        game_state.AddScientificRes(_amount);
+        Mission.TargetBody.ExplorePlanet();
     }
 }

@@ -6,6 +6,6 @@ class SystemExplorationMission : Mission
 {
     public SystemExplorationMission(): base("Discover system's planets")
     {
-        AddEffectOnArrival(new DiscoverBodiesEffect());
+        AddEffectOnArrival(new DiscoverBodiesEffect(this));
     }
 }

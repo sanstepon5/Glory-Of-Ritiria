@@ -18,7 +18,7 @@ public class CelestialBody
     public CelestialBody ParentBody = null;
 
     /// <summary> The distance from the star to this body in light minutes</summary>
-    public double Distance;
+    private double _distance;
 
     public DiscoveryStatus DiscoveryStatus;
     
@@ -48,7 +48,7 @@ public class CelestialBody
         CelestialBodyType type = CelestialBodyType.DefaultPlanet){
         Name = name;
         Star = star;
-        Distance = distance;
+        _distance = distance;
         DiscoveryStatus = discoveryStatus;
         _imagePath = imagePath;
         HasSatellites = true;
@@ -69,7 +69,7 @@ public class CelestialBody
         
         ActualState = new CelestialBodyState(CelestialBodyType.Star);
         KnownState = new CelestialBodyState(CelestialBodyType.Star);
-        Distance = 0;
+        _distance = 0;
         HasSatellites = false;
         Satellites = null;
         IsSatellite = false;
@@ -95,6 +95,16 @@ public class CelestialBody
         
         ActualState = new CelestialBodyState();
         KnownState = new CelestialBodyState();
+    }
+
+    public void SetDistance(double dist)
+    {
+        _distance = Math.Round(dist, 2, MidpointRounding.AwayFromZero);
+    }
+    
+    public double GetDistance()
+    {
+        return _distance;
     }
 
     public void SetActualBodyType(CelestialBodyType type)
@@ -138,6 +148,11 @@ public class CelestialBody
         KnownState.SetScientificPotential(ActualState.GetScientificPotential());
     }
 
+    public void UpdateKnownState(CelestialBodyState state)
+    {
+        
+    }
+
     public void SetImagePath(string path)
     {
         _imagePath = game_state.AssetsDir + "Img/tmp/CelestialBodies/" + path;
@@ -174,15 +189,28 @@ public class CelestialBody
             HarmonizeBodyType();
             
             var random = new Random();
-            // The known science is randomized within 20% of actual value
+            // The known science is randomized within 35% of actual value
             var actualScience = ActualState.GetScientificPotential();
-            var max = actualScience + actualScience * 0.20;
-            var min = actualScience - actualScience * 0.20;
+            var max = actualScience + actualScience * 0.35;
+            var min = actualScience - actualScience * 0.35;
             var knownScience = Math.Round(random.NextDouble() * (max  - min) + min, 2, MidpointRounding.AwayFromZero);
             SetKnownScientificPotential(knownScience);
-        }            
+        }
+
+        if (DiscoveryStatus == DiscoveryStatus.Explored) // More precise information if already explored
+        {
+            HarmonizeBodyType();
+            
+            var random = new Random();
+            // The known science is randomized within 10% of actual value
+            var actualScience = ActualState.GetScientificPotential();
+            var max = actualScience + actualScience * 0.10;
+            var min = actualScience - actualScience * 0.10;
+            var knownScience = Math.Round(random.NextDouble() * (max  - min) + min, 2, MidpointRounding.AwayFromZero);
+            SetKnownScientificPotential(knownScience);
+        }
         else
-            GD.Print("A ship tried exploring already explored body: " + Name);
+            GD.Print("A ship tried exploring unknown body. How? : " + Name);
     }
 
     /**Discover the body making it visible on the system map*/
@@ -223,7 +251,7 @@ public class CelestialBody
         switch (mission)
         {
             case PlanetExplorationMission:
-                return (this is not global::Star) && DiscoveryStatus != DiscoveryStatus.Explored;
+                return (this is not global::Star); //&& DiscoveryStatus != DiscoveryStatus.Explored;
             case SystemExplorationMission: // Can still try to explore system even if everything is found
                 return (this is Star);
             case PlanetaryExperiments:
@@ -261,12 +289,12 @@ public class CelestialBody
         if (IsSatellite)
         {
             result += Name + " is orbiting " + ParentBody.Name + "\n";
-            result += "Like it's parent body, it's orbiting " + Star.Name + " at a distance of " + ParentBody.Distance +
+            result += "Like it's parent body, it's orbiting " + Star.Name + " at a distance of " + ParentBody._distance +
                       " light minutes" + "\n\n";
         }
         else
         {
-            result += Name + " is orbiting " + Star.Name + " at a distance of " + Distance +
+            result += Name + " is orbiting " + Star.Name + " at a distance of " + _distance +
                       " light minutes" + "\n\n";
         }
 
@@ -437,6 +465,12 @@ public class CelestialBodyState
     {
         BodyType = CelestialBodyType.Unknown;
         _scientificPotential = -1;
+    }
+    
+    public CelestialBodyState(CelestialBodyState stateToCopy)
+    {
+        BodyType = stateToCopy.BodyType;
+        _scientificPotential = stateToCopy.GetScientificPotential();
     }
 
     public void SetScientificPotential(double amount)

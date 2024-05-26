@@ -6,6 +6,6 @@ class PlanetExplorationMission : Mission
 {
     public PlanetExplorationMission(): base("Explore Planet")
     {
-        AddEffectOnArrival(new ExploreBodyEffect());
+        AddEffectOnArrival(new ExploreBodyEffect(this));
     }
 }

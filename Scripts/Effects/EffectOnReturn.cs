@@ -7,6 +7,6 @@ abstract class EffectOnReturn : MissionEffect
 {
     public EffectOnReturn(Mission mission, string desc) : base(mission, desc)
     {
-        SetBodyParam(game_state.Pallyria);
+        // SetBodyParam(game_state.Pallyria);
     }
 }

@@ -8,10 +8,11 @@ namespace GloryOfRitiria.Scripts.ShipRelated.Missions;
 public abstract class Mission
 {
     public string Name;
-    // public List<MissionEffect> EffectsOnSuccess;
 
     private List<MissionEffect> _effectsOnArrival;
     private List<MissionEffect> _effectsOnReturn;
+
+    public CelestialBody TargetBody;
 
     
     private Cargo _associatedCargo;
@@ -19,7 +20,6 @@ public abstract class Mission
     protected Mission(string name)
     {
         Name = name;
-        // EffectsOnSuccess = new List<MissionEffect>();
         _effectsOnArrival = new List<MissionEffect>();
         _effectsOnReturn = new List<MissionEffect>();
     }
@@ -31,10 +31,11 @@ public abstract class Mission
 
     public void SetTargetBody(CelestialBody body)
     {
-        foreach (var effect in _effectsOnArrival)
-        {
-            effect.TargetBody = body;
-        }
+        // foreach (var effect in _effectsOnArrival)
+        // {
+        //     effect.TargetBody = body;
+        // }
+        TargetBody = body;
     }
 
     public void AddEffectOnArrival(MissionEffect effect)
