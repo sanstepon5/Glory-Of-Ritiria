@@ -112,7 +112,7 @@ public partial class GlobalSignals : Node
     [Signal]
     public delegate void ShipStartedRouteEventHandler();
     [Signal]
-    public delegate void ShipClickedEventHandler();
+    public delegate void ShipClickedEventHandler(Ship ship);
     
     
     /** Extended button (left and right click) */

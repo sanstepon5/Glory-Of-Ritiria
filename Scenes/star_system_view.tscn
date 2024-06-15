@@ -3,7 +3,7 @@
 [ext_resource type="Shader" path="res://Scenes/StarSystemScene/CelestialBodiesLine.gdshader" id="2_rn8xv"]
 [ext_resource type="Script" path="res://Scripts/Scenes/star_system_view.cs" id="2_s55j1"]
 [ext_resource type="Texture2D" uid="uid://dwrykn3365u8g" path="res://Assets/Icons/cross.png" id="4_in6l8"]
-[ext_resource type="Texture2D" uid="uid://h3ligan0kne5" path="res://Assets/Icons/lineBetweenBodies.png" id="5_j3h0l"]
+[ext_resource type="PackedScene" uid="uid://pebc2oa4mffp" path="res://Scenes/MapCamera.tscn" id="5_qvto2"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lx1e4"]
 shader = ExtResource("2_rn8xv")
@@ -49,8 +49,7 @@ layout_mode = 2
 texture = ExtResource("4_in6l8")
 stretch_mode = 2
 
-[node name="OrbitLine" type="Sprite2D" parent="."]
-z_index = -1
-position = Vector2(-119, 436)
-scale = Vector2(4.15625, 2.75)
-texture = ExtResource("5_j3h0l")
+[node name="MapCamera" parent="." instance=ExtResource("5_qvto2")]
+
+[node name="Star" type="Node2D" parent="."]
+position = Vector2(129, 351)

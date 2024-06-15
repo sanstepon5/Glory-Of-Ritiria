@@ -38,10 +38,10 @@
         celestial_body other{
             name : "Other Planet"
             distance : 15.0
-            icon : "icePlanet.png"
+            icon : "MoltenPlanet.png"
             discovery_status : explored
             science : 10.2 known
-            type : "IcyPlanet" known
+            type : "MoltenPlanet" known
         }
         
         celestial_body gas_giant{

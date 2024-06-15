@@ -1,9 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://bwjc5h5qtoo82"]
+[gd_scene load_steps=9 format=3 uid="uid://bwjc5h5qtoo82"]
 
 [ext_resource type="Script" path="res://Scripts/Scenes/ShipyardsScene.cs" id="1_vioe8"]
 [ext_resource type="Script" path="res://Scenes/HangarScenes/SlotList.cs" id="2_4bv6m"]
 [ext_resource type="PackedScene" uid="uid://cmgmkov212lej" path="res://Scenes/HangarScenes/HangarMenu.tscn" id="3_n6vaq"]
 [ext_resource type="PackedScene" uid="uid://colw3bv0dgf7u" path="res://Scenes/HangarScenes/ShipyardSelectionMenu.tscn" id="4_b3j1h"]
+[ext_resource type="Texture2D" uid="uid://k1jpe8g88r03" path="res://Assets/Img/tmp/CelestialBodies/icePlanet.png" id="5_bina8"]
+[ext_resource type="Texture2D" uid="uid://u25x6bhne73s" path="res://Assets/Img/tmp/CelestialBodies/MoltenPlanet.png" id="6_jv7c2"]
+[ext_resource type="Texture2D" uid="uid://bxqr26xuwbbxx" path="res://Assets/Img/tmp/CelestialBodies/asteroid.png" id="7_lx1ku"]
+[ext_resource type="PackedScene" uid="uid://b7h70g57vres2" path="res://Scenes/Parts/SystemMap/ShipOnSystemMap.tscn" id="8_748l3"]
 
 [node name="ShipyardsScene" type="Node2D"]
 script = ExtResource("1_vioe8")
@@ -49,3 +53,114 @@ offset_left = 330.0
 offset_top = 80.0
 offset_right = 1915.0
 offset_bottom = 210.0
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="HorizontalLine" type="ColorRect" parent="Node2D"]
+z_index = -1
+offset_left = 496.0
+offset_top = 624.0
+offset_right = 975.0
+offset_bottom = 634.0
+color = Color(1, 1, 1, 0.686275)
+
+[node name="IcePlanet" type="Node2D" parent="Node2D"]
+position = Vector2(735, 629)
+
+[node name="Ice" type="VBoxContainer" parent="Node2D"]
+offset_left = 703.0
+offset_top = 597.0
+offset_right = 799.0
+offset_bottom = 692.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Node2D/Ice"]
+layout_mode = 2
+
+[node name="BodyButton" type="TextureRect" parent="Node2D/Ice/MarginContainer"]
+layout_mode = 2
+texture = ExtResource("5_bina8")
+stretch_mode = 5
+
+[node name="Button" type="Button" parent="Node2D/Ice/MarginContainer"]
+layout_mode = 2
+flat = true
+
+[node name="BodyName" type="RichTextLabel" parent="Node2D/Ice"]
+layout_mode = 2
+size_flags_vertical = 3
+bbcode_enabled = true
+text = "Small Planet"
+fit_content = true
+
+[node name="FirePlanet" type="Node2D" parent="Node2D"]
+position = Vector2(975, 629)
+
+[node name="Fire" type="VBoxContainer" parent="Node2D/FirePlanet"]
+offset_left = -76.0
+offset_top = -76.0
+offset_right = 76.0
+offset_bottom = 106.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Node2D/FirePlanet/Fire"]
+layout_mode = 2
+
+[node name="BodyButton" type="TextureRect" parent="Node2D/FirePlanet/Fire/MarginContainer"]
+layout_mode = 2
+texture = ExtResource("6_jv7c2")
+stretch_mode = 5
+
+[node name="Button" type="Button" parent="Node2D/FirePlanet/Fire/MarginContainer"]
+layout_mode = 2
+flat = true
+
+[node name="BodyName" type="Label" parent="Node2D/FirePlanet/Fire"]
+layout_mode = 2
+text = "Planet Monster"
+
+[node name="BodyContainer3" type="VBoxContainer" parent="Node2D/FirePlanet"]
+offset_left = -33.0
+offset_top = 176.0
+offset_right = 33.0
+offset_bottom = 271.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Node2D/FirePlanet/BodyContainer3"]
+layout_mode = 2
+
+[node name="BodyButton" type="TextureRect" parent="Node2D/FirePlanet/BodyContainer3/MarginContainer"]
+layout_mode = 2
+texture = ExtResource("7_lx1ku")
+stretch_mode = 5
+
+[node name="Button" type="Button" parent="Node2D/FirePlanet/BodyContainer3/MarginContainer"]
+layout_mode = 2
+flat = true
+
+[node name="BodyName" type="Label" parent="Node2D/FirePlanet/BodyContainer3"]
+layout_mode = 2
+text = "Asteroid"
+
+[node name="ColorRect" type="ColorRect" parent="Node2D/FirePlanet"]
+z_index = -1
+offset_left = -5.0
+offset_right = 5.0
+offset_bottom = 176.0
+
+[node name="VerticalLine" type="ColorRect" parent="Node2D"]
+offset_left = 491.0
+offset_top = 629.0
+offset_right = 501.0
+offset_bottom = 967.0
+color = Color(1, 1, 1, 0.686275)
+
+[node name="ShipOnSystemMap" parent="Node2D" instance=ExtResource("8_748l3")]
+offset_left = 404.0
+offset_top = 793.0
+offset_right = 588.0
+offset_bottom = 867.0
+
+[node name="ShipContainer2" parent="Node2D" instance=ExtResource("8_748l3")]
+offset_left = 470.0
+offset_top = 967.0
+offset_right = 522.0
+offset_bottom = 1038.0
+script = null

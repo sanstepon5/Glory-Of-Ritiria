@@ -17,9 +17,10 @@ public partial class ShipScene : GridContainer
 		_signals.Connect(nameof(_signals.ShipStartedRoute), new Callable(this, nameof(_updateShipScene)));
 	}
 
-	private void _updateShipScene()
+	private void _updateShipScene(Ship ship = null)
 	{
-		_setShipTextures();
+		if (ship is null || Ship == ship)
+			_setShipTextures();
 	}
 	
 	private void _setShipTextures()
