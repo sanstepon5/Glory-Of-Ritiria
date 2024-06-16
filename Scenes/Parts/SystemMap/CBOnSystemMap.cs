@@ -1,9 +1,7 @@
 using Godot;
-using System;
 using GloryOfRitiria;
 using GloryOfRitiria.Scripts;
 using GloryOfRitiria.Scripts.Global;
-using GloryOfRitiria.Scripts.ShipRelated;
 using GloryOfRitiria.Scripts.StarSystem;
 
 public partial class CBOnSystemMap : VBoxContainer
@@ -17,7 +15,7 @@ public partial class CBOnSystemMap : VBoxContainer
 		_signals = GetNode<GlobalSignals>("/root/GlobalSignals");
 	}
 
-	public void Init(CelestialBody body)
+	public void Init(CelestialBody body, bool isStar = false)
 	{
 		Body = body;
 		GetNode<Label>("BodyName").Text = body.Name;
@@ -40,12 +38,12 @@ public partial class CBOnSystemMap : VBoxContainer
 			bodyButton.Pressed += () =>
 			{
 				_signals.EmitSignal(nameof(_signals.SimpleButtonClicked));
-				CelestialBodyPressed();
+				if (isStar)
+					_starPressed();
+				else
+					CelestialBodyPressed();
 			};
 		}
-
-		
-		
 	}
 
 	private void CelestialBodyPressed(bool isPallyria = false)
@@ -86,6 +84,42 @@ public partial class CBOnSystemMap : VBoxContainer
 			};
 		}
 
+		// Add inst to the infoWindow control node in base scene UI canvas node
+		_signals.EmitSignal(nameof(_signals.PlanetInfoWindowRequested), inst);
+
+		// Pause the rest of the game while this window is active.
+		GetTree().Paused = true;
+	}
+	
+	// TODO: surely it can be refactored a lot with CelestialBodyPressed
+	private void _starPressed()
+	{
+		if (Body is not Star star)
+		{
+			GD.Print("Tried assigning star methods to a normal body");
+			return;
+		}
+		
+		var planetInfoScene = GD.Load<PackedScene>("res://Scenes/Parts/PlanetInfoWindow.tscn");
+		var inst = (PlanetInfoWindow)planetInfoScene.Instantiate();
+
+		inst.Body = star;
+
+		var title = inst.GetNode<RichTextLabel>("MCont/VBox/TitleExitHBox/Title");
+		title.Text = "[b]" + star.Name + "[/b]\n" + star.StarClass;
+
+		var image = inst.GetNode<TextureRect>("MCont/VBox/ImageMargin/PlanetImage");
+		image.Texture = (Texture2D)GD.Load(star.GetImage());
+
+		var exitButton = inst.GetNode<Button>("MCont/VBox/TitleExitHBox/ExitButton");
+		exitButton.Pressed += () =>
+		{
+			_signals.EmitSignal(nameof(_signals.InfoWindowClosed));
+			_signals.EmitSignal(nameof(_signals.SimpleButtonClicked));
+		};
+
+		_setupSendButtons(inst);
+		
 		// Add inst to the infoWindow control node in base scene UI canvas node
 		_signals.EmitSignal(nameof(_signals.PlanetInfoWindowRequested), inst);
 

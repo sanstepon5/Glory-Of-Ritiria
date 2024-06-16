@@ -52,4 +52,4 @@ stretch_mode = 2
 [node name="MapCamera" parent="." instance=ExtResource("5_qvto2")]
 
 [node name="Star" type="Node2D" parent="."]
-position = Vector2(129, 351)
+position = Vector2(132, 556)

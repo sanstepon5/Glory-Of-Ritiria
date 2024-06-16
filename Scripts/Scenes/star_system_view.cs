@@ -17,7 +17,7 @@ public partial class star_system_view : Node2D
 	private GlobalSignals _signals;
 
 	private int _currentStarIndex = 0;
-	
+
 	private StarSystemInfo _currentSystem;
 
 	private List<Ship> _shipsInSystem;
@@ -32,7 +32,7 @@ public partial class star_system_view : Node2D
 	{
 		_shipsInSystem = new List<Ship>();
 		_signals = GetNode<GlobalSignals>("/root/GlobalSignals");
-		
+
 		_signals.Connect(nameof(_signals.DetnuraBuildRequested), new Callable(this, nameof(BuildDetnuraSystem)));
 		_signals.Connect(nameof(_signals.StarViewBuildRequested), new Callable(this, nameof(BuildMap)));
 		_signals.Connect(nameof(_signals.ShipFinishedBuilding), new Callable(this, nameof(ResetSystem)));
@@ -44,13 +44,13 @@ public partial class star_system_view : Node2D
 	public void ResetSystem()
 	{
 		_shipsInSystem = new List<Ship>();
-		
+
 		var bodiesCont = GetNode<HBoxContainer>("BodiesHBox");
 		foreach (var child in bodiesCont.GetChildren())
 		{
 			child.QueueFree();
 		}
-		
+
 		// Clear all ships in inner space
 		var innerShipsHBox = GetNode<HBoxContainer>("InnerSpaceVBox/CenterCont/HBox");
 		for (var i = 0; i < innerShipsHBox.GetChildren().Count; i++)
@@ -58,13 +58,13 @@ public partial class star_system_view : Node2D
 			var child = innerShipsHBox.GetChild(i);
 			child.QueueFree();
 		}
-		
+
 		// Rebuild system map
 		BuildMap(_currentSystem);
 		GD.Print("System view updated");
 	}
 
-	
+
 	// Loads planets of Detnura System
 	public void BuildDetnuraSystem()
 	{
@@ -72,109 +72,111 @@ public partial class star_system_view : Node2D
 		BuildMap(game_state.Detnura);
 	}
 
-	public void BuildMap(/*Star star*/ StarSystemInfo starSystem)
+	public void BuildMap( /*Star star*/ StarSystemInfo starSystem)
 	{
 		GD.Print("System Map Build Initiated");
 		GetNode<RichTextLabel>("SystemName").Text = starSystem.SystemName;
 		_currentSystem = starSystem;
-		
+
 		// TODO: Manage multiple stars
 		List<Star> stars = starSystem.SystemStars;
 		var star = stars[_currentStarIndex]; // always 0 for now
 
-		var starCenter = GetNode<Node2D>("Star");
 		
-		var starScene = GD.Load<PackedScene>("res://Scenes/Parts/SystemMap/CBOnSystemMap.tscn");
-		var starInst = (VBoxContainer)starScene.Instantiate();
-		starInst.GetNode<Label>("BodyName").Text = star.Name;
+		var starCenter = GetNode<Node2D>("Star");
+		var starInst = BuildCelestialBodyInst(star);
 
-		var starButton = starInst.GetNode<TextureButton>("BodyButton");
-		starButton.TextureNormal = (Texture2D)GD.Load(star.GetImage());
-		starButton.Pressed += () =>
-		{
-			_signals.EmitSignal(nameof(_signals.SimpleButtonClicked));
-			_starPressed(star);
-		};
+		starCenter.AddChild(starInst);
+		starInst.Position = new Vector2(-(starInst.Size.X / 2), -(starInst.ImageSize.Y / 2));
 
 		// Adding bodies horizontally
 		if (star.Bodies.Count > 0)
 		{
+			
 			var previousPosition = starInst.Position;
 			var previousSize = starInst.Size;
-			
+
 			// Bodies are present, add horizontal line
-			var horizontalLine = new ColorRect();
-			horizontalLine.Color = new Color(255, 255, 255, 180); // Slightly transparent white line
-			horizontalLine.Size = new Vector2(OrbitLineSize, 0); // We don't know yet how far line goes
-			horizontalLine.Position = new Vector2(0, -(OrbitLineSize / 2)); // Center the line on Y
+			var horizontalLine = CreateOrbitalLine(vertical: false);
 			starCenter.AddChild(horizontalLine);
+			
+			// Call build satellites method here
+			AddSatellites(starCenter, starInst, horizontalLine, vertical: false);
 
 			foreach (var body in star.Bodies)
 			{
-				if (body.DiscoveryStatus != DiscoveryStatus.Undiscovered)
-				{ 
-					// First we need to set visuals of the body (textures etc)
-					var bodyInst = BuildCelestialBodyInst(body);
-					
-					// Now that we know the size, we can find its center position
-					var bodyCenter = new Node2D();
-					bodyCenter.Position = new Vector2(previousPosition.X + previousSize.X + InterBodiesDistance +
-													  (bodyInst.Size.X / 2), -(bodyInst.ImageSize.Y / 2));
-					
-					bodyCenter.AddChild(bodyInst);
-					
-					// TODO: Take horizontal satellites into account when calculating distance
-					// between horizontal bodies higher. Maybe give the center point a size or something like that. 
+				if (body.DiscoveryStatus == DiscoveryStatus.Undiscovered) continue;
 
-					bodyInst.Position = bodyCenter.Position +
-										new Vector2(-(bodyInst.ImageSize.X / 2), -(bodyInst.ImageSize.Y / 2));
-					
-					// Increase line length
-					horizontalLine.Size += new Vector2(previousSize.X/2 + InterBodiesDistance + bodyInst.Size.X/2, 0);
-					
-					previousPosition = bodyInst.Position;
-					previousSize = bodyInst.Size;
-					
-					starCenter.AddChild(bodyCenter);
+				var bodyCenter = new Node2D();
+				starCenter.AddChild(bodyCenter);
+
+				var bodyInst = BuildCelestialBodyInst(body);
+				bodyCenter.AddChild(bodyInst);
+
+				// Now that we know the size, we can find its center position
+				bodyCenter.Position = new Vector2(previousPosition.X + previousSize.X + InterBodiesDistance +
+												  (bodyInst.Size.X / 2), -(bodyInst.ImageSize.Y / 2) - 5);
+
+				// TODO: Take horizontal satellites into account when calculating distance
+				// between horizontal bodies higher. Maybe give the center point a size or something like that. 
+
+				bodyInst.Position = new Vector2(-(bodyInst.ImageSize.X / 2), 0);
+
+				// Increase line length until the center point of the body
+				horizontalLine.Size = new Vector2(bodyCenter.Position.X, OrbitLineSize);
+
+				// Add vertical satellites
+				if (body.HasSatellites && !body.IsSatellite)
+				{
+					var verticalLine = CreateOrbitalLine(vertical: true);
+					bodyCenter.AddChild(verticalLine);
+					foreach (var satellite in body.Satellites)
+					{
+
+					}
+
+					// Add ships
+					foreach (var ship in body.ShipsInOrbit)
+					{
+
+					}
 				}
+
+				previousPosition = bodyCenter.Position;
+				previousSize = bodyInst.Size;
 			}
-			
-			
 		}
-		
+
 		// Add ships vertically to the star (to the star center)
 		if (star.ShipsInOrbit.Count > 0)
 		{
 			var previousPosition = starInst.Position;
 			var previousSize = starInst.Size;
-			
+
 			// Ships are present, add vertical line
-			var verticalLine = new ColorRect();
-			verticalLine.Color = new Color(255, 255, 255, 180); // Slightly transparent white line
-			// For the ship line stop at the start of ship scene, not the middle, so first case is special
-			verticalLine.Size = new Vector2(OrbitLineSize, starButton.Size.Y/2); 
-			verticalLine.Position = new Vector2(-(OrbitLineSize / 2), 0); // Center the line on X
+			var verticalLine = CreateOrbitalLine(vertical: true);
 			starCenter.AddChild(verticalLine);
-			
+
 			foreach (var ship in star.ShipsInOrbit)
 			{
 				var shipInst = BuildShipInst(ship);
-				
+
 				// Set scene position
-				shipInst.Position = new Vector2(-(shipInst.Size.X / 2), previousPosition.Y + previousSize.Y + InterBodiesDistance);
-				
+				shipInst.Position = new Vector2(-(shipInst.Size.X / 2),
+					previousPosition.Y + previousSize.Y + InterBodiesDistance);
+
 				previousPosition = shipInst.Position;
 				previousSize = shipInst.Size;
-				
+
 				// Increase line length
 				verticalLine.Size += new Vector2(0, previousSize.Y);
-				
+
 				starCenter.AddChild(shipInst);
 			}
 		}
-		
-		starCenter.AddChild(starInst);
-		
+
+
+
 		var emptyImg = GetNode<TextureRect>("InnerSpaceVBox/CenterCont/TextureRect");
 		var innerShipsHBox = GetNode<HBoxContainer>("InnerSpaceVBox/CenterCont/HBox");
 		var innerShipsLabel = GetNode<Label>("InnerSpaceVBox/Label");
@@ -193,113 +195,57 @@ public partial class star_system_view : Node2D
 				_shipsInSystem.Add(ship);
 				innerShipsHBox.AddChild(BuildShipInst(ship));
 			}
+
 			innerShipsLabel.Text = $"Inner Space - {star.InnerSpace.ShipsInOrbit.Count} ships in transit";
 		}
 	}
-	
-	// private Node2D BuildCelestialBody(CelestialBody body, Node2D parent)
-	// {
-	// 	var inst = new Node2D();
-	// 	
-	// 	
-	// 	
-	// 	if (lastBody) inst.GetNode<MarginContainer>("SatellitesHCont/MarginContainer").Visible = false;
-	// 	
-	// 	var satellitesVCont = inst.GetNode<VBoxContainer>("SatellitesVCont");
-	// 	var satellitesHCont = inst.GetNode<HBoxContainer>("SatellitesHCont");
-	// 	// Adding satellites vertically
-	// 	if (body.HasSatellites && !body.IsSatellite)
-	// 	{
-	// 		
-	// 		for (var i = 0; i < body.Satellites.Count; i++)
-	// 		{
-	// 			var satellite = body.Satellites[i];
-	// 			// last body
-	// 			if (i == body.Satellites.Count - 1)
-	// 			{
-	// 				if (satellite.DiscoveryStatus != DiscoveryStatus.Undiscovered)
-	// 					satellitesVCont.AddChild(BuildCelestialBody(satellite, true));
-	// 			}
-	// 			else
-	// 			{
-	// 				if (satellite.DiscoveryStatus != DiscoveryStatus.Undiscovered)
-	// 					satellitesVCont.AddChild(BuildCelestialBody(satellite));
-	// 			}
-	// 		}
-	// 	}
-	// 	// Adding satellites horizontally
-	// 	if (body.HasSatellites && body.IsSatellite)
-	// 	{
-	// 		
-	// 		for (var i = 0; i < body.Satellites.Count; i++)
-	// 		{
-	// 			var satellite = body.Satellites[i];
-	// 			// last body
-	// 			if (i == body.Satellites.Count - 1)
-	// 			{
-	// 				if (satellite.DiscoveryStatus != DiscoveryStatus.Undiscovered)
-	// 					satellitesHCont.AddChild(BuildCelestialBody(satellite, true));
-	// 			}
-	// 			else
-	// 			{
-	// 				if (satellite.DiscoveryStatus != DiscoveryStatus.Undiscovered)
-	// 					satellitesHCont.AddChild(BuildCelestialBody(satellite));
-	// 			}
-	// 		}
-	// 	}
-	//
-	// 	// Adding ships vertically
-	// 	if (body.ShipsInOrbit.Count > 0 && !body.IsSatellite)
-	// 	{
-	// 		for (var i = 0; i < body.ShipsInOrbit.Count; i++)
-	// 		{
-	// 			var ship = body.ShipsInOrbit[i];
-	// 			_shipsInSystem.Add(ship);
-	// 			// TODO: Add vertical white lines
-	// 			satellitesVCont.AddChild(BuildShipInst(ship, true));
-	// 		}
-	// 	}
-	// 	
-	// 	// Adding ships horizontally
-	// 	if (body.ShipsInOrbit.Count > 0 && body.IsSatellite)
-	// 	{
-	// 		for (var i = 0; i < body.ShipsInOrbit.Count; i++)
-	// 		{
-	// 			var ship = body.ShipsInOrbit[i];
-	// 			_shipsInSystem.Add(ship);
-	// 			// last body
-	// 			if (i == body.ShipsInOrbit.Count - 1)
-	// 				satellitesHCont.AddChild(BuildShipInst(ship, true));
-	// 			else
-	// 				satellitesHCont.AddChild(BuildShipInst(ship));
-	// 		}
-	// 	}
-	//
-	// 	return inst;
-	// }
-	
-	
+
+	private void AddSatellites(Node2D parentCenter, CBOnSystemMap parent, ColorRect orbitLine, bool vertical = false)
+	{
+		var previousPosition = parent.Position;
+		var previousSize = parent.Size;
+	}
+
+	private void AddShipsInOrbit(Node2D parent, ColorRect orbitLine, bool vertical = false)
+	{
+
+	}
+
+	private ColorRect CreateOrbitalLine(bool vertical = false)
+	{
+		var line = new ColorRect();
+		line.Color = new Color(1f, 1f, 1f, 0.7f); // Slightly transparent white line
+		// Line size should be set later increasing for each body
+		line.ZIndex = -1;
+		// The line is before everything else in the hierarchy so we need to ignore clicks on it
+		line.MouseFilter = Control.MouseFilterEnum.Ignore;
+
+		line.Position = vertical ? new Vector2(-(OrbitLineSize / 2), 0) : new Vector2(0, -(OrbitLineSize / 2));
+		return line;
+	}
+
 	private ShipOnSystemMap BuildShipInst(Ship ship)
 	{
 		_shipsInSystem.Add(ship);
-				
+
 		var shipScene = GD.Load<PackedScene>("res://Scenes/Parts/SystemMap/ShipOnSystemMap.tscn");
 		var shipInst = (ShipOnSystemMap)shipScene.Instantiate();
 		shipInst.Init(ship);
-		
+
 		return shipInst;
 	}
-	
+
 	private CBOnSystemMap BuildCelestialBodyInst(CelestialBody body)
 	{
 		var scene = GD.Load<PackedScene>("res://Scenes/Parts/SystemMap/CBOnSystemMap.tscn");
 		var inst = (CBOnSystemMap)scene.Instantiate();
-		inst.Init(body);
-		
+		if (body is Star)
+			inst.Init(body, isStar: true);
+		else
+			inst.Init(body);
+
 		return inst;
 	}
-
-
 
 	public void DeselectOtherShips(Ship ship)
 	{
@@ -310,97 +256,5 @@ public partial class star_system_view : Node2D
 			otherShip.SimpleUpdate();
 		}
 	}
-	
-	private void _starPressed(Star star)
-	{
-		var planetInfoScene = GD.Load<PackedScene>("res://Scenes/Parts/PlanetInfoWindow.tscn");
-		var inst = (PlanetInfoWindow)planetInfoScene.Instantiate();
-
-		inst.Body = star;
-
-		var title = inst.GetNode<RichTextLabel>("MCont/VBox/TitleExitHBox/Title");
-		title.Text = "[b]" + star.Name + "[/b]\n" + star.StarClass;
-
-		var image = inst.GetNode<TextureRect>("MCont/VBox/ImageMargin/PlanetImage");
-		image.Texture = (Texture2D)GD.Load(star.GetImage());
-
-		var exitButton = inst.GetNode<Button>("MCont/VBox/TitleExitHBox/ExitButton");
-		exitButton.Pressed += () =>
-		{
-			_signals.EmitSignal(nameof(_signals.InfoWindowClosed));
-		};
-
-		_setupSendButtons(star, inst);
-		
-		// Add inst to the infoWindow control node in base scene UI canvas node
-		_signals.EmitSignal(nameof(_signals.PlanetInfoWindowRequested), inst);
-
-		// Pause the rest of the game while this window is active.
-		GetTree().Paused = true;
-	}
-
-	private void _setupSendButtons(CelestialBody body, PlanetInfoWindow inst)
-	{
-		var sendButtonMargin = inst.GetNode<MarginContainer>("MCont/VBox/SendShipMargin");
-		var sendButton = sendButtonMargin.GetNode<Button>("SendShipButton");
-		if (game_state.SelectedShip != null
-			&& game_state.SelectedShip.State != ShipState.InRoute
-			&& game_state.SelectedShip.Location != body)
-		{
-			var missionButtonMargin = inst.GetNode<MarginContainer>("MCont/VBox/MissionMargin");
-			
-			missionButtonMargin.Visible = true;
-			var missionButton = missionButtonMargin.GetNode<OptionButton>("MissionSelect");
-			if (game_state.SelectedShip.IsInRouteTo(body))
-			{	// If the ship is already in route here, show the disabled button
-				sendButtonMargin.Visible = true;
-				missionButton.Disabled = true;
-				//missionButton.Selected = 0; Set current mission of the ship
-				sendButton.Disabled = true;
-				sendButton.Text = game_state.SelectedShip.Name + " in route here";
-			}
-			else sendButton.Disabled = false;
-
-			missionButton.AddItem("Move ship");
-			for (var i = 0; i < game_state.SelectedShip.GetAllMissions().Count; i++)
-			{
-				var mission = game_state.SelectedShip.GetAllMissions()[i];
-				missionButton.AddItem(mission.Name);
-				if (!body.IsMissionCompatible(mission))
-					missionButton.SetItemDisabled(i+1, true); // index 0 is for moving ship
-			}
-			
-			missionButton.Selected = -1;
-
-			missionButton.ItemSelected += index => // After player chooses a mission
-			{
-				sendButtonMargin.Visible = true;
-	
-				sendButton.Pressed += () =>
-				{
-					_signals.EmitSignal(nameof(_signals.SimpleButtonClicked));
-					_handleSendButton(body, sendButton, missionButton, index);
-				};
-			};
-		}
-	}
-
-	/**
-	 * <param name="body">body that was clicked</param>
-	 * <param name="sendButton">Button sendButton: send button node</param>
-	 * <param name="missionButton">OptionButton missionButton: select mission button</param>
-	 * <param name="index">long index: index of the option selected in missionButton</param>
-	 */
-	private void _handleSendButton(CelestialBody body, Button sendButton, OptionButton missionButton, long index)
-	{
-		game_state.SelectedShip.StartRoute(body);
-		_signals.EmitSignal(nameof(_signals.ShipStartedRoute));
-		sendButton.Disabled = true;
-		sendButton.Text = game_state.SelectedShip.Name + " is in route here";
-
-		if (missionButton.Selected > 0)
-		{ // The first one is simple movement which isn't a mission
-			game_state.SelectedShip.SetShipMission(missionButton.GetItemText((int)index), body);
-		}
-	}
 }
+	
