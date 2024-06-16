@@ -8,6 +8,7 @@ public partial class ShipOnSystemMap : VBoxContainer
 {
 	private GlobalSignals _signals;
 	public Ship Ship;
+	public Vector2 ImageSize;
 	
 	public override void _Ready()
 	{
@@ -31,6 +32,8 @@ public partial class ShipOnSystemMap : VBoxContainer
 			_signals.EmitSignal(nameof(_signals.SimpleButtonClicked));
 			_handleShipButtonPress();
 		};
+
+		ImageSize = textureButton.Size;
 
 	}
 

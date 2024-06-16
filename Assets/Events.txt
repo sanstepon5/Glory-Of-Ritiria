@@ -38,7 +38,7 @@ Event:
     Image: "res://icon.svg"
     Condition For All:
         Condition Simple:
-            CurrentTurn, >, 2;
+            CurrentTurn, >, 200;
         Condition Simple:
             Res1, >, 30;
     Options:

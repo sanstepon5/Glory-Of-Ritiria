@@ -35,18 +35,6 @@ public partial class Shipyard : GodotObject
         BuildingSpeed = BuildingEfficiency;
     }
     
-    // Constructor for a shipyard with a ship in construction
-    // public Shipyard(string shipyardName, CelestialBody location, Ship ship, int currentProgress = 0, double buildingEfficiency = 1.0)
-    // {
-    //     ShipyardName = shipyardName;
-    //     Location = location;
-    //     State = SlotState.Busy;
-    //     Ship = ship;
-    //     CurrentProgress = currentProgress;
-    //     TurnCost = ship.Design.Cost;
-    //     BuildingEfficiency = buildingEfficiency;
-    //     BuildingSpeed = BuildingEfficiency;
-    // }
     
     /**Returns true if shipyard finished building*/
     public bool Update()
@@ -67,9 +55,10 @@ public partial class Shipyard : GodotObject
         return true;
     }
 
+    // TODO: Remove test speed
     public void UpdateBuildingSpeed()
     {
-        BuildingSpeed = Math.Round(BuildingEfficiency + (BuildingEfficiency * (game_state.ScientificRes / 100)), 4);
+        BuildingSpeed = Math.Round(100 + BuildingEfficiency + (BuildingEfficiency * (game_state.ScientificRes / 100)), 4);
     }
 
     public void StartConstruction(Ship ship, int turnCost)

@@ -45,8 +45,8 @@ public partial class star_system_view : Node2D
 	{
 		_shipsInSystem = new List<Ship>();
 
-		var bodiesCont = GetNode<HBoxContainer>("BodiesHBox");
-		foreach (var child in bodiesCont.GetChildren())
+		var allBodies = GetNode<Node2D>("Star");
+		foreach (var child in allBodies.GetChildren())
 		{
 			child.QueueFree();
 		}
@@ -93,6 +93,7 @@ public partial class star_system_view : Node2D
 		if (star.Bodies.Count > 0)
 		{
 			// Bodies are present, add horizontal line
+			// TODO: No reason to create line here and inside the method
 			var horizontalLine = CreateOrbitalLine(vertical: false);
 			starCenter.AddChild(horizontalLine);
 			
@@ -127,9 +128,7 @@ public partial class star_system_view : Node2D
 				starCenter.AddChild(shipInst);
 			}
 		}
-
-
-
+		
 		var emptyImg = GetNode<TextureRect>("InnerSpaceVBox/CenterCont/TextureRect");
 		var innerShipsHBox = GetNode<HBoxContainer>("InnerSpaceVBox/CenterCont/HBox");
 		var innerShipsLabel = GetNode<Label>("InnerSpaceVBox/Label");
@@ -205,28 +204,66 @@ public partial class star_system_view : Node2D
 				orbitLine.Size = new Vector2(bodyCenter.Position.X, OrbitLineSize);
 			}
 
-			// Add vertical satellites
-			if (body.HasSatellites && !body.IsSatellite)
+			// If not satellite, add vertically
+			if (body.IsSatellite)
 			{
+				// TODO: No reason to create line here and inside the method
+				var horizontalLine = CreateOrbitalLine(false);
+				bodyCenter.AddChild(horizontalLine);
+
+				if (body.HasSatellites)
+					AddSatellites(bodyCenter, bodyInst, horizontalLine, false);
+				if (body.ShipsInOrbit.Count > 0)
+					AddShipsInOrbit(bodyCenter, bodyInst, horizontalLine, false);
+			}
+			else
+			{
+				// TODO: No reason to create line here and inside the method
 				var verticalLine = CreateOrbitalLine(vertical: true);
 				bodyCenter.AddChild(verticalLine);
-				AddSatellites(bodyCenter, bodyInst, verticalLine, vertical: true);
 
-				// Add ships
-				foreach (var ship in body.ShipsInOrbit)
-				{
-
-				}
+				if (body.HasSatellites)
+					AddSatellites(bodyCenter, bodyInst, verticalLine, true);
+				if (body.ShipsInOrbit.Count > 0)
+					AddShipsInOrbit(bodyCenter, bodyInst, verticalLine, true);
 			}
+
 
 			previousPosition = bodyCenter.Position;
 			previousSize = bodyInst.Size;
 		}
 	}
 
-	private void AddShipsInOrbit(Node2D parent, ColorRect orbitLine, bool vertical = false)
+	private void AddShipsInOrbit(Node2D parentCenter, CBOnSystemMap parent, ColorRect orbitLine, bool vertical)
 	{
+		var previousPosition = parentCenter.Position;
+		var previousSize = parent.Size;
+		
+		// TODO: Horizontal ships
+		foreach (var ship in parent.Body.ShipsInOrbit)
+		{
+			var shipCenter = new Node2D();
+			parentCenter.AddChild(shipCenter);
 
+			var shipInst = BuildShipInst(ship);
+			shipCenter.AddChild(shipInst);
+			
+			shipCenter.Position = new Vector2(
+				-(shipInst.Size.X / 2), 
+				previousPosition.Y + previousSize.Y + InterBodiesDistance + (shipInst.Size.Y / 2)
+			);
+
+			// Set scene position
+			shipInst.Position = new Vector2(0, -(shipInst.ImageSize.Y / 2));
+			
+			orbitLine.Size = new Vector2(OrbitLineSize, shipCenter.Position.Y);
+
+			previousPosition = shipInst.Position;
+			previousSize = shipInst.Size;
+
+			// Increase line length
+			
+		}
 	}
 
 	private ColorRect CreateOrbitalLine(bool vertical = false)
