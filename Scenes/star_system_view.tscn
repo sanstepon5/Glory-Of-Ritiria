@@ -1,22 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://b7h53a4hm5uld"]
+[gd_scene load_steps=4 format=3 uid="uid://b7h53a4hm5uld"]
 
-[ext_resource type="Shader" path="res://Scenes/StarSystemScene/CelestialBodiesLine.gdshader" id="2_rn8xv"]
 [ext_resource type="Script" path="res://Scripts/Scenes/star_system_view.cs" id="2_s55j1"]
 [ext_resource type="Texture2D" uid="uid://dwrykn3365u8g" path="res://Assets/Icons/cross.png" id="4_in6l8"]
 [ext_resource type="PackedScene" uid="uid://pebc2oa4mffp" path="res://Scenes/MapCamera.tscn" id="5_qvto2"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_lx1e4"]
-shader = ExtResource("2_rn8xv")
-
 [node name="StarSystemView" type="Node2D"]
 script = ExtResource("2_s55j1")
-
-[node name="BodiesHBox" type="HBoxContainer" parent="."]
-material = SubResource("ShaderMaterial_lx1e4")
-offset_left = 106.0
-offset_top = 288.0
-offset_right = 732.0
-offset_bottom = 407.0
 
 [node name="SystemName" type="RichTextLabel" parent="."]
 offset_left = 653.0
@@ -52,4 +41,4 @@ stretch_mode = 2
 [node name="MapCamera" parent="." instance=ExtResource("5_qvto2")]
 
 [node name="Star" type="Node2D" parent="."]
-position = Vector2(132, 556)
+position = Vector2(145, 366)
