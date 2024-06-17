@@ -88,15 +88,16 @@ public partial class star_system_view : Node2D
 
 		starCenter.AddChild(starInst);
 		starInst.Position = new Vector2(-(starInst.Size.X / 2), -(starInst.ImageSize.Y / 2));
+		
+		// Lines are created with 0 size so they don't appear
+		var horizontalLine = CreateOrbitalLine(vertical: false);
+		starCenter.AddChild(horizontalLine);
+		var verticalLine = CreateOrbitalLine(vertical: true);
+		starCenter.AddChild(verticalLine);
 
 		// Adding bodies horizontally
 		if (star.Bodies.Count > 0)
 		{
-			// Bodies are present, add horizontal line
-			// TODO: No reason to create line here and inside the method
-			var horizontalLine = CreateOrbitalLine(vertical: false);
-			starCenter.AddChild(horizontalLine);
-			
 			// Build bodies of the star
 			AddSatellites(starCenter, starInst, horizontalLine, vertical: false);
 		}
@@ -106,10 +107,6 @@ public partial class star_system_view : Node2D
 		{
 			var previousPosition = starInst.Position;
 			var previousSize = starInst.Size;
-
-			// Ships are present, add vertical line
-			var verticalLine = CreateOrbitalLine(vertical: true);
-			starCenter.AddChild(verticalLine);
 
 			foreach (var ship in star.ShipsInOrbit)
 			{
@@ -204,10 +201,10 @@ public partial class star_system_view : Node2D
 				orbitLine.Size = new Vector2(bodyCenter.Position.X, OrbitLineSize);
 			}
 
-			// If not satellite, add vertically
+			// If satellite, add horizontal to it
 			if (body.IsSatellite)
 			{
-				// TODO: No reason to create line here and inside the method
+				// Line will be 0 length if no satellites so not visible
 				var horizontalLine = CreateOrbitalLine(false);
 				bodyCenter.AddChild(horizontalLine);
 
@@ -218,7 +215,7 @@ public partial class star_system_view : Node2D
 			}
 			else
 			{
-				// TODO: No reason to create line here and inside the method
+				// Line will be 0 length if no satellites so not visible
 				var verticalLine = CreateOrbitalLine(vertical: true);
 				bodyCenter.AddChild(verticalLine);
 
