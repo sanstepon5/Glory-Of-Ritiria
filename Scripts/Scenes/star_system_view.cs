@@ -99,9 +99,9 @@ public partial class star_system_view : Node2D
 		if (star.Bodies.Count > 0)
 		{
 			// Build bodies of the star
-			AddSatellites(starCenter, starInst, horizontalLine, vertical: false);
+			AddSatellites(starCenter, starInst, horizontalLine, isVertical: false);
 		}
-
+		
 		// Add ships vertically to the star (to the star center)
 		if (star.ShipsInOrbit.Count > 0)
 		{
@@ -149,10 +149,12 @@ public partial class star_system_view : Node2D
 		}
 	}
 
-	private void AddSatellites(Node2D parentCenter, CBOnSystemMap parent, ColorRect orbitLine, bool vertical = false)
+	// Really not a fan of this approach but it's a pain to try and make it better, sorry future me
+	private (Node2D, CBOnSystemMap) AddSatellites(
+		Node2D parentCenter, CBOnSystemMap parent, ColorRect orbitLine, bool isVertical = false
+		) 
 	{
-		var previousPosition = parent.Position;
-		var previousSize = parent.Size;
+		var lastBody = (center: parentCenter, inst: parent); // Hopefully never stays that
 		
 		// TODO: Honestly star's bodies and body's satellites should be the same
 		List<CelestialBody> bodies;
@@ -161,7 +163,8 @@ public partial class star_system_view : Node2D
 		else
 			bodies = parent.Body.Satellites;
 		
-		
+		var previousPosition = parent.Position;
+		var previousSize = parent.Size;
 		foreach (var body in bodies)
 		{
 			if (body.DiscoveryStatus == DiscoveryStatus.Undiscovered) continue;
@@ -173,18 +176,13 @@ public partial class star_system_view : Node2D
 			var bodyInst = BuildCelestialBodyInst(body);
 			bodyCenter.AddChild(bodyInst);
 
-			if (vertical)
+			if (isVertical)
 			{
-				bodyCenter.Position = new Vector2(
-					-(bodyInst.Size.X / 2), 
-					previousPosition.Y + previousSize.Y + InterBodiesDistance + (bodyInst.Size.Y / 2)
-					);
-
+				bodyCenter.Position = new Vector2(-(bodyInst.Size.X / 2), 
+					previousPosition.Y + previousSize.Y + InterBodiesDistance + (bodyInst.Size.Y / 2));
 				// TODO: Take horizontal satellites into account when calculating distance
 				// between horizontal bodies higher. Maybe give the center point a size or something like that. 
-
 				bodyInst.Position = new Vector2(0, -(bodyInst.ImageSize.Y / 2));
-
 				// Increase line length until the center point of the body
 				orbitLine.Size = new Vector2(OrbitLineSize, bodyCenter.Position.Y);
 			}
@@ -194,53 +192,44 @@ public partial class star_system_view : Node2D
 												  (bodyInst.Size.X / 2), 0);
 				// TODO: Take horizontal satellites into account when calculating distance
 				// between horizontal bodies higher. Maybe give the center point a size or something like that. 
-
 				bodyInst.Position = new Vector2(-(bodyInst.ImageSize.X / 2), -(bodyInst.ImageSize.Y / 2) - 5);
-
-				// Increase line length until the center point of the body
 				orbitLine.Size = new Vector2(bodyCenter.Position.X, OrbitLineSize);
 			}
 
-			// If satellite, add horizontal to it
-			if (body.IsSatellite)
+			// Line will be 0 length if no satellites so not visible
+			var line = CreateOrbitalLine(!isVertical);
+			bodyCenter.AddChild(line);
+
+			lastBody = (bodyCenter, bodyInst);
+			
+			if (body.HasSatellites)
 			{
-				// Line will be 0 length if no satellites so not visible
-				var horizontalLine = CreateOrbitalLine(false);
-				bodyCenter.AddChild(horizontalLine);
-
-				if (body.HasSatellites)
-					AddSatellites(bodyCenter, bodyInst, horizontalLine, false);
-				if (body.ShipsInOrbit.Count > 0)
-					AddShipsInOrbit(bodyCenter, bodyInst, horizontalLine, false);
+				lastBody = AddSatellites(bodyCenter, bodyInst, line, !isVertical);
 			}
-			else
-			{
-				// Line will be 0 length if no satellites so not visible
-				var verticalLine = CreateOrbitalLine(vertical: true);
-				bodyCenter.AddChild(verticalLine);
-
-				if (body.HasSatellites)
-					AddSatellites(bodyCenter, bodyInst, verticalLine, true);
-				if (body.ShipsInOrbit.Count > 0)
-					AddShipsInOrbit(bodyCenter, bodyInst, verticalLine, true);
-			}
-
+			if (body.ShipsInOrbit.Count > 0)
+				AddShipsInOrbit((bodyCenter, bodyInst), lastBody, line, !isVertical);
 
 			previousPosition = bodyCenter.Position;
 			previousSize = bodyInst.Size;
-		}
-	}
 
-	private void AddShipsInOrbit(Node2D parentCenter, CBOnSystemMap parent, ColorRect orbitLine, bool vertical)
+			lastBody.center = bodyCenter;
+			lastBody.inst = bodyInst;
+		}
+
+		return lastBody;
+	}
+	
+
+	private void AddShipsInOrbit((Node2D parentCenter, CBOnSystemMap parentInst) parent, (Node2D center, CBOnSystemMap inst) lastBody, ColorRect orbitLine, bool vertical)
 	{
-		var previousPosition = parentCenter.Position;
-		var previousSize = parent.Size;
+		var previousPosition = lastBody.center.Position;
+		var previousSize = lastBody.inst.Size;
 		
 		// TODO: Horizontal ships
-		foreach (var ship in parent.Body.ShipsInOrbit)
+		foreach (var ship in parent.parentInst.Body.ShipsInOrbit)
 		{
 			var shipCenter = new Node2D();
-			parentCenter.AddChild(shipCenter);
+			parent.parentCenter.AddChild(shipCenter);
 
 			var shipInst = BuildShipInst(ship);
 			shipCenter.AddChild(shipInst);
@@ -249,17 +238,12 @@ public partial class star_system_view : Node2D
 				-(shipInst.Size.X / 2), 
 				previousPosition.Y + previousSize.Y + InterBodiesDistance + (shipInst.Size.Y / 2)
 			);
-
-			// Set scene position
 			shipInst.Position = new Vector2(0, -(shipInst.ImageSize.Y / 2));
 			
 			orbitLine.Size = new Vector2(OrbitLineSize, shipCenter.Position.Y);
 
-			previousPosition = shipInst.Position;
+			previousPosition = shipCenter.Position;
 			previousSize = shipInst.Size;
-
-			// Increase line length
-			
 		}
 	}
 

@@ -183,7 +183,7 @@ public partial class CBOnSystemMap : VBoxContainer
 	private void _handleSendButton(Button sendButton, OptionButton missionButton, long index)
 	{
 		game_state.SelectedShip.StartRoute(Body);
-		_signals.EmitSignal(nameof(_signals.ShipStartedRoute));
+		_signals.EmitSignal(nameof(_signals.ShipStartedRoute), game_state.SelectedShip);
 		sendButton.Disabled = true;
 		sendButton.Text = game_state.SelectedShip.Name + " is in route here";
 

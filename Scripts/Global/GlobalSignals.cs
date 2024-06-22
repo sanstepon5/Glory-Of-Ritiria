@@ -110,7 +110,7 @@ public partial class GlobalSignals : Node
     [Signal]
     public delegate void ShipMovedEventHandler();
     [Signal]
-    public delegate void ShipStartedRouteEventHandler();
+    public delegate void ShipStartedRouteEventHandler(Ship ship);
     [Signal]
     public delegate void ShipClickedEventHandler(Ship ship);
     

@@ -39,7 +39,6 @@ public partial class ShipOnSystemMap : VBoxContainer
 
 	private void _updateShipScene(Ship ship = null)
 	{
-		// if (ship is null || Ship == ship)
 		UpdateShipTextures();
 	}
 	
