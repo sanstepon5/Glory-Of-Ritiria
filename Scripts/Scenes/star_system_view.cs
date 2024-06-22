@@ -192,7 +192,7 @@ public partial class star_system_view : Node2D
 												  (bodyInst.Size.X / 2), 0);
 				// TODO: Take horizontal satellites into account when calculating distance
 				// between horizontal bodies higher. Maybe give the center point a size or something like that. 
-				bodyInst.Position = new Vector2(-(bodyInst.ImageSize.X / 2), -(bodyInst.ImageSize.Y / 2) - 5);
+				bodyInst.Position = new Vector2(-(bodyInst.ImageSize.X / 2), -(bodyInst.ImageSize.Y / 2) - (OrbitLineSize/2));
 				orbitLine.Size = new Vector2(bodyCenter.Position.X, OrbitLineSize);
 			}
 
@@ -220,7 +220,7 @@ public partial class star_system_view : Node2D
 	}
 	
 
-	private void AddShipsInOrbit((Node2D parentCenter, CBOnSystemMap parentInst) parent, (Node2D center, CBOnSystemMap inst) lastBody, ColorRect orbitLine, bool vertical)
+	private void AddShipsInOrbit((Node2D parentCenter, CBOnSystemMap parentInst) parent, (Node2D center, CBOnSystemMap inst) lastBody, ColorRect orbitLine, bool isVertical)
 	{
 		var previousPosition = lastBody.center.Position;
 		var previousSize = lastBody.inst.Size;
@@ -234,13 +234,26 @@ public partial class star_system_view : Node2D
 			var shipInst = BuildShipInst(ship);
 			shipCenter.AddChild(shipInst);
 			
-			shipCenter.Position = new Vector2(
-				-(shipInst.Size.X / 2), 
-				previousPosition.Y + previousSize.Y + InterBodiesDistance + (shipInst.Size.Y / 2)
-			);
-			shipInst.Position = new Vector2(0, -(shipInst.ImageSize.Y / 2));
+			if (isVertical)
+			{
+				shipCenter.Position = new Vector2(
+					-(shipInst.Size.X / 2), 
+					previousPosition.Y + previousSize.Y + InterBodiesDistance + (shipInst.Size.Y / 2)
+				);
+				shipInst.Position = new Vector2(0, -(shipInst.ImageSize.Y / 2));
+				orbitLine.Size = new Vector2(OrbitLineSize, shipCenter.Position.Y);
+			}
+			else
+			{
+				var imageSize = shipInst.GetNode<TextureButton>("ShipButton").Size;
+				shipCenter.Position = new Vector2(
+					previousPosition.X + previousSize.X + InterBodiesDistance + (shipInst.Size.X / 2), -(imageSize.Y / 2)
+					);
+				shipInst.Position = new Vector2(-(shipInst.ImageSize.X / 2), -(shipInst.ImageSize.Y / 2));
 			
-			orbitLine.Size = new Vector2(OrbitLineSize, shipCenter.Position.Y);
+				orbitLine.Size = new Vector2(shipCenter.Position.X, OrbitLineSize);
+			}
+			
 
 			previousPosition = shipCenter.Position;
 			previousSize = shipInst.Size;
