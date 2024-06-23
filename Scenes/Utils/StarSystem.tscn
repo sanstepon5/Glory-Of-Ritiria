@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dge6yh73g7sbv"]
 
-[ext_resource type="Texture2D" uid="uid://ba7vf2n0rglja" path="res://Assets/Img/tmp/CelestialBodies/RedDwarf.png" id="1_ky5n3"]
+[ext_resource type="Texture2D" uid="uid://ekp8y1lpchfr" path="res://Assets/GUI/InterstellarMap/Star64.png" id="1_5teyv"]
 
 [node name="StarSystem" type="VBoxContainer"]
 offset_left = 891.0
@@ -17,9 +17,12 @@ theme_override_constants/margin_bottom = 0
 
 [node name="StarButton" type="TextureButton" parent="MarginContainer"]
 layout_mode = 2
-texture_normal = ExtResource("1_ky5n3")
+texture_normal = ExtResource("1_5teyv")
+stretch_mode = 5
 
 [node name="SystemName" type="RichTextLabel" parent="."]
+z_index = 1
 layout_mode = 2
 bbcode_enabled = true
+text = "[center]Detnura-Aeria System"
 fit_content = true

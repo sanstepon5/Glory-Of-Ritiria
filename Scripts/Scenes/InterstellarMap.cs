@@ -29,7 +29,7 @@ public partial class InterstellarMap : Node2D
 		var starSystem = GD.Load<PackedScene>("res://Scenes/Utils/StarSystem.tscn");
 		var starSystemInst = (VBoxContainer) starSystem.Instantiate();
 		
-		starSystemInst.GetNode<RichTextLabel>("SystemName").Text = systemInfo.SystemName;
+		starSystemInst.GetNode<RichTextLabel>("SystemName").Text = "[center]" + systemInfo.SystemName;
 		
 		// Position the system relative to the center of the map (which is Detnura)
 		var centerVBox = GetNode<VBoxContainer>("DetnuraVBox");
@@ -37,6 +37,25 @@ public partial class InterstellarMap : Node2D
 		
 
 		var systemButton = starSystemInst.GetNode<TextureButton>("MarginContainer/StarButton");
+		var stars = systemInfo.SystemStars;
+		if (stars.Count == 1)
+		{
+			switch (stars[0].StarClass)
+			{
+				case StarClass.YellowDwarf:
+					systemButton.TextureNormal = (Texture2D)GD.Load("res://Assets/GUI/InterstellarMap/BrightYellowStar64.png"); break;
+				case StarClass.OrangeDwarf: 
+					systemButton.TextureNormal = (Texture2D)GD.Load("res://Assets/GUI/InterstellarMap/YellowStar64.png"); break;
+				case StarClass.RedDwarf: 
+					systemButton.TextureNormal = (Texture2D)GD.Load("res://Assets/GUI/InterstellarMap/FaintRedStar64.png"); break;
+				default: // TODO: Add star classes
+					systemButton.TextureNormal = (Texture2D)GD.Load("res://Assets/GUI/InterstellarMap/BlueStar64.png"); break;
+			}
+		}
+		else
+		{	// TODO: Add multiple stars images
+			systemButton.TextureNormal = (Texture2D)GD.Load("res://Assets/GUI/InterstellarMap/BrightYellowStar64.png");
+		}
 
 		systemButton.Pressed += () =>
 		{

@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://db6qdll8lf15i"]
+[gd_scene load_steps=5 format=3 uid="uid://db6qdll8lf15i"]
 
 [ext_resource type="Script" path="res://Scripts/Scenes/InterstellarMap.cs" id="1_vxdfo"]
 [ext_resource type="PackedScene" uid="uid://dv4521t76hah1" path="res://Scenes/Utils/InterstellarDistanceCircle.tscn" id="3_8alt7"]
+[ext_resource type="Texture2D" uid="uid://dmawbrvqbmjpd" path="res://Assets/GUI/InterstellarMap/stars.png" id="4_3mdyr"]
 [ext_resource type="PackedScene" uid="uid://pebc2oa4mffp" path="res://Scenes/MapCamera.tscn" id="4_kicdb"]
 
 [node name="InterstellarMap" type="Node2D"]
@@ -66,3 +67,13 @@ DistanceText = "10 Light Years"
 position = Vector2(50, 48)
 Radius = 750.0
 DistanceText = "15 Light Years"
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+scroll_ignore_camera_zoom = true
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2(1028, 1028)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+texture = ExtResource("4_3mdyr")
+centered = false

@@ -132,8 +132,17 @@ public partial class base_game_scene : Node2D
 
 		// Changing BG in base_game_scene
 		var bg = GetNode<TextureRect>("BackGroundImage");
-		var texture = (Texture2D)GD.Load(backgroundPath);
-		bg.Texture = texture;
+		if (backgroundPath != "")
+		{
+			var texture = (Texture2D)GD.Load(backgroundPath);
+			bg.Texture = texture;
+			bg.Visible = true;
+		}
+		else
+		{
+			bg.Visible = false;
+		}
+		
 		
 		// By default all scenes show the pass turn button, if needed should be disabled in scene load function
 		//_signals.EmitSignal(nameof(_signals.ShowPassTurnButtonRequested));
@@ -172,7 +181,7 @@ public partial class base_game_scene : Node2D
 	public void LoadInterstellarMap()
 	{
 		// TODO: Find a background and generally better integrate this scene in the current framework
-		LoadScene("res://Scenes/InterstellarMap.tscn", "res://Assets/Img/tmp/GalaxyBackGround.png");
+		LoadScene("res://Scenes/InterstellarMap.tscn", "");
 	}
 
 	// Clears loaded scene
