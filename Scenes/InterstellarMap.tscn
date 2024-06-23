@@ -8,6 +8,16 @@
 [node name="InterstellarMap" type="Node2D"]
 script = ExtResource("1_vxdfo")
 
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+scroll_ignore_camera_zoom = true
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2(1028, 1028)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+texture = ExtResource("4_3mdyr")
+centered = false
+
 [node name="BG" type="ColorRect" parent="."]
 visible = false
 offset_left = -5000.0
@@ -67,13 +77,3 @@ DistanceText = "10 Light Years"
 position = Vector2(50, 48)
 Radius = 750.0
 DistanceText = "15 Light Years"
-
-[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
-scroll_ignore_camera_zoom = true
-
-[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
-motion_mirroring = Vector2(1028, 1028)
-
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
-texture = ExtResource("4_3mdyr")
-centered = false

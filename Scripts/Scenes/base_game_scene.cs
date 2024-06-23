@@ -131,8 +131,18 @@ public partial class base_game_scene : Node2D
 		}
 
 		// Changing BG in base_game_scene
-		var bg = GetNode<TextureRect>("BackGroundImage");
-		if (backgroundPath != "")
+		var bg = GetNode<Sprite2D>("BackGroundImage");
+		
+		// TODO: Handle this better
+		if (backgroundPath == "res://Assets/Img/tmp/MilkyWayTransparent.png")
+		{
+			var texture = (Texture2D)GD.Load(backgroundPath);
+			bg.Texture = texture;
+			bg.Visible = true;
+			bg.Centered = true;
+			bg.Position = GetViewportRect().Size / 2;
+		}
+		else if (backgroundPath != "")
 		{
 			var texture = (Texture2D)GD.Load(backgroundPath);
 			bg.Texture = texture;
@@ -168,13 +178,15 @@ public partial class base_game_scene : Node2D
 	// Load the Detnura scene
 	public void LoadDetnuraMap()
 	{
-		LoadScene("res://Scenes/star_system_view.tscn", "res://Assets/Img/tmp/SystemBackGround.png", nameof(_signals.DetnuraBuildRequested));
+		LoadScene("res://Scenes/star_system_view.tscn", "res://Assets/Img/tmp/MilkyWayTransparent.png", nameof(_signals.DetnuraBuildRequested));
+		// res://Assets/Img/tmp/SystemBackGround.png
 	}	
 	
 	// Load a star system view scene
 	public void LoadSystemMap(StarSystemInfo systemInfo)
 	{
-		LoadScene("res://Scenes/star_system_view.tscn", "res://Assets/Img/tmp/SystemBackGround.png", nameof(_signals.StarViewBuildRequested), systemInfo);
+		LoadScene("res://Scenes/star_system_view.tscn", "res://Assets/Img/tmp/MilkyWayTransparent.png", nameof(_signals.StarViewBuildRequested), systemInfo);
+		// res://Assets/Img/tmp/SystemBackGround.png
 	}
 	
 	// Load the Pallyria scene
