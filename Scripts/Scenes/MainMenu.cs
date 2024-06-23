@@ -52,7 +52,7 @@ public partial class MainMenu : Node2D
 	// Loads data of gameState from a save file
 	private static void LoadGameState()
 	{
-		game_state.CurrentYear = "970 APE\n(2017 CE)";
+		// game_state.CurrentYear = "970 APE\n(2017 CE)";
 	}
 
 	// TODO

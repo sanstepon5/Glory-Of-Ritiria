@@ -19,7 +19,6 @@ public partial class game_state : Node
 
 	public static string AssetsDir;
 	
-	public static string CurrentYear { set; get; } = "970 APE\n(2017 CE)";
 	public static int CurrentTurn { set; get; } = 0;
 
 	// Resources
@@ -60,7 +59,6 @@ public partial class game_state : Node
 	{
 		var attributeValues = new Dictionary<string, Tuple<Type, object>>
 		{
-			{ "CurrentYear", Tuple.Create(typeof(string), (object)CurrentYear) },
 			{ "CurrentTurn", Tuple.Create(typeof(int), (object)CurrentTurn) },
 			{ "Res1", Tuple.Create(typeof(double), (object)Res1) },
 			{ "Res1Rate", Tuple.Create(typeof(double), (object)Res1Rate) }
@@ -81,6 +79,7 @@ public partial class game_state : Node
 		_signals = GetNode<GlobalSignals>("/root/GlobalSignals");
 	}
 
+	// TODO: Check if this is used
 	public static void DiscoverPlanet(string planetName)
 	{
 		//TODO: transform into while and print error if not found
@@ -98,7 +97,6 @@ public partial class game_state : Node
 			}
 		}
 	}
-	
 	public static void DiscoverSystem(Star star)
 	{
 		foreach (var body in star.Bodies)
@@ -165,12 +163,6 @@ public partial class game_state : Node
 		if (PoliticalRes < 0) PoliticalRes = 0;
 	}
 	
-	public static void SetCurrentYear()
-	{
-		// For now
-		CurrentYear = "9" + (70 + CurrentTurn) + " APE\n(20" + (17 + CurrentTurn) + " CE)";
-	}
-
 	public static void UpdateShipConstruction()
 	{
 		foreach (var body in BodiesWithShipyards)

@@ -27,13 +27,14 @@ scale = Vector2(1, 2)
 
 [node name="CurrentYear" type="Label" parent="."]
 layout_mode = 0
-offset_left = 1600.0
-offset_right = 1737.0
-offset_bottom = 76.0
+offset_left = 1448.0
+offset_top = -1.0
+offset_right = 1696.0
+offset_bottom = 75.0
 tooltip_text = "Blablabla"
 mouse_filter = 0
-theme_override_font_sizes/font_size = 25
-text = "970 APE
+theme_override_font_sizes/font_size = 20
+text = "Week 3, Month 11, 970 APE
 (2017 CE)"
 
 [node name="TestButton" type="Button" parent="."]

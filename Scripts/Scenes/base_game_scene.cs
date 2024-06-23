@@ -198,7 +198,6 @@ public partial class base_game_scene : Node2D
 	public void NewTurn()
 	{
 		game_state.CurrentTurn += 1;
-		game_state.SetCurrentYear();
 		game_state.UpdateResources();
 		game_state.UpdateShipConstruction();
 		game_state.UpdateActiveShips();
@@ -208,12 +207,24 @@ public partial class base_game_scene : Node2D
 		InvokeEvents();
 	}
 
+	private static string GetCurrentDateString()
+	{
+		var nbWeeks = game_state.CurrentTurn;
+		var pallyriaYear = 970 + nbWeeks / (4 * 12);
+		var earthYear = 2017 + nbWeeks / (4 * 12);
+		var month = 1 + (nbWeeks/4) % 12;
+		var week = 1 + nbWeeks % 4;
+
+		var res = $"Week {week}, Month {month}, {pallyriaYear} APE\n({earthYear} CE)";
+		return res;
+	}
+	
 	//TODO: Move all that to the TopBar Scene
 	public void TopBarUpdate()
 	{
 		var topBar = GetNode<Panel>("UICanvas/TopBar");
 		var yearLabel = topBar.GetNode<Label>("CurrentYear");
-		yearLabel.Text = game_state.CurrentYear;
+		yearLabel.Text = GetCurrentDateString();
 		
 		// Res 1 update
 		var res1 = topBar.GetNode<HBoxContainer>("ResourceContainer/Res1");
