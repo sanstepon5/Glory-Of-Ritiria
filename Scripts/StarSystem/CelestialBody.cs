@@ -23,6 +23,7 @@ public class CelestialBody
     public DiscoveryStatus DiscoveryStatus;
     
     
+    
     // Determines if body should display satellites
     public bool HasSatellites;
     // Determines if bodies' satellites will be displayed vertically or horizontally
@@ -152,10 +153,74 @@ public class CelestialBody
     {
         
     }
-
-    public void SetImagePath(string path)
+    
+    private string GetRandomFilename(string dirName)
     {
-        _imagePath = game_state.AssetsDir + "Img/tmp/CelestialBodies/" + path;
+        var r = new Random();
+        var dir = DirAccess.Open(game_state.AssetsDir + "Img/tmp/CelestialBodies/"+ dirName + "/");
+        var files = new List<String>();
+        foreach (var filename in dir.GetFiles())
+        {
+            if (filename.Contains(".png") && !filename.Contains("import"))
+            {
+                files.Add(filename);
+            }
+        }
+        var fileIndex = r.Next(files.Count);
+        return files[fileIndex];
+    }
+
+    public void SetImagePath()
+    {
+        _imagePath = game_state.AssetsDir + "Img/tmp/CelestialBodies/UndiscoveredPlanet.png";
+        switch (ActualState.BodyType)
+        {   // TODO: Randomize image size
+            case CelestialBodyType.Pallyria:
+                _imagePath = game_state.AssetsDir + "Img/tmp/CelestialBodies/Pallyria.png"; break;
+            case CelestialBodyType.Earth:
+                _imagePath = game_state.AssetsDir + "Img/tmp/CelestialBodies/Green/GreenPlanet.png"; break;
+            case CelestialBodyType.RingedGasGiant:
+                _imagePath = game_state.AssetsDir + "Img/tmp/CelestialBodies/RingedGasGiant/" 
+                                                  + GetRandomFilename("RingedGasGiant");
+                break;
+            case CelestialBodyType.GasGiant:
+                _imagePath = game_state.AssetsDir + "Img/tmp/CelestialBodies/GasGiant/"
+                                                  + GetRandomFilename("GasGiant");
+                break;
+            case CelestialBodyType.MoltenPlanet:
+                _imagePath = game_state.AssetsDir + "Img/tmp/CelestialBodies/Molten/" 
+                                                  + GetRandomFilename("Molten");
+                break;
+            case CelestialBodyType.RockyMoon: 
+            case CelestialBodyType.Luna:
+                _imagePath = game_state.AssetsDir + "Img/tmp/CelestialBodies/Moon/" 
+                                                  + GetRandomFilename("Moon");
+                break;
+            case CelestialBodyType.RockyPlanet:
+                _imagePath = game_state.AssetsDir + "Img/tmp/CelestialBodies/Red/" 
+                                                  + GetRandomFilename("Red");
+                break;
+            case CelestialBodyType.IcyPlanet:
+            case CelestialBodyType.IcyMoon:
+                _imagePath = game_state.AssetsDir + "Img/tmp/CelestialBodies/IcePlanet/" 
+                                                  + GetRandomFilename("IcePlanet");
+                break;
+            case CelestialBodyType.IceGiant:
+                _imagePath = game_state.AssetsDir + "Img/tmp/CelestialBodies/IceGiant/" 
+                                                  + GetRandomFilename("IceGiant");
+                break;
+            case CelestialBodyType.ToxicPlanet:
+                _imagePath = game_state.AssetsDir + "Img/tmp/CelestialBodies/White/" 
+                                                  + GetRandomFilename("White");
+                break;
+            case CelestialBodyType.DefaultPlanet:
+                _imagePath = game_state.AssetsDir + "Img/tmp/CelestialBodies/Red/" 
+                                                  + GetRandomFilename("Red");
+                break;
+            case CelestialBodyType.Asteroid:
+                _imagePath = game_state.AssetsDir + "Img/tmp/CelestialBodies/Asteroid/" + GetRandomFilename("Asteroid");
+                break;
+        }
     }
 
     public void AddSatellite(CelestialBody satellite)

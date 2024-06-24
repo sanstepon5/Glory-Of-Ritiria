@@ -181,7 +181,7 @@ public class StelSysGen
             }
             case StellarGeneratorPoint.Setbodyicon:
             {
-                CurrentBody.SetImagePath(CurrentText);
+                CurrentBody.SetImagePath();
                 break;
             }
             case StellarGeneratorPoint.Setisntsatellite:

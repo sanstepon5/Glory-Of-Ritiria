@@ -11,10 +11,10 @@
         
         celestial_body pallyria{
             name : "Pallyria"
+            type : "Pallyria" known
             distance : 5.0 # distance from the star in light minutes
             icon : "PlanetIcon.png"
             discovery_status : explored
-            type : "Pallyria" known
             shipyards {
                 shipyard sokhil {
                     name : "Sokhil Shipyard"
@@ -37,43 +37,43 @@
 
         celestial_body other{
             name : "Other Planet"
+            type : "MoltenPlanet" known
             distance : 15.0
             icon : "MoltenPlanet.png"
             discovery_status : explored
             science : 10.2 known
-            type : "MoltenPlanet" known
         }
         
         celestial_body gas_giant{
             name : "Gas Giant"
+            type : "RingedGasGiant" known
             distance : 50.0
             icon : "gasGiant.png"
             discovery_status : explored
             science : 50.0
-            type : "RingedGasGiant" known
 
             satellites {
                 celestial_body moon{
                     name : "Moon"
+                    type : "IcyMoon" known
                     icon : "icePlanet.png"
                     discovery_status : explored
-                    type : "IcyMoon" known
                 }
                 celestial_body moon_2{
                     name : "Other Moon"
+                    type : "IcyMoon" known
                     icon : "icePlanet.png"
                     discovery_status : explored
-                    type : "IcyMoon" known
                 }                
             }
         }
         
         celestial_body asteroid{
             name : "Asteroid"
+            type : "Asteroid" known
             distance : 15.0
             icon : "asteroid.png"
             discovery_status : explored
-            type : "Asteroid" known
         }
         
         ships {
@@ -99,26 +99,26 @@ stellar_system proxima {
 
         celestial_body proxima_b{
             name: "Proxima b"
+            type : "RockyPlanet"
             distance : 0.40
             icon : "liveablePlanet.png"
-            discovery_status : undiscovered
-            type : "RockyPlanet"
+            discovery_status : explored
         }
 
         celestial_body proxima_d{
             name: "Proxima d"
+            type : "MoltenPlanet"
             distance : 0.25
             icon : "MoltenPlanet.png"
-            discovery_status : undiscovered
-            type : "MoltenPlanet"
+            discovery_status : explored
         }
 
         celestial_body proxima_d{
             name: "Proxima c"
+            type : "IcyPlanet"
             distance : 10.0
             icon : "icePlanet.png"
-            discovery_status : undiscovered
-            type : "IcyPlanet"
+            discovery_status : explored
         }
     }
 }
@@ -150,33 +150,33 @@ stellar_system sol_system {
         
         celestial_body mercury{
             name : "Mercury"
+            type : "MoltenPlanet" known
             distance : 3.3
             icon : "MoltenPlanet.png"
-            discovery_status : existence_known
-            type : "MoltenPlanet" known
+            discovery_status : explored
         }
 
         celestial_body venus{
             name : "Venus"
+            type : "ToxicPlanet" known
             distance : 6.0
             icon : "MoltenPlanet.png"
-            discovery_status : existence_known
-            type : "ToxicPlanet" known
+            discovery_status : explored
         }
         
         celestial_body earth{
             name : "Earth"
+            type : "Earth" known
             distance : 8.3
             icon : "liveablePlanet.png"
             discovery_status : explored
-            type : "RockyPlanet" known
             
             satellites {
                 celestial_body luna{
                     name : "Luna"
+                    type : "Luna" known
                     icon : "icePlanet.png"
-                    discovery_status : existence_known
-                    type : "RockyMoon" known
+                    discovery_status : explored
                 }         
             }
             
@@ -199,42 +199,42 @@ stellar_system sol_system {
 
         celestial_body mars{
             name : "Mars"
+            type : "RockyPlanet" known
             distance : 12.7
             icon : "MoltenPlanet.png"
-            discovery_status : existence_known
-            type : "RockyPlanet" known
+            discovery_status : explored
         }
 
         celestial_body jupiter{
             name : "Jupiter"
+            type : "GasGiant" known
             distance : 43.0
             icon : "BrownDwarf.png"
-            discovery_status : existence_known
-            type : "GasGiant" known
+            discovery_status : explored
         }
 
         celestial_body saturn{
             name : "Saturn"
+            type : "RingedGasGiant" known
             distance : 78.0
             icon : "gasGiant.png"
-            discovery_status : existence_known
-            type : "RingedGasGiant" known
+            discovery_status : explored
         }
 
         celestial_body uranus{
             name : "Uranus"
+            type : "IceGiant" known
             distance : 162.0
             icon : "gasGiant.png"
-            discovery_status : existence_known
-            type : "IceGiant" known
+            discovery_status : explored
         }
 
         celestial_body neptune{
             name : "Neptune"
+            type : "IceGiant" known
             distance : 252.0
             icon : "gasGiant.png"
-            discovery_status : existence_known
-            type : "IceGiant" known
+            discovery_status : explored
         }
     }
 }

@@ -43,12 +43,12 @@ star_body           : name {StelSysGen.pt(StellarGeneratorPoint.Setstarname);}
 celestial_body      : 'celestial_body' id {StelSysGen.pt(StellarGeneratorPoint.Initbody);}  
                       '{' celestial_body_body '}'
                       ;
-celestial_body_body : name {StelSysGen.pt(StellarGeneratorPoint.Setbodyname);} 
+celestial_body_body : name {StelSysGen.pt(StellarGeneratorPoint.Setbodyname);}
+                      body_type
                       (body_distance)? 
                       (icon {StelSysGen.pt(StellarGeneratorPoint.Setbodyicon);})?  
                       (discovery_status)?
                       (scientific_potential)?
-                      body_type
                       (satellites {StelSysGen.pt(StellarGeneratorPoint.Setisntsatellite);})*  
                       (shipyards)*  
                       (ships)* 
