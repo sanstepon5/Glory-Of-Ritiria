@@ -18,14 +18,14 @@ public class StelSysGen
     public static int CurrentSystemPull;
     
     public static StelSysData Data = new ();
-    public static StarSystem.StarSystemInfo CurrentSystem;
+    public static StarSystemInfo CurrentSystem;
     public static Star CurrentStar;
     public static CelestialBody CurrentBody;
     // Allows to trace back to the "highest" parent
     public static Stack<CelestialBody> ParentBodies;
     public static Ship CurrentShip;
     public static Cargo CurrentModule;
-    public static ShipRelated.Shipyard CurrentShipyard;
+    public static Shipyard CurrentShipyard;
 
     public static bool IsSatellite = false;
     public static bool ShipyardBusy = false;
@@ -95,19 +95,23 @@ public class StelSysGen
                 break;
             }
             /* Star class */
+            // TODO: Holy Molly this is ugly 
             case StellarGeneratorPoint.Setstarclassod:
             {
                 CurrentStar.StarClass = StarClass.OrangeDwarf;
+                CurrentStar.SetImagePath();
                 break;
             }
             case StellarGeneratorPoint.Setstarclassrd:
             {
                 CurrentStar.StarClass = StarClass.RedDwarf;
+                CurrentStar.SetImagePath();
                 break;
             }
             case StellarGeneratorPoint.Setstarclassyd:
             {
                 CurrentStar.StarClass = StarClass.YellowDwarf;
+                CurrentStar.SetImagePath();
                 break;
             }
             /*Add body to star*/
@@ -181,6 +185,7 @@ public class StelSysGen
             }
             case StellarGeneratorPoint.Setbodyicon:
             {
+                //TODO: Add custom images
                 CurrentBody.SetImagePath();
                 break;
             }

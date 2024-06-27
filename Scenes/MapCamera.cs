@@ -8,7 +8,8 @@ public partial class MapCamera : Camera2D
 	[Export] public Vector2 ZoomSpeed = new (0.05f, 0.05f);
 	[Export] public Vector2 MinZoom = new (0.5f, 0.5f);
 	[Export] public Vector2 MaxZoom = new (1.5f, 1.5f);
-	
+
+	[Export] public bool CustomCorner = false;
 	[Export] public Vector2 MostLeftHighPoint = new (0f, 0f);
 	[Export] public Vector2 MostRightLowPoint = new (1920f, 1080f);
 	
@@ -21,7 +22,10 @@ public partial class MapCamera : Camera2D
 	{
 		// Screen size, normally
 		_viewportSize = GetViewportRect().Size;
-		MostRightLowPoint = _viewportSize;
+		if (!CustomCorner)
+		{
+			MostRightLowPoint = _viewportSize;
+		}
 	}
 
 	public override void _Input(InputEvent @event)

@@ -4,30 +4,50 @@ using GloryOfRitiria.Scripts;
 using GloryOfRitiria.Scripts.Global;
 using GloryOfRitiria.Scripts.StarSystem;
 
-public partial class CBOnSystemMap : VBoxContainer
+public partial class FixedMapObject : Control
 {
 	private GlobalSignals _signals;
 	public CelestialBody Body;
 	public Vector2 ImageSize;
 	
+	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		_signals = GetNode<GlobalSignals>("/root/GlobalSignals");
 	}
-
+	
 	public void Init(CelestialBody body, bool isStar = false)
 	{
 		Body = body;
-		GetNode<Label>("BodyName").Text = body.Name;
+		var scalingFactor = Body.SizeFactor;
+
+		// Sprite
+		var sprite = GetNode<Sprite2D>("Sprite");
+		sprite.Texture = (Texture2D)GD.Load(Body.GetImage());
+		sprite.Scale = new Vector2(scalingFactor, scalingFactor);
+		sprite.Position = new Vector2(0, 0);
+
+		var spriteSize = sprite.Texture.GetSize() * scalingFactor;
+		ImageSize = spriteSize;
 		
-		// Setting textures for the button
-		var bodyButton = GetNode<TextureButton>("BodyButton");
-		bodyButton.TextureNormal = (Texture2D)GD.Load(body.GetImage());
-		ImageSize = bodyButton.TextureNormal.GetSize();
-						
-		if (body.Name == "Pallyria")
+		// Label
+		// TODO: Increase font size based on image size	
+		var label = GetNode<RichTextLabel>("Name");
+		label.Text = "[center]" + Body.Name + "[/center]";
+		label.Position = sprite.Position + new Vector2(0, spriteSize.Y);
+		// TODO: Ideally centering should be done by manually changing label position, current method doesn't work if sprite smaller than label
+		if (label.Size.X < spriteSize.X)
 		{
-			bodyButton.Pressed += () =>
+			label.SetSize(new Vector2(spriteSize.X, label.Size.Y));
+		}
+
+		// Button
+		var button = GetNode<Button>("Button");
+		button.Position = sprite.Position;
+		button.Size = spriteSize;
+		if (Body.Name == "Pallyria")
+		{
+			button.Pressed += () =>
 			{
 				_signals.EmitSignal(nameof(_signals.SimpleButtonClicked));
 				CelestialBodyPressed(true);
@@ -35,7 +55,7 @@ public partial class CBOnSystemMap : VBoxContainer
 		}
 		else
 		{
-			bodyButton.Pressed += () =>
+			button.Pressed += () =>
 			{
 				_signals.EmitSignal(nameof(_signals.SimpleButtonClicked));
 				if (isStar)
@@ -44,8 +64,20 @@ public partial class CBOnSystemMap : VBoxContainer
 					CelestialBodyPressed();
 			};
 		}
-	}
+		
 
+		// Resize the control node to represent its new size (to be used elsewhere)
+		var finalSize = spriteSize;
+		finalSize.Y += label.Size.Y;
+		Size = finalSize;
+	}
+	
+	
+	
+	/**
+	 * Manages what happens if this celestial body is clicked.
+	 * Opens the planet window
+	 */
 	private void CelestialBodyPressed(bool isPallyria = false)
 	{
 		var planetInfoScene = GD.Load<PackedScene>("res://Scenes/Parts/PlanetInfoWindow.tscn");
@@ -132,46 +164,50 @@ public partial class CBOnSystemMap : VBoxContainer
 	{
 		var sendButtonMargin = inst.GetNode<MarginContainer>("MCont/VBox/SendShipMargin");
 		var sendButton = sendButtonMargin.GetNode<Button>("SendShipButton");
-		if (game_state.SelectedShip != null
-			&& game_state.SelectedShip.State != ShipState.InRoute
-			&& game_state.SelectedShip.Location != Body)
+		
+		// Only show send button if a ship is selected and it can go to this body
+		if (game_state.SelectedShip == null
+			|| game_state.SelectedShip.State == ShipState.InRoute
+			|| game_state.SelectedShip.Location == Body)
 		{
-			var missionButtonMargin = inst.GetNode<MarginContainer>("MCont/VBox/MissionMargin");
-			
-			missionButtonMargin.Visible = true;
-			var missionButton = missionButtonMargin.GetNode<OptionButton>("MissionSelect");
-			if (game_state.SelectedShip.IsInRouteTo(Body))
-			{	// If the ship is already in route here, show the disabled button
-				sendButtonMargin.Visible = true;
-				missionButton.Disabled = true;
-				//missionButton.Selected = 0; Set current mission of the ship
-				sendButton.Disabled = true;
-				sendButton.Text = game_state.SelectedShip.Name + " in route here";
-			}
-			else sendButton.Disabled = false;
-
-			missionButton.AddItem("Move ship");
-			for (var i = 0; i < game_state.SelectedShip.GetAllMissions().Count; i++)
-			{
-				var mission = game_state.SelectedShip.GetAllMissions()[i];
-				missionButton.AddItem(mission.Name);
-				if (!Body.IsMissionCompatible(mission))
-					missionButton.SetItemDisabled(i+1, true); // index 0 is for moving ship
-			}
-			
-			missionButton.Selected = -1;
-
-			missionButton.ItemSelected += index => // After player chooses a mission
-			{
-				sendButtonMargin.Visible = true;
-	
-				sendButton.Pressed += () =>
-				{
-					_signals.EmitSignal(nameof(_signals.SimpleButtonClicked));
-					_handleSendButton(sendButton, missionButton, index);
-				};
-			};
+			return;
 		}
+		
+		var missionButtonMargin = inst.GetNode<MarginContainer>("MCont/VBox/MissionMargin");
+		missionButtonMargin.Visible = true;
+		var missionButton = missionButtonMargin.GetNode<OptionButton>("MissionSelect");
+		
+		if (game_state.SelectedShip.IsInRouteTo(Body))
+		{	// If the ship is already in route here, show the disabled button
+			sendButtonMargin.Visible = true;
+			missionButton.Disabled = true;
+			//missionButton.Selected = 0; Set current mission of the ship
+			sendButton.Disabled = true;
+			sendButton.Text = game_state.SelectedShip.Name + " in route here";
+		}
+		else sendButton.Disabled = false;
+
+		missionButton.AddItem("Move ship");
+		for (var i = 0; i < game_state.SelectedShip.GetAllMissions().Count; i++)
+		{
+			var mission = game_state.SelectedShip.GetAllMissions()[i];
+			missionButton.AddItem(mission.Name);
+			if (!Body.IsMissionCompatible(mission))
+				missionButton.SetItemDisabled(i+1, true); // index 0 is for moving ship
+		}
+			
+		missionButton.Selected = -1;
+
+		missionButton.ItemSelected += index => // After player chooses a mission
+		{
+			sendButtonMargin.Visible = true;
+	
+			sendButton.Pressed += () =>
+			{
+				_signals.EmitSignal(nameof(_signals.SimpleButtonClicked));
+				_handleSendButton(sendButton, missionButton, index);
+			};
+		};
 	}
 	
 	/**
@@ -192,5 +228,4 @@ public partial class CBOnSystemMap : VBoxContainer
 			game_state.SelectedShip.SetShipMission(missionButton.GetItemText((int)index), Body);
 		}
 	}
-
 }

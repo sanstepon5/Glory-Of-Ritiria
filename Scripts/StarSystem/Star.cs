@@ -30,6 +30,7 @@ public class Star: CelestialBody
         InnerSpace = new CelestialBody("Inner Space",  this, distance,"res://Assets/Icons/cross.png");
         OuterSpaceDistance = distance;
         StarClass = starClass;
+        SizeFactor = 1.5f;
     }
     
     /**Incomplete constructor for parsing. Other properties should be added during parsing*/
@@ -41,26 +42,42 @@ public class Star: CelestialBody
         InnerSpace = new CelestialBody("Inner Space",  this, distance,"res://Assets/Icons/cross.png");
         OuterSpaceDistance = distance;
     }
-    
-    // Populate the bodies list with celestial bodies of this system
-    // probably using its ID. I need to think how to populate them...
-    public void LoadCelestialBodies(){
 
-    }
-
-    // Returns the path to the star gfx based on the star type
-    public override string GetImage()
+    public override void SetImagePath()
     {
         switch (StarClass)
         {
-            case StarClass.BrownDwarf: return "res://Assets/Img/tmp/CelestialBodies/BrownDwarf.png";
-            case StarClass.RedDwarf: return "res://Assets/Img/tmp/CelestialBodies/RedDwarf.png";
-            case StarClass.OrangeDwarf: return "res://Assets/Img/tmp/CelestialBodies/OrangeDwarf.png";
-            case StarClass.YellowDwarf: return "res://Assets/Img/tmp/CelestialBodies/YellowDwarf.png";
-            case StarClass.HotDwarf: return "res://Assets/Img/tmp/CelestialBodies/HotDwarf.png";
-            case StarClass.WhiteDwarf: return "res://Assets/Img/tmp/CelestialBodies/WhiteDwarf.png";
-            default: return "res://Assets/Img/tmp/CelestialBodies/OrangeDwarf.png";
+            case StarClass.BrownDwarf:
+                SizeFactor = 1.2f; 
+                ImagePath = "res://Assets/Img/tmp/CelestialBodies/BrownDwarf.png"; 
+                break;
+            case StarClass.RedDwarf: 
+                SizeFactor = 1.5f;
+                ImagePath = "res://Assets/Img/tmp/CelestialBodies/Stars/RedStar.png"; 
+                break;
+            case StarClass.OrangeDwarf: 
+                SizeFactor = 1.8f;
+                ImagePath = "res://Assets/Img/tmp/CelestialBodies/Stars/OrangeStar.png"; 
+                break;
+            case StarClass.YellowDwarf: 
+                SizeFactor = 2.0f;
+                ImagePath = "res://Assets/Img/tmp/CelestialBodies/Stars/YellowStar.png"; 
+                break;
+            case StarClass.HotDwarf: 
+                ImagePath = "res://Assets/Img/tmp/CelestialBodies/HotDwarf.png"; break;
+            case StarClass.WhiteDwarf: 
+                SizeFactor = 1.2f;
+                ImagePath = "res://Assets/Img/tmp/CelestialBodies/WhiteDwarf.png"; break;
+            default: ImagePath = "res://Assets/Img/tmp/CelestialBodies/OrangeDwarf.png"; break;
         }
+    }
+
+    public override string GetImage()
+    {
+        // For stars it doesn't really makes sense not to know what they look like... 
+        // if (DiscoveryStatus == DiscoveryStatus.Explored) 
+        return ImagePath;
+        // return "res://Assets/Img/tmp/CelestialBodies/Stars/UknownStar.png";
     }
 
     // Gets the description based on the star Id from... Somewhere.
@@ -78,5 +95,3 @@ public class Star: CelestialBody
     }
     
 }
-
-// There are A LOT of different types so it's better to eventually make it a more developed class

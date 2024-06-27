@@ -32,7 +32,9 @@ public class CelestialBody
     public List<Ship> ShipsInOrbit = new(); //public ShipGroup ShipsInOrbit;
     
     // Random planet, some specific planet, asteroid, station....
-    private string _imagePath; 
+    protected string ImagePath; 
+    // Later the size could be deduced from other parameters but right now it fully depends on the image
+    public float SizeFactor = 1.0f;
 
     public List<Shipyard> Shipyards = new();
 
@@ -41,6 +43,8 @@ public class CelestialBody
 
     public CelestialBodyState KnownState;
     public CelestialBodyState ActualState;
+
+    
     
     
     // Default constructor, for the system's main celestial bodies such as planets
@@ -51,7 +55,7 @@ public class CelestialBody
         Star = star;
         _distance = distance;
         DiscoveryStatus = discoveryStatus;
-        _imagePath = imagePath;
+        ImagePath = imagePath;
         HasSatellites = true;
         Satellites = new List<CelestialBody>();
         IsSatellite = false;
@@ -170,55 +174,89 @@ public class CelestialBody
         return files[fileIndex];
     }
 
-    public void SetImagePath()
+    public virtual void SetImagePath()
     {
-        _imagePath = game_state.AssetsDir + "Img/tmp/CelestialBodies/UndiscoveredPlanet.png";
+        var r = new Random();
+        var (minimum,  maximum) = (1.0f, 1.0f);
+        ImagePath = game_state.AssetsDir + "Img/tmp/CelestialBodies/UndiscoveredPlanet.png";
         switch (ActualState.BodyType)
         {   // TODO: Randomize image size
             case CelestialBodyType.Pallyria:
-                _imagePath = game_state.AssetsDir + "Img/tmp/CelestialBodies/Pallyria.png"; break;
+                ImagePath = game_state.AssetsDir + "Img/tmp/CelestialBodies/Pallyria.png";
+                SizeFactor = 0.7f;
+                break;
             case CelestialBodyType.Earth:
-                _imagePath = game_state.AssetsDir + "Img/tmp/CelestialBodies/Green/GreenPlanet.png"; break;
+                ImagePath = game_state.AssetsDir + "Img/tmp/CelestialBodies/Green/GreenPlanet.png"; 
+                SizeFactor = 0.75f;
+                break;
             case CelestialBodyType.RingedGasGiant:
-                _imagePath = game_state.AssetsDir + "Img/tmp/CelestialBodies/RingedGasGiant/" 
+                ImagePath = game_state.AssetsDir + "Img/tmp/CelestialBodies/RingedGasGiant/" 
                                                   + GetRandomFilename("RingedGasGiant");
+                (minimum,  maximum) = (1.5f, 2.1f);
+                SizeFactor = (float)(r.NextDouble() * (maximum - minimum) + minimum);
                 break;
             case CelestialBodyType.GasGiant:
-                _imagePath = game_state.AssetsDir + "Img/tmp/CelestialBodies/GasGiant/"
+                ImagePath = game_state.AssetsDir + "Img/tmp/CelestialBodies/GasGiant/"
                                                   + GetRandomFilename("GasGiant");
+                (minimum,  maximum) = (1.2f, 1.4f);
+                SizeFactor = (float)(r.NextDouble() * (maximum - minimum) + minimum);
                 break;
             case CelestialBodyType.MoltenPlanet:
-                _imagePath = game_state.AssetsDir + "Img/tmp/CelestialBodies/Molten/" 
+                ImagePath = game_state.AssetsDir + "Img/tmp/CelestialBodies/Molten/" 
                                                   + GetRandomFilename("Molten");
+                (minimum,  maximum) = (0.5f, 0.8f);
+                SizeFactor = (float)(r.NextDouble() * (maximum - minimum) + minimum);
                 break;
             case CelestialBodyType.RockyMoon: 
+                (minimum,  maximum) = (0.1f, 0.2f);
+                SizeFactor = (float)(r.NextDouble() * (maximum - minimum) + minimum);
+                break;
             case CelestialBodyType.Luna:
-                _imagePath = game_state.AssetsDir + "Img/tmp/CelestialBodies/Moon/" 
+                ImagePath = game_state.AssetsDir + "Img/tmp/CelestialBodies/Moon/" 
                                                   + GetRandomFilename("Moon");
+                (minimum,  maximum) = (0.3f, 0.4f);
+                SizeFactor = (float)(r.NextDouble() * (maximum - minimum) + minimum);
                 break;
             case CelestialBodyType.RockyPlanet:
-                _imagePath = game_state.AssetsDir + "Img/tmp/CelestialBodies/Red/" 
+                ImagePath = game_state.AssetsDir + "Img/tmp/CelestialBodies/Red/" 
                                                   + GetRandomFilename("Red");
+                (minimum,  maximum) = (0.4f, 0.8f);
+                SizeFactor = (float)(r.NextDouble() * (maximum - minimum) + minimum);
                 break;
             case CelestialBodyType.IcyPlanet:
-            case CelestialBodyType.IcyMoon:
-                _imagePath = game_state.AssetsDir + "Img/tmp/CelestialBodies/IcePlanet/" 
+                ImagePath = game_state.AssetsDir + "Img/tmp/CelestialBodies/IcePlanet/" 
                                                   + GetRandomFilename("IcePlanet");
+                (minimum,  maximum) = (0.4f, 0.7f);
+                SizeFactor = (float)(r.NextDouble() * (maximum - minimum) + minimum);
+                break;
+            case CelestialBodyType.IcyMoon:
+                ImagePath = game_state.AssetsDir + "Img/tmp/CelestialBodies/IcePlanet/" 
+                                                  + GetRandomFilename("IcePlanet");
+                (minimum,  maximum) = (0.2f, 0.4f);
+                SizeFactor = (float)(r.NextDouble() * (maximum - minimum) + minimum);
                 break;
             case CelestialBodyType.IceGiant:
-                _imagePath = game_state.AssetsDir + "Img/tmp/CelestialBodies/IceGiant/" 
+                ImagePath = game_state.AssetsDir + "Img/tmp/CelestialBodies/IceGiant/" 
                                                   + GetRandomFilename("IceGiant");
+                (minimum,  maximum) = (1.0f, 1.2f);
+                SizeFactor = (float)(r.NextDouble() * (maximum - minimum) + minimum);
                 break;
             case CelestialBodyType.ToxicPlanet:
-                _imagePath = game_state.AssetsDir + "Img/tmp/CelestialBodies/White/" 
+                ImagePath = game_state.AssetsDir + "Img/tmp/CelestialBodies/White/" 
                                                   + GetRandomFilename("White");
+                (minimum,  maximum) = (0.6f, 0.8f);
+                SizeFactor = (float)(r.NextDouble() * (maximum - minimum) + minimum);
                 break;
             case CelestialBodyType.DefaultPlanet:
-                _imagePath = game_state.AssetsDir + "Img/tmp/CelestialBodies/Red/" 
+                ImagePath = game_state.AssetsDir + "Img/tmp/CelestialBodies/Red/" 
                                                   + GetRandomFilename("Red");
+                (minimum,  maximum) = (1.0f, 1.0f);
+                SizeFactor = (float)(r.NextDouble() * (maximum - minimum) + minimum);
                 break;
             case CelestialBodyType.Asteroid:
-                _imagePath = game_state.AssetsDir + "Img/tmp/CelestialBodies/Asteroid/" + GetRandomFilename("Asteroid");
+                ImagePath = game_state.AssetsDir + "Img/tmp/CelestialBodies/Asteroid/" + GetRandomFilename("Asteroid");
+                (minimum,  maximum) = (0.3f, 0.5f);
+                SizeFactor = (float)(r.NextDouble() * (maximum - minimum) + minimum);
                 break;
         }
     }
@@ -333,9 +371,12 @@ public class CelestialBody
         return "res://Assets/GUI/Icons/32/liveablePlanet.png";
     }
 
+    /**
+     * Get the image selected for this Celestial Body (fixed "undiscoveredPlanet texture if planet not explored)
+     */
     public virtual string GetImage()
     {
-        if (DiscoveryStatus == DiscoveryStatus.Explored) return _imagePath;
+        if (DiscoveryStatus == DiscoveryStatus.Explored) return ImagePath;
         return "res://Assets/Img/tmp/CelestialBodies/UndiscoveredPlanet.png";
     }
 
@@ -422,7 +463,7 @@ public class CelestialBody
 
         result += GetType().Name + ": " + Name + "\n";
         result += "Exploration status: " + DiscoveryStatus + "\n";
-        result += "Image Path: " + _imagePath + "\n";
+        result += "Image Path: " + ImagePath + "\n";
         
         return result;
     }

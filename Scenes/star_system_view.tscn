@@ -50,6 +50,15 @@ texture = ExtResource("4_in6l8")
 stretch_mode = 2
 
 [node name="MapCamera" parent="." instance=ExtResource("5_qvto2")]
+zoom = Vector2(0.8, 0.8)
+CustomCorner = true
+MostLeftHighPoint = Vector2(-100, 100)
+MostRightLowPoint = Vector2(4000, 1500)
 
-[node name="Star" type="Node2D" parent="."]
-position = Vector2(145, 366)
+[node name="Star" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 167.0
+offset_top = 496.0
+offset_right = 167.0
+offset_bottom = 496.0

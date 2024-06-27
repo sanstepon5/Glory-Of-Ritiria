@@ -45,7 +45,7 @@ public partial class star_system_view : Node2D
 	{
 		_shipsInSystem = new List<Ship>();
 
-		var allBodies = GetNode<Node2D>("Star");
+		var allBodies = GetNode<Control>("Star");
 		foreach (var child in allBodies.GetChildren())
 		{
 			child.QueueFree();
@@ -61,9 +61,9 @@ public partial class star_system_view : Node2D
 
 		// Rebuild system map
 		BuildMap(_currentSystem);
+		
 		GD.Print("System view updated");
 	}
-
 
 	// Loads planets of Detnura System
 	public void BuildDetnuraSystem()
@@ -83,7 +83,7 @@ public partial class star_system_view : Node2D
 		var star = stars[_currentStarIndex]; // always 0 for now
 
 		
-		var starCenter = GetNode<Node2D>("Star");
+		var starCenter = GetNode<Control>("Star");
 		var starInst = BuildCelestialBodyInst(star);
 
 		starCenter.AddChild(starInst);
@@ -147,11 +147,41 @@ public partial class star_system_view : Node2D
 
 			innerShipsLabel.Text = $"Inner Space - {star.InnerSpace.ShipsInOrbit.Count} ships in transit";
 		}
+		
+		// Update camera bounds based on bodies present
+		// TODO: Some tweaking to exact positions, otherwise it's ok
+		var camera = GetNode<MapCamera>("MapCamera");
+		camera.MostRightLowPoint = FindFarthestLowestPoint(starCenter, new Vector2(0, 0));
+	}
+	
+	
+	public Vector2 FindFarthestLowestPoint(Node node, Vector2 max)
+	{
+		var result = max;
+		foreach (var child in node.GetChildren())
+		{
+			if (child is FixedMapObject bodyNode)
+			{
+				var x = bodyNode.GlobalPosition.X + bodyNode.ImageSize.X / 2;
+				var y = bodyNode.GlobalPosition.Y + bodyNode.ImageSize.Y / 2;
+				if (x > result.X)
+					result.X = x;
+				if (y > result.Y)
+					result.Y = y;
+				
+				result = FindFarthestLowestPoint(bodyNode, result);
+			}
+			else
+			{
+				result = FindFarthestLowestPoint(child, result);
+			}
+		}
+		return result;
 	}
 
 	// Really not a fan of this approach but it's a pain to try and make it better, sorry future me
-	private (Node2D, CBOnSystemMap) AddSatellites(
-		Node2D parentCenter, CBOnSystemMap parent, ColorRect orbitLine, bool isVertical = false
+	private (Control, FixedMapObject) AddSatellites(
+		Control parentCenter, FixedMapObject parent, ColorRect orbitLine, bool isVertical = false
 		) 
 	{
 		var lastBody = (center: parentCenter, inst: parent); // Hopefully never stays that
@@ -170,7 +200,7 @@ public partial class star_system_view : Node2D
 			if (body.DiscoveryStatus == DiscoveryStatus.Undiscovered) continue;
 
 			// Must add both before calculating positions to account for relative position
-			var bodyCenter = new Node2D();
+			var bodyCenter = new Control();
 			parentCenter.AddChild(bodyCenter);
 			
 			var bodyInst = BuildCelestialBodyInst(body);
@@ -220,7 +250,7 @@ public partial class star_system_view : Node2D
 	}
 	
 
-	private void AddShipsInOrbit((Node2D parentCenter, CBOnSystemMap parentInst) parent, (Node2D center, CBOnSystemMap inst) lastBody, ColorRect orbitLine, bool isVertical)
+	private void AddShipsInOrbit((Control parentCenter, FixedMapObject parentInst) parent, (Control center, FixedMapObject inst) lastBody, ColorRect orbitLine, bool isVertical)
 	{
 		var previousPosition = lastBody.center.Position;
 		var previousSize = lastBody.inst.Size;
@@ -228,7 +258,7 @@ public partial class star_system_view : Node2D
 		// TODO: Horizontal ships
 		foreach (var ship in parent.parentInst.Body.ShipsInOrbit)
 		{
-			var shipCenter = new Node2D();
+			var shipCenter = new Control();
 			parent.parentCenter.AddChild(shipCenter);
 
 			var shipInst = BuildShipInst(ship);
@@ -284,10 +314,11 @@ public partial class star_system_view : Node2D
 		return shipInst;
 	}
 
-	private CBOnSystemMap BuildCelestialBodyInst(CelestialBody body)
+	private FixedMapObject BuildCelestialBodyInst(CelestialBody body)
 	{
-		var scene = GD.Load<PackedScene>("res://Scenes/Parts/SystemMap/CBOnSystemMap.tscn");
-		var inst = (CBOnSystemMap)scene.Instantiate();
+		// TODO: Find a better spot for the file
+		var scene = GD.Load<PackedScene>("res://Scenes/StarSystemScene/FixedMapObject.tscn");
+		var inst = (FixedMapObject)scene.Instantiate();
 		if (body is Star)
 			inst.Init(body, isStar: true);
 		else
