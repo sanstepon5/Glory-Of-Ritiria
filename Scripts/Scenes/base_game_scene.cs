@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using GloryOfRitiria;
+using GloryOfRitiria.Scenes.Utils;
 using GloryOfRitiria.Scripts.Global;
 using GloryOfRitiria.Scripts.Utils;
 using StarSystemInfo = GloryOfRitiria.Scripts.StarSystem.StarSystemInfo;
@@ -50,8 +51,9 @@ public partial class base_game_scene : Node2D
 			_playSimplePlayButtonSound();
 			LoadInterstellarMap();
 		};
-
+		
 		TopBarUpdate();
+		
 
 		_signals.Connect(nameof(_signals.SkyClicked), new Callable(this, nameof(LoadDetnuraMap)));
 		_signals.Connect(nameof(_signals.ShipyardsButtonClicked), new Callable(this, nameof(LoadShipyards)));
@@ -82,7 +84,6 @@ public partial class base_game_scene : Node2D
 			GetTree().Paused = false;
 			_infoWindowContainer.GetChild(0).QueueFree();
 		};
-		
 		
 		
 		/*Sounds*/

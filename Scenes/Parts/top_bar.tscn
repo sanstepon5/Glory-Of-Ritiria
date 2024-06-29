@@ -66,12 +66,14 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 Texture = ExtResource("2_ilm8f")
+TextOnTooltip = "Political power"
 
 [node name="ScienceRes" parent="ResourceContainer" instance=ExtResource("1_bxmsq")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 Texture = ExtResource("3_jb5cb")
+TextOnTooltip = "Scientific Support"
 
 [node name="Res1" parent="ResourceContainer" instance=ExtResource("1_bxmsq")]
 custom_minimum_size = Vector2(32, 32)
@@ -79,6 +81,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 Texture = ExtResource("4_wr70x")
+TextOnTooltip = "Material Resources"
 
 [node name="VBoxContainer" parent="." instance=ExtResource("5_uwfxi")]
 layout_mode = 0

@@ -1,9 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://od2gg2tiw6fj"]
+[gd_scene load_steps=3 format=3 uid="uid://od2gg2tiw6fj"]
 
 [ext_resource type="Texture2D" uid="uid://cbymyk3gj0gw0" path="res://icon.svg" id="1_03qch"]
 [ext_resource type="Script" path="res://Scenes/Parts/TopBarRes.cs" id="1_wnvmi"]
-[ext_resource type="PackedScene" uid="uid://bgk7qgafl7isx" path="res://Scenes/Utils/TooltipController.tscn" id="2_w7miu"]
-[ext_resource type="Texture2D" uid="uid://bnpmeob88h414" path="res://Assets/GUI/tooltip.png" id="3_hvo4i"]
 
 [node name="Resource" type="HBoxContainer"]
 offset_right = 96.0
@@ -13,6 +11,7 @@ script = ExtResource("1_wnvmi")
 [node name="ResIcon" type="TextureRect" parent="."]
 layout_mode = 2
 size_flags_stretch_ratio = 0.7
+mouse_filter = 2
 texture = ExtResource("1_03qch")
 expand_mode = 2
 stretch_mode = 5
@@ -20,12 +19,6 @@ stretch_mode = 5
 [node name="ResText" type="RichTextLabel" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 bbcode_enabled = true
 text = "0"
-
-[node name="TooltipController" parent="." instance=ExtResource("2_w7miu")]
-layout_mode = 2
-OwnerPath = NodePath("..")
-VisualsText = "[b]This a resource[/b]"
-VisualsTexture = ExtResource("3_hvo4i")
-Offset = Vector2(20, 20)

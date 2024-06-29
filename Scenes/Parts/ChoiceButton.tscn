@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://omn41brw8gxc"]
+[gd_scene load_steps=2 format=3 uid="uid://omn41brw8gxc"]
+
+[ext_resource type="Script" path="res://Scenes/Parts/Events/EventChoice.cs" id="1_ht4ra"]
 
 [node name="ChoiceButton" type="Button"]
 offset_right = 737.0
@@ -7,3 +9,4 @@ size_flags_vertical = 3
 text = "Ok, nice text. If you see this, something's really wrong... Code didn't add options it was supposed to"
 text_overrun_behavior = 3
 clip_text = true
+script = ExtResource("1_ht4ra")

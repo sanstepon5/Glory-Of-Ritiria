@@ -6,38 +6,45 @@ namespace GloryOfRitiria.Scripts.Utils;
 
 // This Node should be attached to the node subject of the tooltip. It controls what text and texture should be shown
 // for the subject node. It controls what happens on hover, delays etc.
-public partial class TooltipController : Control
+public partial class TooltipController : Node2D
 {
 	// Export variables
 	[Export] public NodePath OwnerPath;
 
 	[Export(PropertyHint.Range, "0,10,0.05")] 
-	public float  EnterDelay = 0.5f;
+	public double  EnterDelay = 0.5;
 	[Export(PropertyHint.Range, "0,10,0.05")] 
-	public float  ExitDelay = 1.5f;
+	public double  ExitDelay = 1.5;
 
 	[Export] public bool FollowMouse = true;
+	[Export] public int MinimumXSize = 150;
 	
 	[Export] public string VisualsText = "[b]Default text[/b]";
 	[Export] public Texture2D VisualsTexture;
 
 	// How far away from owner the tooltip should be shown
-	[Export(PropertyHint.Range, "0,100,1")] public Vector2 Offset;
+	[Export] public Vector2 Offset;
+	[Export] public Vector2 Padding;
 
 	// Private variables
 	private Node _ownerNode;
 	private CustomTooltip _tooltip;
 	private Timer _enterTimer;
 	private Timer _exitTimer;
+	private Vector2 _border;
 	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		_ownerNode = GetNode(OwnerPath);
 		// Current scene should always be base_game_scene. In theory...
-		_tooltip = GetTree().CurrentScene.GetNode<CustomTooltip>("TooltipVisual");
-		_initVisuals();
-		// For some reason MouseEntered seem to exist in C# but godot doesn't see it, only the GDScript name...
+		_tooltip = (CustomTooltip)GD.Load<PackedScene>("res://Scenes/Utils/CustomTooltip.tscn").Instantiate();
+		_tooltip.GetNode<PanelContainer>("Panel").CustomMinimumSize = new Vector2(MinimumXSize, 0);
+		_tooltip.Visible = false;
+		_ownerNode.AddChild(_tooltip);
+			// GetTree().CurrentScene.GetNode<CustomTooltip>("UICanvas/TooltipVisual");
+		// _initVisuals();
+
 		_ownerNode.Connect("mouse_entered", new Callable(this, nameof(_mouseEntered)));
 		_ownerNode.Connect("mouse_exited", new Callable(this, nameof(_mouseExited)));
 
@@ -47,36 +54,30 @@ public partial class TooltipController : Control
 		_exitTimer.Connect("timeout", new Callable(this, nameof(_customHide)));
 		AddChild(_enterTimer);
 		AddChild(_exitTimer);
+
+		_border = GetViewportRect().Size - Padding;
 	}
 
 	private void _initVisuals()
 	{
-		_tooltip.SetTexture(VisualsTexture);
-		_tooltip.SetText(VisualsText);
+		// _tooltip.SetTexture(VisualsTexture);
 	}
 	
 	public override void _Process(double delta)
 	{
 		if (!_tooltip.Visible) return;
-		_tooltip.SetPosition(_getScreenPosition() + Offset);
-	}
-
-	// Gets the global position of the center of the node
-	private Vector2 _getScreenPosition()
-	{
-		var position = new Vector2();
+		var tooltipSize = _tooltip.GetNode<PanelContainer>("Panel").Size;
 		
-		if (_ownerNode is Node2D owner2D)
-		{
-			return owner2D.GetGlobalTransformWithCanvas().Origin;
-		}
-		// Have to copy to handle both cases (impossible with a || operator)
-		if (_ownerNode is Control ownerControl)
-		{
-			return ownerControl.GetGlobalTransformWithCanvas().Origin + ownerControl.Size/2;
-		}
-		
-		return position;
+		var basePosition = GetViewport().GetMousePosition();
+		var finalX = basePosition.X + Offset.X;
+		if (finalX + tooltipSize.X > _border.X)
+			finalX = basePosition.X - Offset.X -tooltipSize.X;
+		var finalY = basePosition.Y - tooltipSize.Y - Offset.Y;
+		if (finalY < Padding.Y)	
+			finalY = basePosition.Y - Offset.Y;
+		var position = new Vector2(finalX, finalY);
+		_tooltip.SetPosition(position);
+		_tooltip.SetText(VisualsText);
 	}
 	
 	

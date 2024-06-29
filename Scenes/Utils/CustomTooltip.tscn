@@ -1,29 +1,22 @@
-[gd_scene load_steps=3 format=3 uid="uid://dcb3tlebf675l"]
+[gd_scene load_steps=2 format=3 uid="uid://dcb3tlebf675l"]
 
-[ext_resource type="Texture2D" uid="uid://bnpmeob88h414" path="res://Assets/GUI/tooltip.png" id="1_a3evp"]
 [ext_resource type="Script" path="res://Scenes/Utils/CustomTooltip.cs" id="2_o50g7"]
 
-[node name="CustomTooltip" type="NinePatchRect"]
-offset_right = 319.0
-offset_bottom = 277.0
-texture = ExtResource("1_a3evp")
-region_rect = Rect2(-4, -4, 368, 148)
-patch_margin_left = 8
-patch_margin_top = 6
-patch_margin_right = 7
-patch_margin_bottom = 26
+[node name="CustomTooltip" type="Node2D"]
 script = ExtResource("2_o50g7")
 
-[node name="TooltipText" type="RichTextLabel" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 20.0
-offset_top = 18.0
-offset_right = -19.0
-offset_bottom = -19.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Panel" type="PanelContainer" parent="."]
+offset_right = 151.0
+offset_bottom = 79.0
+
+[node name="MCont" type="MarginContainer" parent="Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+
+[node name="TooltipText" type="RichTextLabel" parent="Panel/MCont"]
+layout_mode = 2
 bbcode_enabled = true
 text = "I dunno what it is, I'm the default text."
+fit_content = true

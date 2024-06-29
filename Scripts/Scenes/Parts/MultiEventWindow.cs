@@ -112,8 +112,9 @@ public partial class MultiEventWindow : Panel
 		
 		foreach (var choice in ev.Options)
 		{
-			var choiceInst = (Button) GD.Load<PackedScene>("res://Scenes/Parts/ChoiceButton.tscn").Instantiate();
+			var choiceInst = (EventChoice) GD.Load<PackedScene>("res://Scenes/Parts/ChoiceButton.tscn").Instantiate();
 			choiceInst.Text = choice.Desc;
+			choiceInst.TextOnTooltip = choice.Desc;
 			choiceInst.Pressed += () =>
 			{
 				choice.ApplyEffects();
