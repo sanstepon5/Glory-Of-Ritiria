@@ -1,6 +1,13 @@
-[gd_scene format=3 uid="uid://bwjc5h5qtoo82"]
+[gd_scene load_steps=2 format=3 uid="uid://bwjc5h5qtoo82"]
+
+[ext_resource type="Texture2D" uid="uid://wucl6yakdiap" path="res://Assets/Img/tmp/hangar.jpg" id="1_os7vn"]
 
 [node name="ship_managment_scene" type="Node2D"]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 1920.0
+offset_bottom = 1080.0
+texture = ExtResource("1_os7vn")
 
 [node name="ShipList" type="GridContainer" parent="."]
 offset_left = 18.0

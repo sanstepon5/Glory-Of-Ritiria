@@ -12,6 +12,11 @@
 [node name="BaseGameScene" type="Node2D"]
 script = ExtResource("1_6tgt3")
 
+[node name="BG" type="TextureRect" parent="."]
+offset_top = 70.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+
 [node name="BackGroundImage" type="Sprite2D" parent="."]
 z_index = -999
 centered = false

@@ -132,26 +132,29 @@ public partial class base_game_scene : Node2D
 		}
 
 		// Changing BG in base_game_scene
-		var bg = GetNode<Sprite2D>("BackGroundImage");
-		
 		// TODO: Handle this better
+		var bg = GetNode<Sprite2D>("BackGroundImage");
+		var staticBg = GetNode<TextureRect>("BG");
+		
 		if (backgroundPath == "res://Assets/Img/tmp/MilkyWayTransparent.png")
 		{
-			var texture = (Texture2D)GD.Load(backgroundPath);
+			var texture = GD.Load<Texture2D>(backgroundPath);
 			bg.Texture = texture;
 			bg.Visible = true;
+			staticBg.Visible = false;
 			bg.Centered = true;
 			bg.Position = GetViewportRect().Size / 2;
 		}
 		else if (backgroundPath != "")
 		{
-			var texture = (Texture2D)GD.Load(backgroundPath);
-			bg.Texture = texture;
-			bg.Visible = true;
+			var texture = GD.Load<Texture2D>(backgroundPath);
+			staticBg.Texture = texture;
+			staticBg.Visible = true;
 		}
 		else
 		{
 			bg.Visible = false;
+			staticBg.Visible = false;
 		}
 		
 		
