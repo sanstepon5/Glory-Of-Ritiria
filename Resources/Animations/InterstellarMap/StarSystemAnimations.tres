@@ -1,0 +1,306 @@
+[gd_resource type="SpriteFrames" load_steps=41 format=3 uid="uid://dw5f8rayhx15"]
+
+[ext_resource type="Texture2D" uid="uid://dqf1varw4886d" path="res://Assets/GUI/InterstellarMap/blue/frame_00.png" id="1_inc07"]
+[ext_resource type="Texture2D" uid="uid://byub85lxbtm3a" path="res://Assets/GUI/InterstellarMap/orange/frame_00.png" id="1_jqb7i"]
+[ext_resource type="Texture2D" uid="uid://fxb1h1b1wax8" path="res://Assets/GUI/InterstellarMap/orange/frame_01.png" id="2_l2w65"]
+[ext_resource type="Texture2D" uid="uid://cl0du5q4qglgd" path="res://Assets/GUI/InterstellarMap/blue/frame_01.png" id="2_r6u83"]
+[ext_resource type="Texture2D" uid="uid://3kx8madoefx6" path="res://Assets/GUI/InterstellarMap/blue/frame_02.png" id="3_qgt0d"]
+[ext_resource type="Texture2D" uid="uid://bupf52wxgv3ne" path="res://Assets/GUI/InterstellarMap/orange/frame_02.png" id="3_ssa14"]
+[ext_resource type="Texture2D" uid="uid://csba546bjwebx" path="res://Assets/GUI/InterstellarMap/blue/frame_03.png" id="4_6ry8h"]
+[ext_resource type="Texture2D" uid="uid://bigv8hi1volnu" path="res://Assets/GUI/InterstellarMap/orange/frame_03.png" id="4_8ljqm"]
+[ext_resource type="Texture2D" uid="uid://nh87eysm5jin" path="res://Assets/GUI/InterstellarMap/orange/frame_04.png" id="5_janux"]
+[ext_resource type="Texture2D" uid="uid://ckpt1tnxtflxr" path="res://Assets/GUI/InterstellarMap/blue/frame_04.png" id="5_jtfew"]
+[ext_resource type="Texture2D" uid="uid://4ucobka8mr8w" path="res://Assets/GUI/InterstellarMap/blue/frame_05.png" id="6_aqdxb"]
+[ext_resource type="Texture2D" uid="uid://c6ya843d1asnl" path="res://Assets/GUI/InterstellarMap/orange/frame_05.png" id="6_yq46j"]
+[ext_resource type="Texture2D" uid="uid://dy86wbbjomvpj" path="res://Assets/GUI/InterstellarMap/orange/frame_06.png" id="7_q60fk"]
+[ext_resource type="Texture2D" uid="uid://c6fwg0hkovf4v" path="res://Assets/GUI/InterstellarMap/blue/frame_06.png" id="7_v3qw5"]
+[ext_resource type="Texture2D" uid="uid://du68jx25872bv" path="res://Assets/GUI/InterstellarMap/blue/frame_07.png" id="8_cgb1a"]
+[ext_resource type="Texture2D" uid="uid://d2cbedaa24w5n" path="res://Assets/GUI/InterstellarMap/orange/frame_07.png" id="8_mk8p0"]
+[ext_resource type="Texture2D" uid="uid://cfmn1l7gu6u6c" path="res://Assets/GUI/InterstellarMap/blue/frame_08.png" id="9_cbiwl"]
+[ext_resource type="Texture2D" uid="uid://bncxa7lg77gre" path="res://Assets/GUI/InterstellarMap/orange/frame_08.png" id="9_lqclx"]
+[ext_resource type="Texture2D" uid="uid://bx32akupcoups" path="res://Assets/GUI/InterstellarMap/orange/frame_09.png" id="10_j24ur"]
+[ext_resource type="Texture2D" uid="uid://b1b1heuhxrc8d" path="res://Assets/GUI/InterstellarMap/blue/frame_09.png" id="10_pf67n"]
+[ext_resource type="Texture2D" uid="uid://ln8qemvbhamo" path="res://Assets/GUI/InterstellarMap/yellow/frame_00.png" id="11_es2vw"]
+[ext_resource type="Texture2D" uid="uid://cr0a2qchcj6q7" path="res://Assets/GUI/InterstellarMap/yellow/frame_01.png" id="12_yj6xq"]
+[ext_resource type="Texture2D" uid="uid://cvf4txgcbfjt" path="res://Assets/GUI/InterstellarMap/yellow/frame_02.png" id="13_10fq3"]
+[ext_resource type="Texture2D" uid="uid://n8pc1ej1q3tp" path="res://Assets/GUI/InterstellarMap/yellow/frame_03.png" id="14_0a70g"]
+[ext_resource type="Texture2D" uid="uid://blfyqddtekx1p" path="res://Assets/GUI/InterstellarMap/yellow/frame_04.png" id="15_r5sjy"]
+[ext_resource type="Texture2D" uid="uid://duv6ij7tlyakb" path="res://Assets/GUI/InterstellarMap/yellow/frame_05.png" id="16_p6xy1"]
+[ext_resource type="Texture2D" uid="uid://drmogyqa1gup5" path="res://Assets/GUI/InterstellarMap/yellow/frame_06.png" id="17_ouuyg"]
+[ext_resource type="Texture2D" uid="uid://cnxo3fvyctk6i" path="res://Assets/GUI/InterstellarMap/yellow/frame_07.png" id="18_601i3"]
+[ext_resource type="Texture2D" uid="uid://bh7oediw7hekd" path="res://Assets/GUI/InterstellarMap/yellow/frame_08.png" id="19_esx1i"]
+[ext_resource type="Texture2D" uid="uid://cbqq25e6undpk" path="res://Assets/GUI/InterstellarMap/yellow/frame_09.png" id="20_3gln5"]
+[ext_resource type="Texture2D" uid="uid://bckccxs7oydqi" path="res://Assets/GUI/InterstellarMap/red/frame_00.png" id="21_ng8wb"]
+[ext_resource type="Texture2D" uid="uid://chayk8rusdsxh" path="res://Assets/GUI/InterstellarMap/red/frame_01.png" id="22_p4n7y"]
+[ext_resource type="Texture2D" uid="uid://cfnlu27qi1hap" path="res://Assets/GUI/InterstellarMap/red/frame_02.png" id="23_j2qwa"]
+[ext_resource type="Texture2D" uid="uid://bdonibuymo0d5" path="res://Assets/GUI/InterstellarMap/red/frame_03.png" id="24_tj04u"]
+[ext_resource type="Texture2D" uid="uid://yp4qiu3pku7y" path="res://Assets/GUI/InterstellarMap/red/frame_04.png" id="25_t4oil"]
+[ext_resource type="Texture2D" uid="uid://dykmmo6uwywwn" path="res://Assets/GUI/InterstellarMap/red/frame_05.png" id="26_fqudw"]
+[ext_resource type="Texture2D" uid="uid://dno821hj0rekc" path="res://Assets/GUI/InterstellarMap/red/frame_06.png" id="27_3ervj"]
+[ext_resource type="Texture2D" uid="uid://c2idbqemdkhhi" path="res://Assets/GUI/InterstellarMap/red/frame_07.png" id="28_rigor"]
+[ext_resource type="Texture2D" uid="uid://ctbaukyutybqc" path="res://Assets/GUI/InterstellarMap/red/frame_08.png" id="29_vg1h7"]
+[ext_resource type="Texture2D" uid="uid://crxdcii11xqpd" path="res://Assets/GUI/InterstellarMap/red/frame_09.png" id="30_g5lm4"]
+
+[resource]
+resource_name = "StarA"
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_inc07")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_r6u83")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_qgt0d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_6ry8h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_jtfew")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_aqdxb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_v3qw5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_cgb1a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_cbiwl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_pf67n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_pf67n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_cbiwl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_cgb1a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_v3qw5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_aqdxb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_jtfew")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_6ry8h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_qgt0d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_r6u83")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_inc07")
+}],
+"loop": true,
+"name": &"blue",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_jqb7i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_l2w65")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_ssa14")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_8ljqm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_janux")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_yq46j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_q60fk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_mk8p0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_lqclx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_j24ur")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_j24ur")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_lqclx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_mk8p0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_q60fk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_yq46j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_janux")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_8ljqm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_ssa14")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_l2w65")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_jqb7i")
+}],
+"loop": true,
+"name": &"orange",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("21_ng8wb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_p4n7y")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_j2qwa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_tj04u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_t4oil")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_fqudw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_3ervj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_rigor")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_vg1h7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_g5lm4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_g5lm4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_vg1h7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_rigor")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_3ervj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_fqudw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_t4oil")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_tj04u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_j2qwa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_p4n7y")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_ng8wb")
+}],
+"loop": true,
+"name": &"red",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_es2vw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_yj6xq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_10fq3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_0a70g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_r5sjy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_p6xy1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_ouuyg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_601i3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_esx1i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_3gln5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_3gln5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_esx1i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_601i3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_ouuyg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_p6xy1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_r5sjy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_0a70g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_10fq3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_yj6xq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_es2vw")
+}],
+"loop": true,
+"name": &"yellow",
+"speed": 8.0
+}]

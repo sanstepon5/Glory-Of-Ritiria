@@ -52,15 +52,10 @@ public partial class StarSystemInfo:Node
     public Vector2 GetPositionOnPlan(Vector2 centerPoint)
     {
         // 50 seem to be the ideal number for distance, at least with 250 radius for a 5 LY circle
+        // TODO: Redo this calculation, it's exactly accurate for more than 5 l.y. (even if close)
         var radians = Angle * Math.PI / 180;
         var pointX = (float) (0 + (Distance*50) * Math.Cos(radians));
         var pointY = (float) (0 + (Distance*50) * Math.Sin(radians));
         return new Vector2(pointX, pointY) + centerPoint;
     }
 }
-
-
-// var a = new StarSystemInfo("Detnura-Aeria System", 0, 0, StarSystemType.Detnura);
-// var c = new StarSystemInfo("Sun", 4.22f, 320, StarSystemType.Sun);
-// var d = new StarSystemInfo("Sirius", 4.36f, 190, StarSystemType.GenericBinary);
-// var e = new StarSystemInfo("Barnard", 8.30f, 30, StarSystemType.GenericSimple);

@@ -8,4 +8,5 @@ position = Vector2(960, 543)
 script = ExtResource("1_wv8ma")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 100
 texture = ExtResource("2_pq065")

@@ -1,18 +1,19 @@
 [gd_scene load_steps=3 format=3 uid="uid://cr0vyikai3fjp"]
 
-[ext_resource type="Texture2D" uid="uid://nwy0j5s1btew" path="res://Assets/Img/tmp/CelestialBodies/Moon/Moon2.png" id="1_6d83f"]
-[ext_resource type="Script" path="res://Scenes/StarSystemScene/FixedMapObject.cs" id="1_wltbh"]
+[ext_resource type="Script" path="res://Scenes/Parts/FixedMapObject.cs" id="1_egwok"]
+[ext_resource type="Texture2D" uid="uid://nwy0j5s1btew" path="res://Assets/Img/tmp/CelestialBodies/Moon/Moon2.png" id="2_glptk"]
 
 [node name="FixedMapObject" type="Control"]
 layout_mode = 3
 anchors_preset = 0
-script = ExtResource("1_wltbh")
+script = ExtResource("1_egwok")
 
 [node name="Sprite" type="Sprite2D" parent="."]
-texture = ExtResource("1_6d83f")
+texture = ExtResource("2_glptk")
 centered = false
 
 [node name="Name" type="RichTextLabel" parent="."]
+layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 bbcode_enabled = true
@@ -21,6 +22,7 @@ fit_content = true
 autowrap_mode = 0
 
 [node name="Button" type="Button" parent="."]
+layout_mode = 0
 offset_right = 40.0
 offset_bottom = 26.0
 flat = true

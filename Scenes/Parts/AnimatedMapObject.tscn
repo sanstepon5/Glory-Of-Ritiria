@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://bjtayy27gey4s"]
+
+[ext_resource type="Script" path="res://Scenes/Parts/AnimatedMapObject.cs" id="1_beju3"]
+[ext_resource type="SpriteFrames" uid="uid://dw5f8rayhx15" path="res://Resources/Animations/InterstellarMap/StarSystemAnimations.tres" id="2_iqmcg"]
+
+[node name="AnimatedMapObject" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_beju3")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("2_iqmcg")
+animation = &"yellow"
+centered = false
+
+[node name="Name" type="RichTextLabel" parent="."]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 0
+offset_right = 1.0
+bbcode_enabled = true
+fit_content = true
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+flat = true

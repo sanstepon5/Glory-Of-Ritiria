@@ -317,7 +317,7 @@ public partial class star_system_view : Node2D
 	private FixedMapObject BuildCelestialBodyInst(CelestialBody body)
 	{
 		// TODO: Find a better spot for the file
-		var scene = GD.Load<PackedScene>("res://Scenes/StarSystemScene/FixedMapObject.tscn");
+		var scene = GD.Load<PackedScene>("res://Scenes/Parts/FixedMapObject.tscn");
 		var inst = (FixedMapObject)scene.Instantiate();
 		if (body is Star)
 			inst.Init(body, isStar: true);

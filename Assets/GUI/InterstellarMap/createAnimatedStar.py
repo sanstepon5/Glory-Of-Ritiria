@@ -12,6 +12,14 @@ def yellow():
     res[..., 3] = gradient * 1.5  # alpha channel
     return res
 
+def orange():
+    res = np.zeros((size, size, 4))
+    res[..., 0] = 1  # Red channel
+    res[..., 1] = gradient # Green channel
+    res[..., 2] = gradient * 0.5  # Blue channel
+    res[..., 3] = gradient * 1.5  # alpha channel
+    return res
+
 def red():
     res = np.zeros((size, size, 4))
     res[..., 0] = 1  # Red channel
@@ -43,13 +51,13 @@ weight = 100.0  # Control the cross effect
 R = np.sqrt((X**2 + Y**2) + weight * (X**2 * Y**2))
 
 # Generate and save images with varying brightness
-num_frames = 8  # Number of frames in the animation
+num_frames = 10  # Number of frames in the animation
 brightness_variation = np.linspace(0.85, 1.05, num_frames)  # Vary brightness
 
 for i, brightness in enumerate(brightness_variation):
     gradient = np.exp(-R * 8 / 2) * brightness
 
-    color_map = yellow()
+    color_map = blue()
 
     final_image = np.zeros_like(color_map)
     for j in range(4):
@@ -69,15 +77,3 @@ for i, brightness in enumerate(brightness_variation):
     resized_img = img.resize((64, 64), resample=Image.Resampling.BILINEAR)  # Resize to 64x64
 
     resized_img.save(f'pulsing_star/frame_{i:02d}.png')
-
-
-# print("making gif")
-# # Combine the images into a GIF
-# frames = []
-# for i in range(num_frames):
-#     frames.append(Image.open(f'pulsing_star/frame_{i:02d}.png'))
-# for i in reversed(range(num_frames)):
-#     frames.append(Image.open(f'pulsing_star/frame_{i:02d}.png'))
-
-# frames[0].save('pulsing_star_animation.gif', save_all=True, append_images=frames[1:], 
-#                 duration=100, loop=0)
