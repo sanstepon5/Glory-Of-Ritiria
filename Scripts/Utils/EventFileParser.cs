@@ -317,9 +317,9 @@ public class EventFileParser
         return choice;
     }
 
-    private List<Effect> ReadEffects()
+    private List<EventEffect> ReadEffects()
     {
-        var effectsList = new List<Effect>();
+        var effectsList = new List<EventEffect>();
         
         var effectValuesRegex = new Regex(@"^\s*(?<MethodName>.*),\s*(?<Value>.*),\s*""(?<Desc>.*)""\s*;\s*$");
 

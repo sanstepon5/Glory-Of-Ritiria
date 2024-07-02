@@ -25,6 +25,7 @@ Event:
                 Description: "Oh no, -20 Res1!"
                 Effects:
                     AddRes1, -20, "Lose 20 Res1";
+                    AddRes1, -20, "Lose 30 Res1";
             Choice:
                 ID: "event_2_option1"
                 Description: "I don't care, I want money now"

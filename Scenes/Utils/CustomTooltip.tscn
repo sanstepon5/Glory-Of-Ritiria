@@ -14,6 +14,7 @@ layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
 
 [node name="TooltipText" type="RichTextLabel" parent="Panel/MCont"]
 layout_mode = 2

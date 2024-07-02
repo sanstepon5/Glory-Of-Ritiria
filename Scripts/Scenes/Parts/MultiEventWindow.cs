@@ -1,3 +1,4 @@
+using GloryOfRitiria.Scenes.Parts.Events;
 using GloryOfRitiria.Scripts.Events;
 using GloryOfRitiria.Scripts.Global;
 using Godot;
@@ -113,8 +114,7 @@ public partial class MultiEventWindow : Panel
 		foreach (var choice in ev.Options)
 		{
 			var choiceInst = (EventChoice) GD.Load<PackedScene>("res://Scenes/Parts/ChoiceButton.tscn").Instantiate();
-			choiceInst.Text = choice.Desc;
-			choiceInst.TextOnTooltip = choice.Desc;
+			choiceInst.Init(choice);
 			choiceInst.Pressed += () =>
 			{
 				choice.ApplyEffects();

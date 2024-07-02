@@ -1,14 +1,24 @@
-using Godot;
+using GloryOfRitiria.Scripts.Scenes.Parts;
 using GloryOfRitiria.Scripts.Utils;
+using Godot;
+
+namespace GloryOfRitiria.Scenes.Parts.Events;
 
 public partial class EventChoice : Button
 {
-	public string TextOnTooltip = "";
+	public Choice Choice;
 
 	public override void _Ready()
 	{
 		var tooltipInst = CreateTooltipController();
 		AddChild(tooltipInst);
+	}
+
+	public void Init(Choice choice)
+	{
+		Choice = choice;
+		Text = choice.Desc;
+		// The click effects will have to be assigned in parent node for now
 	}
 	
 	private TooltipController CreateTooltipController()
@@ -18,7 +28,7 @@ public partial class EventChoice : Button
 
 		inst.Name = "TooltipController";
 		inst.MinimumXSize = 300;
-		inst.VisualsText = TextOnTooltip;
+		inst.VisualsText = Choice.GetFullTooltipText();
 		inst.OwnerPath = new NodePath(GetPath());
 		inst.EnterDelay = 0.3;
 		inst.ExitDelay = 0.3;
