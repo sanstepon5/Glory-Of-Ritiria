@@ -1,5 +1,6 @@
 ﻿using System;
 using GloryOfRitiria.Scripts.Global;
+using GloryOfRitiria.Scripts.ShipRelated;
 using GloryOfRitiria.Scripts.ShipRelated.Missions;
 using Godot;
 
@@ -68,6 +69,26 @@ public class EventEffect : Effect
                 game_state.CurrentFlags.Remove(flag);
             }
                 break;
+            case "AddCargo":
+            {
+                switch (_basicValue)
+                {
+                    case "planet_explore":
+                        var cargo = new Cargo("Planet exploration kit", 5, game_state.AssetsDir+"Icons/Loadouts/planetExplorationKit.png");
+                        cargo.AddMission(new PlanetExplorationMission());
+                        game_state.CargoStorage.Add(cargo);
+                        break;
+                    case "telescope":
+                        cargo = new Cargo("Space Telescope", 1);
+                        cargo.AddMission(new SystemExplorationMission());
+                        game_state.CargoStorage.Add(cargo);
+                        break;
+                    default:
+                        GD.PrintErr("Unrecognized cargo id given by event");
+                        break;
+                }
+            }
+                break;
 
         }
     }
@@ -93,6 +114,15 @@ public class EventEffect : Effect
             case "AddFlag":
             case "RemoveFlag":
                 return "[b]This choice might have consequences, good or bad[/b]";
+            case "AddCargo":
+            {
+                return _basicValue switch
+                {
+                    "planet_explore" => "[b]Add a [color=green] planet exploration kit [/color] to our storage[/b]",
+                    "telescope" => "[b]Add a [color=green] space telescope [/color] to our storage[/b]",
+                    _ => ""
+                };
+            }
             default:
                 return "";
         }

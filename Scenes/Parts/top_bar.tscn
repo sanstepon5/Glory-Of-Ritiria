@@ -37,7 +37,7 @@ theme_override_font_sizes/font_size = 20
 text = "Week 3, Month 11, 970 APE
 (2017 CE)"
 
-[node name="TestButton" type="Button" parent="."]
+[node name="EventsButton" type="Button" parent="."]
 layout_mode = 0
 offset_left = 1200.0
 offset_top = 1.0
@@ -92,8 +92,8 @@ offset_bottom = 70.0
 
 [node name="SelectedShip" type="PanelContainer" parent="."]
 layout_mode = 2
-offset_left = 700.0
-offset_right = 906.0
+offset_left = 300.0
+offset_right = 506.0
 offset_bottom = 72.0
 
 [node name="VBox" type="VBoxContainer" parent="SelectedShip"]

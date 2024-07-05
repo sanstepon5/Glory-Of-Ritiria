@@ -3,6 +3,7 @@ using System;
 using GloryOfRitiria;
 using GloryOfRitiria.Scenes.Utils;
 using GloryOfRitiria.Scripts.Global;
+using GloryOfRitiria.Scripts.Scenes.Parts;
 using GloryOfRitiria.Scripts.Utils;
 using StarSystemInfo = GloryOfRitiria.Scripts.StarSystem.StarSystemInfo;
 
@@ -33,13 +34,11 @@ public partial class base_game_scene : Node2D
 		_infoWindowContainer = GetNode<MarginContainer>("UICanvas/InfoWindowControl");
 		_warningWindowContainer = GetNode<MarginContainer>("UICanvas/WarningWindowControl");
 		
-		
-		
 		// Pallyria will be the default scene
 		LoadPallyria(); 
 		
 		// Button to open events
-		var eventsButton = GetNode<Button>("UICanvas/TopBar/TestButton");
+		var eventsButton = GetNode<Button>("UICanvas/TopBar/EventsButton");
 		eventsButton.Pressed += () =>
 		{
 			_playSimplePlayButtonSound();
@@ -95,6 +94,18 @@ public partial class base_game_scene : Node2D
 		_signals.Connect(nameof(_signals.SimpleButtonClicked), new Callable(this, nameof(_playSimplePlayButtonSound)));
 		_signals.Connect(nameof(_signals.NextEventButtonClicked), new Callable(this, nameof(_playNextEventButtonSound)));
 		_signals.Connect(nameof(_signals.EventOptionButtonClicked), new Callable(this, nameof(_playEventOptionButtonSound)));
+		
+		UpdateEvents();
+		
+		if (game_state.EventsForTurn.Count > 0)
+		{
+			// Have to use a timer here because without waiting the window doesn't handle pause properly
+			var eventWindowTimer = new Timer();
+			eventWindowTimer.OneShot = true;
+			eventWindowTimer.Connect("timeout", new Callable(this, nameof(BuildMultiEventWindow)));
+			AddChild(eventWindowTimer);
+			eventWindowTimer.Start(0.1f);
+		}
 	}
 
 	
@@ -294,7 +305,7 @@ public partial class base_game_scene : Node2D
 	private void BuildMultiEventWindow()
 	{
 		var multiEventWindow = GD.Load<PackedScene>("res://Scenes/Parts/MultiEventWindow.tscn");
-		var multiEventInst = (Panel) multiEventWindow.Instantiate();
+		var multiEventInst = (MultiEventWindow) multiEventWindow.Instantiate();
 		
 		_eventContainer.Visible = true;
 		_eventContainer.AddChild(multiEventInst);
