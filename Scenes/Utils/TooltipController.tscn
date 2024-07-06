@@ -3,5 +3,6 @@
 [ext_resource type="Script" path="res://Scripts/Utils/TooltipController.cs" id="1_lrrhf"]
 
 [node name="TooltipController" type="Node2D"]
+process_mode = 3
 script = ExtResource("1_lrrhf")
 Padding = Vector2(10, 20)

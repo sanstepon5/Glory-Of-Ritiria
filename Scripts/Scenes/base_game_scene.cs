@@ -51,10 +51,18 @@ public partial class base_game_scene : Node2D
 			LoadInterstellarMap();
 		};
 		
+		var debugButton = GetNode<Button>("UICanvas/TopBar/DebugMenuButton");
+		debugButton.Pressed += () =>
+		{
+			_playSimplePlayButtonSound();
+			GetNode<PanelContainer>("UICanvas/DebugMenu").Visible = true;
+		};
+		
 		TopBarUpdate();
 		
 
 		_signals.Connect(nameof(_signals.SkyClicked), new Callable(this, nameof(LoadDetnuraMap)));
+		_signals.Connect(nameof(_signals.InterstellarMapRequested), new Callable(this, nameof(LoadInterstellarMap)));
 		_signals.Connect(nameof(_signals.ShipyardsButtonClicked), new Callable(this, nameof(LoadShipyards)));
 		_signals.Connect(nameof(_signals.FleetBureauButtonClicked), new Callable(this, nameof(LoadFleetBureau)));
 		_signals.Connect(nameof(_signals.DetnuraSystemRequested), new Callable(this, nameof(LoadDetnuraMap)));
@@ -95,8 +103,8 @@ public partial class base_game_scene : Node2D
 		_signals.Connect(nameof(_signals.NextEventButtonClicked), new Callable(this, nameof(_playNextEventButtonSound)));
 		_signals.Connect(nameof(_signals.EventOptionButtonClicked), new Callable(this, nameof(_playEventOptionButtonSound)));
 		
+		/*Show events on the start of the game*/
 		UpdateEvents();
-		
 		if (game_state.EventsForTurn.Count > 0)
 		{
 			// Have to use a timer here because without waiting the window doesn't handle pause properly

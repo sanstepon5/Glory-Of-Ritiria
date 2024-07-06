@@ -52,6 +52,12 @@ offset_right = 1180.0
 offset_bottom = 72.0
 text = "Open Interstellar Map"
 
+[node name="DebugMenuButton" type="Button" parent="."]
+offset_left = 800.0
+offset_right = 980.0
+offset_bottom = 72.0
+text = "Open Debug Menu"
+
 [node name="ResourceContainer" type="GridContainer" parent="."]
 layout_mode = 0
 offset_left = 12.0

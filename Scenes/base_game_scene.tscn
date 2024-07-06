@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://owct5lb7jgew"]
+[gd_scene load_steps=10 format=3 uid="uid://owct5lb7jgew"]
 
 [ext_resource type="Script" path="res://Scripts/Scenes/base_game_scene.cs" id="1_6tgt3"]
 [ext_resource type="PackedScene" uid="uid://b176rck77evnu" path="res://Scenes/Parts/top_bar.tscn" id="2_sapv7"]
+[ext_resource type="Script" path="res://Scenes/DebugMenu.cs" id="3_sbc5i"]
 [ext_resource type="AudioStream" uid="uid://ep4x3403et1g" path="res://Assets/Sounds/UX/Favorites/SimpleButtonClick.mp3" id="4_hgs2e"]
 [ext_resource type="PackedScene" uid="uid://dcb3tlebf675l" path="res://Scenes/Utils/CustomTooltip.tscn" id="4_on4ln"]
 [ext_resource type="AudioStream" uid="uid://d0yeo61gbfmyg" path="res://Assets/Sounds/Music/keys-of-moon-under-the-sun(chosic.com).mp3" id="5_pp5m4"]
@@ -54,7 +55,62 @@ offset_bottom = 719.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
+[node name="DebugMenu" type="PanelContainer" parent="UICanvas"]
+process_mode = 3
+visible = false
+offset_left = 780.0
+offset_top = 100.0
+offset_right = 1018.0
+offset_bottom = 397.0
+script = ExtResource("3_sbc5i")
+
+[node name="MarginCont" type="MarginContainer" parent="UICanvas/DebugMenu"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="VBox" type="VBoxContainer" parent="UICanvas/DebugMenu/MarginCont"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="HBox" type="HBoxContainer" parent="UICanvas/DebugMenu/MarginCont/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Empty" type="MarginContainer" parent="UICanvas/DebugMenu/MarginCont/VBox/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 5.0
+theme_override_constants/margin_left = 10
+
+[node name="Exit" type="Button" parent="UICanvas/DebugMenu/MarginCont/VBox/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+text = "X"
+
+[node name="Material10" type="Button" parent="UICanvas/DebugMenu/MarginCont/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+text = "Add 10 Material Resources"
+
+[node name="Science10" type="Button" parent="UICanvas/DebugMenu/MarginCont/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+text = "Add 10% Scientific Support"
+
+[node name="Political10" type="Button" parent="UICanvas/DebugMenu/MarginCont/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+text = "Add 10% Political Power"
+
 [node name="TooltipVisual" parent="UICanvas" instance=ExtResource("4_on4ln")]
+process_mode = 3
 visible = false
 
 [node name="Sound" type="Node" parent="."]

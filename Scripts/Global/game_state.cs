@@ -144,6 +144,12 @@ public partial class game_state : Node
 		if (ScientificRes < 0) ScientificRes = 0;
 		if (ScientificRes > 100) ScientificRes = 100;
 	}
+	public static void AddPoliticalRes(double amount)
+	{
+		PoliticalRes += amount;
+		if (PoliticalRes < 0) PoliticalRes = 0;
+		if (PoliticalRes > 100) PoliticalRes = 100;
+	}
 
 	public static void UpdateResources()
 	{
