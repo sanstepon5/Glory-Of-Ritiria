@@ -28,7 +28,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_font_sizes/bold_font_size = 50
 bbcode_enabled = true
-text = "[center][b]Today's Events[/b]
+text = "[center][b]Todays Events[/b]
 "
 
 [node name="ExitButton" type="Button" parent="VBox/HBoxTitle"]

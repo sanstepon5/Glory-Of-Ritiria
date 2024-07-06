@@ -58,9 +58,9 @@ size_flags_vertical = 3
 [node name="DebugMenu" type="PanelContainer" parent="UICanvas"]
 process_mode = 3
 visible = false
-offset_left = 780.0
+offset_left = 20.0
 offset_top = 100.0
-offset_right = 1018.0
+offset_right = 258.0
 offset_bottom = 397.0
 script = ExtResource("3_sbc5i")
 

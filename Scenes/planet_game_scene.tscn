@@ -1,10 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://d2namxoxy40fc"]
+[gd_scene load_steps=9 format=3 uid="uid://d2namxoxy40fc"]
 
 [ext_resource type="Script" path="res://Scripts/Scenes/planet_game_scene.cs" id="1_txril"]
 [ext_resource type="Texture2D" uid="uid://5kls54kysks8" path="res://Assets/Img/tmp/PallyriaOffice.png" id="2_05eip"]
 [ext_resource type="Texture2D" uid="uid://djuutdi23oyw1" path="res://Assets/Img/tmp/Phone.png" id="2_ebvfr"]
+[ext_resource type="Texture2D" uid="uid://dnscvy88l08tx" path="res://Assets/Img/tmp/ClosestStars.png" id="3_3bn6g"]
 [ext_resource type="Texture2D" uid="uid://yotckc60ey1p" path="res://Assets/Icons/Ships/Small/selectedShip.png" id="3_bmmcp"]
+[ext_resource type="Texture2D" uid="uid://cdv6yhh6auspm" path="res://Assets/Img/tmp/SkyBackground.png" id="4_pc6dq"]
 [ext_resource type="Texture2D" uid="uid://b8u7yi37jw0t0" path="res://Assets/Icons/Ships/Small/ship.png" id="4_xidlm"]
+[ext_resource type="Script" path="res://Scenes/PhoneButton.cs" id="6_gdlqa"]
 
 [node name="PlanetGameScene" type="Node2D"]
 script = ExtResource("1_txril")
@@ -16,24 +19,33 @@ offset_right = 1920.0
 offset_bottom = 1176.0
 texture = ExtResource("2_05eip")
 
+[node name="Map" type="Area2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Map"]
+position = Vector2(905, 787)
+scale = Vector2(0.375367, 0.191685)
+texture = ExtResource("3_3bn6g")
+
+[node name="MapCollision" type="CollisionPolygon2D" parent="Map"]
+position = Vector2(88, 524)
+scale = Vector2(1.05351, 0.745735)
+polygon = PackedVector2Array(683.43, 313.784, 656.852, 391.56, 896.052, 391.56, 863.779, 312.443)
+
 [node name="Sky" type="Area2D" parent="."]
 
 [node name="SkyCollision" type="CollisionPolygon2D" parent="Sky"]
-polygon = PackedVector2Array(824, 684, 743, 770, 1172, 769, 1065, 671)
+polygon = PackedVector2Array(682, 133, 628, 286, 564, 409, 1022, 494, 1344, 494, 1244, 341, 1147, 132)
 
-[node name="IncRes1Button" type="Button" parent="."]
-offset_left = 877.0
-offset_top = 433.0
-offset_right = 1082.0
-offset_bottom = 505.0
-text = "Click here to increment"
+[node name="Sprite2D" type="Sprite2D" parent="Sky"]
+z_index = -1
+position = Vector2(930, 525)
+texture = ExtResource("4_pc6dq")
 
 [node name="PhoneButton" type="MenuButton" parent="."]
-offset_left = 1351.0
-offset_top = 609.0
-offset_right = 1581.0
-offset_bottom = 814.0
-icon = ExtResource("2_ebvfr")
+offset_left = 624.0
+offset_top = 739.0
+offset_right = 768.0
+offset_bottom = 817.0
 expand_icon = true
 item_count = 2
 popup/item_0/text = "Imperial Shipyards"
@@ -42,3 +54,15 @@ popup/item_0/id = 0
 popup/item_1/text = "Imperial Fleet Bureau"
 popup/item_1/icon = ExtResource("4_xidlm")
 popup/item_1/id = 1
+script = ExtResource("6_gdlqa")
+
+[node name="Sprite2D" type="Sprite2D" parent="PhoneButton"]
+position = Vector2(71.8593, 34.3593)
+scale = Vector2(0.300611, 0.15496)
+texture = ExtResource("2_ebvfr")
+
+[connection signal="input_event" from="Map" to="." method="_on_map_input_event"]
+[connection signal="mouse_entered" from="Map" to="." method="_on_map_mouse_entered"]
+[connection signal="mouse_exited" from="Map" to="." method="_on_map_mouse_exited"]
+[connection signal="mouse_entered" from="Sky" to="." method="_on_sky_mouse_entered"]
+[connection signal="mouse_exited" from="Sky" to="." method="_on_sky_mouse_exited"]

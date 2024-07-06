@@ -118,4 +118,7 @@ public partial class GlobalSignals : Node
     /** Extended button (left and right click) */
     [Signal] public delegate void LeftPressedEventHandler();
     [Signal] public delegate void RightPressedEventHandler();
+
+
+    [Signal] public delegate void InterstellarMapRequestedEventHandler();
 }

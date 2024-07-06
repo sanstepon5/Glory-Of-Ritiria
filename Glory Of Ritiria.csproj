@@ -29,4 +29,8 @@
     <PackageReference Include="Antlr4.Runtime" Version="4.6.6" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Scripts\Effects\EventEffects\" />
+  </ItemGroup>
+
 </Project>

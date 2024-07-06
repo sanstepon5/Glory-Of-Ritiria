@@ -51,11 +51,18 @@ public partial class base_game_scene : Node2D
 			LoadInterstellarMap();
 		};
 		
+		var backToPallyriaButton = GetNode<Button>("UICanvas/TopBar/BackToPallyriaButton");
+		backToPallyriaButton.Pressed += () => {
+			_playSimplePlayButtonSound();
+			LoadPallyria();
+		};
+		
 		var debugButton = GetNode<Button>("UICanvas/TopBar/DebugMenuButton");
 		debugButton.Pressed += () =>
 		{
 			_playSimplePlayButtonSound();
-			GetNode<PanelContainer>("UICanvas/DebugMenu").Visible = true;
+			var debugMenu = GetNode<DebugMenu>("UICanvas/DebugMenu");
+			debugMenu.Visible = !debugMenu.Visible;
 		};
 		
 		TopBarUpdate();
@@ -119,16 +126,18 @@ public partial class base_game_scene : Node2D
 	
 	// Load a scene with a specified path, background path, and optional signal emission
 	// TODO: refactor, too many different scenes to load
-	private async void LoadScene(string scenePath, string backgroundPath, string signal = null, StarSystemInfo systemInfo=null, params String[] signalArgs)
+	private async void LoadScene(string sceneName, string backgroundPath, string signal = null, StarSystemInfo systemInfo=null, params String[] signalArgs)
 	{
-		ClearScene(); // Clear old scene
-		
 		// Pause the game for a very short time to make sure that player can't change scene again before old scene
 		// is cleared.
 		GetTree().Paused = true;
 		await ToSignal(GetTree().CreateTimer(0.05f), "timeout");
 		GetTree().Paused = false;
+		
+		ClearScene(); // Clear old scene
 
+		var scenePath = GetScenePath(sceneName);
+		
 		// Adding the scene to CurrentScene node
 		var currentScene = GetNode<Node2D>("CurrentScene");
 		var scene = GD.Load<PackedScene>(scenePath);
@@ -169,64 +178,72 @@ public partial class base_game_scene : Node2D
 			var texture = GD.Load<Texture2D>(backgroundPath);
 			staticBg.Texture = texture;
 			staticBg.Visible = true;
+			bg.Visible = false;
 		}
 		else
 		{
 			bg.Visible = false;
 			staticBg.Visible = false;
 		}
-		
-		
-		// By default all scenes show the pass turn button, if needed should be disabled in scene load function
-		//_signals.EmitSignal(nameof(_signals.ShowPassTurnButtonRequested));
+	}
+
+	private static string GetScenePath(string sceneName)
+	{
+		return sceneName switch
+		{
+			"Pallyria" => "res://Scenes/planet_game_scene.tscn",
+			"Shipyards" => "res://Scenes/HangarScenes/ShipyardsScene.tscn",
+			"FleetBureau" => "res://Scenes/HangarScenes/FleetBureauScene.tscn",
+			"Detnura" => "res://Scenes/star_system_view.tscn",
+			"System" => "res://Scenes/star_system_view.tscn",
+			"Interstellar" => "res://Scenes/InterstellarMap.tscn",
+			_ => ""
+		};
 	}
 
 	
 	// Load the Pallyria scene
 	public void LoadPallyria()
 	{
-		LoadScene("res://Scenes/planet_game_scene.tscn", "res://Assets/Img/tmp/PallyriaOffice.png");
+		LoadScene("Pallyria", "res://Assets/Img/tmp/PallyriaOffice.png");
 	}
 	
 	public void LoadShipyards()
 	{
-		LoadScene("res://Scenes/HangarScenes/ShipyardsScene.tscn", "res://Assets/Img/tmp/hangar.jpg");
+		LoadScene("Shipyards", "res://Assets/Img/tmp/hangar.jpg");
 	}
 	
 	public void LoadFleetBureau()
 	{
-		LoadScene("res://Scenes/HangarScenes/FleetBureauScene.tscn", "res://Assets/Img/tmp/hangar.jpg");
+		LoadScene("FleetBureau", "res://Assets/Img/tmp/hangar.jpg");
 	}
 	
 	// Load the Detnura scene
 	public void LoadDetnuraMap()
 	{
-		LoadScene("res://Scenes/star_system_view.tscn", "res://Assets/Img/tmp/MilkyWayTransparent.png", nameof(_signals.DetnuraBuildRequested));
-		// res://Assets/Img/tmp/SystemBackGround.png
+		LoadScene("Detnura", "res://Assets/Img/tmp/MilkyWayTransparent.png", nameof(_signals.DetnuraBuildRequested));
 	}	
 	
 	// Load a star system view scene
 	public void LoadSystemMap(StarSystemInfo systemInfo)
 	{
-		LoadScene("res://Scenes/star_system_view.tscn", "res://Assets/Img/tmp/MilkyWayTransparent.png", nameof(_signals.StarViewBuildRequested), systemInfo);
-		// res://Assets/Img/tmp/SystemBackGround.png
+		LoadScene("System", "res://Assets/Img/tmp/MilkyWayTransparent.png", nameof(_signals.StarViewBuildRequested), systemInfo);
 	}
 	
 	// Load the Pallyria scene
 	public void LoadInterstellarMap()
 	{
 		// TODO: Find a background and generally better integrate this scene in the current framework
-		LoadScene("res://Scenes/InterstellarMap.tscn", "");
+		LoadScene("Interstellar", "");
 	}
 
 	// Clears loaded scene
 	public void  ClearScene()
 	{
-		//_signals.EmitSignal(nameof(_signals.ShowPassTurnButtonRequested));
-		var currentScene = GetNode<Node2D>("CurrentScene");
-		if (currentScene.GetChildren().Count > 0)
+		var scene = GetNode<Node2D>("CurrentScene");
+		if (scene.GetChildren().Count > 0)
 		{
-			currentScene.GetChild<Node2D>(0).QueueFree();
+			scene.GetChild<Node2D>(0).QueueFree();
 		}
 	}
 	
@@ -242,59 +259,10 @@ public partial class base_game_scene : Node2D
 		InvokeEvents();
 	}
 
-	private static string GetCurrentDateString()
-	{
-		var nbWeeks = game_state.CurrentTurn;
-		var pallyriaYear = 970 + nbWeeks / (4 * 12);
-		var earthYear = 2017 + nbWeeks / (4 * 12);
-		var month = 1 + (nbWeeks/4) % 12;
-		var week = 1 + nbWeeks % 4;
-
-		var res = $"Week {week}, Month {month}, {pallyriaYear} APE\n({earthYear} CE)";
-		return res;
-	}
-	
-	//TODO: Move all that to the TopBar Scene
 	public void TopBarUpdate()
 	{
-		var topBar = GetNode<Panel>("UICanvas/TopBar");
-		var yearLabel = topBar.GetNode<Label>("CurrentYear");
-		yearLabel.Text = GetCurrentDateString();
-		
-		// Res 1 update
-		var res1 = topBar.GetNode<HBoxContainer>("ResourceContainer/Res1");
-		var res1Text = res1.GetNode<RichTextLabel>("ResText");
-		if (game_state.Res1Rate >= 0)
-			res1Text.Text = "" + game_state.Res1 + "[color=green] + "+ game_state.Res1Rate+"[/color]";
-		else
-			res1Text.Text = "" + game_state.Res1 + "\n[color=red] - "+ Math.Abs(game_state.Res1Rate)+"[/color]";
-		
-		// Science update
-		var scientific = topBar.GetNode<HBoxContainer>("ResourceContainer/ScienceRes");
-		var scientificText = scientific.GetNode<RichTextLabel>("ResText");
-		if 
-			(game_state.ScientificRes > 5) scientificText.Text = "" + game_state.ScientificRes + "%";
-		else 
-			scientificText.Text = "[color=red]" + game_state.ScientificRes + "%[/color]";
-		
-		// Political power update
-		var political = topBar.GetNode<HBoxContainer>("ResourceContainer/PoliticalRes");
-		var politicalText = political.GetNode<RichTextLabel>("ResText");
-		if (game_state.PoliticalRes > 5) 
-			politicalText.Text = "" + game_state.PoliticalRes + "%";
-		else 
-			politicalText.Text = "[color=red]" + game_state.PoliticalRes + "%[/color]";
-		
-		// Selected Ship update
-		var shipName = topBar.GetNode<RichTextLabel>("SelectedShip/VBox/MarginCont/HBox/ShipName");
-		shipName.Text = "No ship selected";
-		var planetName = topBar.GetNode<RichTextLabel>("SelectedShip/VBox/MarginCont2/HBox/PlanetName");
-		planetName.Text = "...";
-		if (game_state.SelectedShip != null)
-		{
-			shipName.Text = game_state.SelectedShip.Name;
-			planetName.Text = game_state.SelectedShip.Location.Name;
-		}
+		var topBar = GetNode<GloryOfRitiria.Scenes.Parts.TopBar>("UICanvas/TopBar");
+		topBar.Update();
 	}
 
 	// Called on new turn, update the list of satisfied events
