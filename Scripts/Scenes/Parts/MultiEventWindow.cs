@@ -96,7 +96,7 @@ public partial class MultiEventWindow : Panel
 		
 		// Set various fields of the event
 		var title = eventInst.GetNode<RichTextLabel>("MBox/VBox/TitleHBox/TitleLabel");
-		title.Text = ev.Name;
+		title.Text = $"[b]{ev.Name}";
 		
 		var image = eventInst.GetNode<TextureRect>("MBox/VBox/ImageMBox/EventImage");
 		image.Texture = (Texture2D)GD.Load(ev.ImagePath);

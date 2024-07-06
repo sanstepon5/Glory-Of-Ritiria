@@ -6,6 +6,7 @@
 offset_right = 737.0
 offset_bottom = 31.0
 size_flags_vertical = 3
+theme_override_font_sizes/font_size = 18
 text = "Ok, nice text. If you see this, something's really wrong... Code didn't add options it was supposed to"
 text_overrun_behavior = 3
 clip_text = true
