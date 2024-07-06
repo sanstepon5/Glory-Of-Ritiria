@@ -13,20 +13,6 @@ Event:
                 AddRes1, 10, "Get 10 Res1";
 
 Event:
-    ID: "event_99"
-    Title: "Startup Event"
-    Description: "Wow, this game actually started and even doing something! This is kinda impressive, not gonna lie"
-    Image: "res://icon.svg"
-    Condition Simple:
-        CurrentTurn, ==, 0;
-    Options:
-        Choice:
-            ID: "event_99_option_1"
-            Description: "A rover as a gift, just for you"
-            Effects:
-                AddCargo, planet_explore, "";
-
-Event:
     ID: "event_2"
     Title: "Second Event"
     Description: "Still on turn number 3! But this time the options are different!"

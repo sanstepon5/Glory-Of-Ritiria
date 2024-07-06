@@ -61,6 +61,199 @@ position = Vector2(71.8593, 34.3593)
 scale = Vector2(0.300611, 0.15496)
 texture = ExtResource("2_ebvfr")
 
+[node name="TutorialWindows" type="Node2D" parent="."]
+
+[node name="FirstWindow" type="PanelContainer" parent="TutorialWindows"]
+visible = false
+self_modulate = Color(0.470588, 0.470588, 0.470588, 1)
+offset_left = 1441.0
+offset_top = 100.0
+offset_right = 1851.0
+offset_bottom = 541.0
+
+[node name="MarginContainer" type="MarginContainer" parent="TutorialWindows/FirstWindow"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="VBox" type="VBoxContainer" parent="TutorialWindows/FirstWindow/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="ExitHBox" type="HBoxContainer" parent="TutorialWindows/FirstWindow/MarginContainer/VBox"]
+layout_mode = 2
+
+[node name="Label" type="RichTextLabel" parent="TutorialWindows/FirstWindow/MarginContainer/VBox/ExitHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/bold_font_size = 20
+bbcode_enabled = true
+text = "[b]Tutorial - Office[/b]"
+fit_content = true
+autowrap_mode = 0
+
+[node name="EmptySpace" type="MarginContainer" parent="TutorialWindows/FirstWindow/MarginContainer/VBox/ExitHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 10.0
+
+[node name="ExitButton" type="Button" parent="TutorialWindows/FirstWindow/MarginContainer/VBox/ExitHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+text = "X"
+
+[node name="Text" type="RichTextLabel" parent="TutorialWindows/FirstWindow/MarginContainer/VBox"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 18
+bbcode_enabled = true
+text = "Welcome to Glory of Ritiria! 
+
+This screen is your office: From here you will be able to navigate to all other parts of the game and take your decisions. In this prototype there is not much to do here, but it will be a much more important place later. 
+
+The navigation between different parts of the games happens by clicking [img]res://Assets/Icons/leftMouseClick - Copy.png[/img] on various clickable objects. 
+"
+fit_content = true
+
+[node name="MarginContainer" type="MarginContainer" parent="TutorialWindows/FirstWindow/MarginContainer/VBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_right = 100
+
+[node name="Button" type="Button" parent="TutorialWindows/FirstWindow/MarginContainer/VBox/MarginContainer"]
+layout_mode = 2
+text = "Next"
+
+[node name="SecondWindow" type="PanelContainer" parent="TutorialWindows"]
+visible = false
+self_modulate = Color(0.470588, 0.470588, 0.470588, 1)
+offset_left = 1100.0
+offset_top = 600.0
+offset_right = 1510.0
+offset_bottom = 1041.0
+
+[node name="MarginContainer" type="MarginContainer" parent="TutorialWindows/SecondWindow"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="VBox" type="VBoxContainer" parent="TutorialWindows/SecondWindow/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="ExitHBox" type="HBoxContainer" parent="TutorialWindows/SecondWindow/MarginContainer/VBox"]
+layout_mode = 2
+
+[node name="Label" type="RichTextLabel" parent="TutorialWindows/SecondWindow/MarginContainer/VBox/ExitHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/bold_font_size = 20
+bbcode_enabled = true
+text = "[b]Tutorial - Office[/b]"
+fit_content = true
+autowrap_mode = 0
+
+[node name="EmptySpace" type="MarginContainer" parent="TutorialWindows/SecondWindow/MarginContainer/VBox/ExitHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 10.0
+
+[node name="ExitButton" type="Button" parent="TutorialWindows/SecondWindow/MarginContainer/VBox/ExitHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+text = "X"
+
+[node name="Text" type="RichTextLabel" parent="TutorialWindows/SecondWindow/MarginContainer/VBox"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 18
+bbcode_enabled = true
+text = "In the office you have three such clickable objects:
+
+[img]res://Assets/Icons/leftMouseClick - Copy.png[/img] on the sky to access the map of the Detnura-Aeria stellar system, where the Orassi's home planet Pallyria can be found.
+
+[img]res://Assets/Icons/leftMouseClick - Copy.png[/img] on the interstellar map on the table - this offer you a view of the nearby stars.
+
+[img]res://Assets/Icons/leftMouseClick - Copy.png[/img] on the phone to access Pallyrian shipyards where you can build and outfit spaceships.
+"
+fit_content = true
+
+[node name="MarginContainer" type="MarginContainer" parent="TutorialWindows/SecondWindow/MarginContainer/VBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_right = 100
+
+[node name="Button" type="Button" parent="TutorialWindows/SecondWindow/MarginContainer/VBox/MarginContainer"]
+layout_mode = 2
+text = "Next"
+
+[node name="ThirdWindow" type="PanelContainer" parent="TutorialWindows"]
+visible = false
+self_modulate = Color(0.470588, 0.470588, 0.470588, 1)
+offset_left = 40.0
+offset_top = 100.0
+offset_right = 422.0
+offset_bottom = 508.0
+
+[node name="MarginContainer" type="MarginContainer" parent="TutorialWindows/ThirdWindow"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="VBox" type="VBoxContainer" parent="TutorialWindows/ThirdWindow/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="ExitHBox" type="HBoxContainer" parent="TutorialWindows/ThirdWindow/MarginContainer/VBox"]
+layout_mode = 2
+
+[node name="Label" type="RichTextLabel" parent="TutorialWindows/ThirdWindow/MarginContainer/VBox/ExitHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/bold_font_size = 20
+bbcode_enabled = true
+text = "[b]Tutorial - Topbar[/b]"
+fit_content = true
+autowrap_mode = 0
+
+[node name="EmptySpace" type="MarginContainer" parent="TutorialWindows/ThirdWindow/MarginContainer/VBox/ExitHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 10.0
+
+[node name="ExitButton" type="Button" parent="TutorialWindows/ThirdWindow/MarginContainer/VBox/ExitHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+text = "X"
+
+[node name="Text" type="RichTextLabel" parent="TutorialWindows/ThirdWindow/MarginContainer/VBox"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 18
+bbcode_enabled = true
+text = "In the top of the screen you can find the topbar. It offers some ease of access buttons, gives information about your resources and allows you to pass to the next turn.
+
+To pass to the next turn, simply click on the hourglass at the right.
+
+You can hover over the resources at the left to see what the icons mean
+"
+fit_content = true
+
+[node name="MarginContainer" type="MarginContainer" parent="TutorialWindows/ThirdWindow/MarginContainer/VBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_right = 100
+
+[node name="Button" type="Button" parent="TutorialWindows/ThirdWindow/MarginContainer/VBox/MarginContainer"]
+layout_mode = 2
+text = "Got it"
+
 [connection signal="input_event" from="Map" to="." method="_on_map_input_event"]
 [connection signal="mouse_entered" from="Map" to="." method="_on_map_mouse_entered"]
 [connection signal="mouse_exited" from="Map" to="." method="_on_map_mouse_exited"]

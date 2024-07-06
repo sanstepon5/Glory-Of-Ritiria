@@ -62,3 +62,198 @@ offset_left = 167.0
 offset_top = 496.0
 offset_right = 167.0
 offset_bottom = 496.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="TutorialWindows" type="Node2D" parent="CanvasLayer"]
+
+[node name="FirstWindow" type="PanelContainer" parent="CanvasLayer/TutorialWindows"]
+visible = false
+self_modulate = Color(0.470588, 0.470588, 0.470588, 1)
+offset_left = 1441.0
+offset_top = 100.0
+offset_right = 1851.0
+offset_bottom = 541.0
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/TutorialWindows/FirstWindow"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="VBox" type="VBoxContainer" parent="CanvasLayer/TutorialWindows/FirstWindow/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="ExitHBox" type="HBoxContainer" parent="CanvasLayer/TutorialWindows/FirstWindow/MarginContainer/VBox"]
+layout_mode = 2
+
+[node name="Label" type="RichTextLabel" parent="CanvasLayer/TutorialWindows/FirstWindow/MarginContainer/VBox/ExitHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/bold_font_size = 20
+bbcode_enabled = true
+text = "[b]Tutorial - System map[/b]"
+fit_content = true
+autowrap_mode = 0
+
+[node name="EmptySpace" type="MarginContainer" parent="CanvasLayer/TutorialWindows/FirstWindow/MarginContainer/VBox/ExitHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.0
+
+[node name="ExitButton" type="Button" parent="CanvasLayer/TutorialWindows/FirstWindow/MarginContainer/VBox/ExitHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+text = "X"
+
+[node name="Text" type="RichTextLabel" parent="CanvasLayer/TutorialWindows/FirstWindow/MarginContainer/VBox"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 18
+bbcode_enabled = true
+text = "This screen is a system map. Here you can find the celestial bodies of the system - its star, the planets, asteroids and so on. 
+
+You can click on the celestial bodies to see their description and what they're worth.
+
+You can move around the map by holding the left mouse button [img]res://Assets/Icons/leftMouseDrag32.png[/img] and dragging it around.
+
+You can also zoom in and out with the mouse wheel [img]res://Assets/Icons/mouseWheel32.png[/img]"
+fit_content = true
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/TutorialWindows/FirstWindow/MarginContainer/VBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_right = 100
+
+[node name="Button" type="Button" parent="CanvasLayer/TutorialWindows/FirstWindow/MarginContainer/VBox/MarginContainer"]
+layout_mode = 2
+text = "Next"
+
+[node name="SecondWindow" type="PanelContainer" parent="CanvasLayer/TutorialWindows"]
+visible = false
+self_modulate = Color(0.470588, 0.470588, 0.470588, 1)
+offset_left = 1442.0
+offset_top = 101.0
+offset_right = 1851.0
+offset_bottom = 414.0
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/TutorialWindows/SecondWindow"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="VBox" type="VBoxContainer" parent="CanvasLayer/TutorialWindows/SecondWindow/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="ExitHBox" type="HBoxContainer" parent="CanvasLayer/TutorialWindows/SecondWindow/MarginContainer/VBox"]
+layout_mode = 2
+
+[node name="Label" type="RichTextLabel" parent="CanvasLayer/TutorialWindows/SecondWindow/MarginContainer/VBox/ExitHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/bold_font_size = 20
+bbcode_enabled = true
+text = "[b]Tutorial - Celestial bodies[/b]"
+fit_content = true
+autowrap_mode = 0
+
+[node name="EmptySpace" type="MarginContainer" parent="CanvasLayer/TutorialWindows/SecondWindow/MarginContainer/VBox/ExitHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.0
+
+[node name="ExitButton" type="Button" parent="CanvasLayer/TutorialWindows/SecondWindow/MarginContainer/VBox/ExitHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+text = "X"
+
+[node name="Text" type="RichTextLabel" parent="CanvasLayer/TutorialWindows/SecondWindow/MarginContainer/VBox"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 18
+bbcode_enabled = true
+text = "For most systems, you don't know the details about the celestial objects within, if you know that they are there at all. 
+
+Detecting planets from the surface of a planet is hard. And that's why you got spaceships. "
+fit_content = true
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/TutorialWindows/SecondWindow/MarginContainer/VBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_right = 100
+
+[node name="Button" type="Button" parent="CanvasLayer/TutorialWindows/SecondWindow/MarginContainer/VBox/MarginContainer"]
+layout_mode = 2
+text = "Spaceships?"
+
+[node name="ThirdWindow" type="PanelContainer" parent="CanvasLayer/TutorialWindows"]
+visible = false
+self_modulate = Color(0.470588, 0.470588, 0.470588, 1)
+offset_left = 40.0
+offset_top = 100.0
+offset_right = 422.0
+offset_bottom = 508.0
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/TutorialWindows/ThirdWindow"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="VBox" type="VBoxContainer" parent="CanvasLayer/TutorialWindows/ThirdWindow/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="ExitHBox" type="HBoxContainer" parent="CanvasLayer/TutorialWindows/ThirdWindow/MarginContainer/VBox"]
+layout_mode = 2
+
+[node name="Label" type="RichTextLabel" parent="CanvasLayer/TutorialWindows/ThirdWindow/MarginContainer/VBox/ExitHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/bold_font_size = 20
+bbcode_enabled = true
+text = "[b]Tutorial - Spaceships[/b]"
+fit_content = true
+autowrap_mode = 0
+
+[node name="EmptySpace" type="MarginContainer" parent="CanvasLayer/TutorialWindows/ThirdWindow/MarginContainer/VBox/ExitHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.0
+
+[node name="ExitButton" type="Button" parent="CanvasLayer/TutorialWindows/ThirdWindow/MarginContainer/VBox/ExitHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+text = "X"
+
+[node name="Text" type="RichTextLabel" parent="CanvasLayer/TutorialWindows/ThirdWindow/MarginContainer/VBox"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 18
+bbcode_enabled = true
+text = "The main focus of the game (at least with this prototype) are the spaceships. Capable of FTL travel, they are your main tool in exploring the nearby stars, performing science on alien planets and exploiting their resources. 
+
+If any spaceship is present in the system, it will be shown with this icon [img]res://Assets/Icons/Ships/Small/ship.png[/img].
+
+Spaceships carry various modules that allow them to perform missions. 
+
+Select a spaceship by clicking on it, than click on a compatible celestial body that will be target of the mission and send it.
+
+While on a mission, the spaceship can't be controlled - it will travel to its target, perform its mission and get back to Pallyria. Only then you will know the results. While you have FTL travel, FTL communications are yet to be invented. 
+"
+fit_content = true
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/TutorialWindows/ThirdWindow/MarginContainer/VBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_right = 100
+
+[node name="Button" type="Button" parent="CanvasLayer/TutorialWindows/ThirdWindow/MarginContainer/VBox/MarginContainer"]
+layout_mode = 2
+text = "Got it"
