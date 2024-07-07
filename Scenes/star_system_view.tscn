@@ -35,6 +35,7 @@ offset_bottom = 260.0
 
 [node name="Label" type="Label" parent="InnerSpaceVBox"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 22
 text = "Inner Space - No ships in transit"
 horizontal_alignment = 1
 
@@ -66,9 +67,9 @@ offset_bottom = 496.0
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="TutorialWindows" type="Node2D" parent="CanvasLayer"]
+process_mode = 3
 
 [node name="FirstWindow" type="PanelContainer" parent="CanvasLayer/TutorialWindows"]
-visible = false
 self_modulate = Color(0.470588, 0.470588, 0.470588, 1)
 offset_left = 1441.0
 offset_top = 100.0
@@ -196,8 +197,8 @@ visible = false
 self_modulate = Color(0.470588, 0.470588, 0.470588, 1)
 offset_left = 40.0
 offset_top = 100.0
-offset_right = 422.0
-offset_bottom = 508.0
+offset_right = 510.0
+offset_bottom = 828.0
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/TutorialWindows/ThirdWindow"]
 layout_mode = 2
@@ -243,7 +244,7 @@ If any spaceship is present in the system, it will be shown with this icon [img]
 
 Spaceships carry various modules that allow them to perform missions. 
 
-Select a spaceship by clicking on it, than click on a compatible celestial body that will be target of the mission and send it.
+Select a spaceship by clicking on it, then click on a compatible celestial body that will be target of the mission and send it. This selection persists between when you choose a different system from the interstellar map and is indicated in the topbar.
 
 While on a mission, the spaceship can't be controlled - it will travel to its target, perform its mission and get back to Pallyria. Only then you will know the results. While you have FTL travel, FTL communications are yet to be invented. 
 "

@@ -21,7 +21,7 @@ public partial class game_state : Node
 	public static int CurrentSystemTutorial = 1;
 	public static int CurrentInterstellarTutorial = 1;
 	public static int CurrentShipyardTutorial = 1;
-	public static int CurrentOutfitTutorial = 1;
+	public static int CurrentFleetBureauTutorial = 1;
 
 	public static string AssetsDir;
 	

@@ -21,7 +21,9 @@ public partial class InterstellarMap : Node2D
 		{
 			BuildSystem(starSystemInfo);
 		}
-		
+
+		SetupTutorials();
+
 	}
 
 	public void BuildSystem(StarSystemInfo systemInfo)
@@ -37,5 +39,60 @@ public partial class InterstellarMap : Node2D
 		
 		
 		AddChild(starSystemInst);
+	}
+	
+	
+	/*Tutorials*/
+	private void SetupTutorials()
+	{
+		var firstWindow = GetNode<PanelContainer>("CanvasLayer/TutorialWindows/FirstWindow");
+		var secondWindow = GetNode<PanelContainer>("CanvasLayer/TutorialWindows/SecondWindow");
+		
+		// Exit buttons
+		var firstExit = firstWindow.GetNode<Button>("MarginContainer/VBox/ExitHBox/ExitButton");
+		firstExit.Pressed += () =>
+		{
+			_signals.EmitSignal(nameof(_signals.SimpleButtonClicked));
+			firstWindow.Visible = false;
+			game_state.CurrentInterstellarTutorial = -1;
+		};
+		var secondExit = secondWindow.GetNode<Button>("MarginContainer/VBox/ExitHBox/ExitButton");
+		secondExit.Pressed += () =>
+		{
+			_signals.EmitSignal(nameof(_signals.SimpleButtonClicked));
+			secondWindow.Visible = false;
+			game_state.CurrentInterstellarTutorial = -1;
+		};
+		
+		// Next buttons
+		var firstNext = firstWindow.GetNode<Button>("MarginContainer/VBox/MarginContainer/Button");
+		firstNext.Pressed += () =>
+		{
+			_signals.EmitSignal(nameof(_signals.SimpleButtonClicked));
+			firstWindow.Visible = false;
+			secondWindow.Visible = true;
+			game_state.CurrentInterstellarTutorial = 2;
+		};
+		var secondNext = secondWindow.GetNode<Button>("MarginContainer/VBox/MarginContainer/Button");
+		secondNext.Pressed += () =>
+		{
+			_signals.EmitSignal(nameof(_signals.SimpleButtonClicked));
+			secondWindow.Visible = false;
+			game_state.CurrentInterstellarTutorial = -1;
+		};
+
+		switch (game_state.CurrentInterstellarTutorial)
+		{
+			case 1:
+				firstWindow.Visible = true;
+				break;
+			case 2:
+				secondWindow.Visible = true;
+				break;
+			default:
+				firstWindow.Visible = false;
+				secondWindow.Visible = false;
+				break;
+		}
 	}
 }

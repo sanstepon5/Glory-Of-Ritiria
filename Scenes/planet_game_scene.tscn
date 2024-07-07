@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dnscvy88l08tx" path="res://Assets/Img/tmp/ClosestStars.png" id="3_3bn6g"]
 [ext_resource type="Texture2D" uid="uid://yotckc60ey1p" path="res://Assets/Icons/Ships/Small/selectedShip.png" id="3_bmmcp"]
 [ext_resource type="Texture2D" uid="uid://cdv6yhh6auspm" path="res://Assets/Img/tmp/SkyBackground.png" id="4_pc6dq"]
-[ext_resource type="Texture2D" uid="uid://b8u7yi37jw0t0" path="res://Assets/Icons/Ships/Small/ship.png" id="4_xidlm"]
+[ext_resource type="Texture2D" uid="uid://fa48q1y1x4dd" path="res://Assets/Icons/Ships/Small/ShipInRoute.png" id="6_2bwx8"]
 [ext_resource type="Script" path="res://Scenes/PhoneButton.cs" id="6_gdlqa"]
 
 [node name="PlanetGameScene" type="Node2D"]
@@ -48,11 +48,11 @@ offset_right = 768.0
 offset_bottom = 817.0
 expand_icon = true
 item_count = 2
-popup/item_0/text = "Imperial Shipyards"
+popup/item_0/text = "Space Construction Bureau"
 popup/item_0/icon = ExtResource("3_bmmcp")
 popup/item_0/id = 0
-popup/item_1/text = "Imperial Fleet Bureau"
-popup/item_1/icon = ExtResource("4_xidlm")
+popup/item_1/text = "Space Fleet Bureau"
+popup/item_1/icon = ExtResource("6_2bwx8")
 popup/item_1/id = 1
 script = ExtResource("6_gdlqa")
 
@@ -62,6 +62,7 @@ scale = Vector2(0.300611, 0.15496)
 texture = ExtResource("2_ebvfr")
 
 [node name="TutorialWindows" type="Node2D" parent="."]
+process_mode = 3
 
 [node name="FirstWindow" type="PanelContainer" parent="TutorialWindows"]
 visible = false
@@ -253,6 +254,70 @@ theme_override_constants/margin_right = 100
 [node name="Button" type="Button" parent="TutorialWindows/ThirdWindow/MarginContainer/VBox/MarginContainer"]
 layout_mode = 2
 text = "Got it"
+
+[node name="ForthWindow" type="PanelContainer" parent="TutorialWindows"]
+visible = false
+self_modulate = Color(0.470588, 0.470588, 0.470588, 1)
+offset_left = 700.0
+offset_top = 200.0
+offset_right = 1146.0
+offset_bottom = 867.0
+
+[node name="MarginContainer" type="MarginContainer" parent="TutorialWindows/ForthWindow"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="VBox" type="VBoxContainer" parent="TutorialWindows/ForthWindow/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="ExitHBox" type="HBoxContainer" parent="TutorialWindows/ForthWindow/MarginContainer/VBox"]
+layout_mode = 2
+
+[node name="Label" type="RichTextLabel" parent="TutorialWindows/ForthWindow/MarginContainer/VBox/ExitHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/bold_font_size = 20
+bbcode_enabled = true
+text = "[b]Tutorial - Events[/b]"
+fit_content = true
+autowrap_mode = 0
+
+[node name="EmptySpace" type="MarginContainer" parent="TutorialWindows/ForthWindow/MarginContainer/VBox/ExitHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 10.0
+
+[node name="ExitButton" type="Button" parent="TutorialWindows/ForthWindow/MarginContainer/VBox/ExitHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+text = "X"
+
+[node name="Text" type="RichTextLabel" parent="TutorialWindows/ForthWindow/MarginContainer/VBox"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 18
+bbcode_enabled = true
+text = "Glory of Ritiria is partially a story-driven game (or, rather, will be).
+
+For the most part, this story is given through events. An event give you a description of a situation that happened during the week between two turns and will often give you a choice between a few decisions on how to handle said situation.
+The choice you make can sometimes simply give you some resources and sometimes it will influence the course of the following events. You won't know what consequences your choice will have, so use your best judgment.
+
+If a new event is available, it will be automatically shown to you at the start of a new turn. You can either decide what to do with it immediately, or close the window to deal with other matter first. But you will still have to take a decision before finishing the turn. 
+"
+fit_content = true
+
+[node name="MarginContainer" type="MarginContainer" parent="TutorialWindows/ForthWindow/MarginContainer/VBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_right = 100
+
+[node name="Button" type="Button" parent="TutorialWindows/ForthWindow/MarginContainer/VBox/MarginContainer"]
+layout_mode = 2
+text = "Undestood"
 
 [connection signal="input_event" from="Map" to="." method="_on_map_input_event"]
 [connection signal="mouse_entered" from="Map" to="." method="_on_map_mouse_entered"]

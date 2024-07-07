@@ -36,3 +36,137 @@ DistanceText = "10 Light Years"
 position = Vector2(50, 48)
 Radius = 750.0
 DistanceText = "15 Light Years"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="TutorialWindows" type="Node2D" parent="CanvasLayer"]
+process_mode = 3
+
+[node name="FirstWindow" type="PanelContainer" parent="CanvasLayer/TutorialWindows"]
+visible = false
+self_modulate = Color(0.470588, 0.470588, 0.470588, 1)
+offset_left = 1441.0
+offset_top = 100.0
+offset_right = 1851.0
+offset_bottom = 541.0
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/TutorialWindows/FirstWindow"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="VBox" type="VBoxContainer" parent="CanvasLayer/TutorialWindows/FirstWindow/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="ExitHBox" type="HBoxContainer" parent="CanvasLayer/TutorialWindows/FirstWindow/MarginContainer/VBox"]
+layout_mode = 2
+
+[node name="Label" type="RichTextLabel" parent="CanvasLayer/TutorialWindows/FirstWindow/MarginContainer/VBox/ExitHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/bold_font_size = 20
+bbcode_enabled = true
+text = "[b]Tutorial - Interstellar map[/b]"
+fit_content = true
+autowrap_mode = 0
+
+[node name="EmptySpace" type="MarginContainer" parent="CanvasLayer/TutorialWindows/FirstWindow/MarginContainer/VBox/ExitHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 10.0
+
+[node name="ExitButton" type="Button" parent="CanvasLayer/TutorialWindows/FirstWindow/MarginContainer/VBox/ExitHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+text = "X"
+
+[node name="Text" type="RichTextLabel" parent="CanvasLayer/TutorialWindows/FirstWindow/MarginContainer/VBox"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 18
+bbcode_enabled = true
+text = "In this interstellar map you can navigate between different stellar systems. 
+
+In the middle of the map is the Detnura-Aeria system, the home system of the Orassi species. In this prototype all systems have only one star but in the later versions it will be one of the many binary systems.
+
+The circles around indicate the distance from Pallyria and different systems are placed on the map according to their distance. While in this prototype it serves only a decorative function, in later versions it will be a big limiting factor for the player.
+"
+fit_content = true
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/TutorialWindows/FirstWindow/MarginContainer/VBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_right = 100
+
+[node name="Button" type="Button" parent="CanvasLayer/TutorialWindows/FirstWindow/MarginContainer/VBox/MarginContainer"]
+layout_mode = 2
+text = "Next"
+
+[node name="SecondWindow" type="PanelContainer" parent="CanvasLayer/TutorialWindows"]
+visible = false
+self_modulate = Color(0.470588, 0.470588, 0.470588, 1)
+offset_left = 200.0
+offset_top = 400.0
+offset_right = 610.0
+offset_bottom = 920.0
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/TutorialWindows/SecondWindow"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="VBox" type="VBoxContainer" parent="CanvasLayer/TutorialWindows/SecondWindow/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="ExitHBox" type="HBoxContainer" parent="CanvasLayer/TutorialWindows/SecondWindow/MarginContainer/VBox"]
+layout_mode = 2
+
+[node name="Label" type="RichTextLabel" parent="CanvasLayer/TutorialWindows/SecondWindow/MarginContainer/VBox/ExitHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/bold_font_size = 20
+bbcode_enabled = true
+text = "[b]Tutorial - Interstellar map[/b]"
+fit_content = true
+autowrap_mode = 0
+
+[node name="EmptySpace" type="MarginContainer" parent="CanvasLayer/TutorialWindows/SecondWindow/MarginContainer/VBox/ExitHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 10.0
+
+[node name="ExitButton" type="Button" parent="CanvasLayer/TutorialWindows/SecondWindow/MarginContainer/VBox/ExitHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+text = "X"
+
+[node name="Text" type="RichTextLabel" parent="CanvasLayer/TutorialWindows/SecondWindow/MarginContainer/VBox"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 18
+bbcode_enabled = true
+text = "Even in the later versions the radius of the map will be limited to around 20-30 light years (which will still offer hundreds of stars).
+
+You can move around the map by holding the left mouse button [img]res://Assets/Icons/leftMouseDrag32.png[/img] and dragging it around.
+
+You can also zoom in and out with the mouse wheel [img]res://Assets/Icons/mouseWheel32.png[/img].
+
+To visit a stellar system, you can simply click on the star you want to go to [img]res://Assets/Icons/leftMouseClick - Copy.png[/img].
+
+"
+fit_content = true
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/TutorialWindows/SecondWindow/MarginContainer/VBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_right = 100
+
+[node name="Button" type="Button" parent="CanvasLayer/TutorialWindows/SecondWindow/MarginContainer/VBox/MarginContainer"]
+layout_mode = 2
+text = "Next"

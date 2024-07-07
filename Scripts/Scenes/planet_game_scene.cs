@@ -106,6 +106,7 @@ public partial class planet_game_scene : Node2D
 		var firstWindow = GetNode<PanelContainer>("TutorialWindows/FirstWindow");
 		var secondWindow = GetNode<PanelContainer>("TutorialWindows/SecondWindow");
 		var thirdWindow = GetNode<PanelContainer>("TutorialWindows/ThirdWindow");
+		var forthWindow = GetNode<PanelContainer>("TutorialWindows/ForthWindow");
 		
 		// Exit buttons
 		var firstExit = firstWindow.GetNode<Button>("MarginContainer/VBox/ExitHBox/ExitButton");
@@ -127,6 +128,13 @@ public partial class planet_game_scene : Node2D
 		{
 			_signals.EmitSignal(nameof(_signals.SimpleButtonClicked));
 			thirdWindow.Visible = false;
+			game_state.CurrentPallyriaTutorial = -1;
+		};
+		var forthExit = forthWindow.GetNode<Button>("MarginContainer/VBox/ExitHBox/ExitButton");
+		forthExit.Pressed += () =>
+		{
+			_signals.EmitSignal(nameof(_signals.SimpleButtonClicked));
+			forthWindow.Visible = false;
 			game_state.CurrentPallyriaTutorial = -1;
 		};
 		
@@ -152,6 +160,14 @@ public partial class planet_game_scene : Node2D
 		{
 			_signals.EmitSignal(nameof(_signals.SimpleButtonClicked));
 			thirdWindow.Visible = false;
+			forthWindow.Visible = true;
+			game_state.CurrentPallyriaTutorial = 4;
+		};
+		var forthNext = forthWindow.GetNode<Button>("MarginContainer/VBox/MarginContainer/Button");
+		forthNext.Pressed += () =>
+		{
+			_signals.EmitSignal(nameof(_signals.SimpleButtonClicked));
+			forthWindow.Visible = false;
 			game_state.CurrentPallyriaTutorial = -1;
 		};
 
@@ -165,6 +181,9 @@ public partial class planet_game_scene : Node2D
 				break;
 			case 3:
 				thirdWindow.Visible = true;
+				break;
+			case 4:
+				forthWindow.Visible = true;
 				break;
 			default:
 				firstWindow.Visible = false;

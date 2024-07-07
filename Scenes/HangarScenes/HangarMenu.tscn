@@ -38,7 +38,7 @@ theme_override_constants/margin_bottom = 0
 
 [node name="Button" type="Button" parent="VBox/FleetMargin"]
 layout_mode = 2
-text = "Imperial Fleet Bureau"
+text = "Space Fleet Bureau"
 icon = ExtResource("3_3dvg0")
 
 [node name="ConstructionMargin" type="MarginContainer" parent="VBox"]
@@ -50,7 +50,7 @@ theme_override_constants/margin_bottom = 0
 
 [node name="Button" type="Button" parent="VBox/ConstructionMargin"]
 layout_mode = 2
-text = "Ship Construction Bureau"
+text = "Space Construction Bureau"
 icon = ExtResource("4_xbxyg")
 
 [node name="DesignMargin" type="MarginContainer" parent="VBox"]
@@ -62,5 +62,6 @@ theme_override_constants/margin_bottom = 0
 
 [node name="Button" type="Button" parent="VBox/DesignMargin"]
 layout_mode = 2
-text = "Ship Design Bureau"
+disabled = true
+text = "Ship Design Bureau (WIP)"
 icon = ExtResource("5_50t86")

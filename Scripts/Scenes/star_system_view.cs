@@ -339,7 +339,7 @@ public partial class star_system_view : Node2D
 		}
 	}
 	
-		/*Tutorials*/
+	/*Tutorials*/
 	private void SetupTutorials()
 	{
 		var firstWindow = GetNode<PanelContainer>("CanvasLayer/TutorialWindows/FirstWindow");

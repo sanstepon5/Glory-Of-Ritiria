@@ -7,11 +7,15 @@ public partial class AnimatedMapObject : Control
 {
 	private GlobalSignals _signals;
 	public StarSystemInfo System;
+	private AnimatedSprite2D _sprite;
+	private Vector2 _initialScale;
 
-	
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		// Connect("mouse_entered", new Callable(this, nameof(_OnMouseEntered)));
+		// Connect("mouse_exited", new Callable(this, nameof(_OnMouseEntered)));
 	}
 	
 	public void Init(StarSystemInfo system, GlobalSignals signals)
@@ -37,28 +41,29 @@ public partial class AnimatedMapObject : Control
 			animation = "orange";
 		}
 		
-		var sprite = GetNode<AnimatedSprite2D>("Sprite");
-		sprite.SpriteFrames = GD.Load<SpriteFrames>("res://Resources/Animations/InterstellarMap/StarSystemAnimations.tres");
-		sprite.Animation = animation;
-		sprite.Play();
-		sprite.Position = new Vector2(0, 0);
+		_sprite = GetNode<AnimatedSprite2D>("Sprite");
+		_sprite.SpriteFrames = GD.Load<SpriteFrames>("res://Resources/Animations/InterstellarMap/StarSystemAnimations.tres");
+		_sprite.Animation = animation;
+		_sprite.Play();
+		_sprite.Position = new Vector2(0, 0);
+		_initialScale = _sprite.Scale;
 
-		var spriteSize = sprite.SpriteFrames.GetFrameTexture(animation, 0).GetSize();
+		var spriteSize = _sprite.SpriteFrames.GetFrameTexture(animation, 0).GetSize();
 		
 		// Label
 		var label = GetNode<RichTextLabel>("Name");
 		label.Text = "[center]" + system.SystemName;
-		label.Position = sprite.Position + new Vector2(0, spriteSize.Y);
+		label.Position = _sprite.Position + new Vector2(0, spriteSize.Y);
 		if (label.Size.X < spriteSize.X)
 		{
 			label.SetSize(new Vector2(spriteSize.X, label.Size.Y));
 		}
 		// Center the sprite
-		sprite.Position = (sprite.Position + new Vector2(label.Size.X/2 - spriteSize.X/2, 0));
+		_sprite.Position = (_sprite.Position + new Vector2(label.Size.X/2 - spriteSize.X/2, 0));
 
 		// Button
 		var button = GetNode<Button>("Button");
-		button.Position = sprite.Position;
+		button.Position = _sprite.Position;
 		button.Size = spriteSize;
 		button.Pressed += () =>
 		{
@@ -69,5 +74,20 @@ public partial class AnimatedMapObject : Control
 
 		Size = spriteSize;
 	}
+	
+	// Changing the scale is not enough, the sprite must change position with the label as well
+	// private void _OnMouseEntered()
+	// {
+	// 	_sprite.Scale = _initialScale * 3f;
+	// }
+	//
+	//
+	// private void _OnMouseExited()
+	// {
+	// 	_sprite.Scale = _initialScale;
+	// }
 
 }
+
+
+

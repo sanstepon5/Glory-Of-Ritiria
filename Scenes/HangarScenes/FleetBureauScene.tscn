@@ -32,3 +32,65 @@ offset_left = 1455.0
 offset_top = 75.0
 offset_right = 1915.0
 offset_bottom = 645.0
+
+[node name="TutorialWindows" type="Node2D" parent="."]
+
+[node name="FirstWindow" type="PanelContainer" parent="TutorialWindows"]
+visible = false
+self_modulate = Color(0.470588, 0.470588, 0.470588, 1)
+offset_left = 1441.0
+offset_top = 100.0
+offset_right = 1783.0
+offset_bottom = 414.0
+
+[node name="MarginContainer" type="MarginContainer" parent="TutorialWindows/FirstWindow"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="VBox" type="VBoxContainer" parent="TutorialWindows/FirstWindow/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="ExitHBox" type="HBoxContainer" parent="TutorialWindows/FirstWindow/MarginContainer/VBox"]
+layout_mode = 2
+
+[node name="Label" type="RichTextLabel" parent="TutorialWindows/FirstWindow/MarginContainer/VBox/ExitHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/bold_font_size = 20
+bbcode_enabled = true
+text = "[b]Tutorial - Space fleet bureau[/b]"
+fit_content = true
+autowrap_mode = 0
+
+[node name="EmptySpace" type="MarginContainer" parent="TutorialWindows/FirstWindow/MarginContainer/VBox/ExitHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 10.0
+
+[node name="ExitButton" type="Button" parent="TutorialWindows/FirstWindow/MarginContainer/VBox/ExitHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+text = "X"
+
+[node name="Text" type="RichTextLabel" parent="TutorialWindows/FirstWindow/MarginContainer/VBox"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 18
+bbcode_enabled = true
+text = "The Space Fleet Bureau (names are a work in progress) gives you an overview of all spaceships in your command, notable their location.
+
+In later versions it will give significantly more information."
+fit_content = true
+
+[node name="MarginContainer" type="MarginContainer" parent="TutorialWindows/FirstWindow/MarginContainer/VBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_right = 100
+
+[node name="Button" type="Button" parent="TutorialWindows/FirstWindow/MarginContainer/VBox/MarginContainer"]
+layout_mode = 2
+text = "Ok"

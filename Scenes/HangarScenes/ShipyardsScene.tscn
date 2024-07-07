@@ -49,3 +49,192 @@ offset_left = 330.0
 offset_top = 80.0
 offset_right = 1915.0
 offset_bottom = 210.0
+
+[node name="TutorialWindows" type="Node2D" parent="."]
+process_mode = 3
+
+[node name="FirstWindow" type="PanelContainer" parent="TutorialWindows"]
+visible = false
+self_modulate = Color(0.470588, 0.470588, 0.470588, 1)
+offset_left = 1441.0
+offset_top = 300.0
+offset_right = 1851.0
+offset_bottom = 741.0
+
+[node name="MarginContainer" type="MarginContainer" parent="TutorialWindows/FirstWindow"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="VBox" type="VBoxContainer" parent="TutorialWindows/FirstWindow/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="ExitHBox" type="HBoxContainer" parent="TutorialWindows/FirstWindow/MarginContainer/VBox"]
+layout_mode = 2
+
+[node name="Label" type="RichTextLabel" parent="TutorialWindows/FirstWindow/MarginContainer/VBox/ExitHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/bold_font_size = 20
+bbcode_enabled = true
+text = "[b]Tutorial - Space Construction Bureau[/b]"
+fit_content = true
+autowrap_mode = 0
+
+[node name="EmptySpace" type="MarginContainer" parent="TutorialWindows/FirstWindow/MarginContainer/VBox/ExitHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 10.0
+
+[node name="ExitButton" type="Button" parent="TutorialWindows/FirstWindow/MarginContainer/VBox/ExitHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+text = "X"
+
+[node name="Text" type="RichTextLabel" parent="TutorialWindows/FirstWindow/MarginContainer/VBox"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 18
+bbcode_enabled = true
+text = "This screen is the Space Construction Bureau (names are still a work in progress).
+From here you will manage and commission your spaceships.
+
+On the top of the screen you can see a selection of celestial bodies with shipyards. In this prototype you can only make ships on Pallyria with the two shipyards you're given, but in later versions you will be able to make new ones elsewhere.
+
+On the bottom you can find the shipyards of the planet and the spaceships currently on it. "
+fit_content = true
+
+[node name="MarginContainer" type="MarginContainer" parent="TutorialWindows/FirstWindow/MarginContainer/VBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_right = 100
+
+[node name="Button" type="Button" parent="TutorialWindows/FirstWindow/MarginContainer/VBox/MarginContainer"]
+layout_mode = 2
+text = "How can I make a ship?"
+
+[node name="SecondWindow" type="PanelContainer" parent="TutorialWindows"]
+visible = false
+self_modulate = Color(0.470588, 0.470588, 0.470588, 1)
+offset_left = 1100.0
+offset_top = 400.0
+offset_right = 1510.0
+offset_bottom = 868.0
+
+[node name="MarginContainer" type="MarginContainer" parent="TutorialWindows/SecondWindow"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="VBox" type="VBoxContainer" parent="TutorialWindows/SecondWindow/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="ExitHBox" type="HBoxContainer" parent="TutorialWindows/SecondWindow/MarginContainer/VBox"]
+layout_mode = 2
+
+[node name="Label" type="RichTextLabel" parent="TutorialWindows/SecondWindow/MarginContainer/VBox/ExitHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/bold_font_size = 20
+bbcode_enabled = true
+text = "[b]Tutorial - Shipyards[/b]"
+fit_content = true
+autowrap_mode = 0
+
+[node name="EmptySpace" type="MarginContainer" parent="TutorialWindows/SecondWindow/MarginContainer/VBox/ExitHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 10.0
+
+[node name="ExitButton" type="Button" parent="TutorialWindows/SecondWindow/MarginContainer/VBox/ExitHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+text = "X"
+
+[node name="Text" type="RichTextLabel" parent="TutorialWindows/SecondWindow/MarginContainer/VBox"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 18
+bbcode_enabled = true
+text = "To construct a new spaceship, you can click on a free shipyard (a rectangle with the [b]+[/b] sign). From there you can give a name to the spaceship you comission, choose how fast you want it to build (which will affect the cost) and what size you want it to be (which will decide how many different modules it can carry and will also affect the cost).
+
+Making a spaceship is a long process and for the duration of the construction the shipyard will be unavailable. You can track its progress here."
+fit_content = true
+
+[node name="MarginContainer" type="MarginContainer" parent="TutorialWindows/SecondWindow/MarginContainer/VBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_right = 100
+
+[node name="Button" type="Button" parent="TutorialWindows/SecondWindow/MarginContainer/VBox/MarginContainer"]
+layout_mode = 2
+text = "Modules? What modules?"
+
+[node name="ThirdWindow" type="PanelContainer" parent="TutorialWindows"]
+visible = false
+self_modulate = Color(0.470588, 0.470588, 0.470588, 1)
+offset_left = 600.0
+offset_top = 250.0
+offset_right = 1080.0
+offset_bottom = 972.0
+
+[node name="MarginContainer" type="MarginContainer" parent="TutorialWindows/ThirdWindow"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="VBox" type="VBoxContainer" parent="TutorialWindows/ThirdWindow/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="ExitHBox" type="HBoxContainer" parent="TutorialWindows/ThirdWindow/MarginContainer/VBox"]
+layout_mode = 2
+
+[node name="Label" type="RichTextLabel" parent="TutorialWindows/ThirdWindow/MarginContainer/VBox/ExitHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/bold_font_size = 20
+bbcode_enabled = true
+text = "[b]Tutorial - Outfitting a spaceship[/b]"
+fit_content = true
+autowrap_mode = 0
+
+[node name="EmptySpace" type="MarginContainer" parent="TutorialWindows/ThirdWindow/MarginContainer/VBox/ExitHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 10.0
+
+[node name="ExitButton" type="Button" parent="TutorialWindows/ThirdWindow/MarginContainer/VBox/ExitHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+text = "X"
+
+[node name="Text" type="RichTextLabel" parent="TutorialWindows/ThirdWindow/MarginContainer/VBox"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 18
+bbcode_enabled = true
+text = "To be able to do something useful, the spaceships can carry different modules, be it a space telescope to discover new planets or a kit various tools to explore a planets surface. These tools have a limited durability so you will have to replace them from time to time, which you can do here.
+
+To outfit a spaceship with a new module (or replace an old one), click on the image of the spaceship in the bottom part of this screen (the ship must be on this planet to do it).
+A new window will open that will show you the modules installed on the ship. You can remove a module by clicking on its image with the right mouse button [img]res://Assets/Icons/rightMouseClick32.png[/img], replace it by left clicking on it [img]res://Assets/Icons/leftMouseClick - Copy.png[/img] or add a new one by clicking on the [b]Ø[/b] sign (if there is enough space).
+
+When adding or replacing a module, you will be able to choose between the modules available in your storage. Right now the only way to get more modules is via events but there will be many more ways of doing it in the future. "
+fit_content = true
+
+[node name="MarginContainer" type="MarginContainer" parent="TutorialWindows/ThirdWindow/MarginContainer/VBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_right = 100
+
+[node name="Button" type="Button" parent="TutorialWindows/ThirdWindow/MarginContainer/VBox/MarginContainer"]
+layout_mode = 2
+text = "Got it"

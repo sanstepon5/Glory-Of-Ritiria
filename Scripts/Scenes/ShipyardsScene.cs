@@ -26,6 +26,7 @@ public partial class ShipyardsScene : Node2D
 
 		InitBodiesSelectionMenu();
 		_signals.EmitSignal(nameof(_signals.ShipyardsSceneOpened));
+		SetupTutorials();
 	}
 
 	public void BuildConstructionWindow(Shipyard shipyard)
@@ -91,6 +92,80 @@ public partial class ShipyardsScene : Node2D
 		var windowCont = GetNode<ReferenceRect>("CenterWindow");
 		windowCont.GetChild(0).QueueFree();
 		EnableRightWindowProcess();
+	}
+	
+	/*Tutorials*/
+	private void SetupTutorials()
+	{
+		var firstWindow = GetNode<PanelContainer>("TutorialWindows/FirstWindow");
+		var secondWindow = GetNode<PanelContainer>("TutorialWindows/SecondWindow");
+		var thirdWindow = GetNode<PanelContainer>("TutorialWindows/ThirdWindow");
+		
+		// Exit buttons
+		var firstExit = firstWindow.GetNode<Button>("MarginContainer/VBox/ExitHBox/ExitButton");
+		firstExit.Pressed += () =>
+		{
+			_signals.EmitSignal(nameof(_signals.SimpleButtonClicked));
+			firstWindow.Visible = false;
+			game_state.CurrentShipyardTutorial = -1;
+		};
+		var secondExit = secondWindow.GetNode<Button>("MarginContainer/VBox/ExitHBox/ExitButton");
+		secondExit.Pressed += () =>
+		{
+			_signals.EmitSignal(nameof(_signals.SimpleButtonClicked));
+			secondWindow.Visible = false;
+			game_state.CurrentShipyardTutorial = -1;
+		};
+		var thirdExit = thirdWindow.GetNode<Button>("MarginContainer/VBox/ExitHBox/ExitButton");
+		thirdExit.Pressed += () =>
+		{
+			_signals.EmitSignal(nameof(_signals.SimpleButtonClicked));
+			thirdWindow.Visible = false;
+			game_state.CurrentShipyardTutorial = -1;
+		};
+		
+		// Next buttons
+		var firstNext = firstWindow.GetNode<Button>("MarginContainer/VBox/MarginContainer/Button");
+		firstNext.Pressed += () =>
+		{
+			_signals.EmitSignal(nameof(_signals.SimpleButtonClicked));
+			firstWindow.Visible = false;
+			secondWindow.Visible = true;
+			game_state.CurrentShipyardTutorial = 2;
+		};
+		var secondNext = secondWindow.GetNode<Button>("MarginContainer/VBox/MarginContainer/Button");
+		secondNext.Pressed += () =>
+		{
+			_signals.EmitSignal(nameof(_signals.SimpleButtonClicked));
+			secondWindow.Visible = false;
+			thirdWindow.Visible = true;
+			game_state.CurrentShipyardTutorial = 3;
+		};
+		var thirdNext = thirdWindow.GetNode<Button>("MarginContainer/VBox/MarginContainer/Button");
+		thirdNext.Pressed += () =>
+		{
+			_signals.EmitSignal(nameof(_signals.SimpleButtonClicked));
+			thirdWindow.Visible = false;
+			game_state.CurrentShipyardTutorial = -1;
+		};
+
+		switch (game_state.CurrentShipyardTutorial)
+		{
+			case 1:
+				firstWindow.Visible = true;
+				break;
+			case 2:
+				secondWindow.Visible = true;
+				break;
+			case 3:
+				thirdWindow.Visible = true;
+				break;
+			default:
+				firstWindow.Visible = false;
+				secondWindow.Visible = false;
+				thirdWindow.Visible = false;
+				break;
+		}
 	}
 	
 }
