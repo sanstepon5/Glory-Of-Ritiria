@@ -7,5 +7,6 @@ class PlanetExplorationMission : Mission
     public PlanetExplorationMission(): base("Explore Planet")
     {
         AddEffectOnArrival(new ExploreBodyEffect(this));
+        Description = "Explore the planet surface to discover its scientific potential";
     }
 }

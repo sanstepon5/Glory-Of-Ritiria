@@ -3,8 +3,8 @@
 [ext_resource type="Script" path="res://Scenes/HangarScenes/Windows/CargoSelectWindow.cs" id="1_mrj4h"]
 
 [node name="CargoSelectWindow" type="PanelContainer"]
-offset_right = 285.0
-offset_bottom = 483.0
+offset_right = 352.0
+offset_bottom = 486.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_mrj4h")
@@ -22,6 +22,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 10.0
+theme_override_font_sizes/bold_font_size = 20
 bbcode_enabled = true
 text = "[b]Choose cargo[/b]
 "

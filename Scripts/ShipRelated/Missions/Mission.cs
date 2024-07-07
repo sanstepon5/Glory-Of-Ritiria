@@ -13,13 +13,14 @@ public abstract class Mission
     private List<MissionEffect> _effectsOnReturn;
 
     public CelestialBody TargetBody;
-
     
     private Cargo _associatedCargo;
+    public string Description;
 
     protected Mission(string name)
     {
         Name = name;
+        Description = "";
         _effectsOnArrival = new List<MissionEffect>();
         _effectsOnReturn = new List<MissionEffect>();
     }

@@ -225,15 +225,13 @@ public partial class game_state : Node
 		
 
 		// Cargo at the start of the game
-		var planetExplorationKit2 = new Cargo("Planet exploration kit", 5, AssetsDir+"Icons/Loadouts/planetExplorationKit.png");
-		planetExplorationKit2.AddMission(new PlanetExplorationMission());
-		var spaceTelescope2 = new Cargo("Space Telescope", 1);
-		spaceTelescope2.AddMission(new SystemExplorationMission());
-		var spaceTelescope3 = new Cargo("Space Telescope", 1);
-		spaceTelescope3.AddMission(new SystemExplorationMission());
-		CargoStorage.Add(planetExplorationKit2);
+		var planetExplorationKit = new Cargo("planet_exploration_kit");
+		var spaceTelescope = new Cargo("space_telescope");
+		var spaceTelescope2 = new Cargo("space_telescope");
+
+		CargoStorage.Add(planetExplorationKit);
+		CargoStorage.Add(spaceTelescope);
 		CargoStorage.Add(spaceTelescope2);
-		CargoStorage.Add(spaceTelescope3);
 	}
 	
 }

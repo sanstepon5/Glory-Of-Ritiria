@@ -17,7 +17,6 @@ public partial class ShipOutfittingWindow : PanelContainer
 		GetTree().Paused =  true;
 		_signals.Connect(nameof(_signals.OutfitWindowUpdateRequired), new Callable(this, nameof(Update)));
 		_signals.Connect(nameof(_signals.CargoButtonClicked), new Callable(this, nameof(Update)));
-
 	}
 	
 	
@@ -63,6 +62,4 @@ public partial class ShipOutfittingWindow : PanelContainer
 		
 		_cargoView.Update();
 	}
-
-
 }

@@ -6,6 +6,8 @@ namespace GloryOfRitiria.Scripts.ShipRelated;
 public class Cargo
 {
     public string Name;
+    //TODO: redo this whole class with inherited classes
+    private string _id;
     /**Number of uses left*/
     public int Durability;
     /**Cost of 0 means Cargo can only be given by event or something*/
@@ -17,13 +19,13 @@ public class Cargo
 
     public Cargo(string id)
     {
+        _id = id;
         Name = id;
         Durability = 1;
         Cost = 0;
         _imagePath = "res://Assets/Icons/Loadouts/spaceTelescope.png";
         PossibleMissions = new List<Mission>();
-
-
+        
         switch (id)
         {
             case "planet_exploration_kit":
@@ -72,5 +74,31 @@ public class Cargo
     public string GetImagePath()
     {
         return _imagePath;
+    }
+    
+    public string GetFullDescription()
+    {
+        var res = $"[b]{Name}[/b]:\n" +
+               $"[i]{GetNameDescription()}[/i]\n" +
+               $"Available missions: \n" +
+               $"---------------------\n";
+        foreach (var mission in PossibleMissions)
+        {
+            res += $"*{mission.Name}: {mission.Description}\n";
+        }
+        res += "---------------------\n";
+        res += $"Durability: {Durability} uses";
+        
+        return res;
+    }
+
+    private string GetNameDescription()
+    {
+        return _id switch
+        {
+            "planet_exploration_kit" => "This is a planet exploration kit",
+            "space_telescope" => "This is a space telescope",
+            _ => ""
+        };
     }
 }

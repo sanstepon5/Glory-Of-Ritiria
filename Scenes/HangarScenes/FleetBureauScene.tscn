@@ -34,6 +34,7 @@ offset_right = 1915.0
 offset_bottom = 645.0
 
 [node name="TutorialWindows" type="Node2D" parent="."]
+process_mode = 3
 
 [node name="FirstWindow" type="PanelContainer" parent="TutorialWindows"]
 visible = false

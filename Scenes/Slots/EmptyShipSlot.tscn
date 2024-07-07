@@ -1,5 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://cm2m3bf5oiyn4"]
+[gd_scene load_steps=3 format=3 uid="uid://cm2m3bf5oiyn4"]
 
+[ext_resource type="Script" path="res://Scenes/Slots/EmptyShipSlot.cs" id="1_n1bw4"]
 [ext_resource type="Texture2D" uid="uid://caf4ifcqrx83q" path="res://Assets/Icons/plus.png" id="1_ssemb"]
 
 [node name="EmptyShipSlot" type="PanelContainer"]
@@ -7,6 +8,8 @@ offset_right = 313.0
 offset_bottom = 158.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+mouse_filter = 1
+script = ExtResource("1_n1bw4")
 
 [node name="MCont" type="MarginContainer" parent="."]
 layout_mode = 2

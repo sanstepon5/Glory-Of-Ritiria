@@ -1,4 +1,5 @@
 using GloryOfRitiria.Scripts;
+using GloryOfRitiria.Scripts.Utils;
 using Godot;
 using Ship = GloryOfRitiria.Scripts.ShipRelated.Ship;
 
@@ -11,6 +12,7 @@ public partial class FullShipSlot : PanelContainer
 	
 	public override void _Ready()
 	{
+		AddChild(CreateTooltipController());
 		_signals = GetNode<GlobalSignals>("/root/GlobalSignals");
 	}
 
@@ -36,5 +38,22 @@ public partial class FullShipSlot : PanelContainer
 			_signals.EmitSignal(nameof(_signals.FullSlotClicked), _ship);
 			_signals.EmitSignal(nameof(_signals.SimpleButtonClicked));
 		};
+	}
+	
+	private TooltipController CreateTooltipController()
+	{
+		var scene = GD.Load<PackedScene>("res://Scenes/Utils/TooltipController.tscn");
+		var inst = (TooltipController)scene.Instantiate();
+
+		inst.Name = "TooltipController";
+		inst.MinimumXSize = 300;
+		inst.VisualsText = $"{_ship.Name} is currently docked on {_ship.Location.Name}. " +
+						   $"[img]res://Assets/Icons/leftMouseClick32.png[/img] to see or outfit its modules";
+		// TODO: This way mouse_entered works well but the tooltip is cut at the top
+		inst.OwnerPath = new NodePath(GetNode<Button>("MCont/Button").GetPath());
+		inst.EnterDelay = 0.3;
+		inst.ExitDelay = 0.3;
+
+		return inst;
 	}
 }

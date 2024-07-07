@@ -90,42 +90,18 @@ public partial class SlotList : GridContainer
 	{
 		slot.UpdateBuildingSpeed();
 		
-		
 		var scene = GD.Load<PackedScene>("res://Scenes/Slots/ProgressShipSlot.tscn");
-		var inst = (PanelContainer)scene.Instantiate();
-
-		
-		var shipName = inst.GetNode<RichTextLabel>("MCont/VBox/TopHBox/NameLabel");
-		shipName.Text = slot.Ship.Name;
-		
-		var shipyardName = inst.GetNode<RichTextLabel>("MCont/VBox/ShipyardName");
-		shipyardName.Text = "[img]"+ slot.Location.GetSmallImage() + "[/img]  " + slot.ShipyardName;
-		
-		
-		
-		var progressBar = inst.GetNode<ProgressBar>("MCont/VBox/CenterVBox/MCont/ProgressBar");
-		var progressValue =  slot.CurrentProgress / slot.TurnCost * 100;
-		progressBar.Value = progressValue;
-		
-		var efficiencyLabel = inst.GetNode<RichTextLabel>("MCont/VBox/CenterVBox/EfficiencyLabel");
-		efficiencyLabel.Text = "Current Efficiency : " + Math.Round(slot.BuildingSpeed*100, 4) + "%";
-		
-		var turnsLeftLabel = inst.GetNode<RichTextLabel>("MCont/VBox/CenterVBox/RichTextLabel");
-		var turnsLeft = Math.Ceiling((slot.TurnCost - slot.CurrentProgress) / slot.BuildingSpeed);
-		if (turnsLeft > 1)
-			turnsLeftLabel.Text = turnsLeft + " turns left";
-		else 
-			turnsLeftLabel.Text = "Completed on next turn";
+		var inst = (ProgressShipSlot)scene.Instantiate();
+		inst.Init(slot);
 		return inst;
 	}
 
 	public PanelContainer BuildEmptySlot(Shipyard slot)
 	{
 		var scene = GD.Load<PackedScene>("res://Scenes/Slots/EmptyShipSlot.tscn");
-		var inst = (PanelContainer)scene.Instantiate();
+		var inst = (EmptyShipSlot)scene.Instantiate();
 		
-		var shipyardName = inst.GetNode<RichTextLabel>("MCont/VBox/ShipyardName");
-		shipyardName.Text = "[img]"+ slot.Location.GetSmallImage() + "[/img]  " + slot.ShipyardName;
+		inst.Init(slot);
 		
 		var addButton = inst.GetNode<TextureButton>("MCont/VBox/AddButton");
 		addButton.Pressed += () =>
@@ -133,7 +109,6 @@ public partial class SlotList : GridContainer
 			_signals.EmitSignal(nameof(_signals.SimpleButtonClicked));
 			RequestOpenConstructionWindow(slot);
 		};
-
 		
 		return inst;
 	}

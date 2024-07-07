@@ -1,7 +1,9 @@
 using Godot;
 using System;
 using GloryOfRitiria;
+using GloryOfRitiria.Scripts.Scenes.Parts;
 using GloryOfRitiria.Scripts.ShipRelated;
+using GloryOfRitiria.Scripts.Utils;
 
 public partial class CargoOption : PanelContainer
 {
@@ -10,6 +12,7 @@ public partial class CargoOption : PanelContainer
 	
 	public override void _Ready()
 	{
+		AddChild(CreateTooltipController());
 	}
 
 	public void Init(Cargo cargo, GlobalSignals signals)
@@ -32,5 +35,21 @@ public partial class CargoOption : PanelContainer
 			_signals.EmitSignal(nameof(_signals.CargoSelectedForOutfit), _cargo.Name);
 			_signals.EmitSignal(nameof(_signals.OutfitWindowUpdateRequired));
 		};
+	}
+	
+	
+	private TooltipController CreateTooltipController()
+	{
+		var scene = GD.Load<PackedScene>("res://Scenes/Utils/TooltipController.tscn");
+		var inst = (TooltipController)scene.Instantiate();
+
+		inst.Name = "TooltipController";
+		inst.MinimumXSize = 300;
+		inst.VisualsText = _cargo.GetFullDescription();
+		inst.OwnerPath = new NodePath(GetNode<Button>("MarginCont/Button").GetPath());
+		inst.EnterDelay = 0.3;
+		inst.ExitDelay = 0.3;
+
+		return inst;
 	}
 }

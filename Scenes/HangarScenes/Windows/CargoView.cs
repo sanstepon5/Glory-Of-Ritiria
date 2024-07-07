@@ -3,6 +3,7 @@ using System.Linq;
 using GloryOfRitiria.Scenes.Utils;
 using GloryOfRitiria.Scripts.Global;
 using GloryOfRitiria.Scripts.ShipRelated;
+using GloryOfRitiria.Scripts.Utils;
 using Godot;
 
 namespace GloryOfRitiria.Scenes.HangarScenes.Windows;
@@ -25,6 +26,15 @@ public partial class CargoView : PanelContainer
 	public override void _Ready()
 	{
 		Signals.Connect(nameof(Signals.CargoSelectedForOutfit), new Callable(this, nameof(SaveCargo)));
+
+		// This is very messy but in theory only cargo buttons are present there
+		foreach (var node in _cargoGrid.GetChildren())
+		{
+			if (node is MarginContainer)
+			{
+				
+			}
+		}
 	}
 
 	public void Init(Ship ship)
@@ -77,10 +87,6 @@ public partial class CargoView : PanelContainer
 		{
 			game_state.AddCargo(cargo);
 		}
-		// foreach (var cargo in _addedCargo)
-		// {
-		// 	game_state.RemoveCargo(cargo);
-		// }
 	}
 
 	public void ResetGameState()
@@ -91,36 +97,26 @@ public partial class CargoView : PanelContainer
 		}
 	}
 	
-	
-	
-	
 	private MarginContainer _buildCargoButton(Cargo cargo)
 	{
 		var scene = GD.Load<PackedScene>("res://Scenes/HangarScenes/Windows/OutfitCargoButton.tscn");
-		var inst = (MarginContainer)scene.Instantiate();
+		var inst = (OutfitCargoButton)scene.Instantiate();
+		inst.InitFullButton(cargo, _addedCargo.Contains(cargo));
 		
 		var button = inst.GetNode<ExtTextureButton>("PanelCont/ExtTextureButton");
-
-		button.TextureNormal = (Texture2D)GD.Load(cargo.GetImagePath());
-		button.TextureHover = (Texture2D)GD.Load("res://Assets/Icons/change.png");
-
-		inst.GetNode<TextureRect>("NewlyAddedImage").Visible = _addedCargo.Contains(cargo);
-		// TODO: Manage cargo tooltip
-
 		button.LeftPressed += () => ReplaceCargo(cargo);
 		button.RightPressed += () => RemoveCargo(cargo);
+		
 		return inst;
 	}
 	
 	private MarginContainer _buildAddCargoButton()
 	{
 		var scene = GD.Load<PackedScene>("res://Scenes/HangarScenes/Windows/OutfitCargoButton.tscn");
-		var inst = (MarginContainer)scene.Instantiate();
-		var button = inst.GetNode<ExtTextureButton>("PanelCont/ExtTextureButton");
-
-		button.TextureNormal = (Texture2D)GD.Load("res://Assets/Icons/empty.png");
-		button.TextureHover = (Texture2D)GD.Load("res://Assets/Icons/plus.png");
+		var inst = (OutfitCargoButton)scene.Instantiate();
+		inst.InitAddButton();
 		
+		var button = inst.GetNode<ExtTextureButton>("PanelCont/ExtTextureButton");
 		button.LeftPressed += AddButtonPressed;
 		return inst;
 	}
