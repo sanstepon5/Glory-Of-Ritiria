@@ -37,14 +37,8 @@ public partial class TooltipController : Node2D
 	public override void _Ready()
 	{
 		_ownerNode = GetNode(OwnerPath);
-		// Current scene should always be base_game_scene. In theory...
-		_tooltip = (CustomTooltip)GD.Load<PackedScene>("res://Scenes/Utils/CustomTooltip.tscn").Instantiate();
-		_tooltip.GetNode<PanelContainer>("Panel").CustomMinimumSize = new Vector2(MinimumXSize, 0);
-		_tooltip.Visible = false;
-		_ownerNode.AddChild(_tooltip);
-			// GetTree().CurrentScene.GetNode<CustomTooltip>("UICanvas/TooltipVisual");
-		// _initVisuals();
-
+		_tooltip = GetTree().CurrentScene.GetNode<CustomTooltip>("UICanvas/TooltipVisual");
+		
 		_ownerNode.Connect("mouse_entered", new Callable(this, nameof(_mouseEntered)));
 		_ownerNode.Connect("mouse_exited", new Callable(this, nameof(_mouseExited)));
 
@@ -56,11 +50,6 @@ public partial class TooltipController : Node2D
 		AddChild(_exitTimer);
 
 		_border = GetViewportRect().Size - Padding;
-	}
-
-	private void _initVisuals()
-	{
-		// _tooltip.SetTexture(VisualsTexture);
 	}
 	
 	public override void _Process(double delta)
@@ -77,7 +66,6 @@ public partial class TooltipController : Node2D
 			finalY = basePosition.Y - Offset.Y;
 		var position = new Vector2(finalX, finalY);
 		_tooltip.SetPosition(position);
-		_tooltip.SetText(VisualsText);
 	}
 	
 	
@@ -85,6 +73,8 @@ public partial class TooltipController : Node2D
 	private void _mouseEntered()
 	{
 		_enterTimer.Start(EnterDelay);
+		_tooltip.GetNode<PanelContainer>("Panel").CustomMinimumSize = new Vector2(MinimumXSize, 0);
+		_tooltip.SetText(VisualsText);
 	}
 	private void _customShow()
 	{
