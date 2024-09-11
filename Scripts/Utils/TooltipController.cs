@@ -32,17 +32,16 @@ public partial class TooltipController : Node2D
 	private Timer _enterTimer;
 	private Timer _exitTimer;
 	private Vector2 _border;
+
+	private bool _active; // Active when mouse hovers over this controller
 	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		_ownerNode = GetNode(OwnerPath);
-		// Current scene should always be base_game_scene. In theory...
-		_tooltip = (CustomTooltip)GD.Load<PackedScene>("res://Scenes/Utils/CustomTooltip.tscn").Instantiate();
+		_tooltip = GetTree().CurrentScene.GetNode<CustomTooltip>("UICanvas/TooltipVisual");
 		_tooltip.GetNode<PanelContainer>("Panel").CustomMinimumSize = new Vector2(MinimumXSize, 0);
 		_tooltip.Visible = false;
-		_ownerNode.AddChild(_tooltip);
-			// GetTree().CurrentScene.GetNode<CustomTooltip>("UICanvas/TooltipVisual");
 		// _initVisuals();
 
 		_ownerNode.Connect("mouse_entered", new Callable(this, nameof(_mouseEntered)));
@@ -65,6 +64,7 @@ public partial class TooltipController : Node2D
 	
 	public override void _Process(double delta)
 	{
+		if (!_active) return;
 		if (!_tooltip.Visible) return;
 		var tooltipSize = _tooltip.GetNode<PanelContainer>("Panel").Size;
 		
@@ -78,6 +78,7 @@ public partial class TooltipController : Node2D
 		var position = new Vector2(finalX, finalY);
 		_tooltip.SetPosition(position);
 		_tooltip.SetText(VisualsText);
+		GD.Print(VisualsText, position);
 	}
 	
 	
@@ -88,6 +89,7 @@ public partial class TooltipController : Node2D
 	}
 	private void _customShow()
 	{
+		_active = true;
 		_tooltip.Show();
 		_enterTimer.Stop();
 	}
@@ -99,6 +101,7 @@ public partial class TooltipController : Node2D
 	}
 	private void _customHide()
 	{
+		_active = false;
 		_tooltip.Hide();
 		_exitTimer.Stop();
 	}
