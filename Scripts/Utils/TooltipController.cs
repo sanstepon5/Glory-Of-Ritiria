@@ -78,7 +78,6 @@ public partial class TooltipController : Node2D
 		var position = new Vector2(finalX, finalY);
 		_tooltip.SetPosition(position);
 		_tooltip.SetText(VisualsText);
-		GD.Print(VisualsText, position);
 	}
 	
 	
