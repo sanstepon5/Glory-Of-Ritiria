@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bo4p7g2vi628r"]
 
-[ext_resource type="Texture2D" uid="uid://k1jpe8g88r03" path="res://Assets/Img/tmp/CelestialBodies/icePlanet.png" id="1_xttfw"]
-[ext_resource type="Texture2D" uid="uid://h3ligan0kne5" path="res://Assets/Icons/lineBetweenBodies.png" id="2_v0qtc"]
+[ext_resource type="Texture2D" uid="uid://bikka1y3wli2g" path="res://Assets/Img/tmp/CelestialBodies/icePlanet.png" id="1_xttfw"]
+[ext_resource type="Texture2D" uid="uid://cb1wcqjma5xuj" path="res://Assets/Icons/lineBetweenBodies.png" id="2_v0qtc"]
 
 [node name="CelestialBodyScene" type="GridContainer"]
 columns = 2
@@ -16,6 +16,7 @@ theme_override_constants/margin_right = 50
 
 [node name="BodyButton" type="TextureButton" parent="BodyContainer/MarginContainer"]
 layout_mode = 2
+focus_mode = 0
 texture_normal = ExtResource("1_xttfw")
 
 [node name="BodyName" type="Label" parent="BodyContainer"]

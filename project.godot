@@ -33,7 +33,7 @@ project/assembly_name="Glory Of Ritiria"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/collapsible_container/plugin.cfg")
+enabled=PackedStringArray()
 
 [rendering]
 

@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://b7h53a4hm5uld"]
 
-[ext_resource type="Texture2D" uid="uid://dmawbrvqbmjpd" path="res://Assets/GUI/InterstellarMap/stars.png" id="2_cjykd"]
+[ext_resource type="Texture2D" uid="uid://c5sdd7v2klque" path="res://Assets/GUI/InterstellarMap/stars.png" id="2_cjykd"]
 [ext_resource type="Script" path="res://Scripts/Scenes/star_system_view.cs" id="2_s55j1"]
-[ext_resource type="Texture2D" uid="uid://dwrykn3365u8g" path="res://Assets/Icons/cross.png" id="4_in6l8"]
+[ext_resource type="Texture2D" uid="uid://d2ff3xu32hq05" path="res://Assets/Icons/cross.png" id="4_in6l8"]
 [ext_resource type="PackedScene" uid="uid://pebc2oa4mffp" path="res://Scenes/MapCamera.tscn" id="5_qvto2"]
 
 [node name="StarSystemView" type="Node2D"]
@@ -52,7 +52,6 @@ stretch_mode = 2
 
 [node name="MapCamera" parent="." instance=ExtResource("5_qvto2")]
 zoom = Vector2(0.8, 0.8)
-CustomCorner = true
 MostLeftHighPoint = Vector2(-100, 100)
 MostRightLowPoint = Vector2(4000, 1500)
 

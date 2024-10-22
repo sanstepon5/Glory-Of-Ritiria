@@ -1,5 +1,4 @@
 using Godot;
-using System;
 using GloryOfRitiria;
 using GloryOfRitiria.Scripts.Global;
 using GloryOfRitiria.Scripts.Utils;

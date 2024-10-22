@@ -1,12 +1,12 @@
 [gd_scene load_steps=9 format=3 uid="uid://d2namxoxy40fc"]
 
 [ext_resource type="Script" path="res://Scripts/Scenes/planet_game_scene.cs" id="1_txril"]
-[ext_resource type="Texture2D" uid="uid://5kls54kysks8" path="res://Assets/Img/tmp/PallyriaOffice.png" id="2_05eip"]
-[ext_resource type="Texture2D" uid="uid://djuutdi23oyw1" path="res://Assets/Img/tmp/Phone.png" id="2_ebvfr"]
-[ext_resource type="Texture2D" uid="uid://dnscvy88l08tx" path="res://Assets/Img/tmp/ClosestStars.png" id="3_3bn6g"]
-[ext_resource type="Texture2D" uid="uid://yotckc60ey1p" path="res://Assets/Icons/Ships/Small/selectedShip.png" id="3_bmmcp"]
-[ext_resource type="Texture2D" uid="uid://cdv6yhh6auspm" path="res://Assets/Img/tmp/SkyBackground.png" id="4_pc6dq"]
-[ext_resource type="Texture2D" uid="uid://fa48q1y1x4dd" path="res://Assets/Icons/Ships/Small/ShipInRoute.png" id="6_2bwx8"]
+[ext_resource type="Texture2D" uid="uid://bk2muaavpdh6u" path="res://Assets/Img/tmp/PallyriaOffice.png" id="2_05eip"]
+[ext_resource type="Texture2D" uid="uid://dx4ui0m2bm1l8" path="res://Assets/Img/tmp/Phone.png" id="2_ebvfr"]
+[ext_resource type="Texture2D" uid="uid://bcrr1e2bfd8qd" path="res://Assets/Img/tmp/ClosestStars.png" id="3_3bn6g"]
+[ext_resource type="Texture2D" uid="uid://bsfsxpm7w17jh" path="res://Assets/Icons/Ships/Small/selectedShip.png" id="3_bmmcp"]
+[ext_resource type="Texture2D" uid="uid://cjs85r4x2xwc7" path="res://Assets/Img/tmp/SkyBackground.png" id="4_pc6dq"]
+[ext_resource type="Texture2D" uid="uid://c05p6dyejx0x5" path="res://Assets/Icons/Ships/Small/ShipInRoute.png" id="6_2bwx8"]
 [ext_resource type="Script" path="res://Scenes/PhoneButton.cs" id="6_gdlqa"]
 
 [node name="PlanetGameScene" type="Node2D"]

@@ -13,7 +13,7 @@ public partial class DebugMenu : PanelContainer
 		var materialButton = GetNode<Button>("MarginCont/VBox/Material10");
 		materialButton.Pressed += () => {
 			_signals.EmitSignal(nameof(_signals.SimpleButtonClicked));
-			game_state.Res1 += 10;
+			game_state.AddMaterialRes(10);
 			_signals.EmitSignal(nameof(_signals.TopBarUpdateRequired));
 		};
 		var scienceButton = GetNode<Button>("MarginCont/VBox/Science10");

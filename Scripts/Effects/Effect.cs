@@ -51,11 +51,11 @@ public class EventEffect : Effect
         switch (_methodName)
         {
             case "AddRes1":
-                game_state.Res1 += (double)Convert.ChangeType(_basicValue, typeof(double))!;
+                game_state.AddMaterialRes((double)Convert.ChangeType(_basicValue, typeof(double))!);
                 break;
-            case "SetRes1":
-                game_state.Res1 = (double)Convert.ChangeType(_basicValue, typeof(double))!;
-                break;
+            // case "SetRes1":
+            //     game_state.Res1 = (double)Convert.ChangeType(_basicValue, typeof(double))!;
+            //     break;
             case "AddFlag":
             {
                 Enum.TryParse(_basicValue, out Flags flag);

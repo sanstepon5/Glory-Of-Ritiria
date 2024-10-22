@@ -156,6 +156,13 @@ public partial class game_state : Node
 		if (PoliticalRes < 0) PoliticalRes = 0;
 		if (PoliticalRes > 100) PoliticalRes = 100;
 	}
+	public static void AddMaterialRes(double amount)
+	{
+		Res1 += amount;
+		if (Res1 < 0) Res1 = 0;
+
+		_signals.EmitSignal(nameof(_signals.MaterialResChanged), Res1);
+	}
 
 	public static void UpdateResources()
 	{

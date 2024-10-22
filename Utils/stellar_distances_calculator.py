@@ -1,4 +1,3 @@
-import math
 from typing import Tuple
 import numpy as np
 from simbad_extractor import SimbadQuerier
@@ -11,8 +10,8 @@ def parse_ra(ra_string: str) -> float:
 
 def parse_dec(dec_string: str) -> float:
     """Convert Declination from 'dd mm ss' to degrees."""
-    dec_string = dec_string.replace('°', '').replace('′', '').replace('″', '').replace("+", "").replace("−", "-").strip()
-    # Replace the special minus sign with a normal hyphen, and handle positive sign
+    dec_string = (dec_string.replace('°', '').replace('′', '').replace('″', '')
+                  .replace("+", "").replace("−", "-").strip()) # '−' != '-'
     d, m, s = [float(i) for i in dec_string.split()]
     return d + m / 60 + s / 3600
 
@@ -47,16 +46,14 @@ stars = ["Barnard's Star", "Luhman 16", "WISE J085510.83−071442.5", "Wolf 359"
         "Alpha Canis Minoris A", "Alpha Canis Minoris B", #  Procyon 
         "61 Cygni A", "61 Cygni B", "Gliese 725 A", "Gliese 725 B", # No dedicated page for Gliese 725 separately
          "GX Andromedae", "GQ Andromedae", # System Groombridge 34 (Gliese 15) 
-         ] 
+         "DX Cancri", "Epsilon Indi", # Two brown dwarfs in orbit, could be probably be like giants
+         "Tau Ceti"]
 
-stars_origin = {"Sol": ("0 0 0", "0 0 0", 0)}
-stars_degrees = {"Sol": (0, 0, 0)}
-stars_cartesian = {"Sol": (0, 0, 0)}
 stars_final = {"Sol": (30, 4.2)}
 
 querier = SimbadQuerier()
-ra, dec, distance = querier.query_simbad("Alpha Centauri")
-detnura_cartesian = spherical_to_cartesian(parse_ra(ra), parse_dec(dec), distance)
+ra, dec, dist = querier.query_simbad("Alpha Centauri")
+detnura_cartesian = spherical_to_cartesian(parse_ra(ra), parse_dec(dec), dist)
 sol_cartesian = spherical_to_cartesian(0, 0, 0) - detnura_cartesian
 
 stars_final["Detnura"] = (0, 0)
@@ -65,9 +62,9 @@ stars_final["Sol"] = cartesian_to_spherical(*sol_cartesian)
 for star_name in stars:
     star_data = querier.query_simbad(star_name)
     if star_data:
-        ra, dec, distance = star_data
-        # stars_origin[star_name] = (str(ra), str(dec), float(distance))
-        star_cartesian = spherical_to_cartesian(parse_ra(ra), parse_dec(dec), distance)
+        ra, dec, dist = star_data
+        star_cartesian = spherical_to_cartesian(parse_ra(ra), parse_dec(dec), dist)
+        print(f"{star_name} From Sol: angle: {(parse_dec(dec), parse_ra(ra))}, distance {dist}")
 
         # Move the center to Alpha Centauri by subtracting Alpha Centauri's Cartesian coordinates
         star_cartesian = star_cartesian - detnura_cartesian
@@ -75,4 +72,5 @@ for star_name in stars:
     else:
         print(f"{star_name} not found or missing data.")
 
-print(stars_final)
+for key, value in stars_final.items():
+    print(f"{key}: {value}")

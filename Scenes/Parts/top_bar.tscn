@@ -4,8 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://od2gg2tiw6fj" path="res://Scenes/Parts/top_bar_res.tscn" id="1_bxmsq"]
 [ext_resource type="Texture2D" uid="uid://dr3tt80op11gp" path="res://Assets/GUI/Icons/political_icon.png" id="2_ilm8f"]
 [ext_resource type="Texture2D" uid="uid://ddkwkjiq4p5bt" path="res://Assets/GUI/Icons/lab-coat.png" id="3_jb5cb"]
-[ext_resource type="Texture2D" uid="uid://gr3bo0s24fsm" path="res://icon.svg" id="4_wr70x"]
 [ext_resource type="PackedScene" uid="uid://b2toyoqgujy86" path="res://Scenes/Parts/NextTurnButton.tscn" id="5_uwfxi"]
+[ext_resource type="Texture2D" uid="uid://clfpjobtiuql3" path="res://Assets/GUI/Icons/32/Bricks.png" id="5_y3mt4"]
 [ext_resource type="Texture2D" uid="uid://bri7d1fd3bgv0" path="res://Assets/Icons/Ships/Small/ship.png" id="6_4wq6g"]
 [ext_resource type="Texture2D" uid="uid://b3aocid4hrf8a" path="res://Assets/GUI/Icons/16/CameraReticle.png" id="7_flq4d"]
 [ext_resource type="Texture2D" uid="uid://w08bcxoesled" path="res://Assets/GUI/Icons/32/liveablePlanet.png" id="8_m78dt"]
@@ -96,7 +96,7 @@ custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-Texture = ExtResource("4_wr70x")
+Texture = ExtResource("5_y3mt4")
 TextOnTooltip = "Material Resources"
 
 [node name="NextTurnButton" parent="." instance=ExtResource("5_uwfxi")]
