@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://nbje536nyo0b"]
 
-[ext_resource type="Script" path="res://Scenes/HangarScenes/Windows/ShipConstructionWindow.cs" id="1_njgik"]
+[ext_resource type="Script" uid="uid://cughvfij08cua" path="res://Scenes/HangarScenes/Windows/ShipConstructionWindow.cs" id="1_njgik"]
 [ext_resource type="Texture2D" uid="uid://b8u7yi37jw0t0" path="res://Assets/Icons/Ships/Small/ship.png" id="1_wfh78"]
 [ext_resource type="ButtonGroup" uid="uid://trec3s178yi6" path="res://Resources/Hangar/PriorityButtonGroup.tres" id="2_v5036"]
 

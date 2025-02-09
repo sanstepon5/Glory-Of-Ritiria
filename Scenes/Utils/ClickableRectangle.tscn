@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bs8eymkp35881"]
 
-[ext_resource type="Script" path="res://Scenes/Utils/ClickableRectangle.cs" id="1_gqm77"]
+[ext_resource type="Script" uid="uid://bn3yute8nhl1t" path="res://Scenes/Utils/ClickableRectangle.cs" id="1_gqm77"]
 
 [node name="ClickableRectangle" type="Control"]
 layout_mode = 3

@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://od2gg2tiw6fj"]
 
 [ext_resource type="Texture2D" uid="uid://cbymyk3gj0gw0" path="res://icon.svg" id="1_03qch"]
-[ext_resource type="Script" path="res://Scenes/Parts/TopBarRes.cs" id="1_wnvmi"]
+[ext_resource type="Script" uid="uid://cuuxposxsiyop" path="res://Scenes/Parts/TopBarRes.cs" id="1_wnvmi"]
 
 [node name="Resource" type="HBoxContainer"]
 offset_right = 96.0

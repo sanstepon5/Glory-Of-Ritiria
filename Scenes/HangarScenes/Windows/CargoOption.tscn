@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://n1xllq8fturn"]
 
 [ext_resource type="Texture2D" uid="uid://bv465o815xn1i" path="res://Assets/Icons/Loadouts/spaceTelescope.png" id="1_sp1ds"]
-[ext_resource type="Script" path="res://Scenes/HangarScenes/Windows/CargoOption.cs" id="1_un8jj"]
+[ext_resource type="Script" uid="uid://b6qt6y7bujjcc" path="res://Scenes/HangarScenes/Windows/CargoOption.cs" id="1_un8jj"]
 
 [node name="CargoOption" type="PanelContainer"]
 custom_minimum_size = Vector2(250, 230)

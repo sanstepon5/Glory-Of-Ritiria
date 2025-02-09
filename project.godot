@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Glory Of Ritiria"
 run/main_scene="res://Scenes/MainMenu.tscn"
-config/features=PackedStringArray("4.1", "C#", "Forward Plus")
+config/features=PackedStringArray("4.4", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 GlobalSignals="*res://Scripts/Global/GlobalSignals.cs"
 GameState="*res://Scripts/Global/game_state.cs"
 EventManager="*res://Scripts/Global/event_manager.cs"
+LimboConsole="*res://addons/limbo_console/limbo_console.gd"
 
 [display]
 
@@ -33,7 +34,15 @@ project/assembly_name="Glory Of Ritiria"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/collapsible_container/plugin.cfg")
+enabled=PackedStringArray("res://addons/collapsible_container/plugin.cfg", "res://addons/limbo_console/plugin.cfg")
+
+[input]
+
+limbo_console_toggle={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":96,"physical_keycode":0,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
+}
 
 [rendering]
 

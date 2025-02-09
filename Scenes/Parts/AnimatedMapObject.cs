@@ -88,6 +88,3 @@ public partial class AnimatedMapObject : Control
 	// }
 
 }
-
-
-

@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://b7h70g57vres2"]
 
 [ext_resource type="Texture2D" uid="uid://b8u7yi37jw0t0" path="res://Assets/Icons/Ships/Small/ship.png" id="1_4mu6s"]
-[ext_resource type="Script" path="res://Scenes/Parts/SystemMap/ShipOnSystemMap.cs" id="1_n4k1v"]
+[ext_resource type="Script" uid="uid://d4km04q153qps" path="res://Scenes/Parts/SystemMap/ShipOnSystemMap.cs" id="1_n4k1v"]
 
 [node name="ShipOnSystemMap" type="VBoxContainer"]
 script = ExtResource("1_n4k1v")

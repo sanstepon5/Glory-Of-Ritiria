@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://omn41brw8gxc"]
 
-[ext_resource type="Script" path="res://Scenes/Parts/Events/EventChoice.cs" id="1_ht4ra"]
+[ext_resource type="Script" uid="uid://b1im6gq05045d" path="res://Scenes/Parts/Events/EventChoice.cs" id="1_ht4ra"]
 
 [node name="ChoiceButton" type="Button"]
 offset_right = 737.0

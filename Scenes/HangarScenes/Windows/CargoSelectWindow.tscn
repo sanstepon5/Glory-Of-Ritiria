@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cxe7rke4yc111"]
 
-[ext_resource type="Script" path="res://Scenes/HangarScenes/Windows/CargoSelectWindow.cs" id="1_mrj4h"]
+[ext_resource type="Script" uid="uid://bg50uqnkiqkrn" path="res://Scenes/HangarScenes/Windows/CargoSelectWindow.cs" id="1_mrj4h"]
 
 [node name="CargoSelectWindow" type="PanelContainer"]
 offset_right = 352.0

@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cwexwtr02i6wf"]
 
-[ext_resource type="Script" path="res://Scenes/HangarScenes/Windows/ShipOutfittingWindow.cs" id="1_bou2r"]
-[ext_resource type="Script" path="res://Scenes/HangarScenes/Windows/CargoView.cs" id="2_5dxrr"]
+[ext_resource type="Script" uid="uid://0xxuen5kj0e0" path="res://Scenes/HangarScenes/Windows/ShipOutfittingWindow.cs" id="1_bou2r"]
+[ext_resource type="Script" uid="uid://ds1tg1erkvuj4" path="res://Scenes/HangarScenes/Windows/CargoView.cs" id="2_5dxrr"]
 
 [node name="ShipOutfittingWindow" type="PanelContainer"]
 custom_minimum_size = Vector2(0, 320)

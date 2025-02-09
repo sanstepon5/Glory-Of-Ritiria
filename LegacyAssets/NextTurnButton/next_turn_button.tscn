@@ -1,15 +1,18 @@
 [gd_scene load_steps=3 format=3 uid="uid://r6ijjsaj2h2q"]
 
-[ext_resource type="Script" path="res://Scripts/Scenes/Parts/NextTurnButton.cs" id="1_gseo4"]
-[ext_resource type="Texture2D" uid="uid://chevupi5pa74y" path="res://Assets/Img/tmp/nextTurnIcon.png" id="2_hcuhg"]
+[sub_resource type="Resource" id="Resource_lv3df"]
+metadata/__load_path__ = "res://Scripts/Scenes/Parts/NextTurnButton.cs"
+
+[sub_resource type="Resource" id="Resource_16leo"]
+metadata/__load_path__ = "res://Assets/Img/tmp/nextTurnIcon.png"
 
 [node name="NextTurnButton" type="Area2D"]
 monitoring = false
-script = ExtResource("1_gseo4")
+script = SubResource("Resource_lv3df")
 
 [node name="Image" type="Sprite2D" parent="."]
 position = Vector2(1792, 951)
-texture = ExtResource("2_hcuhg")
+texture = SubResource("Resource_16leo")
 
 [node name="AreaCollision" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(1665, 1078, 1664, 1029, 1705, 940, 1770, 870, 1857, 822, 1919, 824, 1921, 1078)

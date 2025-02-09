@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bjtayy27gey4s"]
 
-[ext_resource type="Script" path="res://Scenes/Parts/AnimatedMapObject.cs" id="1_beju3"]
+[ext_resource type="Script" uid="uid://c0nve7vifklg2" path="res://Scenes/Parts/AnimatedMapObject.cs" id="1_beju3"]
 [ext_resource type="SpriteFrames" uid="uid://dw5f8rayhx15" path="res://Resources/Animations/InterstellarMap/StarSystemAnimations.tres" id="2_iqmcg"]
 
 [node name="AnimatedMapObject" type="Control"]

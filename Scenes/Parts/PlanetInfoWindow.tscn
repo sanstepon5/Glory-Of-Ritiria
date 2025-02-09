@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bqjif7igb3uik"]
 
-[ext_resource type="Script" path="res://Scenes/Parts/PlanetInfoWindow.cs" id="1_bujdy"]
+[ext_resource type="Script" uid="uid://dht0hmy8tqque" path="res://Scenes/Parts/PlanetInfoWindow.cs" id="1_bujdy"]
 [ext_resource type="Texture2D" uid="uid://cygkd1k37vx86" path="res://Assets/Img/tmp/CelestialBodies/liveablePlanet.png" id="2_e3b4b"]
 
 [node name="PlanetInfoPanel" type="PanelContainer"]

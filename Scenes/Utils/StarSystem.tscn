@@ -1,6 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://dngspr41eb48"]
-
-[ext_resource type="Texture2D" uid="uid://ekp8y1lpchfr" path="res://Assets/GUI/InterstellarMap/Star64.png" id="1_5teyv"]
+[gd_scene format=3 uid="uid://dngspr41eb48"]
 
 [node name="StarSystem" type="VBoxContainer"]
 offset_left = 891.0
@@ -17,7 +15,6 @@ theme_override_constants/margin_bottom = 0
 
 [node name="StarButton" type="TextureButton" parent="MarginContainer"]
 layout_mode = 2
-texture_normal = ExtResource("1_5teyv")
 stretch_mode = 5
 
 [node name="SystemName" type="RichTextLabel" parent="."]

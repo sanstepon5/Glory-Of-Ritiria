@@ -193,6 +193,3 @@ public partial class planet_game_scene : Node2D
 		}
 	}
 }
-
-
-

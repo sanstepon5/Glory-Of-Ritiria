@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://pebc2oa4mffp"]
 
-[ext_resource type="Script" path="res://Scenes/MapCamera.cs" id="1_wv8ma"]
+[ext_resource type="Script" uid="uid://cv06igjdqgarv" path="res://Scenes/MapCamera.cs" id="1_wv8ma"]
 [ext_resource type="Texture2D" uid="uid://c8nh7fshwsujm" path="res://Assets/GUI/CameraReticle.png" id="2_pq065"]
 
 [node name="MapCamera" type="Camera2D"]

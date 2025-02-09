@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dxrljrkhsfk3n"]
 
 [ext_resource type="PackedScene" uid="uid://pd32ulghvb8v" path="res://Scenes/Utils/ExtTextureButton.tscn" id="1_o2seu"]
-[ext_resource type="Script" path="res://Scenes/HangarScenes/Windows/OutfitCargoButton.cs" id="1_wxrpr"]
+[ext_resource type="Script" uid="uid://did3mklynumov" path="res://Scenes/HangarScenes/Windows/OutfitCargoButton.cs" id="1_wxrpr"]
 [ext_resource type="Texture2D" uid="uid://bbmi1044xe0rr" path="res://Assets/Icons/greenSquare.png" id="2_2k4lh"]
 
 [node name="MarginCont" type="MarginContainer"]

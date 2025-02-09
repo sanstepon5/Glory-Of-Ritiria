@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://bwjc5h5qtoo82"]
 
-[ext_resource type="Script" path="res://Scripts/Scenes/ShipyardsScene.cs" id="1_vioe8"]
-[ext_resource type="Script" path="res://Scenes/HangarScenes/SlotList.cs" id="2_4bv6m"]
+[ext_resource type="Script" uid="uid://byqef3rmvhkpg" path="res://Scripts/Scenes/ShipyardsScene.cs" id="1_vioe8"]
+[ext_resource type="Script" uid="uid://crcd5h6v3mk5c" path="res://Scenes/HangarScenes/SlotList.cs" id="2_4bv6m"]
 [ext_resource type="PackedScene" uid="uid://cmgmkov212lej" path="res://Scenes/HangarScenes/HangarMenu.tscn" id="3_n6vaq"]
 [ext_resource type="PackedScene" uid="uid://colw3bv0dgf7u" path="res://Scenes/HangarScenes/ShipyardSelectionMenu.tscn" id="4_b3j1h"]
 

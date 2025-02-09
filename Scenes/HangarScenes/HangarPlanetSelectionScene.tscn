@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://b06lm5hu6xv05"]
 
 [ext_resource type="Texture2D" uid="uid://cygkd1k37vx86" path="res://Assets/Img/tmp/CelestialBodies/liveablePlanet.png" id="1_oys7m"]
-[ext_resource type="Script" path="res://Scenes/HangarScenes/HangarPlanetSelectionScene.cs" id="1_pvtfo"]
+[ext_resource type="Script" uid="uid://cws8easv4rxe6" path="res://Scenes/HangarScenes/HangarPlanetSelectionScene.cs" id="1_pvtfo"]
 
 [node name="Margin" type="MarginContainer"]
 theme_override_constants/margin_left = 10

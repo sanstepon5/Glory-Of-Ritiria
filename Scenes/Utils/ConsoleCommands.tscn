@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cigwdh6dm0mkx"]
+
+[ext_resource type="Script" uid="uid://b8i823l4u6h01" path="res://Scenes/Utils/ConsoleCommands.cs" id="1_h4th6"]
+
+[node name="ConsoleCommands" type="Node"]
+script = ExtResource("1_h4th6")

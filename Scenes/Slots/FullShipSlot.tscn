@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cwblvspsudkh3"]
 
-[ext_resource type="Script" path="res://Scenes/Slots/FullShipSlot.cs" id="1_t7pnv"]
+[ext_resource type="Script" uid="uid://b5tejj52vsjx8" path="res://Scenes/Slots/FullShipSlot.cs" id="1_t7pnv"]
 [ext_resource type="Texture2D" uid="uid://cs6t8bvo4er6b" path="res://Assets/Icons/Ships/Big/ship.png" id="2_h7185"]
 
 [node name="FullShipSlot" type="PanelContainer"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cr0vyikai3fjp"]
 
-[ext_resource type="Script" path="res://Scenes/Parts/FixedMapObject.cs" id="1_egwok"]
+[ext_resource type="Script" uid="uid://d141uim3ajtll" path="res://Scenes/Parts/FixedMapObject.cs" id="1_egwok"]
 [ext_resource type="Texture2D" uid="uid://nwy0j5s1btew" path="res://Assets/Img/tmp/CelestialBodies/Moon/Moon2.png" id="2_glptk"]
 
 [node name="FixedMapObject" type="Control"]

@@ -56,15 +56,7 @@ public partial class base_game_scene : Node2D
 			_playSimplePlayButtonSound();
 			LoadPallyria();
 		};
-		
-		var debugButton = GetNode<Button>("UICanvas/TopBar/DebugMenuButton");
-		debugButton.Pressed += () =>
-		{
-			_playSimplePlayButtonSound();
-			var debugMenu = GetNode<DebugMenu>("UICanvas/DebugMenu");
-			debugMenu.Visible = !debugMenu.Visible;
-		};
-		
+				
 		TopBarUpdate();
 		
 

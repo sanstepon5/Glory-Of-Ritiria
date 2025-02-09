@@ -1,0 +1,36 @@
+<Project Sdk="Godot.NET.Sdk/4.1.3">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+    <RootNamespace>GloryOfRitiria</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="Assets\Events.txt" />
+    <Content Include="Assets\StellarSystems.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Assets\GUI\**" />
+    <Compile Remove="Assets\Icons\**" />
+    <Compile Remove="Assets\Img\**" />
+    <Compile Remove="Assets\Sounds\**" />
+    <Compile Remove="Parsers\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="Assets\GUI\**" />
+    <EmbeddedResource Remove="Assets\Icons\**" />
+    <EmbeddedResource Remove="Assets\Img\**" />
+    <EmbeddedResource Remove="Assets\Sounds\**" />
+    <EmbeddedResource Remove="Parsers\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Antlr4.Runtime" Version="4.6.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Scripts\Effects\EventEffects\" />
+  </ItemGroup>
+
+</Project>

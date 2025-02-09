@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://d04fdy1bbxryg"]
 
-[ext_resource type="Script" path="res://Scripts/Scenes/Parts/MultiEventWindow.cs" id="1_1hen8"]
+[ext_resource type="Script" uid="uid://cbrkng57ekrem" path="res://Scripts/Scenes/Parts/MultiEventWindow.cs" id="1_1hen8"]
 
 [node name="MultiEventWindow" type="Panel"]
 process_mode = 2

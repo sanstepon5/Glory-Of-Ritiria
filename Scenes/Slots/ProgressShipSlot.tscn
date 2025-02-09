@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://5qlac6unyqey"]
 
-[ext_resource type="Script" path="res://Scenes/Slots/ProgressShipSlot.cs" id="1_56orc"]
+[ext_resource type="Script" uid="uid://ydfx0kfrtlir" path="res://Scenes/Slots/ProgressShipSlot.cs" id="1_56orc"]
 [ext_resource type="Texture2D" uid="uid://c8nh7fshwsujm" path="res://Assets/GUI/CameraReticle.png" id="1_ytod3"]
 
 [node name="InProgressShipSlot" type="PanelContainer"]

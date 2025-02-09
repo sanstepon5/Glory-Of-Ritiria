@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://b2toyoqgujy86"]
 
 [ext_resource type="Texture2D" uid="uid://jpl8kn2k4cin" path="res://Assets/GUI/nextTurnIcon.png" id="1_3fe3i"]
-[ext_resource type="Script" path="res://Scenes/Parts/NextTurnButton.cs" id="1_gpl44"]
+[ext_resource type="Script" uid="uid://djfjpohgtahf7" path="res://Scenes/Parts/NextTurnButton.cs" id="1_gpl44"]
 
 [node name="VBoxContainer" type="VBoxContainer"]
 offset_right = 220.0

@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://cmgmkov212lej"]
 
-[ext_resource type="Script" path="res://Scenes/HangarScenes/HangarMenu.cs" id="1_7u0vg"]
+[ext_resource type="Script" uid="uid://bhoh4ua2oj66k" path="res://Scenes/HangarScenes/HangarMenu.cs" id="1_7u0vg"]
 [ext_resource type="Texture2D" uid="uid://bngbobnj0khap" path="res://Assets/GUI/Icons/32/liveablePlanet.png" id="1_xqo6d"]
 [ext_resource type="Texture2D" uid="uid://fa48q1y1x4dd" path="res://Assets/Icons/Ships/Small/ShipInRoute.png" id="3_3dvg0"]
 [ext_resource type="Texture2D" uid="uid://yotckc60ey1p" path="res://Assets/Icons/Ships/Small/selectedShip.png" id="4_xbxyg"]
