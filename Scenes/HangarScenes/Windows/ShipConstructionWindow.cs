@@ -74,7 +74,7 @@ public partial class ShipConstructionWindow : PanelContainer
 			_shipyard.StartConstruction(ship, _turnCost);
 			_signals.EmitSignal(nameof(_signals.ShipBuildStarted));
 			
-			game_state.Res1 -= _buildCost;
+			game_state.AddMaterialRes(-_buildCost);
 			_signals.EmitSignal(nameof(_signals.TopBarUpdateRequired));
 			
 			GetTree().Paused = false;

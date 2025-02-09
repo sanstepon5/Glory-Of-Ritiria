@@ -1,0 +1,29 @@
+[gd_scene load_steps=2 format=3 uid="uid://xj53gmf3jucc"]
+
+[ext_resource type="Script" path="res://Scenes/Parts/QuestGoalMCont.cs" id="1_56f0f"]
+
+[node name="QuestGoalMCont" type="MarginContainer"]
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+script = ExtResource("1_56f0f")
+
+[node name="HBox" type="HBoxContainer" parent="."]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 10
+
+[node name="CheckBox" type="CheckBox" parent="HBox"]
+layout_mode = 2
+focus_mode = 0
+mouse_filter = 2
+disabled = true
+
+[node name="Label" type="RichTextLabel" parent="HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+bbcode_enabled = true
+text = "Get 100 minerals"
+fit_content = true

@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://owct5lb7jgew"]
+[gd_scene load_steps=11 format=3 uid="uid://owct5lb7jgew"]
 
 [ext_resource type="Script" uid="uid://c652ab3q78jrt" path="res://Scripts/Scenes/base_game_scene.cs" id="1_6tgt3"]
 [ext_resource type="PackedScene" uid="uid://b176rck77evnu" path="res://Scenes/Parts/top_bar.tscn" id="2_sapv7"]
 [ext_resource type="AudioStream" uid="uid://ep4x3403et1g" path="res://Assets/Sounds/UX/Favorites/SimpleButtonClick.mp3" id="4_hgs2e"]
 [ext_resource type="PackedScene" uid="uid://dcb3tlebf675l" path="res://Scenes/Utils/CustomTooltip.tscn" id="4_on4ln"]
+[ext_resource type="PackedScene" uid="uid://bb3es4n2om7rc" path="res://Scenes/Parts/QuestGoalsPanel.tscn" id="5_ao6rg"]
 [ext_resource type="AudioStream" uid="uid://d0yeo61gbfmyg" path="res://Assets/Sounds/Music/keys-of-moon-under-the-sun(chosic.com).mp3" id="5_pp5m4"]
 [ext_resource type="AudioStream" uid="uid://c28yp5k4wpqtg" path="res://Assets/Sounds/UX/Favorites/NextEvent.mp3" id="6_7plt8"]
 [ext_resource type="AudioStream" uid="uid://t8v6obl7i1g7" path="res://Assets/Sounds/UX/Favorites/GetMoney.mp3" id="7_3sgvv"]
@@ -58,6 +59,12 @@ size_flags_vertical = 3
 [node name="TooltipVisual" parent="UICanvas" instance=ExtResource("4_on4ln")]
 process_mode = 3
 visible = false
+
+[node name="QuestGoalsPanel" parent="UICanvas" instance=ExtResource("5_ao6rg")]
+offset_left = 13.0
+offset_top = 137.0
+offset_right = 13.0
+offset_bottom = 137.0
 
 [node name="Sound" type="Node" parent="."]
 process_mode = 3

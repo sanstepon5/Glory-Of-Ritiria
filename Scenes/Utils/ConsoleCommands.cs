@@ -26,18 +26,15 @@ public partial class ConsoleCommands : Node
 	
 	private void AddMaterialRes(float amount)
 	{
-		game_state.Res1 += amount;
-		_signals.EmitSignal(nameof(_signals.TopBarUpdateRequired));
+		game_state.AddMaterialRes(amount);
 	}
 	private void AddScience(float amount)
 	{
-		game_state.ScientificRes += amount;
-		_signals.EmitSignal(nameof(_signals.TopBarUpdateRequired));
+		game_state.AddScientificRes(amount);
 	}
 	private void AddPolitical(float amount)
 	{
-		game_state.PoliticalRes += amount;
-		_signals.EmitSignal(nameof(_signals.TopBarUpdateRequired));
+		game_state.AddPoliticalRes(amount);
 	}
 
 }

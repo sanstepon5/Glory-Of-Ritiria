@@ -1,0 +1,80 @@
+[gd_scene load_steps=5 format=3 uid="uid://bb3es4n2om7rc"]
+
+[ext_resource type="PackedScene" uid="uid://xj53gmf3jucc" path="res://Scenes/Parts/QuestGoalMCont.tscn" id="1_644nl"]
+[ext_resource type="Script" uid="uid://6f7sjitf8tvw" path="res://Scenes/Parts/QuestGoalsPanel.cs" id="1_wdpcy"]
+[ext_resource type="Texture2D" uid="uid://d1yq8oooqhotl" path="res://Assets/GUI/Icons/32/show.png" id="2_al32o"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3jipi"]
+
+[node name="QuestGoalsPanel" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+script = ExtResource("1_wdpcy")
+
+[node name="PCont" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_right = 275.0
+offset_bottom = 454.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_3jipi")
+
+[node name="VBox" type="VBoxContainer" parent="PCont"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="TitleMCont" type="MarginContainer" parent="PCont/VBox"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="TitleHBox" type="HBoxContainer" parent="PCont/VBox/TitleMCont"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="CenteringVBox" type="VBoxContainer" parent="PCont/VBox/TitleMCont/TitleHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+alignment = 1
+
+[node name="Title" type="RichTextLabel" parent="PCont/VBox/TitleMCont/TitleHBox/CenteringVBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_font_sizes/bold_font_size = 20
+bbcode_enabled = true
+text = "[center][b]This is a quest"
+fit_content = true
+
+[node name="ShowHideButton" type="Button" parent="PCont/VBox/TitleMCont/TitleHBox"]
+layout_mode = 2
+tooltip_text = "Show/Hide quest goals"
+focus_mode = 0
+icon = ExtResource("2_al32o")
+flat = true
+
+[node name="ThreePoints" type="Label" parent="PCont/VBox"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 20
+text = "..."
+horizontal_alignment = 1
+
+[node name="GoalsVBox" type="VBoxContainer" parent="PCont/VBox"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Goal1" parent="PCont/VBox/GoalsVBox" instance=ExtResource("1_644nl")]
+layout_mode = 2
+QuestGoalText = "Explore a planet"
+questType = 1
+
+[node name="Goal2" parent="PCont/VBox/GoalsVBox" instance=ExtResource("1_644nl")]
+layout_mode = 2
+QuestGoalText = "Get 100 [img]res://Assets/GUI/Icons/32/Bricks.png[/img]"
+
+[node name="Goal3" parent="PCont/VBox/GoalsVBox" instance=ExtResource("1_644nl")]
+layout_mode = 2
+QuestGoalText = "Build a new spaceship"
+questType = 2

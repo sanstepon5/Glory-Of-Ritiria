@@ -1,10 +1,8 @@
 using Godot;
 using System;
 using GloryOfRitiria;
-using GloryOfRitiria.Scenes.Utils;
 using GloryOfRitiria.Scripts.Global;
 using GloryOfRitiria.Scripts.Scenes.Parts;
-using GloryOfRitiria.Scripts.Utils;
 using StarSystemInfo = GloryOfRitiria.Scripts.StarSystem.StarSystemInfo;
 
 public partial class base_game_scene : Node2D

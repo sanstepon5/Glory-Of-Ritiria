@@ -52,7 +52,6 @@ stretch_mode = 2
 
 [node name="MapCamera" parent="." instance=ExtResource("5_qvto2")]
 zoom = Vector2(0.8, 0.8)
-CustomCorner = true
 MostLeftHighPoint = Vector2(-100, 100)
 MostRightLowPoint = Vector2(4000, 1500)
 

@@ -1,7 +1,7 @@
 using Godot;
-using System;
 using GloryOfRitiria;
 using GloryOfRitiria.Scripts.Global;
+using GloryOfRitiria.Scripts.Utils;
 
 public partial class NextTurnButton : VBoxContainer
 {
@@ -26,6 +26,9 @@ public partial class NextTurnButton : VBoxContainer
 					break;
 			}
 		};
+		
+		var tooltipInst = CreateTooltipController();
+		button.AddChild(tooltipInst);
 	}
 	
 	
@@ -41,6 +44,20 @@ public partial class NextTurnButton : VBoxContainer
 	{
 		var turnNumber = GetNode<RichTextLabel>("CurrentTurn");
 		turnNumber.Text = "[center]Current Turn: " + game_state.CurrentTurn;
+	}
+	
+	private TooltipController CreateTooltipController()
+	{
+		var scene = GD.Load<PackedScene>("res://Scenes/Utils/TooltipController.tscn");
+		var inst = (TooltipController)scene.Instantiate();
+
+		inst.Name = "TooltipController";
+		inst.VisualsText = "Pass week";
+		inst.OwnerPath = new NodePath(GetNode<TextureButton>("PassTurnButton").GetPath());
+		inst.EnterDelay = 0.3;
+		inst.ExitDelay = 0.3;
+
+		return inst;
 	}
 
 }
