@@ -11,7 +11,7 @@ internal class ClaimOwnershipEffect : EffectOnArrival
 	
 	public override void ApplyEffect()
 	{
-		if (Mission.TargetBody is not Star targetStar || targetStar.GetOwnership() != StarSystemInfo.SystemOwnership.Unclaimed) 
+		if (Mission.TargetBody is not Star targetStar) 
 			return;
 		
 		targetStar.ClaimSystem();

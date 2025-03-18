@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://xj53gmf3jucc"]
 
-[ext_resource type="Script" path="res://Scenes/Parts/QuestGoalMCont.cs" id="1_56f0f"]
+[ext_resource type="Script" uid="uid://1qepgankefo1" path="res://Scenes/Parts/QuestGoalMCont.cs" id="1_56f0f"]
 
 [node name="QuestGoalMCont" type="MarginContainer"]
 size_flags_horizontal = 3

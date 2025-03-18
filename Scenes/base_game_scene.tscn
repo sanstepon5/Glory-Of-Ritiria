@@ -2,13 +2,13 @@
 
 [ext_resource type="Script" uid="uid://c652ab3q78jrt" path="res://Scripts/Scenes/base_game_scene.cs" id="1_6tgt3"]
 [ext_resource type="PackedScene" uid="uid://b176rck77evnu" path="res://Scenes/Parts/top_bar.tscn" id="2_sapv7"]
-[ext_resource type="AudioStream" uid="uid://ep4x3403et1g" path="res://Assets/Sounds/UX/Favorites/SimpleButtonClick.mp3" id="4_hgs2e"]
+[ext_resource type="AudioStream" uid="uid://drqvyumg8ign6" path="res://Assets/Sounds/UX/Favorites/SimpleButtonClick.mp3" id="4_hgs2e"]
 [ext_resource type="PackedScene" uid="uid://dcb3tlebf675l" path="res://Scenes/Utils/CustomTooltip.tscn" id="4_on4ln"]
 [ext_resource type="PackedScene" uid="uid://bb3es4n2om7rc" path="res://Scenes/Parts/QuestGoalsPanel.tscn" id="5_ao6rg"]
-[ext_resource type="AudioStream" uid="uid://d0yeo61gbfmyg" path="res://Assets/Sounds/Music/keys-of-moon-under-the-sun(chosic.com).mp3" id="5_pp5m4"]
-[ext_resource type="AudioStream" uid="uid://c28yp5k4wpqtg" path="res://Assets/Sounds/UX/Favorites/NextEvent.mp3" id="6_7plt8"]
-[ext_resource type="AudioStream" uid="uid://t8v6obl7i1g7" path="res://Assets/Sounds/UX/Favorites/GetMoney.mp3" id="7_3sgvv"]
-[ext_resource type="AudioStream" uid="uid://bc6t6rbfkfwda" path="res://Assets/Sounds/UX/Favorites/NewEvent.mp3" id="8_kb47j"]
+[ext_resource type="AudioStream" uid="uid://cmbps4cy4h8wh" path="res://Assets/Sounds/Music/keys-of-moon-under-the-sun(chosic.com).mp3" id="5_pp5m4"]
+[ext_resource type="AudioStream" uid="uid://b8a1ogqqe5g84" path="res://Assets/Sounds/UX/Favorites/NextEvent.mp3" id="6_7plt8"]
+[ext_resource type="AudioStream" uid="uid://dq64sqs07y80x" path="res://Assets/Sounds/UX/Favorites/GetMoney.mp3" id="7_3sgvv"]
+[ext_resource type="AudioStream" uid="uid://dkdktct22k5pl" path="res://Assets/Sounds/UX/Favorites/NewEvent.mp3" id="8_kb47j"]
 [ext_resource type="PackedScene" uid="uid://cigwdh6dm0mkx" path="res://Scenes/Utils/ConsoleCommands.tscn" id="10_wo6o5"]
 
 [node name="BaseGameScene" type="Node2D"]

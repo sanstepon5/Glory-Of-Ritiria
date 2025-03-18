@@ -359,6 +359,8 @@ public class CelestialBody
                 return (this is Star);
             case PlanetaryExperimentsMission:
                 return (this is not global::Star);
+            case ClaimOwnershipMission:
+                return (this is Star && GetOwnership() == StarSystemInfo.SystemOwnership.Unclaimed);
             default:
                 return false;
         }

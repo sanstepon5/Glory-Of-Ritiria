@@ -238,10 +238,12 @@ public partial class game_state : Node
 		var planetExplorationKit = new Cargo("planet_exploration_kit");
 		var spaceTelescope = new Cargo("space_telescope");
 		var spaceTelescope2 = new Cargo("space_telescope");
+		var beacon = new Cargo("system_beacon");
 
 		CargoStorage.Add(planetExplorationKit);
 		CargoStorage.Add(spaceTelescope);
 		CargoStorage.Add(spaceTelescope2);
+		CargoStorage.Add(beacon);
 	}
 	
 }

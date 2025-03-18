@@ -73,6 +73,29 @@ public partial class AnimatedMapObject : Control
 		
 
 		Size = spriteSize;
+		
+		
+		// Add this after initializing the sprite
+		var ownershipIndicator = GetNode<TextureRect>("Sprite/OwnershipIndicator");  // Replace with the actual node name
+		var shaderMaterial = new ShaderMaterial();
+		shaderMaterial.Shader = GD.Load<Shader>("res://Assets/Shaders/star_owner_shader.gdshader");
+
+		// Set color based on ownership
+		var ownershipColor = System.claimedBy switch
+		{
+			StarSystemInfo.SystemOwnership.Ritiria => new Color(0.2f, 0.4f, 1.0f, 0.5f) // Blue, semi-transparent
+			,
+			StarSystemInfo.SystemOwnership.Earth => new Color(0.2f, 1.0f, 0.2f, 0.5f) // Green
+			,
+			_ => new Color(0.5f, 0.5f, 0.5f, 0f)
+		};
+
+		// Apply to the shader
+		shaderMaterial.SetShaderParameter("owner_color", ownershipColor);
+		shaderMaterial.SetShaderParameter("radius", 0.5);
+		GD.Print($"{system.SystemName}: {shaderMaterial.GetShaderParameter("owner_color")}");
+		ownershipIndicator.Material = shaderMaterial;
+		// TODO: update on turn change
 	}
 	
 	// Changing the scale is not enough, the sprite must change position with the label as well
