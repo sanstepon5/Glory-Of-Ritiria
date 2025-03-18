@@ -357,11 +357,30 @@ public class CelestialBody
                 return (this is not global::Star); //&& DiscoveryStatus != DiscoveryStatus.Explored;
             case SystemExplorationMission: // Can still try to explore system even if everything is found
                 return (this is Star);
-            case PlanetaryExperiments:
+            case PlanetaryExperimentsMission:
                 return (this is not global::Star);
             default:
                 return false;
         }
+    }
+    
+    public StarSystemInfo.SystemOwnership GetOwnership() //TODO: redo imports
+    {
+        if (this is Star star)
+        {
+            return star.StarSystem.claimedBy;
+        }
+        return Star.GetOwnership();
+        
+    }
+
+    public void ClaimSystem()
+    {
+        if (this is Star star)
+        {
+            star.StarSystem.claimedBy = StarSystemInfo.SystemOwnership.Ritiria;
+        }
+        Star.StarSystem.claimedBy = StarSystemInfo.SystemOwnership.Ritiria;
     }
 
 
@@ -456,7 +475,18 @@ public class CelestialBody
         return result;
     }
     
+    public string SystemOwnershipToString()
+    {
+        return GetOwnership() switch
+        {
+            StarSystemInfo.SystemOwnership.Ritiria => "Ritiria",
+            StarSystemInfo.SystemOwnership.Earth => "Human Nations",
+            StarSystemInfo.SystemOwnership.Unclaimed => "Unclaimed",
+            _ => "Unknown"
+        };
+    }
 
+    
     public override string ToString()
     {
         var result = "";

@@ -1,12 +1,11 @@
 using System.Collections.Generic;
 using GloryOfRitiria.Scripts.StarSystem;
-using StarSystemInfo = GloryOfRitiria.Scripts.StarSystem.StarSystemInfo;
 
 public class Star: CelestialBody
 {
     /// <summary> Name of the star </summary>
     //public string Name;
-    public StarClass StarClass; // Better to make enum
+    public StarClass StarClass;
     //public string ImagePath; // Better to make enum
 
     /// <summary> Celestial bodies in orbits of the star </summary>
@@ -26,7 +25,7 @@ public class Star: CelestialBody
         // If a star within a star system is not discovered, it shouldn't be selectable. Still not sure if it's needed...
         DiscoveryStatus = DiscoveryStatus.Explored; 
         StarSystem = starSystem;
-        Bodies = new List<CelestialBody>();
+        Bodies = [];
         InnerSpace = new CelestialBody("Inner Space",  this, distance,"res://Assets/Icons/cross.png");
         OuterSpaceDistance = distance;
         StarClass = starClass;
@@ -38,10 +37,11 @@ public class Star: CelestialBody
     {
         Star = this;
         StarSystem = starSystem;
-        Bodies = new List<CelestialBody>();
+        Bodies = [];
         InnerSpace = new CelestialBody("Inner Space",  this, distance,"res://Assets/Icons/cross.png");
         OuterSpaceDistance = distance;
     }
+
 
     public override void SetImagePath()
     {

@@ -86,7 +86,7 @@ public partial class FixedMapObject : Control
 		inst.Body = Body;
 
 		var title = inst.GetNode<RichTextLabel>("MCont/VBox/TitleExitHBox/Title");
-		title.Text = "[b]" + Body.Name + "[/b]\n" + Body.GetKnownBodyType();
+		title.Text = $"[b]{Body.Name}[/b]\n{Body.GetKnownBodyType()}	-	{Body.SystemOwnershipToString()}";
 
 		var image = inst.GetNode<TextureRect>("MCont/VBox/ImageMargin/PlanetImage");
 		image.Texture = (Texture2D)GD.Load(Body.GetImage());
@@ -138,7 +138,7 @@ public partial class FixedMapObject : Control
 		inst.Body = star;
 
 		var title = inst.GetNode<RichTextLabel>("MCont/VBox/TitleExitHBox/Title");
-		title.Text = "[b]" + star.Name + "[/b]\n" + star.StarClass;
+		title.Text = $"[b]{star.Name}[/b]\n{star.StarClass}\t-\t{Body.SystemOwnershipToString()}";
 
 		var image = inst.GetNode<TextureRect>("MCont/VBox/ImageMargin/PlanetImage");
 		image.Texture = (Texture2D)GD.Load(star.GetImage());

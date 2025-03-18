@@ -43,8 +43,19 @@ public class StelSysGen
             case StellarGeneratorPoint.Addsystem:
             {
                 Data.Systems.Add(CurrentSystem);
-                if (CurrentSystem.Id.Equals("detnura_aeria_system"))
-                    Data.Detnura = CurrentSystem;   
+                switch (CurrentSystem.Id)
+                {
+                    case "detnura_aeria_system":
+                        CurrentSystem.claimedBy = StarSystemInfo.SystemOwnership.Ritiria;
+                        Data.Detnura = CurrentSystem;
+                        break;
+                    case "sol_system":
+                        CurrentSystem.claimedBy = StarSystemInfo.SystemOwnership.Earth;
+                        break;
+                    default:
+                        CurrentSystem.claimedBy = StarSystemInfo.SystemOwnership.Unclaimed;
+                        break;
+                }
                 break;
             }
             

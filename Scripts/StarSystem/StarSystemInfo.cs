@@ -30,15 +30,17 @@ public partial class StarSystemInfo:Node
     /// <summary> If system is not discovered it won't show on the interstellar map </summary>
     public bool Discovered;
 
+    public SystemOwnership claimedBy;
+
     public List<Star> SystemStars = new();
 
-    public StarSystemInfo(string systemName, float distance, int angle, StarSystemType systemType = StarSystemType.GenericSimple)
-    {
-        SystemName = systemName;
-        Distance = distance;
-        Angle = angle;
-        SystemType = systemType;
-    }
+    // public StarSystemInfo(string systemName, float distance, int angle, StarSystemType systemType = StarSystemType.GenericSimple)
+    // {
+    //     SystemName = systemName;
+    //     Distance = distance;
+    //     Angle = angle;
+    //     SystemType = systemType;
+    // }
     
     /**Empty constructor for use in parsing*/
     public StarSystemInfo(string id)
@@ -57,5 +59,12 @@ public partial class StarSystemInfo:Node
         var pointX = (float) (0 + (Distance*50) * Math.Cos(radians));
         var pointY = (float) (0 + (Distance*50) * Math.Sin(radians));
         return new Vector2(pointX, pointY) + centerPoint;
+    }
+    
+    public enum SystemOwnership
+    {
+        Ritiria,
+        Earth,
+        Unclaimed
     }
 }
