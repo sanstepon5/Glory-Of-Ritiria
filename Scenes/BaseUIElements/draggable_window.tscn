@@ -1,0 +1,73 @@
+[gd_scene load_steps=4 format=3 uid="uid://cl5rrypwwbgrw"]
+
+[ext_resource type="Script" uid="uid://cx66r4lsqglrw" path="res://Scenes/BaseUIElements/DraggableWindow.cs" id="1_cbjag"]
+[ext_resource type="Texture2D" uid="uid://d2ff3xu32hq05" path="res://Assets/Icons/cross.png" id="2_r58br"]
+[ext_resource type="PackedScene" uid="uid://bqjif7igb3uik" path="res://Scenes/Parts/PlanetInfoWindow.tscn" id="3_qf80e"]
+
+[node name="DraggableWindow" type="PanelContainer" node_paths=PackedStringArray("TitleBar")]
+custom_minimum_size = Vector2(200, 200)
+offset_right = 200.0
+offset_bottom = 235.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_cbjag")
+TitleBar = NodePath("VBoxContainer/TitleBarMargin")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="TitleBarMargin" type="MarginContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(200, 40)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 0
+
+[node name="TitleBar" type="HBoxContainer" parent="VBoxContainer/TitleBarMargin"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Title" type="RichTextLabel" parent="VBoxContainer/TitleBarMargin/TitleBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 6.0
+mouse_filter = 1
+theme_override_font_sizes/bold_italics_font_size = 24
+theme_override_font_sizes/italics_font_size = 20
+theme_override_font_sizes/normal_font_size = 20
+theme_override_font_sizes/bold_font_size = 24
+bbcode_enabled = true
+text = "Title"
+vertical_alignment = 1
+
+[node name="CloseButton" type="TextureButton" parent="VBoxContainer/TitleBarMargin/TitleBar"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+texture_normal = ExtResource("2_r58br")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
+clip_contents = true
+layout_mode = 2
+
+[node name="ContentMargin" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 6.0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Content" type="VBoxContainer" parent="VBoxContainer/ContentMargin"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 10.0
+
+[node name="PlanetInfoPanel" parent="VBoxContainer/ContentMargin/Content" instance=ExtResource("3_qf80e")]
+layout_mode = 2
+size_flags_vertical = 3
